@@ -17,6 +17,40 @@ Template: reactor
 .contain-to-grid .top-bar {
 	background:#222;
 }
+.top-bar-section>ul>.divider, .top-bar-section>ul>[role="separator"], .top-bar-section li:not(.has-form) a:not(.button), .top-bar-section .has-form, .top-bar {
+	height:35px;
+	line-height:35px;
+}
+.top-bar input, .top-bar .button, .top-bar button {
+	height:35px;
+	top:0;
+	line-height: 1!important;
+}
+.top-bar ul.right {
+	width:250px;
+}
+.top-bar li.has-form {
+	padding:0;
+	width:100%;
+}
 .top-bar .title-area {
 	display:none;
+}
+.top-bar-section ul li>a {
+	font-family:'Alegreya Sans',Helvetica,Arial,sans-serif;
+	font-size:1.1em;
+}
+.top-bar-section .has-dropdown>a:after {
+	content:'\003e';
+	border:none;
+	-webkit-transform: scale(2.5,1) rotate(90deg);
+	-moz-transform: scale(2.5,1) rotate(90deg);
+	-ms-transform: scale(2.5,1) rotate(90deg);
+	-o-transform: scale(2.5,1) rotate(90deg);
+	transform: scale(2.5,1) rotate(90deg);
+	width:auto;
+	height:1em;
+	top:14px;
+	right:-30%;
+	font-size:.8em;
 }

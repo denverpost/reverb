@@ -44,7 +44,7 @@ class Top_Bar_Walker extends Walker_Nav_Menu {
 		
         $output .= ( $depth == 0 ) ? '<li class="divider"></li>' : '';
 		
-        $classes = empty( $object->classes ) ? array() : ( array ) $object->classes;	
+        $classes = empty( $object->classes ) ? array() : ( array ) $object->classes;
 		
         if ( in_array('label', $classes) ) {
             $item_html = preg_replace( '/<a[^>]*>(.*)<\/a>/iU', '<label>$1</label>', $item_html );
@@ -73,6 +73,7 @@ class Top_Bar_Walker extends Walker_Nav_Menu {
         $element->has_children = !empty( $children_elements[$element->ID] );
         $element->classes[] = ( $element->current || $element->current_item_ancestor ) ? 'active' : '';
         $element->classes[] = ( $element->has_children ) ? 'has-dropdown' : '';
+        $element->classes[] = 'category-' . str_replace( ' ','-',strtolower($element->title) );
 
         parent::display_element( $element, $children_elements, $max_depth, $depth, $args, $output );
     }
