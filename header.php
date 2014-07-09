@@ -65,7 +65,7 @@ echo $google_authorship;
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <?php if ( !is_single() || !is_page() ) { ?>
-  <meta http-equiv="refresh" content="1800">
+  <!-- <meta http-equiv="refresh" content="1800"> -->
 <?php } ?>
 <meta name="distribution" content="global" />
 <?php echo ( (get_post_meta(get_the_ID(), 'sponsored_link', true) != '') ? '<meta name="Googlebot-News" content="noindex,follow">' : '' ); ?>
