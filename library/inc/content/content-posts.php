@@ -26,21 +26,6 @@ function reactor_do_tumblog_icons() {
 add_action('reactor_post_header', 'reactor_do_tumblog_icons', 1);
 
 /**
- * Post featured tag
- * in format-standard
- * 
- * @since 1.0.0
- */
-function reactor_do_standard_format_sticky() { 
-	if ( is_sticky() ) { ?>
-		<div class="entry-featured">
-			<span class="label secondary"><?php echo apply_filters('reactor_featured_post_title', __('Featured Post', 'reactor')); ?></span>
-		</div>
-<?php }
-}
-add_action('reactor_post_header', 'reactor_do_standard_format_sticky', 2);
-
-/**
  * Post header
  * in format-standard
  * 

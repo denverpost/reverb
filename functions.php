@@ -284,4 +284,7 @@ function db_filter_user_query( &$user_query ) {
     return $user_query;
 }
 
+// Attempts to permanently disable the Visual Editor for all users, all the time.
+add_filter( 'user_can_richedit', '__return_false', 50 );
+
 ?>
