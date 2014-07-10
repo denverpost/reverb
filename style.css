@@ -10,16 +10,38 @@ Text Domain: reactor
 Template: reactor
 */
 
+/* nav bar */
 .contain-to-grid {
 	background:none;
 }
 .contain-to-grid.fixed,
 .contain-to-grid .top-bar {
-	background:#222;
+	background:#d0d5c7;
+}
+.contain-to-grid.fixed .top-bar {
+	max-width:100%;
+}
+.contain-to-grid.fixed .top-bar .title-area {
+	display:block;
+	height:35px;
+}
+.contain-to-grid.fixed .top-bar .title-area .name p {
+	line-height:35px;
+	font-size:1.35em;
+	padding:0 15px;
+}
+.contain-to-grid.fixed .top-bar .title-area .name p a {
+	color:#222;
 }
 .top-bar-section>ul>.divider, .top-bar-section>ul>[role="separator"], .top-bar-section li:not(.has-form) a:not(.button), .top-bar-section .has-form, .top-bar {
 	height:35px;
 	line-height:35px;
+}
+.top-bar-section li:not(.has-form) a:not(.button) {
+	padding:0 25px;
+}
+.top-bar .top-bar-menu.left li.divider, .top-bar .title-area {
+	display:none;
 }
 .top-bar input, .top-bar .button, .top-bar button {
 	height:35px;
@@ -33,8 +55,8 @@ Template: reactor
 	padding:0;
 	width:100%;
 }
-.top-bar .title-area {
-	display:none;
+.inner-header {
+	border:none;
 }
 .top-bar-section ul li>a {
 	font-family:'Alegreya Sans',Helvetica,Arial,sans-serif;
@@ -51,9 +73,47 @@ Template: reactor
 	width:auto;
 	height:1em;
 	top:14px;
-	right:-30%;
+	right:-25%;
 	font-size:.8em;
 }
+.top-bar-section li.category-news:not(.has-form) a:not(.button) {
+	background:#68a744;
+}
+.top-bar-section li.category-photos:not(.has-form) a:not(.button) {
+	background:#937624;
+}
+.top-bar-section li.category-reviews:not(.has-form) a:not(.button) {
+	background:#e57124;
+}
+.top-bar-section li.category-audio:not(.has-form) a:not(.button) {
+	background:#44b3be;
+}
+.top-bar-section li.category-video:not(.has-form) a:not(.button) {
+	background:#ef464d;
+}
+.top-bar-section li.category-venue:not(.has-form) a:not(.button) {
+	background:#4468aa;
+}
+.top-bar-section li.category-news:not(.has-form) a:not(.button):hover {
+	background:#8ac966;
+}
+.top-bar-section li.category-photos:not(.has-form) a:not(.button):hover {
+	background:#b59846;
+}
+.top-bar-section li.category-reviews:not(.has-form) a:not(.button):hover {
+	background:#f79346;
+}
+.top-bar-section li.category-audio:not(.has-form) a:not(.button):hover {
+	background:#66d5df;
+}
+.top-bar-section li.category-video:not(.has-form) a:not(.button):hover {
+	background:#ff686f;
+}
+.top-bar-section li.category-venue:not(.has-form) a:not(.button):hover {
+	background:#668acc;
+}
+
+/* featured image thumbnails on homepage */
 .entry-body div.entry-thumbnail {
     width: 100%;
     position: relative;

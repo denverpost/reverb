@@ -1,4 +1,4 @@
-# Jamestown
+# Reverb
 
 A child theme for Reactor designed for The Denver Post's HeyReverb.com music site, focusing on video and photos.
 
