@@ -81,11 +81,11 @@ if(!function_exists('reactor_topbar_search')) {
 		
 		$output  = '<ul class="' . $args['side'] . '"><li class="has-form">';
 		$output .= '<form role="search" method="get" id="searchform" action="' . home_url() . '"><div class="row collapse">';
-		$output .= '<div class="large-9 small-9 columns">';
+		$output .= '<div class="large-10 small-10 columns">';
 		$output .= '<input type="text" value="' . get_search_query() . '" name="s" id="s" placeholder="' . esc_attr__('Search', 'reactor') . '" />';
 		$output .= '</div>';
-		$output .= '<div class="large-3 small-3 end columns">';
-		$output .= '<input class="button prefix" type="submit" id="searchsubmit" value="' . esc_attr__('Search', 'reactor') . '" />';
+		$output .= '<div class="large-2 small-2 end columns">';
+		$output .= '<input class="button prefix" type="submit" id="searchsubmit" value="' . esc_attr__('Search', 'reactor') . '" style="background-image:url(\'' . get_stylesheet_directory_uri() . '/images/icon-search.png\');" />';
 		$output .= '</div>';
 		$output .= '</div></form>';	
 		$output .= '</li></ul>';

@@ -87,7 +87,7 @@ if (has_tag() ) {
 <!-- end WordPress head -->
 <?php reactor_head(); ?>
 
-<link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600|Alegreya:400italic,700italic,900italic,400,700,900|Podkova:400,700' rel='stylesheet' type='text/css'>
 
 <?php $GLOBALS['dfmcat'] = '';
   $GLOBALS['dfmby'] = '';
@@ -325,13 +325,9 @@ if ( is_category() ) {
         <?php reactor_header_before(); ?>
     
         <header id="header" class="site-header hide-for-small" role="banner">
-            <div class="row">
-                <div class="<?php reactor_columns( 12 ); ?>">
                     
                     <?php reactor_header_inside(); ?>
-                    
-                </div><!-- .columns -->
-            </div><!-- .row -->
+
         </header><!-- #header -->
         
         <?php reactor_header_after(); ?>

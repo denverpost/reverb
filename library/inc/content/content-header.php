@@ -28,7 +28,7 @@ function reactor_do_reactor_head() { ?>
 <meta name="MobileOptimized" content="320">
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-<?php $favicon_uri = reactor_option('favicon_image') ? reactor_option('favicon_image') : get_template_directory_uri() . '/favicon.ico'; ?>
+<?php $favicon_uri = reactor_option('favicon_image') ? reactor_option('favicon_image') : get_stylesheet_directory_uri() . '/favicon.ico'; ?>
 <link rel="shortcut icon" href="<?php echo $favicon_uri; ?>">
 <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>">
 
@@ -65,20 +65,12 @@ add_action('reactor_header_after', 'reactor_do_top_bar', 1);
  */
 function reactor_do_title_logo() { ?>
 	<div class="inner-header">
-		<div class="row">
-			<div class="column">
-				<?php if ( reactor_option('logo_image') ) : ?>
+		<div class="row" style="background-image:url('<?php echo get_stylesheet_directory_uri(); ?>/images/background.jpg');">
                 <div class="site-logo">
 					<a href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home">
-						<img src="<?php echo reactor_option('logo_image') ?>" alt="<?php echo esc_attr( get_bloginfo('name', 'display') ); ?> logo">
+						<img src="<?php echo get_stylesheet_directory_uri(); ?>/images/site-logo.svg" alt="<?php echo esc_attr( get_bloginfo('name', 'display') ); ?> logo">
 					</a>
 				</div><!-- .site-logo -->
-				<?php endif; // end if logo ?>
-				<div class="title-area">
-					<p class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php bloginfo('name'); ?></a></p>
-					<p class="site-description"><?php bloginfo('description'); ?></p>
-				</div>
-			</div><!-- .column -->
 		</div><!-- .row -->
 	</div><!-- .inner-header -->  
 <?php 
