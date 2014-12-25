@@ -56,7 +56,7 @@ function reactor_post_frontpage_format() {
 			<div class="frontpage-post">
 		<?php } ?>
 			<a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( __('%s', 'reactor'), the_title_attribute('echo=0') ) ); ?>" rel="bookmark">
-				<h2 class="entry-title"><span><?php echo $categories_list; ?> / </span><?php the_title(); ?></h2>
+				<h2 class="entry-title"><span><?php echo $categories_list; ?></span><?php the_title(); ?></h2>
 			</a>
 		</div>
 <?php }

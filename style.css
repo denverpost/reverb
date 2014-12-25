@@ -11,6 +11,9 @@ Template: reactor
 */
 
 /* whole page styles */
+body {
+	-webkit-font-smoothing: antialiased;
+}
 div#content {
 	padding-top:1.5em;
 }
@@ -163,35 +166,52 @@ div.site-logo a img {
 	background:#668acc;
 }
 
-/* featured image thumbnails on homepage */
+/* page layout */
+#frontpageleft {
+	padding-left:0;
+}
+#sidebar {
+	padding-right:0;
+}
+
+/* frontpage-posts */
+body.front-page .entry-body {
+	border:none;
+	padding-bottom:0;
+}
 .frontpage-post {
 	padding: 0;
 	background-size: cover;
 	background-repeat: no-repeat;
 	width: 100%;
-	margin: 0 0 3% 1.5%;
 }
 .frontpage-post h2 {
 	font-family: 'Podkova', Georgia, serif;
 	font-weight: 700;
-	font-size: 1.75em;
+	font-size: 1.7em;
+	line-height:1.2;
 	padding: .5em;
 	color: #222;
-	margin-left: 3%;
+	margin-left: 5%;
 }
 .frontpage-image h2 {
 	background-color: rgba(0,0,0,0.8);
 	color: #fff;
-	width: 35%;
+	width: 40%;
 	padding: 9% 3%;
 }
 .frontpage-post h2 span {
 	font-family: 'Alegreya Sans', Helvetica, Arial, sans-serif;
 	font-weight: 700;
 	text-transform: uppercase;
-	letter-spacing: .1em;
-	font-size: .75em;
+	letter-spacing: .05em;
+	font-size: .7em;
 	padding-right: 3px;
+}
+.frontpage-post h2 span:after {
+	content:'/';
+	padding:0 .3em;
+	display:inline-block;
 }
 article.category-news .frontpage-post h2 span {
 	color:#68a744;
@@ -237,8 +257,12 @@ ul.dpe-flexible-posts {
 	padding:0;
 }
 .dpe-flexible-posts h4 {
-	font-size:1.1em;
-	line-height:1.2;
+	font-weight: 700;
+	font-size:1.4em;
+	padding:3% 3% 12%;
+	text-align:center;
+	line-height:1.15;
+	letter-spacing:.05em;
 }
 .dpe-flexible-posts h4.cat-why-so-serious-columns span.category-title {
 	color:#68a744;
@@ -256,7 +280,8 @@ ul.dpe-flexible-posts {
 	color:#ef464d;
 }
 .dpe-flexible-posts h4 span.category-title {
-	font-size:.85em;
+	font-size:.7em;
+	font-weight: 700;
 	text-transform: uppercase;
 }
 .dpe-flexible-posts h4 span.category-title:after {
@@ -266,7 +291,7 @@ ul.dpe-flexible-posts {
 }
 /* featured image in flexible posts widgets */
 .dpe-flexible-posts div.cat-thumbnail {
-    width: 100%;
+    width: 80%;
     position: relative;
     margin:0 auto;
 }

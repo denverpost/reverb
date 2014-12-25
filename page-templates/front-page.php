@@ -34,11 +34,11 @@ $slider_category = reactor_option('frontpage_slider_category', ''); ?>
         <div id="content" role="main">
         	<div class="row">
 
-                <div class="large-9 medium-12 small-12 columns">
+                <div class="large-8 medium-12 small-12 columns">
 
                     <div class="row">
 
-                        <div class="large-9 large-push-3 medium-9 medium-push-3 small-12 columns">
+                        <div class="large-9 large-push-3 medium-9 medium-push-3 small-12 columns" id="frontpagemain">
                         
                         <?php reactor_inner_content_before(); ?>
                                 
@@ -48,7 +48,7 @@ $slider_category = reactor_option('frontpage_slider_category', ''); ?>
                         
                         </div><!-- .columns -->
 
-                        <div class="large-3 large-pull-9 medium-3 medium-pull-9 columns">
+                        <div class="large-3 large-pull-9 medium-3 medium-pull-9 columns" id="frontpageleft">
 
                             <?php get_sidebar('frontpagetwo'); ?>
 
@@ -58,7 +58,7 @@ $slider_category = reactor_option('frontpage_slider_category', ''); ?>
 
                 </div>
 
-                <div class="large-3 medium-12 small-12 columns">
+                <div class="large-4 medium-12 small-12 columns" id="sidebar">
 
     				<?php get_sidebar('frontpage'); ?>
                 </div><!-- .columns -->
