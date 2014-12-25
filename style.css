@@ -26,6 +26,11 @@ div.inner-header > div.row {
 .inner-header {
 	border:none;
 	margin:0;
+	padding:0;
+}
+.site-header {
+	border:none;
+	margin:0;
 }
 .site-header .site-logo {
 	width:30%;
@@ -39,8 +44,11 @@ div.site-logo a img {
 .contain-to-grid {
 	background:none;
 }
+.top-bar .name { height:35px; }
 .contain-to-grid.fixed,
-.contain-to-grid .top-bar {
+.contain-to-grid .top-bar,
+.contain-to-grid .top-bar .name,
+.top-bar-section .has-form {
 	background:#d0d5c7;
 }
 .contain-to-grid.fixed .top-bar {
@@ -50,14 +58,21 @@ div.site-logo a img {
 	display:block;
 	height:35px;
 }
-.contain-to-grid.fixed .top-bar .title-area .name p {
+.contain-to-grid .top-bar .title-area .name p {
 	line-height:35px;
 	font-size:1.35em;
 	padding:0 15px;
 }
-.contain-to-grid.fixed .top-bar .title-area .name p a {
-	color:#222;
+.contain-to-grid .top-bar .title-area .name p a,
+.top-bar.expanded .toggle-topbar a,
+.top-bar .toggle-topbar.menu-icon a {
+	color:#444;
 }
+.top-bar .toggle-topbar.menu-icon a span:after,
+.top-bar.expanded .toggle-topbar a span:after {
+	box-shadow: 0 0 0 1px #444, 0 7px 0 1px #444, 0 14px 0 1px #444;
+}
+.fixed.expanded:not(.top-bar) .top-bar-section { margin-top:35px; }
 .top-bar-section>ul>.divider, .top-bar-section>ul>[role="separator"], .top-bar-section li:not(.has-form) a:not(.button), .top-bar-section .has-form, .top-bar {
 	height:35px;
 	line-height:35px;
@@ -68,13 +83,14 @@ div.site-logo a img {
 .top-bar .top-bar-menu.left li.divider, .top-bar .title-area {
 	display:none;
 }
+.top-bar-section .dropdown li.title h5 {
+	text-transform:uppercase;
+	font-size:.95em;
+}
 .top-bar input, .top-bar .button, .top-bar button {
 	height:35px;
 	top:0;
 	line-height: 1!important;
-}
-.top-bar ul.right {
-	width:250px;
 }
 .top-bar li.has-form {
 	padding:0;
@@ -148,26 +164,70 @@ div.site-logo a img {
 }
 
 /* featured image thumbnails on homepage */
-.entry-body div.entry-thumbnail {
-    width: 100%;
-    position: relative;
+.frontpage-post {
+	padding: 0;
+	background-size: cover;
+	background-repeat: no-repeat;
+	width: 100%;
+	margin: 0 0 3% 1.5%;
 }
-.entry-body div.entry-thumbnail div.mainimg {
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
+.frontpage-post h2 {
+	font-family: 'Podkova', Georgia, serif;
+	font-weight: 700;
+	font-size: 1.75em;
+	padding: .5em;
+	color: #222;
+	margin-left: 3%;
 }
-.entry-body div.entry-thumbnail div.mainimgholder {
-    width: 100%;
-    height: 0;
-    padding-bottom: 65%;
-    position: relative;
+.frontpage-image h2 {
+	background-color: rgba(0,0,0,0.8);
+	color: #fff;
+	width: 35%;
+	padding: 9% 3%;
+}
+.frontpage-post h2 span {
+	font-family: 'Alegreya Sans', Helvetica, Arial, sans-serif;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: .1em;
+	font-size: .75em;
+	padding-right: 3px;
+}
+article.category-news .frontpage-post h2 span {
+	color:#68a744;
+}
+article.category-photos .frontpage-post h2 span {
+	color:#937624;
+}
+article.category-reviews .frontpage-post h2 span {
+	color:#e57124;
+}
+article.category-audio .frontpage-post h2 span {
+	color:#44b3be;
+}
+article.category-video .frontpage-post h2 span {
+	color:#ef464d;
+}
+article.category-venue .frontpage-post h2 span {
+	color:#4468aa;
+}
+article.category-news .frontpage-post h2 span:hover {
+	color:#8ac966;
+}
+article.category-photos .frontpage-post h2 span:hover {
+	color:#b59846;
+}
+article.category-reviews .frontpage-post h2 span:hover {
+	color:#f79346;
+}
+article.category-audio .frontpage-post h2 span:hover {
+	color:#66d5df;
+}
+article.category-video .frontpage-post h2 span:hover {
+	color:#ff686f;
+}
+article.category-venue .frontpage-post h2 span:hover {
+	color:#668acc;
 }
 
 /* flexible posts widget */
@@ -226,4 +286,11 @@ ul.dpe-flexible-posts {
     height: 0;
     padding-bottom: 100%;
     position: relative;
+}
+
+@media (max-width:1000px) {
+	.contain-to-grid .top-bar .title-area {
+		display:block;
+		height:35px;
+	}
 }

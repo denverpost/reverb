@@ -4,7 +4,7 @@ A child theme for Reactor designed for The Denver Post's HeyReverb.com music sit
 
 ## Requirements
 
-#### Themes
+#### Parents theme
 
 [Reactor (Customized DP version)](http://extras.denverpost.com/media/wp/reactor.zip)
 

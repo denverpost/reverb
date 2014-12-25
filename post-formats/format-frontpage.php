@@ -10,10 +10,8 @@
 
 	<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
         <div class="entry-body">
-            
-            <header class="entry-header">
-            	<?php reactor_post_header(); ?>
-            </header><!-- .entry-header -->
+
+        	<?php reactor_post_frontpage(); ?>
              
         </div><!-- .entry-body -->
 	</article><!-- #post -->

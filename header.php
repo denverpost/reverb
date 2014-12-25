@@ -324,7 +324,7 @@ if ( is_category() ) {
     
         <?php reactor_header_before(); ?>
     
-        <header id="header" class="site-header hide-for-small" role="banner">
+        <header id="header" class="site-header" role="banner">
                     
                     <?php reactor_header_inside(); ?>
 
