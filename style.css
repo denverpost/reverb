@@ -172,12 +172,15 @@ div.site-logo a img {
 }
 #sidebar {
 	padding-right:0;
+	padding-left:1em;
 }
 
 /* frontpage-posts */
 body.front-page .entry-body {
 	border:none;
 	padding-bottom:0;
+	margin-bottom:1.5em;
+	border:none;
 }
 .frontpage-post {
 	padding: 0;
@@ -192,7 +195,7 @@ body.front-page .entry-body {
 	line-height:1.2;
 	padding: .5em;
 	color: #222;
-	margin-left: 5%;
+	margin: 0 auto 0 5%;
 }
 .frontpage-image h2 {
 	background-color: rgba(0,0,0,0.8);
@@ -250,6 +253,15 @@ article.category-venue .frontpage-post h2 span:hover {
 	color:#668acc;
 }
 
+/* sidebar widget styles */
+h4.widget-title {
+	font-weight: 700;
+	font-size: 1.4em;
+	line-height: 1.15;
+	letter-spacing: .05em;
+	margin-top: 0;
+	text-transform: uppercase;
+}
 /* flexible posts widget */
 ul.dpe-flexible-posts {
 	list-style-type: none;
@@ -311,6 +323,30 @@ ul.dpe-flexible-posts {
     height: 0;
     padding-bottom: 100%;
     position: relative;
+}
+
+/* footer styles */
+.inner-footer {    border-top: none }
+footer#footer #colophon p {
+	font-size: 1em;
+	font-weight: 700;
+}
+footer#footer {
+    background: #d0d5c7;
+    color: #444;
+}
+footer#footer a {    color: #222 }
+ul#menu-footer-links li {
+    border-right: 1px solid #555;
+    padding-right: .5em;
+}
+ul#menu-footer-links li a {
+	font-size: 1.25em;
+	font-weight: 700;
+}
+ul#menu-footer-links li:last-child {
+    border-right: none;
+    padding-right: 0;
 }
 
 @media (max-width:1000px) {

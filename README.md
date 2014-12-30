@@ -30,6 +30,11 @@ A child theme for Reactor designed for The Denver Post's HeyReverb.com music sit
 	* Select the HeyReverb page you just created under "Front page"
 	* While you're here, don't forget to set the RSS feeds to "Summary"
 
+#### Required Plugins
+
+* [Flexible Posts Widget](https://wordpress.org/plugins/flexible-posts-widget/)
+* [SEM Author Image](https://wordpress.org/plugins/sem-author-image/)
+
 #### Plugin settings
 
 1. Under E-Mail -> E-Mail options:
@@ -68,6 +73,4 @@ Appearance -> Customize
 1. You will need one menu of categories. Be sure to check the box to display it in the Top Bar Right position. Should be titled "Top bar" or "top bar"
 2. Your footer menu must be called "footer links"
 	* Should include a link to the home page (Pages -> View All -> HeyReverb)
-3. Your last link should be "Subscribe by Email"
-	* Be sure the link URL is just "#subscribe"
 
