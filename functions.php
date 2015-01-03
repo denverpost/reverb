@@ -38,11 +38,11 @@ function reactor_child_theme_setup() {
 	
 	/* Support for sidebars
 	Note: this doesn't change layout options */
-	// remove_theme_support('reactor-sidebars');
-	// add_theme_support(
-	// 	'reactor-sidebars',
-	// 	array('primary', 'secondary', 'front-primary', 'front-secondary', 'footer')
-	// );
+	remove_theme_support('reactor-sidebars');
+	add_theme_support(
+	   'reactor-sidebars',
+	   array('primary', 'secondary', 'front-secondary', 'footer')
+	);
 	
 	/* Support for layouts
 	Note: this doesn't remove sidebars */
@@ -286,5 +286,44 @@ function db_filter_user_query( &$user_query ) {
 
 // Attempts to permanently disable the Visual Editor for all users, all the time.
 add_filter( 'user_can_richedit', '__return_false', 50 );
+
+// Create a simple widget for one-click newsletter signup
+class newsletter_signup_widget extends WP_Widget {
+    public function __construct()
+    {
+            parent::__construct(
+                'newsletter_signup_widget',
+                __('Newsletter Signup', 'newsletter_signup_widget'),
+                array('description' => __('Come on, sign up for a newsletter. All the cool kids are doing it.', 'newsletter_signup_widget'), )
+            );
+    }
+
+    public function widget($args, $instance)
+    {
+        // List of icons linked to various social networks' Intent pages
+        echo '<div id="sidebar-newsletter" class="widget widget_newsletter">
+                <h4 class="widget-title">Get Mixtape Newsletters</h4>
+                <form action="http://www.denverpostplus.com/app/mailer/" method="post" name="reverbmail">
+                    <div class="row collapse mx-form">
+                        <div class="large-9 small-9 columns">
+                            <input type="hidden" name="keebler" value="goof111" />
+                            <input type="hidden" name="goof111" value="TRUE" />
+                            <input type="hidden" name="redirect" value="' . get_permalink() . '" />
+                            <input type="hidden" name="id" value="autoadd" />
+                            <input type="hidden" name="which" value="reverb" />
+                            <input type="text" name="name_first" value="Humans: Do Not Use" style="display:none;" />
+                            <input required placeholder="Email Address" type="text" name="email_address" maxlength="50" value="" />
+                        </div>
+                        <div class="large-3 small-3 columns end">
+                            <input class="button prefix" type="submit" id="newslettersubmit" value="Sign up">
+                        </div>
+                    </div>
+                </form>
+            </div>';
+    }
+}
+
+function register_newsletter_signup_widget() { register_widget('newsletter_signup_widget'); }
+add_action( 'widgets_init', 'register_newsletter_signup_widget' );
 
 ?>

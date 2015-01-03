@@ -17,51 +17,27 @@ $slider_category = reactor_option('frontpage_slider_category', ''); ?>
     
     	<?php reactor_content_before(); ?>
   
-        <div class="row">
-          	<div class="<?php reactor_columns( 12 ); ?>">
-                <?php // slider function passing category from options
-				reactor_slider( array(
-					'category' => $slider_category,
-					'slider_id' => 'slider-front-page',
-					'data_options' => array(
-						'animation' => '\'fade\'',
-						'pause_on_hover' => 'false',
-						),
-					) ); ?>
-            </div><!-- .columns -->
-        </div><!-- .row -->
-  
         <div id="content" role="main">
         	<div class="row">
 
-                <div class="large-8 medium-12 small-12 columns">
-
-                    <div class="row">
-
-                        <div class="large-9 large-push-3 medium-9 medium-push-3 small-12 columns" id="frontpagemain">
+                <div class="large-7 large-push-2 medium-12 small-12 columns" id="frontpagemain">
+                
+                <?php reactor_inner_content_before(); ?>
                         
-                        <?php reactor_inner_content_before(); ?>
-                                
-                            <?php get_template_part('loops/loop', 'frontpage'); ?>
-                            
-                        <?php reactor_inner_content_after(); ?>
-                        
-                        </div><!-- .columns -->
-
-                        <div class="large-3 large-pull-9 medium-3 medium-pull-9 columns" id="frontpageleft">
-
-                            <?php get_sidebar('frontpagetwo'); ?>
-
-                        </div><!-- .columns -->
-
-                    </div>
-
-                </div>
-
-                <div class="large-4 medium-12 small-12 columns" id="sidebar">
-
-    				<?php get_sidebar('frontpage'); ?>
+                    <?php get_template_part('loops/loop', 'frontpage'); ?>
+                    
+                <?php reactor_inner_content_after(); ?>
+                
                 </div><!-- .columns -->
+
+                <div class="large-2 large-pull-7 medium-6 small-12 columns" id="frontpageleft">
+
+                    <?php get_sidebar('frontpagetwo'); ?>
+
+                </div><!-- .columns -->
+
+				<?php get_sidebar('primary'); ?>
+                
             </div><!-- .row -->
         </div><!-- #content -->
         

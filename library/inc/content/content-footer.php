@@ -38,7 +38,7 @@ function reactor_do_footer_content() { ?>
 	<div class="site-info">
 		<div class="row">
         
-			<div class="<?php reactor_columns( 5 ); ?>">
+			<div class="<?php reactor_columns( array(5,12,12) ); ?>">
 			<?php if ( function_exists('reactor_footer_links') ) : ?>
 				<nav class="footer-links" role="navigation">
 					<?php reactor_footer_links(); ?>
@@ -46,7 +46,7 @@ function reactor_do_footer_content() { ?>
 			<?php endif; ?>
 			</div><!--.columns -->
                     
-			<div class="<?php reactor_columns( 7 ); ?>">
+			<div class="<?php reactor_columns( array(7,12,12) ); ?>">
 				<div id="colophon">                      
 					<?php if ( reactor_option('footer_siteinfo') ) : echo reactor_option('footer_siteinfo'); else : ?>
 					<p><span class="copyright">An edition of <a href="http://www.denverpost.com/" title="The Denver Post" target="_blank">The Denver Post</a>.<br />

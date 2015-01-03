@@ -331,5 +331,21 @@ if ( is_category() ) {
         </header><!-- #header -->
         
         <?php reactor_header_after(); ?>
-        
+
+        <div class="adElement clearfloat" id="adPosition1" align="center" style="clear:both;">
+            <!-- begin DFP Premium Ad Tag -->
+            <div id='sbb_reverb'>
+                <script type='text/javascript'>
+                if ( document.getElementById("adPosition1").offsetWidth >= 970 ) {
+                    document.write('<style type="text/css">#adPosition1 { margin:15px auto 0; }</style>');
+                    googletag.defineSlot('/8013/denverpost.com/Entertainment', [970,30], 'sbb_reverb').setTargeting('pos',['sbb']).setTargeting('kv', 'reverb').addService(googletag.pubads());
+                    googletag.pubads().enableSyncRendering();
+                    googletag.enableServices();
+                    googletag.display('sbb_reverb');
+                }
+                </script>
+            </div>
+            <!-- end DFP Premium Ad Tag -->
+        </div>
+
         <div id="main" class="wrapper">

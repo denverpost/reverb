@@ -71,6 +71,12 @@ function reactor_do_title_logo() { ?>
 						<img src="<?php echo get_stylesheet_directory_uri(); ?>/images/site-logo.svg" alt="<?php echo esc_attr( get_bloginfo('name', 'display') ); ?> logo">
 					</a>
 				</div><!-- .site-logo -->
+				<div class="site-social right">
+					<a href="http://twitter.com/rvrb" class="twitter" style="background-image:url('<?php echo get_stylesheet_directory_uri(); ?>/images/social-icons.png');"><div class="social-space"></div></a>
+					<a href="http://www.facebook.com/heyreverb" class="facebook" style="background-image:url('<?php echo get_stylesheet_directory_uri(); ?>/images/social-icons.png');"><div class="social-space"></div></a>
+					<a href="http://instagram.com/heyreverb" class="instagram" style="background-image:url('<?php echo get_stylesheet_directory_uri(); ?>/images/social-icons.png');"><div class="social-space"></div></a>
+					<a href="<?php echo get_site_url(); ?>/feed/" class="rss" style="background-image:url('<?php echo get_stylesheet_directory_uri(); ?>/images/social-icons.png');"><div class="social-space"></div></a>
+				</div>
 		</div><!-- .row -->
 	</div><!-- .inner-header -->  
 <?php 
