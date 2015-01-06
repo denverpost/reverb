@@ -17,7 +17,7 @@
     
     <?php reactor_sidebar_before(); ?>
     
-        <div id="sidebar" class="sidebar <?php reactor_columns( '', true, true, 1 ); ?>" role="complementary">
+        <div id="sidebar" class="sidebar <?php reactor_columns( array(4,12,6), true, true, 1 ); ?>" role="complementary">
             <?php dynamic_sidebar('sidebar'); ?>
         </div><!-- #sidebar -->
         

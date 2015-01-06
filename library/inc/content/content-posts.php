@@ -26,7 +26,7 @@ function reactor_do_tumblog_icons() {
 add_action('reactor_post_header', 'reactor_do_tumblog_icons', 1);
 
 /**
- * Post header
+ * Front page main format
  * in format-standard
  * 
  * @since 1.0.0
@@ -38,10 +38,9 @@ function reactor_post_frontpage_format() {
 	$categories_list = '';
 	$categories = get_the_category();
 	end($categories);
-	$catpoint = key($categories);
 	foreach($categories as $category) {
 		if ( strtolower($category->slug) != 'uncategorized' && $category->category_parent == 0) {
-			$categories_list =  $category->name;
+			$categories_list = $category->name;
 		}
 	}
 	
@@ -49,8 +48,7 @@ function reactor_post_frontpage_format() {
 		if ( has_post_thumbnail() ) {
 			$large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'large');
 		}
-		if (strlen($large_image_url[0]) >= 1) {
-			?>
+		if (strlen($large_image_url[0]) >= 1) { ?>
 			<div class="frontpage-image frontpage-post" style="background-image:url('<?php echo $large_image_url[0]; ?>');">
 		<?php } else { ?>
 			<div class="frontpage-post">
@@ -62,6 +60,47 @@ function reactor_post_frontpage_format() {
 <?php }
 }
 add_action('reactor_post_frontpage', 'reactor_post_frontpage_format', 1);
+
+
+/**
+ * Category page main format
+ * in format-standard
+ * 
+ * @since 1.0.0
+ */
+function reactor_post_catpage_format() {
+
+	$categories_list = '';
+	$categories = get_the_category();
+	foreach($categories as $category) {
+		if ( strtolower($category->slug) != 'uncategorized' && $category->category_parent == 0) {
+			$categories_list = $category->name;
+		}
+	}
+
+	if ( has_post_thumbnail() ) {
+		$large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'large');
+	} ?>
+	<?php if (isset($large_image_url) && strlen($large_image_url[0]) >= 1) { ?>
+	<div class="catpage-post has-image">
+		<div class="catpage-image" style="background-image:url('<?php echo $large_image_url[0]; ?>');">
+			<div class="catimgspace"></div>
+		</div>
+	<?php } else { ?>
+	<div class="catpage-post">
+	<?php } ?>
+		<div class="catpage-post-inner">
+			<a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( __('%s', 'reactor'), the_title_attribute('echo=0') ) ); ?>" rel="bookmark">
+				<h2 class="entry-title"><?php the_title(); ?></h2>
+			</a>
+			<p class="catexcerpt"><?php echo smart_trim(get_the_content(),25); ?></p>
+			<?php reactor_post_meta(array('show_cat'=>false,'show_tag'=>false,'comments'=>true,'catpage'=>true,'link_date'=>false)); ?>
+		</div>
+		<div class="clear"></div>
+	</div>
+<?php }
+add_action('reactor_post_catpage', 'reactor_post_catpage_format', 1);
+
 
 /**
  * Post header

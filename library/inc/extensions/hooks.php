@@ -171,7 +171,6 @@ function reactor_post_header() {
 	do_action('reactor_post_header');
 }
 
-
 /**
  * Register hook: reactor_post_frontpage
  *
@@ -180,6 +179,16 @@ function reactor_post_header() {
  */
 function reactor_post_frontpage() {
 	do_action('reactor_post_frontpage');
+}
+
+/**
+ * Register hook: reactor_post_catpage
+ *
+ * 
+ * @since 1.0.0
+ */
+function reactor_post_catpage() {
+	do_action('reactor_post_catpage');
 }
 
 /**
