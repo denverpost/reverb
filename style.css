@@ -261,7 +261,7 @@ body.front-page .entry-body {
 	font-size: 1.7em;
 	line-height:1.2;
 	padding: .5em;
-	color: #222;
+	color: rgba(17,17,17,1);
 	margin: 0 5%;
 }
 .frontpage-image h2 {
@@ -276,6 +276,16 @@ body.front-page .entry-body {
 	letter-spacing: .05em;
 	font-size: .7em;
 	padding-right: 3px;
+	text-decoration: none;
+}
+.frontpage-post a:hover {
+	text-decoration: none;
+}
+.frontpage-post a:hover h2 {
+	color: rgba(17,17,17,0.8);
+}
+.frontpage-image a:hover h2 {
+	color: rgba(255,255,255,0.8);
 }
 .frontpage-post h2 span:after {
 	content:'/';
@@ -305,24 +315,6 @@ header.archive-header h1.category-video {
 article.category-venue .frontpage-post h2 span,
 header.archive-header h1.category-venue {
 	color:#2a79b3;
-}
-article.category-news .frontpage-post h2 span:hover {
-	color:#65c368;
-}
-article.category-photos .frontpage-post h2 span:hover {
-	color:#bd5782;
-}
-article.category-reviews .frontpage-post h2 span:hover {
-	color:#f68543;
-}
-article.category-audio .frontpage-post h2 span:hover {
-	color:#20b3be;
-}
-article.category-video .frontpage-post h2 span:hover {
-	color:#f7626a;
-}
-article.category-venue .frontpage-post h2 span:hover {
-	color:#4a99d3;
 }
 
 /* category page styles */
@@ -433,26 +425,35 @@ ul.dpe-flexible-posts {
 	line-height:1.15;
 	letter-spacing:.05em;
 }
-.dpe-flexible-posts h4.cat-why-so-serious-columns span.category-title {
+.dpe-flexible-posts h4 a {
+	color: rgba(17,17,17,1);
+}
+.dpe-flexible-posts h4 a:hover {
+	color: rgba(17,17,17,0.8);
+}
+.dpe-flexible-posts h4.cat-why-so-serious-columns span.category-title a {
 	color:#68a744;
 }
-.dpe-flexible-posts h4.cat-steal-this-track span.category-title {
+.dpe-flexible-posts h4.cat-steal-this-track span.category-title a {
 	color:#937624;
 }
-.dpe-flexible-posts h4.cat-interviews-and-features span.category-title {
+.dpe-flexible-posts h4.cat-interviews-and-features span.category-title a {
 	color:#e57124;
 }
-.dpe-flexible-posts h4.cat-feature span.category-title {
+.dpe-flexible-posts h4.cat-feature span.category-title a {
 	color:#44b3be;
 }
-.dpe-flexible-posts h4.cat-cd-reviews span.category-title {
+.dpe-flexible-posts h4.cat-cd-reviews span.category-title a {
 	color:#ef464d;
 }
 .dpe-flexible-posts h4 span.category-title {
 	font-size:.7em;
 	text-transform: uppercase;
 }
-.dpe-flexible-posts h4 span.category-title:after {
+.dpe-flexible-posts h4 span.category-title a:hover {
+	text-decoration: none;
+}
+.dpe-flexible-posts h4 span.category-title a:after {
 	content:'/';
 	padding:0 .3em;
 	display:inline-block;

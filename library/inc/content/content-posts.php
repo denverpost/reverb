@@ -12,18 +12,17 @@
 
 
 /**
- * Post Tumblog Icons
+ * Post category overline Icons
  * in all formats when tumblog icons are enabled
  * 
  * @since 1.0.0
  */
-function reactor_do_tumblog_icons() {
-	if ( reactor_option('tumblog_icons', false) && ( is_home() || is_archive() ) && current_theme_supports('reactor-tumblog-icons') ) {
-		$output = reactor_tumblog_icon();
-		echo $output;
+function reactor_do_overline() {
+	if ( is_single() ) {
+		
 	}
 }
-add_action('reactor_post_header', 'reactor_do_tumblog_icons', 1);
+add_action('reactor_post_header', 'reactor_do_overline', 1);
 
 /**
  * Front page main format

@@ -53,18 +53,18 @@ function reactor_child_theme_setup() {
 	// );
 	
 	/* Support for custom post types */
-	// remove_theme_support('reactor-post-types');
+	remove_theme_support('reactor-post-types');
 	// add_theme_support(
 	// 	'reactor-post-types',
 	// 	array('slides', 'portfolio')
 	// );
 	
 	/* Support for page templates */
-	// remove_theme_support('reactor-page-templates');
-	// add_theme_support(
-	// 	'reactor-page-templates',
-	// 	array('front-page', 'news-page', 'portfolio', 'contact')
-	// );
+	remove_theme_support('reactor-page-templates');
+	add_theme_support(
+	   'reactor-page-templates',
+	 	array('front-page')
+	);
 	
 	/* Remove support for background options in customizer */
 	// remove_theme_support('reactor-backgrounds');

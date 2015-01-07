@@ -32,7 +32,7 @@ if( $flexible_posts->have_posts() ):
 							</div>
 					<?php } ?>
 				<?php } ?>
-				<h4 class="title cat-<?php echo $catquery->slug; ?>"><span class="category-title"><?php echo $catquery->name; ?></span><?php the_title(); ?></h4>
+				<h4 class="title cat-<?php echo $catquery->slug; ?>"><span class="category-title"><a href="<?php echo get_category_link(intval($catquery->name)); ?>" title="<?php echo $catquery->name; ?>"><?php echo $catquery->name; ?></a></span><a href="<?php the_permalink(); ?>" rel="bookmark" title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a></h4>
 			</a>
 		</li>
 	<?php endwhile; ?>
