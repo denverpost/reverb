@@ -377,11 +377,9 @@ h1.archive-title {
 .catpage-post-inner .entry-meta .entry-date {
 	color:#888;
 }
-.catpage-post-inner .entry-meta .by-author a {
+.catpage-post-inner .entry-meta .comments a span,
+.catpage-post-inner .entry-meta .by-author a span {
 	color:#222;
-}
-.catpage-post-inner .entry-meta .by-author a:hover {
-	color:#f79346;
 }
 .catpage-post-inner .entry-meta .comments {
 	float:right;
@@ -389,6 +387,30 @@ h1.archive-title {
 .catpage-post-inner .entry-meta .fi-comment:before {
 	color:#888;
 	margin:0 .25em;
+}
+
+/* pagination */
+ul.pagination li {
+	font-size:1.15em;
+}
+ul.pagination li a {
+	font-weight: 700;
+	color:#888;
+	border:1px solid #e57124;
+}
+ul.pagination li.current a {
+    background: #e57124;
+    color: #fff;
+    font-weight: 700;
+    cursor: default;
+    padding: 0.075rem .75rem 0.075rem;
+}
+ul.pagination li.current a:hover,
+ul.pagination li a:hover {
+    background: #f79346;
+    color: #fff;
+    font-weight: 700;
+    cursor: default;
 }
 
 /* sidebar widget styles */
@@ -468,6 +490,7 @@ ul.dpe-flexible-posts {
 footer#footer {
     background: #d0d5c7;
     color: #444;
+    margin-top:.5em;
 }
 footer#footer a {    color: #222 }
 ul#menu-footer-links li {
