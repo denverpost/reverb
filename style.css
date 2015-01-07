@@ -23,6 +23,7 @@ div#content {
 }
 h1, h2, h3, h4, h5, h6 {
 	font-weight: 700;
+	color:rgba(17,17,17,1);
 }
 a {
 	color:#e57124;
@@ -31,6 +32,12 @@ a {
 a:hover, a:focus {
 	color:#f79346;
 	text-decoration:underline;
+}
+p, figcaption {
+	font-family: 'Alegreya Sans', Helvetica, Arial, sans-serif;
+	font-weight: 400;
+	font-size: 1.4em;
+	line-height:1.3;
 }
 /* header and logo */
 div.inner-header > div.row {
@@ -293,39 +300,43 @@ body.front-page .entry-body {
 	display:inline-block;
 }
 article.category-news .frontpage-post h2 span,
-header.archive-header h1.category-news {
+header .category-news, {
 	color:#45a348;
 }
 article.category-photos .frontpage-post h2 span,
-header.archive-header h1.category-photos {
+header .category-photos {
 	color:#9d3762;
 }
 article.category-reviews .frontpage-post h2 span,
-header.archive-header h1.category-reviews {
+header .category-reviews {
 	color:#d66523;
 }
 article.category-audio .frontpage-post h2 span,
-header.archive-header h1.category-audio {
+header .category-audio {
 	color:#00939e;
 }
 article.category-video .frontpage-post h2 span,
-header.archive-header h1.category-video {
+header .category-video {
 	color:#d7424a;
 }
 article.category-venue .frontpage-post h2 span,
-header.archive-header h1.category-venue {
+header .category-venue {
 	color:#2a79b3;
 }
 
 /* category page styles */
-h1.archive-title {
+h1.archive-title, h2.archive-title {
 	font-family: 'Alegreya', Georgia, serif;
 	font-weight: 900;
 	font-size: 3em;
+	line-height:1;
 	padding-bottom:.25em;
 	border-bottom:1px solid #aaa;
 	margin:0 0 1em;
 	letter-spacing: 1px;
+}
+h2.archive-title {
+	margin:0 0 .5em;
 }
 .catpage-post.has-image .catpage-post-inner {
 	margin-left:33%;
@@ -343,7 +354,7 @@ h1.archive-title {
 	height: 0;
 	padding-bottom:100%;
 }
-.catpage-post-inner h2.entry-title {
+.entry-body h2.entry-title {
 	font-family: 'Podkova', Georgia, serif;
 	font-weight: 700;
 	font-size: 2.5em;
@@ -351,34 +362,59 @@ h1.archive-title {
 	color: #000;
 	margin:0 0 .25em;
 }
-.catpage-post-inner p.catexcerpt {
+.entry-body p.catexcerpt {
 	font-family: 'Alegreya Sans', Helvetica, Arial, sans-serif;
 	font-weight: 400;
 	font-size: 1.5em;
 	line-height:1.3;
 	color: #888;
 }
-.catpage-post-inner .entry-meta {
+.entry-body .entry-meta {
 	font-size:1.2em;
 }
-.catpage-post-inner .entry-meta .by-author:after {
+.entry-body .entry-meta .by-author:after {
 	content:'\2219';
 	display:inline;
 	margin:0 .25em;
 }
-.catpage-post-inner .entry-meta .entry-date {
+.entry-body .entry-meta .entry-date {
 	color:#888;
 }
-.catpage-post-inner .entry-meta .comments a span,
-.catpage-post-inner .entry-meta .by-author a span {
+.entry-body .entry-meta .comments a span,
+.entry-body .entry-meta .by-author a span {
 	color:#222;
 }
-.catpage-post-inner .entry-meta .comments {
+.entry-body .entry-meta .comments {
 	float:right;
 }
-.catpage-post-inner .entry-meta .fi-comment:before {
+.entry-body .entry-meta .fi-comment:before {
 	color:#888;
 	margin:0 .25em;
+}
+
+/* single page/post */
+article h1.entry-title {
+	font-family: 'Podkova', Georgia, serif;
+	font-weight: 700;
+	font-size: 3.5em;
+	margin:0 0 .25em;
+	line-height:1.1;
+}
+.single .entry-content figure {
+	width:100%;
+	margin:1em 0;
+}
+.single .entry-content figure figcaption {
+	margin:.5em 1em 0;
+	font-size:1.1em;
+	color:rgba(71,71,71,1);
+}
+.single .entry-content figure img {
+	width:100%;
+	height:auto;
+}
+.single .entry-content p {
+	margin:0 10% 1em;
 }
 
 /* pagination */
@@ -491,7 +527,7 @@ ul.dpe-flexible-posts {
 footer#footer {
     background: #d0d5c7;
     color: #444;
-    margin-top:.5em;
+    margin-top:1em;
 }
 footer#footer a {    color: #222 }
 ul#menu-footer-links li {

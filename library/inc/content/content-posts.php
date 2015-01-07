@@ -19,10 +19,19 @@
  */
 function reactor_do_overline() {
 	if ( is_single() ) {
-		
-	}
+		$categories_list = '';
+		$categories = get_the_category();
+		foreach($categories as $category) {
+			if ( strtolower($category->slug) != 'uncategorized' && $category->category_parent == 0) {
+				$categories_list = $category;
+			}
+		} ?>
+        <header class="archive-header">
+            <h2 <?php post_class('archive-title'); ?>><a href="<?php echo get_category_link(intval($categories_list->term_id) ); ?>"><?php echo $categories_list->cat_name; ?></a></h2>
+        </header><!-- .archive-header -->
+	<?php }
 }
-add_action('reactor_post_header', 'reactor_do_overline', 1);
+add_action('reactor_post_before', 'reactor_do_overline', 1);
 
 /**
  * Front page main format
@@ -68,15 +77,6 @@ add_action('reactor_post_frontpage', 'reactor_post_frontpage_format', 1);
  * @since 1.0.0
  */
 function reactor_post_catpage_format() {
-
-	$categories_list = '';
-	$categories = get_the_category();
-	foreach($categories as $category) {
-		if ( strtolower($category->slug) != 'uncategorized' && $category->category_parent == 0) {
-			$categories_list = $category->name;
-		}
-	}
-
 	if ( has_post_thumbnail() ) {
 		$large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'large');
 	} ?>
@@ -127,6 +127,21 @@ function reactor_do_standard_header_titles() {
 <?php }
 }
 add_action('reactor_post_header', 'reactor_do_standard_header_titles', 3);
+
+
+/**
+ * Post footer meta
+ * in all formats
+ * 
+ * @since 1.0.0
+ */
+function reactor_do_post_header_meta() {
+
+	if ( is_single() ) {
+		reactor_post_meta(array('show_cat'=>false,'show_tag'=>false,'comments'=>true,'catpage'=>true,'link_date'=>false));
+	}
+}
+add_action('reactor_post_header', 'reactor_do_post_header_meta', 4);
 
 /**
  * Post thumbnail

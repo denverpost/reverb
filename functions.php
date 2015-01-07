@@ -328,4 +328,17 @@ class newsletter_signup_widget extends WP_Widget {
 function register_newsletter_signup_widget() { register_widget('newsletter_signup_widget'); }
 add_action( 'widgets_init', 'register_newsletter_signup_widget' );
 
+// allows using Disqus on development deployments
+function childtheme_disqus_development() {
+?>
+  <script type="text/javascript">
+  // see http://docs.disqus.com/help/83/
+  var disqus_developer = 1; // developer mode is on
+  </script>
+<?php }
+
+// only enable this if the server is a .dev domain name
+if (strpos($_SERVER['HTTP_HOST'], 'localhost') !== FALSE)
+  add_action('wp_head', 'childtheme_disqus_development', 100);
+
 ?>

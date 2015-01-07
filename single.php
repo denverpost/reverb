@@ -26,7 +26,7 @@
                     <?php reactor_post_before(); ?>
                         
 					<?php // get post format and display code for that format
-                    if ( !get_post_format() ) : get_template_part('post-formats/format', 'standard'); 
+                    if ( !get_post_format() ) : get_template_part('post-formats/format', 'single'); 
 					else : get_template_part('post-formats/format', get_post_format() ); endif; ?>
                     
                     <?php reactor_post_after(); ?>
