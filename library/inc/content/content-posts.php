@@ -247,7 +247,7 @@ function reactor_do_post_footer_comments_link() {
 		</div><!-- .comments-link -->
     <?php }
 }
-add_action('reactor_post_footer', 'reactor_do_post_footer_comments_link', 3);
+//add_action('reactor_post_footer', 'reactor_do_post_footer_comments_link', 3);
 
 /**
  * Post footer edit 

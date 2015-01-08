@@ -208,18 +208,18 @@ function smart_trim($instring, $truncation) {
         } else {
             //Check each word following the last word until
             //we determine a sentence's ending
-            $ending_found = FALSE;
+            $ending_found = false;
             for($i=($truncation);$i<$count;$i++) {
-                if($ending_found != TRUE) {
+                if($ending_found != true) {
                     $len = strlen(strip_tags($matches[$i]));
                     if($matches[$i][$len-1] == "." || $matches[$i][$len-1] == "?" || $matches[$i][$len-1] == "!") {
                         //Test to see if the next word starts with a capital
                         if($matches[$i+1][0] == strtoupper($matches[$i+1][0])) {
-                            $ending_found = TRUE;
+                            $ending_found = true;
                         }
                     }
                 } else {
-                    unset($matches[$i]);
+                    unset($matches[$i+1]);
                 }
             }
         }

@@ -75,7 +75,8 @@ if ( !function_exists('reactor_post_meta') ) {
 			esc_html( get_the_date() )
 		 );
 	
-		$author = sprintf('<span class="author"><a class="url fn n" href="%1$s" title="%2$s" rel="author"><span>%3$s</span></a></span>',
+		$authorraw = ( !$args['show_photo'] ) ? '<span class="author"><a class="url fn n" href="%1$s" title="%2$s" rel="author"><span>%3$s</span></a></span>' : '<span class="author"><a class="url fn n" href="%1$s" title="%2$s" rel="author"><h4 class="left">%3$s</h4></a></span>';
+		$author = sprintf($authorraw,
 			esc_url( get_author_posts_url( get_the_author_meta('ID') ) ),
 			esc_attr( sprintf( __('View all posts by %s', 'reactor'), get_the_author() ) ),
 			get_the_author()
@@ -93,7 +94,7 @@ if ( !function_exists('reactor_post_meta') ) {
 
 		$author_social = '';
 		if( $args['show_photo'] ) {
-			$author_social = sprintf('<ul class="author-social-small">%1$s%2$s%3$s%4$s</ul>',
+			$author_social = sprintf('<ul class="author-social-small right inline-list">%1$s%2$s%3$s%4$s</ul>',
 	            ( get_the_author_meta('googleplus') != '' ? sprintf('<li><a href="%1$s" alt="%2$%s on Google Plus" rel="me">Google+</a></li>', get_the_author_meta('googleplus'), get_the_author() ) : '' ),            
 	            ( get_the_author_meta('facebook') != '' ? sprintf('<li><a href="%1$s" alt="%2$%s on Facebook">Facebook</a></li>', get_the_author_meta('facebook'), get_the_author() ) : '' ),
 	            ( get_the_author_meta('twitter') != '' ? sprintf('<li><a href="http://twitter.com/%1$s" alt="%1$s on Twitter">Twitter</a></li>', get_the_author_meta('twitter') ) : '' ),
@@ -105,12 +106,12 @@ if ( !function_exists('reactor_post_meta') ) {
 
 		$author_desc = '';
 		if ( !is_null(get_the_author_meta('description') ) )  {
-			$author_desc = substr( strip_tags( get_the_author_meta('description') ),0,250 );
-			$author_desc = '<p class="author-desc">' . substr($author_desc,0,strrpos($author_desc,' ')) . '...</p>';
+			$author_desc = smart_trim(get_the_author_meta('description'),30);
+			$author_desc = '<p class="author-desc">' . substr($author_desc,0,strrpos($author_desc,' ')) . '</p>';
 		}
 
 		if ( 'post' == get_post_type() ) {
-			$author_photo = sprintf('<div class="authorimage"><div class="authorimageholder"></div><a class="url fn n" href="%1$s" title="%2$s" rel="author"><img src="%3$s" class="authormug" /></a></div>',
+			$author_photo = sprintf('<div class="authorimage left large-3 medium-3 small-3"><div class="authorimageholder"></div><a class="url fn n" href="%1$s" title="%2$s" rel="author"><img src="%3$s" class="authormug" /></a></div>',
 				esc_url( get_author_posts_url( get_the_author_meta('ID') ) ),
 				esc_attr( sprintf( __('View all posts by %s', 'reactor'), get_the_author() ) ),
 				the_author_image_url( get_the_author_meta('ID') )
@@ -149,12 +150,12 @@ if ( !function_exists('reactor_post_meta') ) {
 					$output = '<div class="entry-meta icons">' . $meta . '</div>';
 				}
 			} else if ( $args['show_photo'] && (get_the_author_meta('nickname') != 'hidden' )) {
-				$meta .= ( $author_photo && $args['show_photo'] ) ? '%5$s' : '';
-				$meta .= ( $author && $args['show_author'] ) ? '<div class="by-author">%4$s%10$s</div>' : '';
+				$meta .= ( $author_photo && $args['show_photo'] ) ? '%6$s' : '';
+				$meta .= ( $author && $args['show_author'] ) ? '<div class="by-author">%4$s%9$s</div>' : '';
 				$meta .= ( $author_desc ) ? '%8$s' : '';
 				
 				if ( $meta ) {
-					$output = '<div class="entry-meta-author">' . __('', 'reactor') . $meta . '<div class="clear"></div></div>';
+					$output = '<div class="entry-meta-author panel collapse">' . __('', 'reactor') . $meta . '<div class="clear"></div></div>';
 				}
 			} else {
 				$meta .= ( $date && $args['show_date'] ) ? '%3$s ' : '';
@@ -167,7 +168,7 @@ if ( !function_exists('reactor_post_meta') ) {
 				}
 			}
 	
-			$post_meta = sprintf( $output, $categories_list, $tag_list, $date, $author, $comments, $author, $author_photo, $nickname, $author_desc, $author_social );
+			$post_meta = sprintf( $output, $categories_list, $tag_list, $date, $author, $comments, $author_photo, $nickname, $author_desc, $author_social );
 
 			echo apply_filters('reactor_post_meta', $post_meta, $defaults);
 		}

@@ -417,6 +417,10 @@ body:not(.home) .entry-body h2.entry-title {
 .single .entry-content p {
 	margin:0 10% 1em;
 }
+.single .entry-footer .authorimage {
+	padding-right:1em;
+	padding-bottom:1em;
+}
 
 /* author page */
 .author-info p, .author-info li {
