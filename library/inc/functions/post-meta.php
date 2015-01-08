@@ -75,7 +75,7 @@ if ( !function_exists('reactor_post_meta') ) {
 			esc_html( get_the_date() )
 		 );
 	
-		$authorraw = ( !$args['show_photo'] ) ? '<span class="author"><a class="url fn n" href="%1$s" title="%2$s" rel="author"><span>%3$s</span></a></span>' : '<span class="author"><a class="url fn n" href="%1$s" title="%2$s" rel="author"><h4 class="left">%3$s</h4></a></span>';
+		$authorraw = ( !$args['show_photo'] ) ? '<a class="url fn n" href="%1$s" title="%2$s" rel="author"><span>%3$s</span></a>' : '<a class="url fn n" href="%1$s" title="%2$s" rel="author"><h4>%3$s</h4></a>';
 		$author = sprintf($authorraw,
 			esc_url( get_author_posts_url( get_the_author_meta('ID') ) ),
 			esc_attr( sprintf( __('View all posts by %s', 'reactor'), get_the_author() ) ),
@@ -111,7 +111,7 @@ if ( !function_exists('reactor_post_meta') ) {
 		}
 
 		if ( 'post' == get_post_type() ) {
-			$author_photo = sprintf('<div class="authorimage left large-3 medium-3 small-3"><div class="authorimageholder"></div><a class="url fn n" href="%1$s" title="%2$s" rel="author"><img src="%3$s" class="authormug" /></a></div>',
+			$author_photo = sprintf('<div class="authorimage large-3 medium-3 small-3 columns"><div class="authorimageholder"></div><a class="url fn n" href="%1$s" title="%2$s" rel="author"><img src="%3$s" class="authormug" /></a></div>',
 				esc_url( get_author_posts_url( get_the_author_meta('ID') ) ),
 				esc_attr( sprintf( __('View all posts by %s', 'reactor'), get_the_author() ) ),
 				the_author_image_url( get_the_author_meta('ID') )
@@ -151,11 +151,14 @@ if ( !function_exists('reactor_post_meta') ) {
 				}
 			} else if ( $args['show_photo'] && (get_the_author_meta('nickname') != 'hidden' )) {
 				$meta .= ( $author_photo && $args['show_photo'] ) ? '%6$s' : '';
-				$meta .= ( $author && $args['show_author'] ) ? '<div class="by-author">%4$s%9$s</div>' : '';
+				$meta .= '<div class="large-9 medium-9 small-9 columns">';
+				$meta .= ( $author && $args['show_author'] ) ? '<div class="by-author">%4$s</div>' : '';
 				$meta .= ( $author_desc ) ? '%8$s' : '';
+				$meta .= ( $author_social ) ? '%9$s' : '';
+				$meta .= '<div class="clear"></div></div>';
 				
 				if ( $meta ) {
-					$output = '<div class="entry-meta-author panel collapse">' . __('', 'reactor') . $meta . '<div class="clear"></div></div>';
+					$output = '<div class="entry-meta-author panel row collapse">' . __('', 'reactor') . $meta . '</div>';
 				}
 			} else {
 				$meta .= ( $date && $args['show_date'] ) ? '%3$s ' : '';

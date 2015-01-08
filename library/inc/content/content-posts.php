@@ -272,11 +272,11 @@ function reactor_do_nav_single() {
     if ( is_single() ) { 
     $exclude = ( reactor_option('frontpage_exclude_cat', 1) ) ? reactor_option('frontpage_post_category', '') : ''; ?>
         <nav class="nav-single">
-            <span class="nav-previous alignleft">
-            <?php previous_post_link('%link', '<span class="meta-nav">' . _x('&larr;', 'Previous post link', 'reactor') . '</span> %title', false, $exclude); ?>
-            </span>
-            <span class="nav-next alignright">
-            <?php next_post_link('%link', '%title <span class="meta-nav">' . _x('&rarr;', 'Next post link', 'reactor') . '</span>', false, $exclude); ?>
+            <!-- <span class="nav-previous alignleft">
+            <?php //previous_post_link('%link', '<span class="meta-nav">' . _x('&larr;', 'Previous post link', 'reactor') . '</span> %title', false, $exclude); ?>
+            </span> -->
+            <span class="nav-next">
+            <?php next_post_link('%link', 'Next story: %title', false, $exclude); ?>
             </span>
         </nav><!-- .nav-single -->
 <?php }
@@ -292,7 +292,9 @@ add_action('reactor_post_after', 'reactor_do_nav_single', 1);
 function reactor_do_post_comments() {      
 	// If comments are open or we have at least one comment, load up the comment template
 	if ( is_single() && ( comments_open() || '0' != get_comments_number() ) ) {
+		?> <div id="comments"> <?php
 		comments_template('', true);
+		?> </div> <?php
 	}
 }
 add_action('reactor_post_after', 'reactor_do_post_comments', 2);

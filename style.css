@@ -417,9 +417,46 @@ body:not(.home) .entry-body h2.entry-title {
 .single .entry-content p {
 	margin:0 10% 1em;
 }
-.single .entry-footer .authorimage {
+.single .entry-meta-author .authorimage {
 	padding-right:1em;
 	padding-bottom:1em;
+}
+.single .entry-meta-author {
+	margin:0 10%;
+}
+.single .entry-meta-author p.author-desc,
+.single .entry-meta-author ul.author-social-small li {
+	font-size:1.25em;
+}
+nav.nav-single {
+	margin-bottom: 1.063em;
+}
+nav.nav-single .nav-next {
+	display:block;
+	width:100%;
+	text-align:right;
+}
+nav.nav-single .nav-next a {
+	display: block;
+	padding: .5rem 1rem .5rem;
+	background: none;
+	font-weight: 700;
+	color:#676767;
+	border:1px solid #e57124;
+	border-radius: 3px;
+	font-size: 1.5em;
+	line-height: 1;
+	margin-top: 0;
+	transition: background-color 300ms ease-out;
+}
+nav.nav-single .nav-next a:hover {
+    background: #f79346;
+    color: #fff;
+    font-weight: 700;
+    cursor: default;
+}
+#comments {
+	padding-top:2.5em;
 }
 
 /* author page */

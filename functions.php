@@ -100,7 +100,7 @@ function reactor_child_theme_setup() {
 
 // add a favicon to the site
 function blog_favicon() {
-	echo '<link rel="Shortcut Icon" type="image/x-icon" href="'.get_bloginfo('stylesheet_directory').'/images/favicon.ico" />' . "\n";
+	echo '<link rel="shortcut icon" type="image/x-icon" href="'.get_bloginfo('stylesheet_directory').'/images/favicon.ico" />' . "\n";
 }
 add_action('wp_head', 'blog_favicon');
 
