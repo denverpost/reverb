@@ -33,7 +33,7 @@ a:hover, a:focus {
 	color:#f79346;
 	text-decoration:underline;
 }
-p, figcaption {
+p, li:not(.menu-item), figcaption {
 	font-family: 'Alegreya Sans', Helvetica, Arial, sans-serif;
 	font-weight: 400;
 	font-size: 1.4em;
@@ -136,6 +136,7 @@ div.site-logo a img {
 .top-bar-section>ul>.divider, .top-bar-section>ul>[role="separator"], .top-bar-section li.active:not(.has-form) a:not(.button), .top-bar-section li:not(.has-form) a:not(.button), .top-bar-section .has-form, .top-bar {
 	height:35px;
 	line-height:35px;
+	font-size:1em;
 }
 .top-bar-section li:not(.has-form) a:not(.button) {
 	padding:0 25px;
@@ -354,7 +355,7 @@ h2.archive-title {
 	height: 0;
 	padding-bottom:100%;
 }
-.entry-body h2.entry-title {
+body:not(.home) .entry-body h2.entry-title {
 	font-family: 'Podkova', Georgia, serif;
 	font-weight: 700;
 	font-size: 2.5em;
@@ -393,7 +394,7 @@ h2.archive-title {
 }
 
 /* single page/post */
-article h1.entry-title {
+.single h1.entry-title {
 	font-family: 'Podkova', Georgia, serif;
 	font-weight: 700;
 	font-size: 3.5em;
@@ -415,6 +416,31 @@ article h1.entry-title {
 }
 .single .entry-content p {
 	margin:0 10% 1em;
+}
+
+/* author page */
+.author-info p, .author-info li {
+	font-size:1.3em;
+}
+div.author-posts {
+	padding-left:1em;
+	padding-right:0;
+}
+ul.author-social {
+	list-style-type: none;
+	margin-left:0;
+	padding:0;
+}
+.author-avatar {
+	padding-left:1em;
+}
+h2.author-posts-title {
+	font-size:2em;
+	margin-top:0;
+	line-height:1;
+}
+body.author .author-posts .entry-body h2.entry-title {
+	font-size:1.5em;
 }
 
 /* pagination */

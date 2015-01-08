@@ -21,7 +21,7 @@
             </div><!-- .entry-content --> 
     
             <footer class="entry-footer">
-            	<?php //reactor_post_footer(); ?>
+            	<?php reactor_post_footer(); ?>
             </footer><!-- .entry-footer -->
         </div><!-- .entry-body -->
 	</article><!-- #post -->

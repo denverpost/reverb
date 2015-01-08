@@ -31,6 +31,7 @@ if ( !function_exists('reactor_post_meta') ) {
 			'show_uncategorized' => false,
 			'comments' => false,
 			'catpage' => false,
+			'show_photo' => false,
 		 );
         $args = wp_parse_args( $args, $defaults );
 		
@@ -90,8 +91,42 @@ if ( !function_exists('reactor_post_meta') ) {
 		}
 		$comments = '<span class="comments fi-comment"><a href="' . get_comments_link() .'"><span>'. $comments.'</span></a></span>';
 
+		$author_social = '';
+		if( $args['show_photo'] ) {
+			$author_social = sprintf('<ul class="author-social-small">%1$s%2$s%3$s%4$s</ul>',
+	            ( get_the_author_meta('googleplus') != '' ? sprintf('<li><a href="%1$s" alt="%2$%s on Google Plus" rel="me">Google+</a></li>', get_the_author_meta('googleplus'), get_the_author() ) : '' ),            
+	            ( get_the_author_meta('facebook') != '' ? sprintf('<li><a href="%1$s" alt="%2$%s on Facebook">Facebook</a></li>', get_the_author_meta('facebook'), get_the_author() ) : '' ),
+	            ( get_the_author_meta('twitter') != '' ? sprintf('<li><a href="http://twitter.com/%1$s" alt="%1$s on Twitter">Twitter</a></li>', get_the_author_meta('twitter') ) : '' ),
+	            ( get_the_author_meta('email_public') != '' ? sprintf('<li><a href="mailto:%1$s" alt="Email %1$s">Email</a></li>', get_the_author_meta('email_public') ) : '' )
+			);
+		}
+
+		$nickname = ( (get_the_author_meta('nickname') != 'hidden' ) ? sprintf(', %s', get_the_author_meta('nickname') ) : '' );
+
+		$author_desc = '';
+		if ( !is_null(get_the_author_meta('description') ) )  {
+			$author_desc = substr( strip_tags( get_the_author_meta('description') ),0,250 );
+			$author_desc = '<p class="author-desc">' . substr($author_desc,0,strrpos($author_desc,' ')) . '...</p>';
+		}
+
+		if ( 'post' == get_post_type() ) {
+			$author_photo = sprintf('<div class="authorimage"><div class="authorimageholder"></div><a class="url fn n" href="%1$s" title="%2$s" rel="author"><img src="%3$s" class="authormug" /></a></div>',
+				esc_url( get_author_posts_url( get_the_author_meta('ID') ) ),
+				esc_attr( sprintf( __('View all posts by %s', 'reactor'), get_the_author() ) ),
+				the_author_image_url( get_the_author_meta('ID') )
+			 );
+		}
+
 		/**
-		 * 1 is category, 2 is tag, 3 is the date, 4 is the author's name, 5 is comments link
+		 * 1	category
+		 * 2	tag
+		 * 3	date
+		 * 4 	author's name
+		 * 5	comments
+		 * 6 	author's mugshot
+		 * 7	nickname (organization name)
+		 * 8	author short description
+		 * 9	author-social-small
 		 */
 		if ( $date || $categories_list || $author || $tag_list ) {
 			if ( $args['catpage'] ) {
@@ -113,6 +148,14 @@ if ( !function_exists('reactor_post_meta') ) {
 				if ( $meta ) {
 					$output = '<div class="entry-meta icons">' . $meta . '</div>';
 				}
+			} else if ( $args['show_photo'] && (get_the_author_meta('nickname') != 'hidden' )) {
+				$meta .= ( $author_photo && $args['show_photo'] ) ? '%5$s' : '';
+				$meta .= ( $author && $args['show_author'] ) ? '<div class="by-author">%4$s%10$s</div>' : '';
+				$meta .= ( $author_desc ) ? '%8$s' : '';
+				
+				if ( $meta ) {
+					$output = '<div class="entry-meta-author">' . __('', 'reactor') . $meta . '<div class="clear"></div></div>';
+				}
 			} else {
 				$meta .= ( $date && $args['show_date'] ) ? '%3$s ' : '';
 				$meta .= ( $author && $args['show_author'] ) ? __('by', 'reactor') . ' <span class="by-author">%4$s</span> ' : '';
@@ -124,7 +167,7 @@ if ( !function_exists('reactor_post_meta') ) {
 				}
 			}
 	
-			$post_meta = sprintf( $output, $categories_list, $tag_list, $date, $author, $comments );
+			$post_meta = sprintf( $output, $categories_list, $tag_list, $date, $author, $comments, $author, $author_photo, $nickname, $author_desc, $author_social );
 
 			echo apply_filters('reactor_post_meta', $post_meta, $defaults);
 		}

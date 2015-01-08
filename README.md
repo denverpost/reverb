@@ -49,9 +49,11 @@ Appearance -> Customize
 1. General
 	* Uncheck "Show Title & Tagline"
 2. Navigation
-	* "Top Bar Title" is not displayed (doesn't matter what it is)
+	* Set "Top Bar Title" to "Reverb"
+	* Set "Top Bar Title Link" to "http://localhost/reverb" for development, or "http://www.heyreverb.com" for production
 	* Check "Fixed Top Bar"
 	* Check "Contain Top Bar Width"
+	* Check "Enable Top Bar Search"
 3. Posts & Pages
 	* Set "Default Layout" to "One Column"
 	* Delete all text from "Read More Text" and leave blank
