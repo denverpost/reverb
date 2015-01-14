@@ -32,40 +32,43 @@ A child theme for Reactor designed for The Denver Post's HeyReverb.com music sit
 	* Select the HeyReverb page you just created under "Front page"
 	* While you're here, don't forget to set the RSS feeds to "Summary"
 
-#### Plugin settings
-
-1. Under E-Mail -> E-Mail options:
-	* Set "E-Mail Text Link Style" to Custom
-	* Set it to: `<a href="%EMAIL_URL%" rel="nofollow" title="%EMAIL_TEXT%" target="_blank">%1$s</a>`
-2. Be sure to connect Jetpack to Wordpress.com
 
 #### Theme Customizations
 
-Appearance -> Customize
+All found in **Appearance -> Customize**
 
 1. General
-	* Uncheck "Show Title & Tagline"
+	* Uncheck *Show Title & Tagline*
 2. Navigation
-	* Set "Top Bar Title" to "Reverb"
-	* Set "Top Bar Title Link" to "http://localhost/reverb" for development, or "http://www.heyreverb.com" for production
-	* Check "Fixed Top Bar"
-	* Check "Contain Top Bar Width"
-	* Check "Enable Top Bar Search"
+	* Set *Top Bar Title* to **Reverb**
+	* Set *Top Bar Title Link* to **http://localhost/reverb** for development, or **http://www.heyreverb.com** for production
+	* Check *Fixed Top Bar*
+	* Check *Contain Top Bar Width*
+	* Check *Enable Top Bar Search*
 3. Posts & Pages
-	* Set "Default Layout" to "One Column"
-	* Delete all text from "Read More Text" and leave blank
-	* Uncheck "Show Post Meta"
-	* Uncheck "Show Comment Link"
-	* Uncheck "Show Breadcrumbs"
+	* Set *Default Layout* to **One Column**
+	* Delete all text from *Read More Text* and leave blank
+	* Uncheck *Show Post Meta*
+	* Uncheck *Show Comment Link*
+	* Uncheck *Show Breadcrumbs*
 4. Fonts & Colors
-	* Set "Title Font" to "Yanone Kaffesatz"
-	* Set "Content Font" to "Vollkorn"
-	* Set link color to #EEEEEE
+	* Set *Title Font* to **Yanone Kaffesatz**
+	* Set *Content Font* to **Vollkorn**
+	* Set link color to **#EEEEEE**
 5. Front Page
-	* Check "Exclude From Blog"
-	* Set "Post Columns" to "1 Column"
-	* Check "Link Post Titles"
-	* Set "Number of Posts" to the number of tiles you want plus 1 (for top article). Initially we're using 7.
+	* Check *Exclude From Blog*
+	* Set *Post Columns* to **1 Column**
+	* Check *Link Post Titles*
+
+#### Plugin Setup
+
+1. WP-Email
+	* **E-Mail -> E-Mail Options**
+	* Set *E-Mail Text Link Style* to **Custom** and paste in `<a href="%EMAIL_URL%" rel="nofollow" title="%EMAIL_TEXT%"><span class="fi-mail">Email</span></a>`
+2. Jetpack
+	* If on beta/prod, connect Jetpack to Wordpress using the DPO account.
+
+
 
 #### Menus
 

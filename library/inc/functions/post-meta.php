@@ -170,6 +170,10 @@ if ( !function_exists('reactor_post_meta') ) {
 				    rawurlencode( get_permalink() ),
 				    urlencode( html_entity_decode($text, ENT_COMPAT, 'UTF-8') )
 				);
+				//Email this article
+				$social_dropdown .= '<li class="dropdown-social pm-email">' . email_link('','',false) . '</li>';
+				//Print
+				$social_dropdown .= '<li class="dropdown-social pm-print"><a href="javascript:window.print()"><span class="fi-print">Print</span></a></li>';
 			$social_dropdown .= '</ul></span>';
 		}
 

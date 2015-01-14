@@ -41,7 +41,7 @@ add_action('reactor_post_before', 'reactor_do_overline', 1);
  */
 function reactor_post_frontpage_format() {
 	$show_titles = reactor_option('frontpage_show_titles', 1);
-	$link_titles = reactor_option('frontpage_link_titles', 0);
+	$link_titles = reactor_option('frontpage_link_titles', 1);
 
 	$categories_list = '';
 	$categories = get_the_category();
@@ -51,22 +51,20 @@ function reactor_post_frontpage_format() {
 			$categories_list = $category->name;
 		}
 	}
-	
-	if ( is_page_template('page-templates/front-page.php') && $show_titles ) {
-		if ( has_post_thumbnail() ) {
-			$large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'large');
-		}
-		if (strlen($large_image_url[0]) >= 1) { ?>
-			<div class="frontpage-image frontpage-post" style="background-image:url('<?php echo $large_image_url[0]; ?>');">
-		<?php } else { ?>
-			<div class="frontpage-post">
-		<?php } ?>
-			<a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( __('%s', 'reactor'), the_title_attribute('echo=0') ) ); ?>" rel="bookmark">
-				<h2 class="entry-title"><span><?php echo $categories_list; ?></span><?php the_title(); ?></h2>
-			</a>
-		</div>
+
+	if ( has_post_thumbnail() ) {
+		$large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'large');
+	}
+	if (isset($large_image_url) && strlen($large_image_url[0]) >= 1) { ?>
+		<div class="frontpage-image frontpage-post" style="background-image:url('<?php echo $large_image_url[0]; ?>');">
+	<?php } else { ?>
+		<div class="frontpage-post">
+	<?php } ?>
+		<a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( __('%s', 'reactor'), the_title_attribute('echo=0') ) ); ?>" rel="bookmark">
+			<h2 class="entry-title"><span><?php echo $categories_list; ?></span><?php the_title(); ?></h2>
+		</a>
+	</div>
 <?php }
-}
 add_action('reactor_post_frontpage', 'reactor_post_frontpage_format', 1);
 
 
