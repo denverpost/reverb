@@ -15,16 +15,17 @@ $number_posts = 25;
         'post_type' => 'post',
         'posts_per_page' => $number_posts,
         'cat' => get_cat_id( single_cat_title("",false) ),
+        'paged' => get_query_var( 'paged' ),
         );
     
-    global $catpage_query; 
-    $catpage_query = new WP_Query( $args ); ?>
+    global $wp_query; 
+    $wp_query = new WP_Query( $args ); ?>
 
-    <?php if ( $catpage_query->have_posts() ) : ?>
+    <?php if ( $wp_query->have_posts() ) : ?>
     
     <?php reactor_loop_before(); ?>
     	
-        <?php while ( $catpage_query->have_posts() ) : $catpage_query->the_post(); ?>
+        <?php while ( $wp_query->have_posts() ) : $wp_query->the_post(); ?>
 			
 			<?php reactor_post_before(); ?>
 

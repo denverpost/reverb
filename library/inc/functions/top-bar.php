@@ -47,7 +47,7 @@ if ( !function_exists('reactor_top_bar') ) {
 				$output .= '<nav class="top-bar" data-topbar data-options="is_hover:true; scrolltop:false; custom_back_text:true; back_text:&laquo; Back; mobile_show_parent_link: true;' . $stickyattrib . '"">';
 					$output .= '<ul class="title-area">';
 						$output .= '<li class="name">';
-							$output .= '<p><a href="' . $args['title_url'] .'">' . $args['title'] . '</a></p>';
+							$output .= '<p><a href="' . $args['title_url'] .'"><img src="' . get_stylesheet_directory_uri() . '/images/site-logo-small-black.png" /></a></p>';
 						$output .= '</li>';
 						$output .= '<li class="toggle-topbar menu-icon"><a href="#"><span>' . $args['menu_name'] . '</span></a></li>';
 					$output .= '</ul>';

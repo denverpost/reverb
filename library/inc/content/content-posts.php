@@ -140,7 +140,7 @@ add_action('reactor_post_header', 'reactor_do_standard_header_titles', 3);
 function reactor_do_post_header_meta() {
 
 	if ( is_single() ) {
-		reactor_post_meta(array('show_cat'=>false,'show_tag'=>false,'comments'=>true,'catpage'=>true,'link_date'=>false));
+		reactor_post_meta(array('show_cat'=>false,'show_tag'=>false,'comments'=>true,'catpage'=>true,'link_date'=>false,'social_dropdown'=>true));
 	}
 }
 add_action('reactor_post_header', 'reactor_do_post_header_meta', 4);
@@ -196,6 +196,70 @@ $format = ( get_post_format() ) ? get_post_format() : 'standard';
 }
 add_action('reactor_post_footer', 'reactor_do_post_footer_title', 1);
 
+
+/**
+ * Post body social links
+ * in format-standard
+ * 
+ * @since 1.0.0
+ */
+function reactor_do_post_body_social() {
+	global $wp;
+	global $post;
+
+	$text = html_entity_decode(get_the_title());
+	if ( (is_single() || is_page() ) && has_post_thumbnail($post->ID) ) {
+		$image = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'large');
+	} else {
+		$image = get_stylesheet_directory_uri() . '/images/logo-large.png';
+	}
+	$desc = ( get_the_excerpt() != '' ? get_the_excerpt() : get_bloginfo('description') );
+	$social_string = '<div class="post-body-social"><ul class="inline-list">';
+	//Twitter button
+	$social_string .= sprintf(
+	    '<li class="post-meta-social pm-twitter"><a href="javascript:void(0)" onclick="javascript:window.open(\'http://twitter.com/share?text=%1$s&url=%2$s&via=%3$s\', \'twitwin\', \'left=20,top=20,width=500,height=500,toolbar=1,resizable=1\');"><span class="fi-social-twitter">Twitter</span></a></li>',
+	    urlencode(html_entity_decode($text, ENT_COMPAT, 'UTF-8') . ':'),
+	    rawurlencode( get_permalink() ),
+	    'rvrb'
+	);
+	//Facebook share
+	$social_string .= sprintf(
+	    '<li class="post-meta-social pm-facebook"><a href="javascript:void(0)" onclick="javascript:window.open(\'http://www.facebook.com/sharer/sharer.php?s=100&p[url]=%1$s&p[images][0]=%2$s&p[title]=%3$s&p[summary]=%4$s\', \'fbwin\', \'left=20,top=20,width=500,height=500,toolbar=1,resizable=1\');"><span class="fi-social-facebook">Facebook</span></a></li>',
+	    rawurlencode( get_permalink() ),
+	    rawurlencode( $image[0] ),
+	    urlencode( html_entity_decode($text, ENT_COMPAT, 'UTF-8') ),
+	    urlencode( html_entity_decode( $desc, ENT_COMPAT, 'UTF-8' ) )
+	);
+	//Google plus share
+	$social_string .= sprintf(
+	    '<li class="post-meta-social pm-googleplus"><a href="javascript:void(0)" onclick="javascript:window.open(\'http://plus.google.com/share?url=%1$s\', \'gpluswin\', \'left=20,top=20,width=500,height=500,toolbar=1,resizable=1\');"><span class="fi-social-google-plus">Google+</span></a></li>',
+	    rawurlencode( get_permalink() )
+	);
+	//Linkedin share
+	$social_string .= sprintf(
+	    '<li class="post-meta-social pm-linkedin"><a href="javascript:void(0)" onclick="javascript:window.open(\'http://www.linkedin.com/shareArticle?mini=true&url=%1$s&title=%2$s&source=%3$s\', \'linkedwin\', \'left=20,top=20,width=500,height=500,toolbar=1,resizable=1\');"><span class="fi-social-linkedin">LinkedIn</span></a></li>',
+	    rawurlencode( get_permalink() ),
+	    urlencode( html_entity_decode($text, ENT_COMPAT, 'UTF-8') ),
+	    rawurlencode( home_url() )
+	);
+	//Pinterest Pin This
+	$social_string .= sprintf(
+	    '<li class="post-meta-social pm-linkedin"><a href="javascript:void(0)" onclick="javascript:window.open(\'http://pinterest.com/pin/create/button/?url=%1$s&amp;media=%2$s&amp;description=%3$s\', \'pintwin\', \'left=20,top=20,width=500,height=500,toolbar=1,resizable=1\');"><span class="fi-social-pinterest">Pinterest</span></a></li>',
+	    rawurlencode( get_permalink() ),
+	    rawurlencode( $image[0] ),
+	    urlencode( html_entity_decode($text, ENT_COMPAT, 'UTF-8') )
+	);
+	//Reddit submit
+	$social_string .= sprintf(
+	    '<li class="post-meta-social pm-reddit"><a href="javascript:void(0)" onclick="javascript:window.open(\'http://www.reddit.com/submit?url=%1$s&title=%2$s\', \'redditwin\', \'left=20,top=20,width=900,height=700,toolbar=1,resizable=1\');"><span class="fi-social-reddit">Reddit</span></a></li>',
+	    rawurlencode( get_permalink() ),
+	    urlencode( html_entity_decode($text, ENT_COMPAT, 'UTF-8') )
+	);
+	$social_string .= '<div class="clear"></div></ul></div>';
+	echo $social_string;
+}
+add_action('reactor_post_footer', 'reactor_do_post_body_social', 2);
+
 /**
  * Post footer meta
  * in all formats
@@ -221,46 +285,7 @@ function reactor_do_post_footer_meta() {
 		}
 	}
 }
-add_action('reactor_post_footer', 'reactor_do_post_footer_meta', 2);
-
-/**
- * Post footer comments link 
- * in all formats
- * 
- * @since 1.0.0
- */
-function reactor_do_post_footer_comments_link() {
-	
-	if ( is_page_template('page-templates/front-page.php') ) {
-		$comments_link = reactor_option('frontpage_comment_link', 1);
-	}
-	elseif ( is_page_template('page-templates/news-page.php') ) {
-		$comments_link = reactor_option('newspage_comment_link', 1);
-	} else {
-		$comments_link = reactor_option('comment_link', 1);
-	}
-	
-	if ( comments_open() && $comments_link ) { ?>
-		<div class="comments-link">
-			<i class="icon social foundicon-chat" title="Comments"></i>
-			<?php comments_popup_link('<span class="leave-comment">' . __('Leave a Comment', 'reactor') . '</span>', __('1 Comment', 'reactor'), __('% Comments', 'reactor') ); ?>
-		</div><!-- .comments-link -->
-    <?php }
-}
-//add_action('reactor_post_footer', 'reactor_do_post_footer_comments_link', 3);
-
-/**
- * Post footer edit 
- * in single.php
- * 
- * @since 1.0.0
- */
-function reactor_do_post_edit() {
-	if ( is_single() ) {
-		edit_post_link( __('Edit', 'reactor'), '<div class="edit-link"><span>', '</span></div>');
-	}
-}
-add_action('reactor_post_footer', 'reactor_do_post_edit', 4);
+add_action('reactor_post_footer', 'reactor_do_post_footer_meta', 3);
 
 /**
  * Single post nav 

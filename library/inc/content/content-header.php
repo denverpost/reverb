@@ -68,7 +68,7 @@ function reactor_do_title_logo() { ?>
 		<div class="row" style="background-image:url('<?php echo get_stylesheet_directory_uri(); ?>/images/background.jpg');">
                 <div class="site-logo">
 					<a href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home">
-						<img src="<?php echo get_stylesheet_directory_uri(); ?>/images/site-logo.svg" alt="<?php echo esc_attr( get_bloginfo('name', 'display') ); ?> logo">
+						<img src="<?php echo get_stylesheet_directory_uri(); ?>/images/site-logo.png" alt="<?php echo esc_attr( get_bloginfo('name', 'display') ); ?> logo">
 					</a>
 				</div><!-- .site-logo -->
 				<div class="site-social right">

@@ -27,7 +27,8 @@
                     $args = array(
                         'post_type' => 'post',
                         'author'    => $curauth->ID,
-                        'posts_per_page'    => $number_posts
+                        'posts_per_page'    => $number_posts,
+                        'paged' => get_query_var( 'paged' ),
                         );
                     
                     global $authpage_query; 

@@ -16,25 +16,24 @@ $post_columns = reactor_option('frontpage_post_columns', 3);
 $page_links = reactor_option('frontpage_page_links', 0); ?>
 
 					<?php // start the loop
-					$paged = ( get_query_var('paged') ) ? get_query_var('paged') : 1;
                     $args = array( 
 						'post_type'           => 'post',
 						'cat'                 => $post_category,
 						'posts_per_page'      => $number_posts,
 						'ignore_sticky_posts' => 1,
-						'paged'               => $paged );
+						'paged'               => get_query_var( 'paged' ) );
 					
-					global $frontpage_query;
-                    $frontpage_query = new WP_Query( $args ); ?>
+					global $wp_query;
+                    $wp_query = new WP_Query( $args ); ?>
                           
-				    <?php if ( $frontpage_query->have_posts() ) : ?>
+				    <?php if ( $wp_query->have_posts() ) : ?>
                     
                     <?php reactor_loop_before(); ?>
                     
                         <?php // if more than one column use block-grid
 						if ( $post_columns != 1 ) echo '<ul class="multi-column large-block-grid-' . $post_columns . '">'; ?>
                         
-                            <?php while ( $frontpage_query->have_posts() ) : $frontpage_query->the_post(); global $more; $more = 0; ?>
+                            <?php while ( $wp_query->have_posts() ) : $wp_query->the_post(); global $more; $more = 0; ?>
                             	
                                 <?php reactor_post_before(); ?>
                                 

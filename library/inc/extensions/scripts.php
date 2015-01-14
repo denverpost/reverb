@@ -23,7 +23,6 @@ add_action('wp_enqueue_scripts', 'reactor_enqueue_scripts');
  
 function reactor_register_scripts() {
 	// register scripts
-	//wp_register_script('zepto-js', get_template_directory_uri() . '/library/js/vendor/zepto.js', array(), false, false);
 	wp_register_script('modernizr-js', get_template_directory_uri() . '/library/js/vendor/custom.modernizr.js', array(), false, false);
 	wp_register_script('foundation-js', get_template_directory_uri() . '/library/js/foundation.min.js', array(), false, true);
 	wp_register_script('reactor-js', get_template_directory_uri() . '/library/js/reactor.js', array(), false, true);

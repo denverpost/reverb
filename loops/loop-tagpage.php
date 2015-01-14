@@ -15,16 +15,17 @@ $number_posts = 25;
         'post_type' => 'post',
         'posts_per_page' => $number_posts,
         'tag_id' => get_term_by('name', single_tag_title("",false), 'post_tag' )->term_id,
+        'paged' => get_query_var( 'paged' ),
         );
     
-    global $tagpage_query; 
-    $tagpage_query = new WP_Query( $args ); ?>
+    global $wp_query; 
+    $wp_query = new WP_Query( $args ); ?>
 
-    <?php if ( $tagpage_query->have_posts() ) : ?>
+    <?php if ( $wp_query->have_posts() ) : ?>
     
     <?php reactor_loop_before(); ?>
     	
-        <?php while ( $tagpage_query->have_posts() ) : $tagpage_query->the_post(); ?>
+        <?php while ( $wp_query->have_posts() ) : $wp_query->the_post(); ?>
 			
 			<?php reactor_post_before(); ?>
 
