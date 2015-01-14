@@ -41,7 +41,7 @@ function reactor_child_theme_setup() {
 	remove_theme_support('reactor-sidebars');
 	add_theme_support(
 	   'reactor-sidebars',
-	   array('primary', 'secondary', 'front-secondary', 'footer')
+	   array('primary', 'secondary', 'front-secondary', 'footer', 'error')
 	);
 	
 	/* Support for layouts

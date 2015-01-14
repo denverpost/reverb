@@ -8,8 +8,10 @@ A child theme for Reactor designed for The Denver Post's HeyReverb.com music sit
 
 [Reactor (Customized DP version)](http://extras.denverpost.com/media/wp/reactor.zip)
 
-#### Plugins
+#### Required Plugins
 
+* [Flexible Posts Widget](https://wordpress.org/plugins/flexible-posts-widget/)
+* [SEM Author Image](https://wordpress.org/plugins/sem-author-image/)
 * [Jetpack](https://wordpress.org/plugins/jetpack/)
 * [WP-Email](https://wordpress.org/plugins/wp-email/)
 * [WP SEO](https://wordpress.org/plugins/wordpress-seo/)
@@ -29,11 +31,6 @@ A child theme for Reactor designed for The Denver Post's HeyReverb.com music sit
 2. Head to Settings -> Reading and set "Front page displays"  to "A static page"
 	* Select the HeyReverb page you just created under "Front page"
 	* While you're here, don't forget to set the RSS feeds to "Summary"
-
-#### Required Plugins
-
-* [Flexible Posts Widget](https://wordpress.org/plugins/flexible-posts-widget/)
-* [SEM Author Image](https://wordpress.org/plugins/sem-author-image/)
 
 #### Plugin settings
 

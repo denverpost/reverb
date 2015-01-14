@@ -31,6 +31,8 @@
                             <?php get_search_form(); ?>
                         </div><!-- .entry-content -->
                     </article><!-- #post-0 -->
+
+                    <?php get_sidebar('error'); ?>
             
 				<?php reactor_inner_content_after(); ?>
                 

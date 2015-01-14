@@ -263,6 +263,7 @@ body.error404 article.error404 h6.oopsies {
 	font-weight:900;
 	font-size:18em;
 	text-align:center;
+	line-height:1;
 }
 
 /* frontpage-posts */
@@ -782,6 +783,9 @@ ul#menu-footer-links li:last-child {
 	.site-social a.rss {
 		right:3%;
 	}
+	body.error404 article.error404 h6.oopsies {
+		font-size:12em;
+	}
 }
 @media (max-width:480px) {
 	.frontpage-post h2 {
@@ -815,5 +819,8 @@ ul#menu-footer-links li:last-child {
 	}
 	.site-social a.rss {
 		right:4%;
+	}
+	body.error404 article.error404 h6.oopsies {
+		font-size:10em;
 	}
 }
