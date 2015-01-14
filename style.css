@@ -414,6 +414,11 @@ body:not(.home) .entry-body h2.entry-title {
 	margin:0 0 .25em;
 	line-height:1.1;
 }
+.single header.entry-content {
+	margin-bottom: 2.5em;
+	padding-bottom:.5em;
+	border-bottom: 1px solid #ddd;
+}
 .single .entry-content figure {
 	width:100%;
 	margin:1em 0;
@@ -432,14 +437,17 @@ body:not(.home) .entry-body h2.entry-title {
 }
 .single .entry-meta-author .authorimage {
 	padding-right:1em;
-	padding-bottom:1em;
 }
 .single .entry-meta-author {
 	margin:0 10%;
+	padding:1rem;
 }
 .single .entry-meta-author p.author-desc,
 .single .entry-meta-author ul.author-social-small li {
 	font-size:1.25em;
+}
+.single .entry-meta-author ul.author-social-small {
+	margin-bottom:0;
 }
 .entry-body .entry-meta .social-dropdown-link {
 	margin-right:1em;
