@@ -219,7 +219,7 @@ function smart_trim($instring, $truncation) {
                         }
                     }
                 } else {
-                    unset($matches[$i+1]);
+                    unset($matches[$i]);
                 }
             }
         }

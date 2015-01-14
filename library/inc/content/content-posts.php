@@ -93,7 +93,9 @@ function reactor_post_catpage_format() {
 				<h2 class="entry-title"><?php the_title(); ?></h2>
 			</a>
 			<p class="catexcerpt"><?php echo smart_trim(get_the_content(),25); ?></p>
-			<?php reactor_post_meta(array('show_cat'=>false,'show_tag'=>false,'comments'=>true,'catpage'=>true,'link_date'=>false)); ?>
+			<?php 
+			$showcomments = ( is_search() ) ? false : true;
+			reactor_post_meta(array('show_cat'=>false,'show_tag'=>false,'comments'=>$showcomments,'catpage'=>true,'link_date'=>false)); ?>
 		</div>
 		<div class="clear"></div>
 	</div>

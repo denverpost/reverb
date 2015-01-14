@@ -33,7 +33,7 @@
             </div><!-- .entry-content -->
             <?php endif; ?>
             
-            <?php if ( !is_author() ) : ?>
+            <?php if ( !is_author() && !is_search() ) : ?>
                 <footer class="entry-footer">
                 	<?php reactor_post_footer(); ?>
                 </footer><!-- .entry-footer -->

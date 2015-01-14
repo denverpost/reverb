@@ -39,6 +39,14 @@ p, .top-bar li:not(.menu-item), figcaption {
 	font-size: 1.4em;
 	line-height:1.4;
 }
+button, .button {
+	background-color:#e57124;
+	border-color:#d34900;
+	transition:background-color 200ms ease-out;
+}
+button:hover, button:focus, .button:hover, .button:focus {
+	background-color:#d34900;
+}
 /* header and logo */
 div.inner-header > div.row {
 	background-repeat:no-repeat;
@@ -243,6 +251,18 @@ div.site-logo a img {
 #sidebar {
 	padding-right:0;
 	padding-left:1em;
+}
+body.search h1.page-title {
+	margin-top:0;
+	margin-bottom:1em;
+	border-bottom:1px solid #aaa;
+}
+h1 span.searchresults { font-size:.75em; color:rgba(73,73,73,1); }
+body.error404 article.error404 h6.oopsies {
+	font-family: 'Alegreya Sans', Helvetica, Arial, sans-serif;
+	font-weight:900;
+	font-size:18em;
+	text-align:center;
 }
 
 /* frontpage-posts */
