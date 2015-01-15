@@ -40,8 +40,6 @@ add_action('reactor_post_before', 'reactor_do_overline', 1);
  * @since 1.0.0
  */
 function reactor_post_frontpage_format() {
-	$show_titles = reactor_option('frontpage_show_titles', 1);
-	$link_titles = reactor_option('frontpage_link_titles', 1);
 
 	$categories_list = '';
 	$categories = get_the_category();

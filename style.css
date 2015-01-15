@@ -564,6 +564,7 @@ body.author .author-posts .entry-body h2.entry-title {
 /* pagination */
 ul.pagination li {
 	font-size:1.15em;
+	height:2.5rem;
 }
 ul.pagination li a {
 	font-weight: 700;
@@ -593,6 +594,7 @@ h4.widget-title {
 	margin-top: 0;
 }
 /* flexible posts widget */
+.widget_dpe_fp_widget h4.widget-title { display:none; }
 ul.dpe-flexible-posts {
 	list-style-type: none;
 	margin:0 0 1em;

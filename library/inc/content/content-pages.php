@@ -53,6 +53,9 @@ function reactor_do_page_links() {
 			reactor_page_links( array('query' => 'frontpage_query', 'type' => $pagination_type) );
 		}
 	}
+	elseif ( is_author() && current_theme_supports('reactor-page-links') ) {
+		reactor_page_links( array('query' => 'authpage_query', 'type' => $pagination_type, 'prev_next' => false) );
+	}
 	elseif ( is_page_template('page-templates/news-page.php') && current_theme_supports('reactor-page-links') ) {
 		reactor_page_links( array('query' => 'newspage_query', 'type' => $pagination_type) );
 	}
