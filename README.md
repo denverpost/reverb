@@ -45,7 +45,7 @@ All found in **Appearance -> Customize**
 4. Fonts & Colors
 	* Set *Title Font* to **Alegreya Sans**
 	* Set *Content Font* to **Alegreya Sans**
-5. Front Page
+5. Main Page
 	* Check *Exclude From Blog*
 	* Set *Post Columns* to **1 Column**
 	* Set *Number of Posts* to **10** or adjust as desired
@@ -84,7 +84,7 @@ Theme-based widgets, found in **Appearance -> Widgets**:
 #### Front Page
 
 1. Create a blank page called **Music news and analysis from The Denver Post**
-	* Select the template **Front Page** from the *Page Template* dropdown at right
+	* Select the template **Main Page** from the *Page Template* dropdown at right
 	* Don't put any content in the page body
 2. Head to Settings -> Reading and set *Front page displays*  to **A static page**
 	* Select the **Music news and analysis from The Denver Post** page you just created under "Front page"

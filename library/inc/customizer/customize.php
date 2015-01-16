@@ -881,9 +881,9 @@ if ( !function_exists('reactor_customize_register') ) {
 		}
 		
 		// Front Page
-		if ( in_array( 'front-page', $templates[0] ) ) {
+		if ( in_array( 'main-page', $templates[0] ) ) {
 		$wp_customize->add_section('frontpage_settings', array( 
-			'title'          => __('Front Page', 'reactor'),
+			'title'          => __('Main Page', 'reactor'),
 			'priority'       => 50,
 			'theme_supports' => 'reactor-page-templates'
 		 ) );
