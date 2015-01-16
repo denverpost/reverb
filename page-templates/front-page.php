@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Main Page
+ * Template Name: Front Page
  *
  * @package Reactor
  * @subpackge Page-Templates
