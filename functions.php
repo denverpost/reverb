@@ -100,9 +100,10 @@ function reactor_child_theme_setup() {
 
 // add a favicon to the site
 function blog_favicon() {
-	echo '<link rel="shortcut icon" type="image/x-icon" href="'.get_bloginfo('stylesheet_directory').'/images/favicon.ico" />' . "\n";
+	echo '<link rel="shortcut icon" type="image/x-icon" href="'.get_bloginfo('stylesheet_directory').'/favicon.ico" />' . "\n";
 }
 add_action('wp_head', 'blog_favicon');
+add_action('admin_head', 'blog_favicon');
 
 // Hide the Wordpress admin bar for everyone
 function my_function_admin_bar(){ return false; }
