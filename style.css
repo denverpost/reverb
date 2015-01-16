@@ -273,13 +273,13 @@ body.front-page .entry-body {
 	margin-bottom:1.5em;
 	border:none;
 }
-.frontpage-post {
+body.front-page .frontpage-post {
 	padding: 0;
 	background-size: cover;
 	background-repeat: no-repeat;
 	width: 100%;
 }
-.frontpage-post h2 {
+body.front-page .frontpage-post h2 {
 	font-family: 'Podkova', Georgia, serif;
 	font-size: 1.7em;
 	line-height:1.2;
@@ -287,13 +287,13 @@ body.front-page .entry-body {
 	color: rgba(17,17,17,1);
 	margin: 0 5%;
 }
-.frontpage-image h2 {
+body.front-page .frontpage-image h2 {
 	background-color: rgba(0,0,0,0.8);
-	color: #fff;
+	color: #fff!important;
 	width: 40%;
 	padding: 9% 3%;
 }
-.frontpage-post h2 span {
+body.front-page .frontpage-post h2 span {
 	font-family: 'Alegreya Sans', Helvetica, Arial, sans-serif;
 	text-transform: uppercase;
 	letter-spacing: .05em;
@@ -301,16 +301,16 @@ body.front-page .entry-body {
 	padding-right: 3px;
 	text-decoration: none;
 }
-.frontpage-post a:hover {
+body.front-page .frontpage-post a:hover {
 	text-decoration: none;
 }
-.frontpage-post a:hover h2 {
+body.front-page .frontpage-post a:hover h2 {
 	color: rgba(17,17,17,0.8);
 }
-.frontpage-image a:hover h2 {
+body.front-page .frontpage-image a:hover h2 {
 	color: rgba(255,255,255,0.8);
 }
-.frontpage-post h2 span:after {
+body.front-page .frontpage-post h2 span:after {
 	content:'/';
 	padding:0 .3em;
 	display:inline-block;
