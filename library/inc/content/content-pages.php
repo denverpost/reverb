@@ -50,7 +50,7 @@ function reactor_do_page_links() {
 	if ( is_page_template('page-templates/front-page.php') && current_theme_supports('reactor-page-links') ) {
 		$show_page_links = reactor_option('frontpage_page_links', 0);
 		if ( $show_page_links ) {
-			reactor_page_links( array('query' => 'frontpage_query', 'type' => $pagination_type) );
+			reactor_page_links( array('query' => 'frontpage_query', 'type' => $pagination_type, 'total' => 50) );
 		}
 	}
 	elseif ( is_author() && current_theme_supports('reactor-page-links') ) {

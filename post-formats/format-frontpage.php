@@ -10,7 +10,7 @@
 
 	<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
         <div class="entry-body">
-			<h1>IN THE FRONTPAGE FORMAT</h1>
+
         	<?php reactor_post_frontpage(); ?>
              
         </div><!-- .entry-body -->

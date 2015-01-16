@@ -20,8 +20,6 @@
                 <div class="large-6 large-push-2 medium-12 small-12 columns" id="frontpagemain">
                 
                 <?php reactor_inner_content_before(); ?>
-
-                <h1>IN THE FRONT PAGE TEMPLATE</h1>
                         
                     <?php get_template_part('loops/loop', 'frontpage'); ?>
                     
