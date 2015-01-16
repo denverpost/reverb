@@ -3,7 +3,7 @@
  * Template Name: Front Page
  *
  * @package Reactor
- * @subpackge Page-Templates
+ * @subpackage Page-Templates
  * @since 1.0.0
  */
 ?>
