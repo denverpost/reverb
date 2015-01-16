@@ -63,7 +63,7 @@ function reactor_child_theme_setup() {
 	remove_theme_support('reactor-page-templates');
 	add_theme_support(
 	   'reactor-page-templates',
-	 	array('main-page')
+	 	array('front-page')
 	);
 	
 	/* Remove support for background options in customizer */
