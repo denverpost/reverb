@@ -33,14 +33,18 @@ All found in **Appearance -> Customize**
 2. Navigation
 	* Set *Top Bar Title* to **Reverb**
 	* Set *Top Bar Title Link* to the appropriate fully-qualified URL (localhost, beta, etc.)
-	* Check *Fixed Top Bar*
+	* Uncheck *Fixed Top Bar*
+	* Check *Sticky Top Bar*
 	* Check *Contain Top Bar Width*
 	* Check *Enable Top Bar Search*
 3. Posts & Pages
 	* Set *Default Layout* to **Two Columns, Left**
 	* Delete all text from *Read More Text* and leave blank
 	* Uncheck *Show Breadcrumbs*
-4. Front Page
+4. Fonts & Colors
+	* Set *Title Font* to **Alegreya Sans**
+	* Set *Content Font* to **Alegreya Sans**
+5. Front Page
 	* Check *Exclude From Blog*
 	* Set *Post Columns* to **1 Column**
 	* Set *Number of Posts* to **10** or adjust as desired
@@ -72,6 +76,7 @@ Theme-based widgets, found in **Appearance -> Widgets**:
 		* Set *Template filename* to **Widget**
 		* Click *Save*
 	* You can add, remove or rearrange these as needed. They appear on the left edge of the home page.
+4. Activate the **Author Image** plugin
 
 ### Set up Pages
 
@@ -103,7 +108,7 @@ When adding items to menus, you can add or edit the *Navigation label* (displaye
 
 #### Top Bar menu
 
-* Must be calld **top bar**
+* Name the menu something like **Top Bar** or **Main Navigation**
 * Assign to the *Top Bar Left* position
 * Add 6 top-level categories and place sub categories beneath them as desired
 

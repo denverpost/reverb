@@ -8,9 +8,6 @@
  */
 ?>
 
-<?php // get the options
-$slider_category = reactor_option('frontpage_slider_category', ''); ?>
-
 <?php get_header(); ?>
 
 	<div id="primary" class="site-content">
@@ -23,6 +20,8 @@ $slider_category = reactor_option('frontpage_slider_category', ''); ?>
                 <div class="large-6 large-push-2 medium-12 small-12 columns" id="frontpagemain">
                 
                 <?php reactor_inner_content_before(); ?>
+
+                <h1>IN THE FRONT PAGE TEMPLATE</h1>
                         
                     <?php get_template_part('loops/loop', 'frontpage'); ?>
                     
