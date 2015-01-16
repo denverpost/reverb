@@ -29,6 +29,8 @@ A child theme for Reactor designed for The Denver Post's HeyReverb.com music sit
 All found in **Appearance -> Customize**
 
 1. General
+	* Set *Title* to **Reverb**
+	* Set *Tagline* to **Music news and analysis from Reverb**
 	* Uncheck *Show Title & Tagline*
 2. Navigation
 	* Set *Top Bar Title* to **Reverb**
@@ -39,7 +41,6 @@ All found in **Appearance -> Customize**
 	* Check *Enable Top Bar Search*
 3. Posts & Pages
 	* Set *Default Layout* to **Two Columns, Left**
-	* Delete all text from *Read More Text* and leave blank
 	* Uncheck *Show Breadcrumbs*
 4. Fonts & Colors
 	* Set *Title Font* to **Alegreya Sans**
