@@ -1,6 +1,6 @@
 <?php
 /**
- * Reactor Child Theme Functions
+ * Reverb Child Theme Functions
  *
  * @package Reactor
  * @author Anthony Wilhelm (@awshout / anthonywilhelm.com)
@@ -67,7 +67,7 @@ function reactor_child_theme_setup() {
 	);
 	
 	/* Remove support for background options in customizer */
-	// remove_theme_support('reactor-backgrounds');
+	 remove_theme_support('reactor-backgrounds');
 	
 	/* Remove support for font options in customizer */
 	// remove_theme_support('reactor-fonts');
@@ -76,7 +76,7 @@ function reactor_child_theme_setup() {
 	// remove_theme_support('reactor-custom-login');
 	
 	/* Remove support for breadcrumbs function */
-	// remove_theme_support('reactor-breadcrumbs');
+	 remove_theme_support('reactor-breadcrumbs');
 	
 	/* Remove support for page links function */
 	// remove_theme_support('reactor-page-links');
@@ -91,7 +91,7 @@ function reactor_child_theme_setup() {
 	// remove_theme_support('reactor-shortcodes');
 	
 	/* Remove support for tumblog icons */
-	// remove_theme_support('reactor-tumblog-icons');
+	 remove_theme_support('reactor-tumblog-icons');
 	
 	/* Remove support for other langauges */
 	// remove_theme_support('reactor-translation');

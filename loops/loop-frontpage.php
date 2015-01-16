@@ -34,6 +34,8 @@ $page_links = reactor_option('frontpage_page_links', 0); ?>
                     $frontpage_query = new WP_Query( $args ); ?>
                           
 				    <?php if ( $frontpage_query->have_posts() ) : ?>
+
+				    	<h1>IN THE FRONTPAGE LOOP</h1>
                     
                     <?php reactor_loop_before(); ?>
                         
