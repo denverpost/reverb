@@ -59,7 +59,7 @@ if ( !function_exists('reactor_page_links') ) {
 			$big = 999999999; // need an unlikely integer
 			$count = 0;
 			$base = str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) );
-			$total = (isset($args['total'])) ? $args['total'] : $the_query->max_num_pages;
+			$total = ( isset($args['total']) && ($args['total'] < $the_query->max_num_pages) ) ? $args['total'] : $the_query->max_num_pages;
 			$current = max( 1, get_query_var('paged'), get_query_var('page') );
 			
 			$defaults = array(
