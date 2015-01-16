@@ -651,9 +651,9 @@ ul#menu-footer-links li:last-child {
 .top-bar-section li.category-venue ul.dropdown li:not(.has-form):not(.active)>a:not(.button):hover {
 	background:#4a99d3;
 }
-ul.dpe-flexible-posts li.category-news h4 span.category-title a,
-article.category-news .frontpage-post h2 span,
-header .category-news {
+ul.dpe-flexible-posts li.category-reverb h4 span.category-title a,
+article.category-reverb .frontpage-post h2 span,
+header .category-reverb {
 	color:#781111;
 }
 ul.dpe-flexible-posts li.category-news h4 span.category-title a,
