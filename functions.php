@@ -341,4 +341,110 @@ function childtheme_disqus_development() {
 if (strpos($_SERVER['HTTP_HOST'], 'localhost') !== FALSE)
   add_action('wp_head', 'childtheme_disqus_development', 100);
 
+/* EXPERIMENTAL */
+
+define('THEME_JS', get_bloginfo('template_url') . '/js/', true);
+
+function generate_thumb($thumb){ 
+// By Matt Leyba and Jason Armour
+if (isset($thumb))
+    /*---------------Start Director Setup ------------------------*/
+    // Include DirectorAPI class file
+    include('http://www.heyreverb.com/wp-content/plugins/ssp-slideshow/classes/DirectorPHP.php');
+    $director = new Director('hosted-9c9cf54218f185433472b1e031a9b8c3', 'reverb.slideshowpro.com');
+    //echo('Connected!');
+    
+     if ($thumb != "") {
+        // Separate our comma separated list $thumb into an array
+        $thumbnaildata = explode(",", $thumb);
+    }   
+    
+    # When your application is live, it is a good idea to enable caching.
+    # You need to provide a string specific to this page and a time limit 
+    # for the cache. Note that in most cases, Director will be able to ping
+    # back to clear the cache for you after a change is made, so don't be 
+    # afraid to set the time limit to a high number.
+    $director->cache->set('10122010', '+60 minutes');
+    
+    # We can also request the album preview at a certain size
+    #$director->format->preview(array('width' => "0", 'height' => '0', 'crop' => 0, 'quality' => 85, 'sharpening' => 1));
+    $artlicleBig = array('name' => 'artlicleBig', 'width' => "610", 'height' => '384', 'crop' => 1, 'quality' => 80, 'sharpening' => 1);
+    $artlicleMed = array('name' => 'artlicleMed', 'width' => "282", 'height' => '178', 'crop' => 1, 'quality' => 80, 'sharpening' => 1);
+    $artlicleSm = array('name' => 'artlicleSm', 'width' => "150", 'height' => '150', 'crop' => 1, 'quality' => 80, 'sharpening' => 1);
+    $artlicleTh = array('name' => 'artlicleTh', 'width' => "150", 'height' => '150', 'crop' => 1, 'quality' => 80, 'sharpening' => 1);
+    $homeSlider = array('name' => 'homeSlider', 'width' => "960", 'height' => '400', 'crop' => 1, 'quality' => 95, 'sharpening' => 1);
+    $director->format->add($artlicleBig);
+    $director->format->add($artlicleMed);
+    $director->format->add($artlicleSm);
+    $director->format->add($artlicleTh);
+    $director->format->add($homeSlider);
+    /*-----------End Director Setup -----------------------------*/  
+
+    // Check to see if user wanted to use a specific image or if we should use the first one as a default
+    $x = $thumbnaildata[1] -1;
+    if ($x == -1) {
+        $x = 0;
+    }
+
+    $album = $director->album->get($thumbnaildata[0]);
+    $caption = $album->contents->content[$x]->caption;
+    $album_name = $album->name;
+    
+    /*my array of formats*/
+    $imginfo = Array (
+        'articleBig_url' => $album->contents->content[$x]->artlicleBig->url ."\" width=\"" . $album->contents->content[$x]->artlicleBig->width . "\" height=\"" . $album->contents->content[$x]->artlicleBig->height . "\" alt=\"" . $album_name . "\" /><div class=\"wp-caption\" style=\"margin-right:4px;width:610px;\"><p class=\"wp-caption-text\">".$caption."</p></div>",
+        'articleMed_url' =>  $album->contents->content[$x]->artlicleMed->url ."\" width=\"" . $album->contents->content[$x]->artlicleMed->width . "\" height=\"" . $album->contents->content[$x]->artlicleMed->height . "\" alt=\"" . $album_name . "\" /><div class=\"wp-caption\" style=\"margin-right:4px;width:282px;\"><p class=\"wp-caption-text\">".$caption."</p></div>",
+        'articleSm_url' =>  $album->contents->content[$x]->artlicleSm->url ."\" width=\"" . $album->contents->content[$x]->artlicleSm->width . "\" height=\"" . $album->contents->content[$x]->artlicleSm->height . "\" alt=\"" . $album_name . "\" />",
+        'articleTh_url' =>  $album->contents->content[$x]->artlicleTh->url ."\" width=\"" . $album->contents->content[$x]->artlicleTh->width . "\" height=\"" . $album->contents->content[$x]->artlicleTh->height . "\" alt=\"" . $album_name . "\" />",
+        'homeSlider_url' =>  $album->contents->content[$x]->homeSlider->url );
+    return $imginfo;
+}
+
+add_action('wp_print_scripts', 'enqueueMyScripts');
+function enqueueMyScripts(){
+if ( is_singular() ) {
+    wp_enqueue_script('galleriffic', THEME_JS .'jquery.galleriffic.js', array('jquery'));
+    wp_enqueue_script('history', THEME_JS .'jquery.history.js', array('jquery'));
+    wp_enqueue_script('opaicty', THEME_JS .'jquery.opacityrollover.js', array('jquery'));
+    wp_enqueue_script('gallerifficinit', THEME_JS .'init_slideshow.js', array('galleriffic'), '', true);
+    }
+
+}
+
+// comma seperated category list for ad tags
+function deeez_cats($category){
+$comma_holder = "";
+$cat_string = "";
+    foreach ($category as $categorysingle) {
+    $cat_string .= $comma_holder . '"' . $categorysingle->name . '"';
+    $comma_holder = ",";
+    }
+    return $cat_string;
+}
+
+// comma seperated category list for omniture tags
+function deeez_cats2($category){
+$space_holder = "";
+$cat_string = "";
+    foreach ($category as $categorysingle) {
+    $cat_string .= $space_holder . $categorysingle->name;
+    $space_holder = "_";
+    }
+    return $cat_string;
+}
+
+function getCatVal($num){
+    $temp=get_the_category();
+    $count=count($temp);// Getting the total number of categories the post is filed in.
+    for($i=0;$i<$num&&$i<$count;$i++){
+        //Formatting our output.
+        $cat_string.=$temp[$i]->cat_name;
+        if($i!=$num-1&&$i+1<$count)
+        //Adding a ',' if it's not the last category.
+        //You can add your own separator here.
+        $cat_string.=', ';
+    }
+    echo $cat_string;
+}
+
 ?>
