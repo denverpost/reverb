@@ -148,17 +148,41 @@ add_filter('user_contactmethods', 'modify_contact_methods');
 
 
 function extra_profile_fields( $user ) { ?>
-    <h3>About Page</h3>
+    <h3>Author Information Display</h3>
     <table class="form-table">
         <tbody>
             <tr>
                 <th>
-                    <label for="list_author_about">List on About page</label>
+                    <label for="list_author_single">Show author bio on article pages</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="list_author_single" id="list_author_single" value="true" <?php if ( esc_attr( get_the_author_meta('list_author_single', $user->ID) ) == true ) echo 'checked'; ?> />
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label for="list_author_about">Show author on About page</label>
                 </th>
                 <td>
                     <input type="checkbox" name="list_author_about" id="list_author_about" value="true" <?php if ( esc_attr( get_the_author_meta('list_author_about', $user->ID) ) == true ) echo 'checked'; ?> />
                 </td>
             </tr>
+            <tr>
+                <th>
+                    <label for="display_author_as">List author on About Page as</label>
+                </th>
+            <td>
+                <?php 
+                //get dropdown saved value
+                $selected = get_the_author_meta( 'display_author_as', $user->ID ); 
+                ?>
+                <select name="display_author_as" id="display_author_as">
+                    <option value="editor" <?php echo ($selected == "editor")?  'selected="selected"' : '' ?>>Editor</option>
+                    <option value="writer" <?php echo ($selected == "writer")?  'selected="selected"' : '' ?>>Writer</option>
+                    <option value="photographer" <?php echo ($selected == "photographer")?  'selected="selected"' : '' ?>>Photographer</option>
+                <span class="description">Simple text field</span>
+            </td>
+        </tr>
         </tbody>
     </table>
     <br />
@@ -171,6 +195,10 @@ function save_extra_profile_fields( $user_id ) {
         return false;
     if (!isset($_POST['list_author_about'])) $_POST['list_author_about'] = false;
     update_user_meta( $user_id, 'list_author_about', $_POST['list_author_about'] );
+    if (!isset($_POST['list_author_single'])) $_POST['list_author_single'] = false;
+    update_user_meta( $user_id, 'list_author_single', $_POST['list_author_single'] );
+    if (!isset($_POST['display_author_as'])) $_POST['display_author_as'] = false;
+    update_user_meta( $user_id, 'display_author_as', $_POST['display_author_as'] );
 }
 add_action( 'personal_options_update', 'save_extra_profile_fields' );
 add_action( 'edit_user_profile_update', 'save_extra_profile_fields' );

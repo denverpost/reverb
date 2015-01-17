@@ -95,10 +95,11 @@ if ( !function_exists('reactor_post_meta') ) {
 
 		$author_social = '';
 		if( $args['show_photo'] ) {
-			$author_social = sprintf('<ul class="author-social-small right inline-list">%1$s%2$s%3$s%4$s</ul>',
-	            ( get_the_author_meta('googleplus') != '' ? sprintf('<li><a href="%1$s" alt="%2$%s on Google Plus" rel="me">Google+</a></li>', get_the_author_meta('googleplus'), get_the_author() ) : '' ),            
-	            ( get_the_author_meta('facebook') != '' ? sprintf('<li><a href="%1$s" alt="%2$%s on Facebook">Facebook</a></li>', get_the_author_meta('facebook'), get_the_author() ) : '' ),
+			$author_social = sprintf('<ul class="author-social-small right inline-list">%1$s%2$s%3$s%4$s%5$s</ul>',
 	            ( get_the_author_meta('twitter') != '' ? sprintf('<li><a href="http://twitter.com/%1$s" alt="%1$s on Twitter">Twitter</a></li>', get_the_author_meta('twitter') ) : '' ),
+	            ( get_the_author_meta('facebook') != '' ? sprintf('<li><a href="%1$s" alt="%2$%s on Facebook">Facebook</a></li>', get_the_author_meta('facebook'), get_the_author() ) : '' ),
+	            ( get_the_author_meta('instagram') != '' ? sprintf('<li><a href="http://instagram.com/%1$s" alt="%1$s on Instagram">Instagram</a></li>', get_the_author_meta('instagram') ) : '' ),
+	            ( get_the_author_meta('googleplus') != '' ? sprintf('<li><a href="%1$s" alt="%2$%s on Google Plus" rel="me">Google+</a></li>', get_the_author_meta('googleplus'), get_the_author() ) : '' ),
 	            ( get_the_author_meta('email_public') != '' ? sprintf('<li><a href="mailto:%1$s" alt="Email %1$s">Email</a></li>', get_the_author_meta('email_public') ) : '' )
 			);
 		}
@@ -209,7 +210,7 @@ if ( !function_exists('reactor_post_meta') ) {
 				if ( $meta ) {
 					$output = '<div class="entry-meta icons">' . $meta . '</div>';
 				}
-			} else if ( $args['show_photo'] && (get_the_author_meta('nickname') != 'hidden' )) {
+			} else if ( $args['show_photo'] && get_the_author_meta('list_author_single') ) {
 				$meta .= ( $author_photo && $args['show_photo'] ) ? '%6$s' : '';
 				$meta .= '<div class="large-9 medium-9 small-9 columns">';
 				$meta .= ( $author && $args['show_author'] ) ? '<div class="by-author">%4$s</div>' : '';
@@ -220,7 +221,7 @@ if ( !function_exists('reactor_post_meta') ) {
 				if ( $meta ) {
 					$output = '<div class="entry-meta-author panel row collapse">' . __('', 'reactor') . $meta . '</div>';
 				}
-			} else {
+			} else if (!$args['show_photo']) {
 				$meta .= ( $date && $args['show_date'] ) ? '%3$s ' : '';
 				$meta .= ( $author && $args['show_author'] ) ? __('by', 'reactor') . ' <span class="by-author">%4$s</span> ' : '';
 				$meta .= ( $categories_list && $args['show_cat'] ) ? __('in', 'reactor') . ' %1$s' : '';

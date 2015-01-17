@@ -336,6 +336,9 @@ body:not(.home) .entry-body h2.entry-title {
 }
 
 /* single page/post */
+.single .entry-body {
+	border-bottom:none;
+}
 .single h1.entry-title {
 	font-family: 'Podkova', Georgia, serif;
 	font-weight: 700;
@@ -586,6 +589,10 @@ ul.dpe-flexible-posts {
     padding-bottom: 100%;
     position: relative;
 }
+
+/* Experimental SSP support */
+div.clearfloat { width:100%; clear:both; }
+div.navcontainer { height:125px; }
 
 /* footer styles */
 .inner-footer {    border-top: none }

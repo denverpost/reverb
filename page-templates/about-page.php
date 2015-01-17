@@ -23,41 +23,85 @@
                     <?php // get the page loop
                     get_template_part('loops/loop', 'page'); ?>
 
-                    <h2 class="about-authors-list">Our writers:</h2>
-
                     <?php $args = array(
                         'orderby'       => 'ID'
                     );
 
                     $blogauthors = get_users( $args );
 
-                    $authorsout = '<ul class="multi-column large-block-grid-2" data-match-height="">';
+                    $editorsout = $authorsout = $photogsout = '';
 
                     foreach($blogauthors as $author) {
                         if ( get_the_author_meta('list_author_about', $author->ID) == true ) {
-                            $authorsout .= '<li class="about-author">';
-                                $authorsout .= sprintf('<h2 class="about-author-title"><a class="url fn n" href="%1$s" title="%2$s" rel="author">%2$s</a></h2>',
-                                    esc_url( get_author_posts_url( $author->ID ) ),
-                                    get_the_author_meta('display_name', $author->ID)
-                                );
-                                $authorsout .= '<div class="about-author-image">';
-                                if (the_author_image_url($author->ID) !== '') {
-                                    $authorsout .= sprintf('<a class="url fn n" href="%1$s" title="%3$s"><img src="%2$s" alt="%3$s" /></a>',
+                            if ( get_the_author_meta('display_author_as', $author->ID) == 'editor' ) {
+                                $editorsout .= '<li class="about-author">';
+                                    $editorsout .= sprintf('<h2 class="about-author-title"><a class="url fn n" href="%1$s" title="%2$s" rel="author">%2$s</a></h2>',
                                         esc_url( get_author_posts_url( $author->ID ) ),
-                                        the_author_image_url($author->ID),
                                         get_the_author_meta('display_name', $author->ID)
                                     );
-                                }
-                                $authorsout .= '</div>';
-                                $author_desc = substr(get_the_author_meta('description', $author->ID),0,200);
-                                $authorsout .= '<p>' . smart_trim(get_the_author_meta('description', $author->ID),75) . '</p>';
-                            $authorsout .= '</li>';
+                                    $editorsout .= '<div class="about-author-image">';
+                                    if (the_author_image_url($author->ID) !== '') {
+                                        $editorsout .= sprintf('<a class="url fn n" href="%1$s" title="%3$s"><img src="%2$s" alt="%3$s" /></a>',
+                                            esc_url( get_author_posts_url( $author->ID ) ),
+                                            the_author_image_url($author->ID),
+                                            get_the_author_meta('display_name', $author->ID)
+                                        );
+                                    }
+                                    $editorsout .= '</div>';
+                                    $editorsout .= '<p>' . smart_trim(get_the_author_meta('description', $author->ID),30) . '</p>';
+                                $editorsout .= '</li>';
+                            }
+                            if ( get_the_author_meta('display_author_as', $author->ID) == 'writer' ) {
+                                $authorsout .= '<li class="about-author">';
+                                    $authorsout .= sprintf('<h2 class="about-author-title"><a class="url fn n" href="%1$s" title="%2$s" rel="author">%2$s</a></h2>',
+                                        esc_url( get_author_posts_url( $author->ID ) ),
+                                        get_the_author_meta('display_name', $author->ID)
+                                    );
+                                    $authorsout .= '<div class="about-author-image">';
+                                    if (the_author_image_url($author->ID) !== '') {
+                                        $authorsout .= sprintf('<a class="url fn n" href="%1$s" title="%3$s"><img src="%2$s" alt="%3$s" /></a>',
+                                            esc_url( get_author_posts_url( $author->ID ) ),
+                                            the_author_image_url($author->ID),
+                                            get_the_author_meta('display_name', $author->ID)
+                                        );
+                                    }
+                                    $authorsout .= '</div>';
+                                    $authorsout .= '<p>' . smart_trim(get_the_author_meta('description', $author->ID),30) . '</p>';
+                                $authorsout .= '</li>';
+                            }
+                            if ( get_the_author_meta('display_author_as', $author->ID) == 'photographer' ) {
+                                $photogsout .= '<li class="about-author">';
+                                    $photogsout .= sprintf('<h2 class="about-author-title"><a class="url fn n" href="%1$s" title="%2$s" rel="author">%2$s</a></h2>',
+                                        esc_url( get_author_posts_url( $author->ID ) ),
+                                        get_the_author_meta('display_name', $author->ID)
+                                    );
+                                    $photogsout .= '<div class="about-author-image">';
+                                    if (the_author_image_url($author->ID) !== '') {
+                                        $photogsout .= sprintf('<a class="url fn n" href="%1$s" title="%3$s"><img src="%2$s" alt="%3$s" /></a>',
+                                            esc_url( get_author_posts_url( $author->ID ) ),
+                                            the_author_image_url($author->ID),
+                                            get_the_author_meta('display_name', $author->ID)
+                                        );
+                                    }
+                                    $photogsout .= '</div>';
+                                    $photogsout .= '<p>' . smart_trim(get_the_author_meta('description', $author->ID),30) . '</p>';
+                                $photogsout .= '</li>';
+                            }
                         }
                     }
 
-                    $authorsout .= '</ul>';
+                    $staffdisplay = '';
+                    if ($editorsout != '') {
+                        $staffdisplay .= '<h2 class="about-authors-list">Editors:</h2><ul class="multi-column large-block-grid-2" data-match-height="">' . $editorsout . '</ul>';
+                    }
+                    if ($authorsout != '') {
+                        $staffdisplay .= '<h2 class="about-authors-list">Writers:</h2><ul class="multi-column large-block-grid-2" data-match-height="">' . $authorsout . '</ul>';
+                    }
+                    if ($photogsout != '') {
+                        $staffdisplay .= '<h2 class="about-authors-list">Photographers:</h2><ul class="multi-column large-block-grid-2" data-match-height="">' . $photogsout . '</ul>';
+                    }
 
-                    echo $authorsout;
+                    echo $staffdisplay;
                     ?>
                     
                 <?php reactor_inner_content_after(); ?>
