@@ -139,42 +139,41 @@ function modify_contact_methods($profile_fields) {
 
     // Add new fields
     $profile_fields['publication'] = 'Publication';
+    $profile_fields['instagram'] = 'Instagram username';
+    $profile_fields['email_public'] = 'Public E-mail address (displayed on site)';
 
     return $profile_fields;
 }
 add_filter('user_contactmethods', 'modify_contact_methods');
 
-// Add Photographer Name and URL fields to media uploader
-function be_attachment_field_credit( $form_fields, $post ) {
-    $form_fields['be-photographer-name'] = array(
-        'label' => 'Photographer Name',
-        'input' => 'text',
-        'value' => get_post_meta( $post->ID, 'be_photographer_name', true ),
-        'helps' => 'If provided, photo credit will be displayed',
-    );
 
-    $form_fields['be-photographer-org'] = array(
-        'label' => 'Photographer Organization',
-        'input' => 'text',
-        'value' => get_post_meta( $post->ID, 'be_photographer_org', true ),
-        'helps' => 'Add Photographer Organization',
-    );
+function extra_profile_fields( $user ) { ?>
+    <h3>About Page</h3>
+    <table class="form-table">
+        <tbody>
+            <tr>
+                <th>
+                    <label for="list_author_about">List on About page</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="list_author_about" id="list_author_about" value="true" <?php if ( esc_attr( get_the_author_meta('list_author_about', $user->ID) ) == true ) echo 'checked'; ?> />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <br />
+<?php }
+add_action( 'edit_user_profile', 'extra_profile_fields' );
+add_action( 'show_user_profile', 'extra_profile_fields' );
 
-    return $form_fields;
+function save_extra_profile_fields( $user_id ) {
+    if ( !current_user_can( 'edit_user', $user_id ) )
+        return false;
+    if (!isset($_POST['list_author_about'])) $_POST['list_author_about'] = false;
+    update_user_meta( $user_id, 'list_author_about', $_POST['list_author_about'] );
 }
-add_filter( 'attachment_fields_to_edit', 'be_attachment_field_credit', 10, 2 );
-
-// Save values of Photographer Name and URL in media uploader
-function be_attachment_field_credit_save( $post, $attachment ) {
-    if( isset( $attachment['be-photographer-name'] ) )
-        update_post_meta( $post['ID'], 'be_photographer_name', $attachment['be-photographer-name'] );
-
-    if( isset( $attachment['be-photographer-org'] ) )
-        update_post_meta( $post['ID'], 'be_photographer_org', $attachment['be-photographer-org'] );
-
-    return $post;
-}
-add_filter( 'attachment_fields_to_save', 'be_attachment_field_credit_save', 10, 2 );
+add_action( 'personal_options_update', 'save_extra_profile_fields' );
+add_action( 'edit_user_profile_update', 'save_extra_profile_fields' );
 
 // Disables automatic Wordpress core updates:
 define( 'WP_AUTO_UPDATE_CORE', false );

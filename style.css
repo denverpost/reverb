@@ -514,6 +514,16 @@ ul.pagination li a:hover {
     cursor: default;
 }
 
+/* about page */
+.about-author .about-author-image {
+    width: 20%;
+    float: left;
+    margin-right: 1em;
+}
+h2.about-authors-list { font-size: 1.6em }
+h2.about-author-title { font-size: 1.4em }
+.about-author p { font-size: 1em }
+
 /* sidebar widget styles */
 h4.widget-title {
 	font-size: 1.4em;

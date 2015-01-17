@@ -60,8 +60,9 @@
                                     <?php 
                                     $auth_tw = ( get_the_author_meta('twitter') != '' ? sprintf('<li>Twitter: <a href="http://twitter.com/%1$s" alt="%1$s on Twitter">@%1$s</a></li>', get_the_author_meta('twitter') ) : '' );
                                     $auth_fb = ( get_the_author_meta('facebook') != '' ? sprintf('<li>Facebook: <a href="%1$s" alt="%2$%s on Facebook">%2$s</a></li>', get_the_author_meta('facebook'), get_the_author() ) : '' );
+                                    $auth_ig = ( get_the_author_meta('instagram') != '' ? sprintf('<li>Instagram: <a href="http://instagram.com/%1$s" alt="%2$%s on Instagram" rel="me">%2$s</a></li>', get_the_author_meta('instagram'), get_the_author() ) : '' );
                                     $auth_gp = ( get_the_author_meta('googleplus') != '' ? sprintf('<li>Google+: <a href="%1$s" alt="%2$%s on Google Plus" rel="me">%2$s</a></li>', get_the_author_meta('googleplus'), get_the_author() ) : '' );
-                                    echo $auth_tw . $auth_fb . $auth_gp;
+                                    echo $auth_tw . $auth_fb . $auth_ig . $auth_gp;
                                     ?>
                                 </ul>
                             </div><!-- .author-description	-->

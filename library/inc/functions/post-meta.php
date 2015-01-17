@@ -107,8 +107,7 @@ if ( !function_exists('reactor_post_meta') ) {
 
 		$author_desc = '';
 		if ( !is_null(get_the_author_meta('description') ) )  {
-			$author_desc = smart_trim(get_the_author_meta('description'),30);
-			$author_desc = '<p class="author-desc">' . substr($author_desc,0,strrpos($author_desc,' ')) . '</p>';
+			$author_desc = '<p class="author-desc">' . smart_trim(get_the_author_meta('description'),30) . '</p>';
 		}
 
 		if ( 'post' == get_post_type() ) {

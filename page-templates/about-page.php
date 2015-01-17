@@ -26,8 +26,7 @@
                     <h2 class="about-authors-list">Our writers:</h2>
 
                     <?php $args = array(
-                        'orderby'       => 'ID',
-                        'who'           => 'authors'
+                        'orderby'       => 'ID'
                     );
 
                     $blogauthors = get_users( $args );
@@ -35,7 +34,7 @@
                     $authorsout = '<ul class="multi-column large-block-grid-2" data-match-height="">';
 
                     foreach($blogauthors as $author) {
-                        if (strpos(strtolower(get_user_meta($author->ID,'publication',true)),'reverb') !== false) {
+                        if ( get_the_author_meta('list_author_about', $author->ID) == true ) {
                             $authorsout .= '<li class="about-author">';
                                 $authorsout .= sprintf('<h2 class="about-author-title"><a class="url fn n" href="%1$s" title="%2$s" rel="author">%2$s</a></h2>',
                                     esc_url( get_author_posts_url( $author->ID ) ),
@@ -51,7 +50,7 @@
                                 }
                                 $authorsout .= '</div>';
                                 $author_desc = substr(get_the_author_meta('description', $author->ID),0,200);
-                                $authorsout .= '<p>' . substr($author_desc,0,strrpos($author_desc,' ')) . '...</p>';
+                                $authorsout .= '<p>' . smart_trim(get_the_author_meta('description', $author->ID),75) . '</p>';
                             $authorsout .= '</li>';
                         }
                     }
