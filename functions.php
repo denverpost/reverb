@@ -343,7 +343,7 @@ if (strpos($_SERVER['HTTP_HOST'], 'localhost') !== FALSE)
 
 /* EXPERIMENTAL */
 
-define('THEME_JS', get_bloginfo('template_url') . '/js/', true);
+define('THEME_JS', get_bloginfo('stylesheet_directory') . '/js/', true);
 
 function generate_thumb($thumb){ 
 // By Matt Leyba and Jason Armour
