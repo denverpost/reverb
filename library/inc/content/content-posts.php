@@ -314,10 +314,21 @@ add_action('reactor_post_after', 'reactor_do_nav_single', 1);
  */
 function reactor_do_post_comments() {      
 	// If comments are open or we have at least one comment, load up the comment template
-	if ( is_single() && ( comments_open() || '0' != get_comments_number() ) ) {
-		?> <div id="comments"> <?php
-		comments_template('', true);
-		?> </div> <?php
+	if ( is_single() && !is_category() && !is_tag() ) {
+		//comments_template('', true);
+		//$commentnum = ( '0' != get_comments_number() ? 'Read the comments (' . get_comments_number() . ')' : 'Show article comments');
+		$commentnum = '<a class="fi-comment radius" href="' . get_permalink() . '#disqus_thread" title="Display article comments">Add a comment</a>'
+		?>
+		<div id="comments" class="comments-area">
+        	<div id="disqus_thread"></div>
+        	<div class="showdisqus"><?php echo $commentnum; ?></div>
+		</div>
+		<div id="relatedwrap" class="noprint">
+			<h4 class="related-title widget-title noprint">Related Content</h4>
+			<div id="related-content" class="noprint"></div>
+			<div class="relatednext"></div>
+		</div>
+		<?php
 	}
 }
 add_action('reactor_post_after', 'reactor_do_post_comments', 2);

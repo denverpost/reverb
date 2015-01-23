@@ -346,7 +346,7 @@ body:not(.home) .entry-body h2.entry-title {
 	margin:0 0 .25em;
 	line-height:1.1;
 }
-.single header.entry-content {
+.single header.entry-header {
 	margin-bottom: 2.5em;
 	padding-bottom:.5em;
 	border-bottom: 1px solid #ddd;
@@ -462,6 +462,57 @@ nav.nav-single .nav-next a:hover {
 .post-body-social li.post-meta-social a span:before,
 .social-dropdown-link li.dropdown-social a span:before {
 	margin-right:.25em;
+}
+
+/* commenting and related */
+div.showdisqus a {
+    text-align: center;
+    width: 50%;
+    margin: 0 auto;
+    display: block;
+    padding: .5em 0;
+    font-size: 1.4em;
+    font-weight: 700;
+    cursor: pointer;
+    border: 1px solid #e57124;
+}
+div.showdisqus a:before {
+	margin-right:.5em;
+}
+div.showdisqus a:hover {
+    background: #f79346;
+    color: #fff;
+    cursor: default;
+}
+div.showdisqus a:before {
+	text-decoration: none;
+}
+#relatedwrap {
+    padding-top: 1em;
+    margin: 0 0 1em;
+    display: none;
+}
+#related-content div.relatednext {
+    display: inline;
+    float: left;
+    clear: both;
+    width: 100%;
+    height: 1px;
+    padding: 0;
+}
+#relatedwrap h4.related-title {
+	font-family: 'Alegreya', Georgia, serif;
+	font-weight: 900;
+    padding: .5em 0 .35em;
+    color: #e57124;
+    font-size: 1.8em;
+    margin-bottom: .5em;
+    border-bottom: 1px solid #aaa;
+}
+#relatedwrap a.sponsored {
+    color:#fff;
+    background:#e57124;
+    padding:.1em .3em;
 }
 
 /* author page */
@@ -805,6 +856,10 @@ header .category-venue {
 	}
 }
 @media (max-width:480px) {
+	div#content { padding-top:.5em; }
+	h1.archive-title, h2.archive-title {
+		font-size:1.35em;
+	}
 	.frontpage-post h2 {
 		font-size: 1.15em;
 	}
@@ -818,6 +873,12 @@ header .category-venue {
 	ul#menu-footer-links li {
 	    border-right: 1px solid #555;
 	    padding-right: .5em;
+	}
+	.single h1.entry-title {
+		font-size:1.6em;
+	}
+	.single .entry-content p {
+		margin: 0 0 1em;
 	}
 	.catpage-post p.catexcerpt {
 		display:none;
@@ -840,4 +901,28 @@ header .category-venue {
 	body.error404 article.error404 h6.oopsies {
 		font-size:10em;
 	}
+}
+@media only print { 
+    a[href]:after {    content: none !important }
+    .top-bar-container,
+    #header .inner-header div.header-banner,
+    .noprint,
+    .sidebar,
+    .entry-thumbnail,
+    div#comments,
+    div#breadcrumbs,
+    header#header,
+    #relatedwrap,
+    .single-comments-link,
+    .entry-meta-tags,
+    .entry-meta-author,
+    .archive-header,
+    .adElement,
+    .post-body-social,
+    nav.footer-links {    display: none!important; }
+    .large-8 {    width: 100% }
+	.single .entry-content p { margin: 0 0 1em; }
+    .f-topbar-fixed {    padding-top: 0!important }
+    article + nav {    display: none }
+    p, article li { font-size: .9em; line-height:1.3; }
 }

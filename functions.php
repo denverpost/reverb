@@ -146,7 +146,7 @@ function modify_contact_methods($profile_fields) {
 }
 add_filter('user_contactmethods', 'modify_contact_methods');
 
-
+// Add options to user interface for profile display
 function extra_profile_fields( $user ) { ?>
     <h3>Author Information Display</h3>
     <table class="form-table">
