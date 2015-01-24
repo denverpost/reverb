@@ -765,7 +765,7 @@ header .category-venue {
 	}
 }
 
-@media (min-width:1024px) {
+@media (min-width:1025px) {
 	.top-bar-section ul.right { width:25%; }
 	.top-bar-section ul.left { width:75%; }
 	.fixed .top-bar-section ul.left { width:65%; }
@@ -863,6 +863,9 @@ header .category-venue {
 	.frontpage-post h2 {
 		font-size: 1.15em;
 	}
+	.fixed .top-bar-section .has-dropdown > a:after {
+		right:-5%;
+	}
 	.site-header .site-logo {
 		width:40%;
 	}
@@ -874,14 +877,38 @@ header .category-venue {
 	    border-right: 1px solid #555;
 	    padding-right: .5em;
 	}
+	.single header.entry-header {
+		margin-bottom:1.5em;
+		padding-bottom:.25em;
+	}
 	.single h1.entry-title {
-		font-size:1.6em;
+		font-size:1.9em;
 	}
 	.single .entry-content p {
 		margin: 0 0 1em;
 	}
-	.catpage-post p.catexcerpt {
+	.single .entry-meta-author ul.author-social-small li,
+	nav.nav-single .nav-next a,
+	.entry-body .entry-meta {
+		font-size: 1em;
+	}
+	.entry-body .entry-header .entry-meta span.comments { display:none; }
+	p, .top-bar li:not(.menu-item), figcaption {
+		font-size: 1.2em;
+	}
+	.catpage-post p.catexcerpt,
+	.post-body-social .pm-reddit,
+	.post-body-social .pm-pinterest,
+	.single .entry-meta-author p.author-desc {
 		display:none;
+	}
+	div.showdisqus a {
+		width:90%;
+		font-size: 1.1em;
+	}
+	#comments {
+		padding-top:1.5em;
+		padding-bottom: 1.5em;
 	}
 	.site-social a {
 		width:8%;

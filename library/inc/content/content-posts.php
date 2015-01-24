@@ -242,7 +242,7 @@ function reactor_do_post_body_social() {
 	);
 	//Pinterest Pin This
 	$social_string .= sprintf(
-	    '<li class="post-meta-social pm-linkedin"><a href="javascript:void(0)" onclick="javascript:window.open(\'http://pinterest.com/pin/create/button/?url=%1$s&amp;media=%2$s&amp;description=%3$s\', \'pintwin\', \'left=20,top=20,width=500,height=500,toolbar=1,resizable=1\');"><span class="fi-social-pinterest">Pinterest</span></a></li>',
+	    '<li class="post-meta-social pm-pinterest"><a href="javascript:void(0)" onclick="javascript:window.open(\'http://pinterest.com/pin/create/button/?url=%1$s&amp;media=%2$s&amp;description=%3$s\', \'pintwin\', \'left=20,top=20,width=500,height=500,toolbar=1,resizable=1\');"><span class="fi-social-pinterest">Pinterest</span></a></li>',
 	    rawurlencode( get_permalink() ),
 	    rawurlencode( $image[0] ),
 	    urlencode( html_entity_decode($text, ENT_COMPAT, 'UTF-8') )
