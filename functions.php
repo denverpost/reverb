@@ -369,7 +369,48 @@ function childtheme_disqus_development() {
 if (strpos($_SERVER['HTTP_HOST'], 'localhost') !== FALSE)
   add_action('wp_head', 'childtheme_disqus_development', 100);
 
-/* EXPERIMENTAL */
+function rvrb_add_excerpts_to_pages() {
+    add_post_type_support( 'page', 'excerpt' );
+}
+add_action( 'init', 'rvrb_add_excerpts_to_pages' );
+
+/* an ad that can be pulled in my the front-page loop */
+function rvrb_infinite_ad_widget($iteration) {
+    echo '
+        <!-- ##ADPLACEMENT## -->
+        <div id="cube' . $iteration . '_reverb" style="margin:0 auto;text-align:center;">
+        <script>
+        if ( $(window).width() >= 300 && $(window).width() < 480 ) {
+            googletag.defineSlot(\'/8013/denverpost.com/Entertainment\', [300,250], \'cube1_reverb\').setTargeting(\'pos\',[\'Cube1_RRail_ATF\']).setTargeting(\'kv\', \'reverb\').addService(googletag.pubads());
+            googletag.pubads().enableSyncRendering();
+            googletag.enableServices();
+        }
+        </script>';
+}
+
+/**
+ * Add theme support for infinity scroll
+ */
+function rvrb_infinite_scroll_render() {
+    echo '<h1>RENDERING!</h1>';
+    get_template_part('loops/loop', 'frontpage');
+}
+
+function rvrb_infinite_scroll_init() {
+    add_theme_support( 'infinite-scroll', array(
+        'container'         => 'frontpagemain',
+        'render'            => 'rvrb_infinite_scroll_render',
+        'footer'            => false,
+        'posts_per_page'    => 10,
+        'footer_widget'     => false,
+        'type'              => 'scroll',
+    ) );
+}
+add_action( 'after_setup_theme', 'rvrb_infinite_scroll_init', 20 );
+
+
+
+/* EXPERIMENTAL SLIDESHOW PRO SUPPORT STUFF */
 
 define('THEME_JS', get_bloginfo('stylesheet_directory') . '/js/', true);
 
@@ -436,7 +477,6 @@ if ( is_singular() ) {
     wp_enqueue_script('opaicty', THEME_JS .'jquery.opacityrollover.js', array('jquery'));
     wp_enqueue_script('gallerifficinit', THEME_JS .'init_slideshow.js', array('galleriffic'), '', true);
     }
-
 }
 
 // comma seperated category list for ad tags

@@ -27,13 +27,14 @@ $temp_auth = '';
 $temp_gplus = '';
 $ogtype = 'blog';
 $twitter_desc   = '';
-if ( is_single() || is_page() ) {
+if ( is_singular() ) {
     $twitter_thumbs = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'full');
     $temp_post = get_post($post->ID);
     $temp_auth = get_the_author_meta('twitter', $post->post_author);
     $temp_gplus = get_the_author_meta('googleplus', $post->post_author);
     $ogtype = 'article';
     $twitter_desc = strip_tags(get_the_excerpt());
+    echo get_the_excerpt() . ' THE EXCERTP!!!!!!';
     $twitter_desc = convert_smart_quotes(htmlentities($twitter_desc, ENT_QUOTES, 'UTF-8'));
 }
 $twitter_url    = get_permalink();
@@ -55,7 +56,7 @@ echo $google_authorship;
 <meta name="twitter:creator" content="<?php echo $twitter_creator; ?>" />
 
 <meta property="fb:app_id" content="589548971098932"/>
-<meta property="og:title" content="<?php if ( is_single() ) { wp_title(); } else { get_bloginfo('name'); } ?>" />
+<meta property="og:title" content="<?php if ( is_singular() ) { wp_title(); } else { echo get_bloginfo('name') . ' - ' . get_bloginfo('description'); } ?>" />
 <meta property="og:type" content="<?php echo $ogtype; ?>" />
 <meta property="og:url" content="<?php echo get_permalink() ?>" />
 <meta property="og:image" content="<?php echo $twitter_thumb; ?>" />
