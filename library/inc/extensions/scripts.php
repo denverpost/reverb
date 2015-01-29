@@ -35,6 +35,7 @@ function reactor_register_scripts() {
 	wp_register_script('outbrain-js', '//widgets.outbrain.com/outbrain.js', array(), false, true);
 	wp_register_script('related-js', get_stylesheet_directory_uri() . '/library/js/related.js', array(), false, true);
 	wp_register_script('gads-js', '//www.googletagservices.com/tag/js/gpt.js', array(), false, false);
+	wp_register_script('jquery-infinite', get_stylesheet_directory_uri() . '/library/js/jquery.infinitescroll.min.js', array(), false, true);
 }
 
 function reactor_enqueue_scripts() {
@@ -53,7 +54,12 @@ function reactor_enqueue_scripts() {
 		wp_enqueue_script('outbrain-js');
 		wp_enqueue_script('related-js');
 		wp_enqueue_script('gads-js');
-		
+
+		//enqueue on front page
+		if ( is_front_page() ) {
+			wp_enqueue_script('jquery-infinite');
+		}
+
 		// enqueue quicksand on portfolio page template
 		if ( is_page_template('page-templates/portfolio.php') ) {
 			wp_enqueue_script('mixitup-js');

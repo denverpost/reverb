@@ -267,6 +267,14 @@ body.front-page .entry-body {
 	padding:0 .3em;
 	display:inline-block;
 }
+#infscr-loading {
+	text-align:center;
+	color:#555;
+	font-size:1.2em;
+}
+#infscr-loading img {
+	width:5%;
+}
 
 /* category page styles */
 h1.archive-title, h2.archive-title {
@@ -927,6 +935,70 @@ header .category-venue {
 	}
 	body.error404 article.error404 h6.oopsies {
 		font-size:10em;
+	}
+	article:not(:first-child) div.frontpage-image {
+		background:none!important;
+	}
+	article:not(:first-child) div.frontpage-image div.front-thumbnail {
+	    width: 25%;
+	    float:left;
+	    position: relative;
+	    margin:0 1em 1.5em 0;
+	}
+	article:not(:first-child) div.frontpage-image div.front-thumbnail div.front-img {
+	    width: 100%;
+	    height: 100%;
+	    background-size: cover;
+	    background-repeat: no-repeat;
+	    background-position: center center;
+	    display: block;
+	    position: absolute;
+	    top: 0;
+	    left: 0;
+	}
+	article:not(:first-child) div.frontpage-image div.front-thumbnail div.front-imgholder {
+	    width: 100%;
+	    height: 0;
+	    padding-bottom: 100%;
+	    position: relative;
+	}
+	article:not(:first-child) .frontpage-post h2 {
+		font-size:1.25em;
+		text-align:left;
+		padding:0 .5em 0 0;
+		margin:0;
+	}
+	article:not(:first-child) div.frontpage-image h2 {
+		margin:0 0 0 30%;	
+	}
+	article:not(:first-child) .frontpage-post h2 span {
+		display:block;
+		clear:right;
+		padding-bottom:.25em;
+	}
+	article:not(:first-child) .frontpage-post h2 span:after {
+		content:'';
+	}
+	article:not(:first-child) .frontpage-image h2 {
+		width:70%;
+		color:rgba(17,17,17,0.8);
+		background:none;
+	}
+	article:not(:first-child) .frontpage-image a:hover h2 {
+		color:rgba(17,17,17,0.8);
+	}
+	article:not(:first-child) .frontpage-image a:hover {
+		text-decoration: underline;
+	}
+	#frontpagemain article {
+		clear:both;
+	}
+	body.front-page #sidebar,
+	body.front-page #sidebar-frontpage-2 {
+		display:none;
+	}
+	#infscr-loading img {
+		width:10%;
 	}
 }
 @media only print { 

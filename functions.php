@@ -389,25 +389,28 @@ function rvrb_infinite_ad_widget($iteration) {
 }
 
 /**
- * Add theme support for infinity scroll
+ * Infinite Scroll
  */
-function rvrb_infinite_scroll_render() {
-    echo '<h1>RENDERING!</h1>';
-    get_template_part('loops/loop', 'frontpage');
+function custom_infinite_scroll_js() {
+    if ( is_front_page() ) { ?>
+    <script type="text/javascript">
+    var infinite_scroll = {
+        loading: {
+            img: "<?php echo get_stylesheet_directory_uri(); ?>/images/ajax-loader.gif",
+            msgText: "<?php _e( 'Loading more posts...', 'custom' ); ?>",
+            finishedMsg: "<?php _e( 'All posts loaded.', 'custom' ); ?>"
+        },
+        "nextSelector":"ul.pagination li a.next",
+        "navSelector":"ul.pagination",
+        "itemSelector":"article",
+        "contentSelector":"#frontpagemain"
+    };
+    jQuery( infinite_scroll.contentSelector ).infinitescroll( infinite_scroll );
+    </script>
+    <?php
+    }
 }
-
-function rvrb_infinite_scroll_init() {
-    add_theme_support( 'infinite-scroll', array(
-        'container'         => 'frontpagemain',
-        'render'            => 'rvrb_infinite_scroll_render',
-        'footer'            => false,
-        'posts_per_page'    => 10,
-        'footer_widget'     => false,
-        'type'              => 'scroll',
-    ) );
-}
-add_action( 'after_setup_theme', 'rvrb_infinite_scroll_init', 20 );
-
+add_action( 'wp_footer', 'custom_infinite_scroll_js',100 );
 
 
 /* EXPERIMENTAL SLIDESHOW PRO SUPPORT STUFF */
@@ -489,6 +492,7 @@ $cat_string = "";
     }
     return $cat_string;
 }
+
 
 // comma seperated category list for omniture tags
 function deeez_cats2($category){

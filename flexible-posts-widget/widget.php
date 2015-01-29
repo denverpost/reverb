@@ -13,7 +13,7 @@ if ( !empty($title) )
 	echo $before_title . $title . $after_title;
 
 if( $flexible_posts->have_posts() ):
-	$catquery = get_term_by('slug',$flexible_posts->query['tax_query'][0]['terms'][0],'category');
+	$catquery = get_term_by('id',$flexible_posts->query['tax_query'][0]['terms'][0],'category');
 ?>
 	<ul class="dpe-flexible-posts">
 	<?php while( $flexible_posts->have_posts() ) : $flexible_posts->the_post(); global $post; ?>
