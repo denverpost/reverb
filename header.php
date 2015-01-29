@@ -11,7 +11,7 @@
 <!--[if ( IE 8 )&!( IEMobile )]><html <?php language_attributes(); ?> class="no-js lt-ie9"><![endif]-->
 <!--[if gt IE 8]><!--> <html <?php language_attributes(); ?> class="no-js"><!--<![endif]-->
 
-<head profile="http://gmpg.org/xfn/11">
+<head>
 <?php
 
 function convert_smart_quotes($string)  { 
@@ -44,6 +44,8 @@ $twitter_creator = ( ($temp_auth != '') && is_single() ) ? '@' . $temp_auth : '@
 echo ( ($temp_gplus != '') && is_single() ) ? '<link rel="author" href="' . $temp_gplus . '" />' : '<link rel="publisher" href="http://plus.google.com/100931264054788579031" />';
 ?>
 
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:url" content="<?php echo $twitter_url; ?>" />
 <meta name="twitter:title" content="<?php echo $twitter_title; ?>" />
@@ -62,17 +64,19 @@ echo ( ($temp_gplus != '') && is_single() ) ? '<link rel="author" href="' . $tem
 <meta property="og:description" content="<?php echo $twitter_desc; ?>" />
 <meta property="article:publisher" content="http://www.facebook.com/heyreverb" />
 
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <?php if ( !is_singular() ) { ?>
   <!-- <meta http-equiv="refresh" content="1800"> -->
 <?php } ?>
-<meta name="distribution" content="global" />
+<meta name="dcterms.audience" content="Global" />
 <?php echo ( (get_post_meta(get_the_ID(), 'sponsored_link', true) != '') ? '<meta name="Googlebot-News" content="noindex,follow">' : '' ); ?>
 <meta name="robots" content="follow, all" />
-<meta name="language" content="en, sv" />
-<meta name="Copyright" content="Copyright &copy; The Denver Post." />
+
+<meta name="dcterms.rightsHolder" content="The Denver Post" />
+<meta name="dcterms.rights" content="All content copyright The Denver Post or other copyrighth holders. All rights reserved." />
+<meta name="dcterms.dateCopyrighted" content="<?php echo date_i18n('Y'); ?>" />
+
 <meta name="description" content="<?php echo $twitter_desc; ?>" />
-<meta name="news_keywords" content="colorado, reviews, <?php
+<meta name="news_keywords" content="colorado, reviews, music<?php
 $GLOBALS['rel_art'] = '';
 if (has_tag() ) {
     $posttags = get_the_tags();
@@ -80,10 +84,10 @@ if (has_tag() ) {
         $GLOBALS['rel_art'] .= ', ' . $tag->name;
     }
     echo $GLOBALS['rel_art'];
-    } ?>, music" />
-<meta name="keywords" content="colorado, reviews, <?php
+    } ?>" />
+<meta name="keywords" content="colorado, reviews, music<?php
     echo $GLOBALS['rel_art'];
-    ?>, music" />
+    ?>" />
 
 <!-- WordPress head -->
 <?php wp_head(); ?>
@@ -172,14 +176,14 @@ if ( is_category() ) {
 
 <div id="omniture">
 <!-- SiteCatalyst code version: H.17 Copyright 1997-2005 Omniture, Inc. More info available at http://www.omniture.com -->
-  <script language="JavaScript"><!--//
+  <script type="text/javascript"><!--//
           /* Specify the Report Suite ID(s) to track here */
           var s_account= dfm.api("data","omnitureAccount");
     //--></script>
   <!-- Replaced SiteCatalystCode_H_22_1.js with SiteCatalystCode_H_22_1_NC.js -->
-  <script type="text/javascript" language="JavaScript" src='http://extras.mnginteractive.com/live/js/omniture/SiteCatalystCode_H_22_1_NC.js'></script>
-  <script type="text/javascript" language="JavaScript" src='http://extras.mnginteractive.com/live/js/omniture/OmniUserObjAndHelper.js'></script>
-  <script language="JavaScript"><!--
+  <script type="text/javascript" src='http://extras.mnginteractive.com/live/js/omniture/SiteCatalystCode_H_22_1_NC.js'></script>
+  <script type="text/javascript" src='http://extras.mnginteractive.com/live/js/omniture/OmniUserObjAndHelper.js'></script>
+  <script type="text/javascript"><!--
 
           //Local Variables
           var contentId = dfm.api("data","contentId");
@@ -315,10 +319,10 @@ if ( is_category() ) {
   <script type="text/javascript"><!--//
         var s_code=s.t();if(s_code)document.write(s_code);
     //--></script>
-  <script language="JavaScript"><!--
+  <script type="text/javascript"><!--
         if(navigator.appVersion.indexOf('MSIE')>=0)document.write(unescape('%3C')+'\!-'+'-');
     //--></script>
-    <noscript><img src="http://NeBnr.112.2O7.net/b/ss/NeBnr/1/H.17--NS/0" height="0" width="0" border="0" alt="" style="margin:0;padding:0;" /></noscript>
+    <noscript><img src="http://NeBnr.112.2O7.net/b/ss/NeBnr/1/H.17--NS/0" height="0" width="0" alt="" style="margin:0;padding:0;" /></noscript>
     <!-- End SiteCatalyst code version: H.17 -->
 </div>
 
@@ -336,7 +340,7 @@ if ( is_category() ) {
         
         <?php reactor_header_after(); ?>
 
-        <div class="adElement clearfloat" id="adPosition1" align="center" style="clear:both;">
+        <div class="adElement clearfloat" id="adPosition1" style="clear:both;text-align:center;">
             <!-- begin DFP Premium Ad Tag -->
             <div id='sbb_reverb'>
                 <script type='text/javascript'>

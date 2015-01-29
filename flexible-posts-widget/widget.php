@@ -18,7 +18,6 @@ if( $flexible_posts->have_posts() ):
 	<ul class="dpe-flexible-posts">
 	<?php while( $flexible_posts->have_posts() ) : $flexible_posts->the_post(); global $post; ?>
 		<li id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-			<a href="<?php echo the_permalink(); ?>">
 				<?php
 					if( $thumbnail == true ) {
 						// If the post has a feature image, show it
@@ -33,7 +32,6 @@ if( $flexible_posts->have_posts() ):
 					<?php } ?>
 				<?php } ?>
 				<h4 class="title cat-<?php echo $catquery->slug; ?>"><span class="category-title"><a href="<?php echo get_category_link(intval($catquery->term_id)); ?>" title="<?php echo $catquery->name; ?>"><?php echo $catquery->name; ?></a></span><a href="<?php the_permalink(); ?>" rel="bookmark" class="title-link" title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a></h4>
-			</a>
 		</li>
 	<?php endwhile; ?>
 	</ul><!-- .dpe-flexible-posts -->
