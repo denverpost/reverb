@@ -39,18 +39,18 @@ if ( is_singular() ) {
 $twitter_url    = get_permalink();
 $twitter_title  = get_the_title();
 $twitter_thumb = ( ($twitter_thumbs != '') ? $twitter_thumbs[0] : get_stylesheet_directory_uri() . '/images/facebooklogo600.jpg' );
-$twitter_user_id = ( ($temp_post != '') && ! is_front_page() ) ? $temp_post->post_author : '@RVRB';
-$twitter_creator = ( ($temp_auth != '') && ! is_front_page() ) ? '@' . $temp_auth : '@RVRB';
-echo ( ($temp_gplus != '') && ! is_front_page() ) ? '<link rel="author" href="' . $temp_gplus . '" />' : '<link rel="publisher" href="http://plus.google.com/100931264054788579031" />';
+$twitter_user_id = ( ($temp_post != '') && is_single() ) ? $temp_post->post_author : '@RVRB';
+$twitter_creator = ( ($temp_auth != '') && is_single() ) ? '@' . $temp_auth : '@RVRB';
+echo ( ($temp_gplus != '') && is_single() ) ? '<link rel="author" href="' . $temp_gplus . '" />' : '<link rel="publisher" href="http://plus.google.com/100931264054788579031" />';
 ?>
 
-<meta name="twitter:card" value="summary" />
-<meta name="twitter:url" value="<?php echo $twitter_url; ?>" />
-<meta name="twitter:title" value="<?php echo $twitter_title; ?>" />
-<meta name="twitter:description" value="<?php echo $twitter_desc; ?>" />
-<meta name="twitter:image" value="<?php echo $twitter_thumb; ?>" />
-<meta name="twitter:site" value="@RVRB" />
-<meta name="twitter:domain" value="heyreverb.com" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:url" content="<?php echo $twitter_url; ?>" />
+<meta name="twitter:title" content="<?php echo $twitter_title; ?>" />
+<meta name="twitter:description" content="<?php echo $twitter_desc; ?>" />
+<meta name="twitter:image" content="<?php echo $twitter_thumb; ?>" />
+<meta name="twitter:site" content="@RVRB" />
+<meta name="twitter:domain" content="heyreverb.com" />
 <meta name="twitter:creator" content="<?php echo $twitter_creator; ?>" />
 
 <meta property="fb:app_id" content="589548971098932"/>
@@ -63,7 +63,7 @@ echo ( ($temp_gplus != '') && ! is_front_page() ) ? '<link rel="author" href="' 
 <meta property="article:publisher" content="http://www.facebook.com/heyreverb" />
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<?php if ( !is_single() || !is_page() ) { ?>
+<?php if ( !is_singular() ) { ?>
   <!-- <meta http-equiv="refresh" content="1800"> -->
 <?php } ?>
 <meta name="distribution" content="global" />
