@@ -34,16 +34,14 @@ if ( is_singular() ) {
     $temp_gplus = get_the_author_meta('googleplus', $post->post_author);
     $ogtype = 'article';
     $twitter_desc = strip_tags(get_the_excerpt());
-    echo get_the_excerpt() . ' THE EXCERTP!!!!!!';
-    $twitter_desc = convert_smart_quotes(htmlentities($twitter_desc, ENT_QUOTES, 'UTF-8'));
+    $twitter_desc = ($twitter_desc != '') ? convert_smart_quotes(htmlentities($twitter_desc, ENT_QUOTES, 'UTF-8')) : get_bloginfo('description');
 }
 $twitter_url    = get_permalink();
 $twitter_title  = get_the_title();
 $twitter_thumb = ( ($twitter_thumbs != '') ? $twitter_thumbs[0] : get_stylesheet_directory_uri() . '/images/facebooklogo600.jpg' );
-$twitter_user_id = ( ($temp_post != '') ? $temp_post->post_author : '@RVRB' );
-$twitter_creator = ( ($temp_auth != '') ? '@' . $temp_auth : '@RVRB' );
-$google_authorship = ( ($temp_gplus != '') ? '<link rel="author" href="' . $temp_gplus . '" />' : '<link rel="publisher" href="http://plus.google.com/100931264054788579031" />' );
-echo $google_authorship;
+$twitter_user_id = ( ($temp_post != '') && ! is_front_page() ) ? $temp_post->post_author : '@RVRB';
+$twitter_creator = ( ($temp_auth != '') && ! is_front_page() ) ? '@' . $temp_auth : '@RVRB';
+echo ( ($temp_gplus != '') && ! is_front_page() ) ? '<link rel="author" href="' . $temp_gplus . '" />' : '<link rel="publisher" href="http://plus.google.com/100931264054788579031" />';
 ?>
 
 <meta name="twitter:card" value="summary" />
@@ -73,6 +71,7 @@ echo $google_authorship;
 <meta name="robots" content="follow, all" />
 <meta name="language" content="en, sv" />
 <meta name="Copyright" content="Copyright &copy; The Denver Post." />
+<meta name="description" content="<?php echo $twitter_desc; ?>" />
 <meta name="news_keywords" content="colorado, reviews, <?php
 $GLOBALS['rel_art'] = '';
 if (has_tag() ) {
@@ -82,6 +81,9 @@ if (has_tag() ) {
     }
     echo $GLOBALS['rel_art'];
     } ?>, music" />
+<meta name="keywords" content="colorado, reviews, <?php
+    echo $GLOBALS['rel_art'];
+    ?>, music" />
 
 <!-- WordPress head -->
 <?php wp_head(); ?>
