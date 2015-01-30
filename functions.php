@@ -376,16 +376,7 @@ add_action( 'init', 'rvrb_add_excerpts_to_pages' );
 
 /* an ad that can be pulled in my the front-page loop */
 function rvrb_infinite_ad_widget($iteration) {
-    echo '
-        <!-- ##ADPLACEMENT## -->
-        <div id="cube' . $iteration . '_reverb" style="margin:0 auto;text-align:center;">
-        <script>
-        if ( $(window).width() >= 300 && $(window).width() < 480 ) {
-            googletag.defineSlot(\'/8013/denverpost.com/Entertainment\', [300,250], \'cube1_reverb\').setTargeting(\'pos\',[\'Cube1_RRail_ATF\']).setTargeting(\'kv\', \'reverb\').addService(googletag.pubads());
-            googletag.pubads().enableSyncRendering();
-            googletag.enableServices();
-        }
-        </script>';
+    echo '<div class="inline-cube-ad"><iframe src="' . get_stylesheet_directory_uri() . '/ad.html" style="margin:1em auto;width:300px;height:250px;overflow:hidden;border:none;"></iframe></div>';
 }
 
 /**
@@ -403,9 +394,12 @@ function custom_infinite_scroll_js() {
         "nextSelector":"ul.pagination li a.next",
         "navSelector":"ul.pagination",
         "itemSelector":"article",
-        "contentSelector":"#frontpagemain"
+        "contentSelector":"#frontpagemain",
+        "bufferPx":80
     };
-    jQuery( infinite_scroll.contentSelector ).infinitescroll( infinite_scroll );
+    jQuery( infinite_scroll.contentSelector ).infinitescroll( infinite_scroll, function(newElements) {
+            jQuery( infinite_scroll.contentSelector ).append('<div class="inline-cube-ad"><iframe src="<?php echo get_stylesheet_directory_uri(); ?>/ad.html" style="margin:1em auto;width:300px;height:250px;overflow:hidden;border:none;"></iframe></div>');
+        });
     </script>
     <?php
     }

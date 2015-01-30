@@ -33,16 +33,20 @@ $page_links = reactor_option('frontpage_page_links', 0); ?>
 					global $frontpage_query;
                     $frontpage_query = new WP_Query( $args ); ?>
                           
-				    <?php if ( $frontpage_query->have_posts() ) : ?>
+				    <?php if ( $frontpage_query->have_posts() ) : $i=0; ?>
                     
                     <?php reactor_loop_before(); ?>
                         
-                        <?php while ( $frontpage_query->have_posts() ) : $frontpage_query->the_post(); global $more; $more = 0; ?>
+                        <?php while ( $frontpage_query->have_posts() ) : $frontpage_query->the_post(); global $more; $more = 0; $i++; ?>
                         	
                             <?php reactor_post_before(); ?>
                                 
                                 <?php // display frontpage post format
-								get_template_part('post-formats/format', 'frontpage'); ?>
+								get_template_part('post-formats/format', 'frontpage'); 
+
+								if ( $i == 5 || $i == 15 ) {
+									rvrb_infinite_ad_widget($post->ID);
+								} ?>
                             
                             <?php reactor_post_after(); ?>
 

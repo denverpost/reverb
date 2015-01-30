@@ -43,17 +43,14 @@ $twitter_user_id = ( ($temp_post != '') && is_single() ) ? $temp_post->post_auth
 $twitter_creator = ( ($temp_auth != '') && is_single() ) ? '@' . $temp_auth : '@RVRB';
 echo ( ($temp_gplus != '') && is_single() ) ? '<link rel="author" href="' . $temp_gplus . '" />' : '<link rel="publisher" href="http://plus.google.com/100931264054788579031" />';
 ?>
-
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-
-<meta name="twitter:card" content="summary" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@RVRB" />
+<meta name="twitter:creator" content="<?php echo $twitter_creator; ?>" />
 <meta name="twitter:url" content="<?php echo $twitter_url; ?>" />
 <meta name="twitter:title" content="<?php echo $twitter_title; ?>" />
 <meta name="twitter:description" content="<?php echo $twitter_desc; ?>" />
-<meta name="twitter:image" content="<?php echo $twitter_thumb; ?>" />
-<meta name="twitter:site" content="@RVRB" />
+<meta name="twitter:image:src" content="<?php echo $twitter_thumb; ?>" />
 <meta name="twitter:domain" content="heyreverb.com" />
-<meta name="twitter:creator" content="<?php echo $twitter_creator; ?>" />
 
 <meta property="fb:app_id" content="589548971098932"/>
 <meta property="og:title" content="<?php if ( is_singular() ) { wp_title(); } else { echo get_bloginfo('name') . ' - ' . get_bloginfo('description'); } ?>" />

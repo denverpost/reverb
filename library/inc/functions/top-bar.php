@@ -9,13 +9,72 @@
  * @license GNU General Public License v2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  */
 
+if ( !function_exists('reactor_top_bar_social') ) {
+	function reactor_top_bar_social() {
+		if ( is_singular() ) {
+			$social_dropdown = '';
+			$text = html_entity_decode(get_the_title());
+			if ( has_post_thumbnail() ) {
+				$image = wp_get_attachment_image_src( get_post_thumbnail_id(), 'large');
+			} else {
+				$image = get_stylesheet_directory_uri() . '/images/logo-large.png';
+			}
+			$desc = ( get_the_excerpt() != '' ? get_the_excerpt() : get_bloginfo('description') );
+			$social_dropdown_link = '<a href="javascript:void(0);" aria-controls="socialdrop" aria-expanded="false" data-dropdown="topbarsocialdrop"><span class="fi-share social-dropdown-link"></span></a>';
+			$social_dropdown .= '<ul id="topbarsocialdrop" class="tiny content f-dropdown" data-dropdown-content>';
+			//Twitter button
+			$social_dropdown .= sprintf(
+			    '<li class="dropdown-social pm-twitter"><a href="javascript:void(0)" onclick="javascript:window.open(\'http://twitter.com/share?text=%1$s&url=%2$s&via=%3$s\', \'twitwin\', \'left=20,top=20,width=500,height=500,toolbar=1,resizable=1\');"><span class="fi-social-twitter">Twitter</span></a></li>',
+			    urlencode(html_entity_decode($text, ENT_COMPAT, 'UTF-8') . ':'),
+			    rawurlencode( get_permalink() ),
+			    'rvrb'
+			);
+			//Facebook share
+			$social_dropdown .= sprintf(
+			    '<li class="dropdown-social pm-facebook"><a href="javascript:void(0)" onclick="javascript:window.open(\'http://www.facebook.com/sharer/sharer.php?s=100&p[url]=%1$s&p[images][0]=%2$s&p[title]=%3$s&p[summary]=%4$s\', \'fbwin\', \'left=20,top=20,width=500,height=500,toolbar=1,resizable=1\');"><span class="fi-social-facebook">Facebook</span></a></li>',
+			    rawurlencode( get_permalink() ),
+			    rawurlencode( $image[0] ),
+			    urlencode( html_entity_decode($text, ENT_COMPAT, 'UTF-8') ),
+			    urlencode( html_entity_decode( $desc, ENT_COMPAT, 'UTF-8' ) )
+			);
+			//Google plus share
+			$social_dropdown .= sprintf(
+			    '<li class="dropdown-social pm-googleplus"><a href="javascript:void(0)" onclick="javascript:window.open(\'http://plus.google.com/share?url=%1$s\', \'gpluswin\', \'left=20,top=20,width=500,height=500,toolbar=1,resizable=1\');"><span class="fi-social-google-plus">Google+</span></a></li>',
+			    rawurlencode( get_permalink() )
+			);
+			//Linkedin share
+			$social_dropdown .= sprintf(
+			    '<li class="dropdown-social pm-linkedin"><a href="javascript:void(0)" onclick="javascript:window.open(\'http://www.linkedin.com/shareArticle?mini=true&url=%1$s&title=%2$s&source=%3$s\', \'linkedwin\', \'left=20,top=20,width=500,height=500,toolbar=1,resizable=1\');"><span class="fi-social-linkedin">LinkedIn</span></a></li>',
+			    rawurlencode( get_permalink() ),
+			    urlencode( html_entity_decode($text, ENT_COMPAT, 'UTF-8') ),
+			    rawurlencode( home_url() )
+			);
+			//Pinterest Pin This
+			$social_dropdown .= sprintf(
+			    '<li class="dropdown-social pm-linkedin"><a href="javascript:void(0)" onclick="javascript:window.open(\'http://pinterest.com/pin/create/button/?url=%1$s&amp;media=%2$s&amp;description=%3$s\', \'pintwin\', \'left=20,top=20,width=500,height=500,toolbar=1,resizable=1\');"><span class="fi-social-pinterest">Pinterest</span></a></li>',
+			    rawurlencode( get_permalink() ),
+			    rawurlencode( $image[0] ),
+			    urlencode( html_entity_decode($text, ENT_COMPAT, 'UTF-8') )
+			);
+			//Reddit submit
+			$social_dropdown .= sprintf(
+			    '<li class="dropdown-social pm-reddit"><a href="javascript:void(0)" onclick="javascript:window.open(\'http://www.reddit.com/submit?url=%1$s&title=%2$s\', \'redditwin\', \'left=20,top=20,width=900,height=700,toolbar=1,resizable=1\');"><span class="fi-social-reddit">Reddit</span></a></li>',
+			    rawurlencode( get_permalink() ),
+			    urlencode( html_entity_decode($text, ENT_COMPAT, 'UTF-8') )
+			);
+			$social_dropdown .= '</ul>';
+			return array($social_dropdown_link,$social_dropdown);
+		}
+	}
+}
+
 if ( !function_exists('reactor_top_bar') ) {
 	function reactor_top_bar( $args = '' ) {
 
 		$defaults = array(
 			'title'      => get_bloginfo('name'),
 			'title_url'  => home_url(),
-			'menu_name'  => 'Menu',
+			'menu_name'  => '',
 			'left_menu'  => 'reactor_top_bar_l',
 			'right_menu' => 'reactor_top_bar_r',
 			'fixed'      => false,
@@ -31,6 +90,8 @@ if ( !function_exists('reactor_top_bar') ) {
 		/* call functions to create right and left menus in the top bar. defaults to the registered menus for top bar */
         $left_menu = ( ( $args['left_menu'] && is_callable( $args['left_menu'] ) ) ) ? call_user_func( $args['left_menu'], (array) $args ) : '';
         $right_menu = ( ( $args['right_menu'] && is_callable( $args['right_menu'] ) ) ) ? call_user_func( $args['right_menu'], (array) $args ) : '';
+
+        $social_dropdown = reactor_top_bar_social();
 		
 		// assemble classes for top bar
 		$classes = array(); $output = '';
@@ -49,6 +110,7 @@ if ( !function_exists('reactor_top_bar') ) {
 						$output .= '<li class="name">';
 							$output .= '<p><a href="' . $args['title_url'] .'"><img src="' . get_stylesheet_directory_uri() . '/images/site-logo-small-black.png" alt="Reverb site logo" /></a></p>';
 						$output .= '</li>';
+						$output .= '<li class="toggle-social menu-icon">' . $social_dropdown[0] . '</li>';
 						$output .= '<li class="toggle-topbar menu-icon"><a href="#"><span>' . $args['menu_name'] . '</span></a></li>';
 					$output .= '</ul>';
 					$output .= '<section class="top-bar-section">';
@@ -57,6 +119,7 @@ if ( !function_exists('reactor_top_bar') ) {
 					$output .= '</section>';
 				$output .= '</nav>';
 			$output .= '</div>';
+			$output .= $social_dropdown[1];
 			
 		echo apply_filters('reactor_top_bar', $output, $args);	
 	    }
