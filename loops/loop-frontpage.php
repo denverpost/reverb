@@ -44,7 +44,7 @@ $page_links = reactor_option('frontpage_page_links', 0); ?>
                                 <?php // display frontpage post format
 								get_template_part('post-formats/format', 'frontpage'); 
 
-								if ( $i == 5 || $i == 15 ) {
+								if ( $i % 5 == 0 ) {
 									rvrb_infinite_ad_widget($post->ID);
 								} ?>
                             
