@@ -12,7 +12,6 @@
                 return window.document.compatMode === "CSS1Compat" && docElemProp || body && body.clientWidth || docElemProp;
             }
             var windowWidthNow = windowWidth();
-            console.log(windowWidthNow);
             if ( windowWidthNow >= 300 && windowWidthNow <= 540 ) {
                 googletag.defineSlot('/8013/denverpost.com/Entertainment', [300,250], 'cube2_reverb').setTargeting('pos',['Cube2_RRail_mid']).setTargeting('kv', 'reverb').addService(googletag.pubads());
                     googletag.pubads().enableSyncRendering();
