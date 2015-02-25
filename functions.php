@@ -366,7 +366,7 @@ function childtheme_disqus_development() {
 <?php }
 
 // only enable this if the server is a .dev domain name
-if (strpos($_SERVER['HTTP_HOST'], 'localhost') !== FALSE)
+if ( strpos($_SERVER['HTTP_HOST'], 'localhost') !== FALSE )
   add_action('wp_head', 'childtheme_disqus_development', 100);
 
 function rvrb_add_excerpts_to_pages() {
@@ -405,6 +405,40 @@ function custom_infinite_scroll_js() {
     }
 }
 add_action( 'wp_footer', 'custom_infinite_scroll_js',100 );
+
+/**
+ * Widget Custom Classes
+ */
+function rvrb_widget_form_extend( $instance, $widget ) {
+    if ( !isset($instance['classes']) )
+    $instance['classes'] = null;
+    $row = "<p>\n";
+    $row .= "\t<label for='widget-{$widget->id_base}-{$widget->number}-classes'>Class:\n";
+    $row .= "\t<input type='text' name='widget-{$widget->id_base}[{$widget->number}][classes]' id='widget-{$widget->id_base}-{$widget->number}-classes' class='widefat' value='{$instance['classes']}'/>\n";
+    $row .= "</label>\n";
+    $row .= "</p>\n";
+    echo $row;
+    return $instance;
+}
+add_filter('widget_form_callback', 'rvrb_widget_form_extend', 10, 2);
+
+function rvrb_widget_update( $instance, $new_instance ) {
+    $instance['classes'] = $new_instance['classes'];
+        return $instance;
+    }
+add_filter( 'widget_update_callback', 'rvrb_widget_update', 10, 2 );
+
+function rvrb_dynamic_sidebar_params( $params ) {
+    global $wp_registered_widgets;
+    $widget_id    = $params[0]['widget_id'];
+    $widget_obj    = $wp_registered_widgets[$widget_id];
+    $widget_opt    = get_option($widget_obj['callback'][0]->option_name);
+    $widget_num    = $widget_obj['params'][0]['number'];
+    if ( isset($widget_opt[$widget_num]['classes']) && !empty($widget_opt[$widget_num]['classes']) )
+        $params[0]['before_widget'] = preg_replace( '/class="/', "class=\"{$widget_opt[$widget_num]['classes']} ", $params[0]['before_widget'], 1 );
+    return $params;
+}
+add_filter( 'dynamic_sidebar_params', 'rvrb_dynamic_sidebar_params' );
 
 
 /* EXPERIMENTAL SLIDESHOW PRO SUPPORT STUFF */

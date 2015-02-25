@@ -658,7 +658,8 @@ ul.dpe-flexible-posts {
 }
 
 div.inline-cube-ad {
-	display:none;
+	width:100%;
+	text-align:center;
 }
 
 /* Experimental SSP support */
@@ -887,10 +888,6 @@ header .category-venue {
 	}
 }
 @media (max-width:540px) {
-	div.inline-cube-ad {
-		width:100%;
-		text-align:center;
-	}
 	div#content { padding-top:.5em; }
 	h1.archive-title, h2.archive-title {
 		font-size:1.35em;
@@ -927,7 +924,7 @@ header .category-venue {
 	.entry-body .entry-meta {
 		font-size: 1.1em;
 	}
-	.entry-body .entry-header .entry-meta span.comments { display:none; }
+	.entry-body .entry-header .entry-meta span.social-dropdown-link { display:none; }
 	p, .top-bar li:not(.menu-item), figcaption {
 		font-size: 1.2em;
 	}
