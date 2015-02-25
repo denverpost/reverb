@@ -662,35 +662,6 @@ div.inline-cube-ad {
 	text-align:center;
 }
 
-/* Experimental SSP support */
-div.clearfloat { width:100%; clear:both; }
-div.navcontainer { height:125px; }
-
-/* footer styles */
-.inner-footer {    border-top: none }
-#colophon p {
-	font-size: 1em;
-	font-weight: 700;
-}
-footer#footer {
-    background: #d0d5c7;
-    color: #444;
-    margin-top:1em;
-}
-footer#footer a {    color: #222 }
-ul#menu-footer-links li {
-    border-right: 1px solid #555;
-    padding-right: .5em;
-}
-ul#menu-footer-links li a {
-	font-size: 1.25em;
-	font-weight: 700;
-}
-ul#menu-footer-links li:last-child {
-    border-right: none;
-    padding-right: 0;
-}
-
 /* category-based colors */
 .top-bar-section li.category-news:not(.has-form) a:not(.button),
 .top-bar-section li.category-news ul.dropdown li:not(.has-form):not(.active)>a:not(.button) {
