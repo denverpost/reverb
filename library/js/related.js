@@ -9,10 +9,10 @@ var outbrain_callback = function(json) {
 	var firstTime = ( $j('#related-ul').length ? false : true);
 	var dataSuccess = false;
 
-	var resultstring = ( firstTime ? '<ul id="related-ul" class="multi-column large-block-grid-3 medium-block-grid-2">' : '' );
+	var resultstring = ( firstTime )? '<ul id="related-ul" class="multi-column large-block-grid-3 medium-block-grid-2">' : '';
 
-	$j.each(json.doc,function(index,value) {
-		var nofollow = ( !value.same_source ? ' rel="nofollow"' : '' );
+	$j.each( json.doc, function( index, value ) {
+		var nofollow = ( !value.same_source ) ? ' rel="nofollow"' : '';
 		resultstring += '<li class="relatedli">';
 			resultstring += '<article class="post type-post status-publish format-standard hentry related">';
         		resultstring += '<div class="entry-body">';
@@ -38,12 +38,12 @@ var outbrain_callback = function(json) {
     			resultstring += '<div class="clear"></div>';
 			resultstring += '</article>';
 		resultstring += '</li>';
-		dataSuccess = ( value.content.length ? true : false );
+		dataSuccess = ( value.content.length ) ? true : false;
 	});
 	
-	resultstring += ( firstTime ? '</ul>' : '' );
+	resultstring += ( firstTime ) ? '</ul>' : '';
 
-	if (resultstring.length && dataSuccess) {
+	if ( resultstring.length && dataSuccess ) {
 		if ( firstTime ) {
 			$j('#relatedwrap').css('display', 'block');
 			$j('#related-content').html(resultstring);

@@ -560,6 +560,35 @@ body.author .author-posts .entry-body h2.entry-title {
 	font-size:1.3em;
 }
 
+/* article related */
+#relatedwrap {
+    padding-top: 1em;
+    margin: 0 0 1em;
+    border-top: 1px solid #ddd;
+    display: none;
+}
+#relatedwrap #related-content li a.sponsored {
+    color:#fff;
+    padding:0 .35em;
+    font-weight:400;
+}
+#related-content div.relatednext {
+    display: inline;
+    float: left;
+    clear: both;
+    width: 100%;
+    height: 1px;
+    padding: 0;
+}
+#relatedwrap h4.related-title {
+    padding: -2em .625em;
+    font-size: 1.5em;
+    margin-bottom: .5em;
+}
+#relatedwrap a.sponsored {
+    padding:.1em .3em;
+}
+
 /* photo galleries */
 div.photo-gallery {
 	left:0;
