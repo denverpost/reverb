@@ -561,6 +561,27 @@ body.author .author-posts .entry-body h2.entry-title {
 }
 
 /* article related */
+#relatedwrap .entry-body div.entry-thumbnail {
+	width: 100%;
+	position: relative;
+}
+#relatedwrap .entry-body div.entry-thumbnail div.mainimgholder {
+	width: 100%;
+	height: 0;
+	padding-bottom: 65%;
+	position: relative;
+}
+#relatedwrap .entry-body div.entry-thumbnail div.mainimg {
+	width: 100%;
+	height: 100%;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center;
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
 #relatedwrap {
     padding-top: 1em;
     margin: 0 0 1em;
