@@ -588,6 +588,15 @@ body.author .author-posts .entry-body h2.entry-title {
     border-top: 1px solid #ddd;
     display: none;
 }
+#relatedwrap #related-content li .entry-category .entry-meta a {
+	font-weight:bold;
+}
+#relatedwrap #related-content li h2.entry-title {
+	font-size:1.5em;
+}
+#relatedwrap #related-content li a {
+	color:#333;
+}
 #relatedwrap #related-content li a.sponsored {
     color:#fff;
     padding:0 .35em;
