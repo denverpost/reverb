@@ -629,13 +629,13 @@ div.photo-gallery .carousel-control {
 	background:none;
 	background-color:rgba(0,0,0,0);
 	font-size:6em;
-	color:rgba(255,255,255,0.85);
+	color:rgba(255,255,255,0.65);
 }
 div.photo-gallery .left.carousel-control {
 	left:0;
 }
 div.photo-gallery .right.carousel-control {
-	left:0;
+	right:0;
 }
 div.photo-gallery .carousel-control:before, div.photo-gallery .carousel-control.left:before, div.photo-gallery .carousel-control.right:before, div.photo-gallery .carousel-control:after, div.photo-gallery .carousel-control.left:after, div.photo-gallery .carousel-control.right:after {
 	border: none!important;
