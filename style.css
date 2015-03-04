@@ -47,6 +47,8 @@ button, .button {
 button:hover, button:focus, .button:hover, .button:focus {
 	background-color:#d34900;
 }
+img#wpstats{display:none}
+
 /* header and logo */
 div.inner-header > div.row {
 	background-repeat:no-repeat;
@@ -594,7 +596,7 @@ body.author .author-posts .entry-body h2.entry-title {
 #relatedwrap #related-content li h2.entry-title {
 	font-size:1.5em;
 }
-#relatedwrap #related-content li a {
+#relatedwrap #related-content li h2.entry-title a {
 	color:#333;
 }
 #relatedwrap #related-content li a.sponsored {
@@ -821,6 +823,8 @@ article.category-venue .frontpage-post h2 span,
 header .category-venue {
 	color:#2a79b3;
 }
+
+body.home footer#footer { display: none; }
 
 @media (max-width:76em) {
 	#frontpageleft {
