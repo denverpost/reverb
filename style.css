@@ -824,6 +824,8 @@ header .category-venue {
 	color:#2a79b3;
 }
 
+#colophon { text-align:right; font-size:.8em; }
+
 body.home footer#footer { display: none; }
 
 @media (max-width:76em) {
