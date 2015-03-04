@@ -36,7 +36,7 @@ a:hover, a:focus {
 p, .top-bar li:not(.menu-item), figcaption {
 	font-family: 'Alegreya Sans', Helvetica, Arial, sans-serif;
 	font-weight: 400;
-	font-size: 1.4em;
+	font-size: 1.25em;
 	line-height:1.4;
 }
 button, .button {
@@ -282,7 +282,7 @@ body.front-page .entry-body {
 h1.archive-title, h2.archive-title {
 	font-family: 'Alegreya', Georgia, serif;
 	font-weight: 900;
-	font-size: 3em;
+	font-size: 1.75em;
 	line-height:1;
 	padding-bottom:.25em;
 	border-bottom:1px solid #aaa;
@@ -311,7 +311,7 @@ h2.archive-title {
 body:not(.home) .entry-body h2.entry-title {
 	font-family: 'Podkova', Georgia, serif;
 	font-weight: 700;
-	font-size: 2.5em;
+	font-size: 2em;
 	line-height:1.1;
 	color: #000;
 	margin:0 0 .25em;
@@ -324,7 +324,8 @@ body:not(.home) .entry-body h2.entry-title {
 	color: #888;
 }
 .entry-body .entry-meta {
-	font-size:1.2em;
+	font-size:1.1em;
+	margin-bottom:0;
 }
 .entry-body .entry-meta .by-author:after {
 	content:'\2219';
@@ -352,7 +353,7 @@ body:not(.home) .entry-body h2.entry-title {
 .single h1.entry-title {
 	font-family: 'Podkova', Georgia, serif;
 	font-weight: 700;
-	font-size: 3.5em;
+	font-size: 2.5em;
 	margin:0 0 .25em;
 	line-height:1.1;
 }
@@ -386,7 +387,7 @@ body:not(.home) .entry-body h2.entry-title {
 }
 .single .entry-meta-author p.author-desc,
 .single .entry-meta-author ul.author-social-small li {
-	font-size:1.25em;
+	font-size:1.1em;
 }
 .single .entry-meta-author ul.author-social-small {
 	margin-bottom:0;
@@ -395,7 +396,7 @@ body:not(.home) .entry-body h2.entry-title {
 	margin-right:1em;
 }
 .entry-body .entry-meta .social-dropdown-link ul li.dropdown-social {
-	font-size:1.3em;
+	font-size:1.1em;
 	color:rgba(73,73,73,1);
 }
 nav.nav-single {
@@ -556,10 +557,25 @@ h2.author-posts-title {
 	border-bottom: 1px solid #e57124;
 }
 body.author .author-posts .entry-body h2.entry-title {
-	font-size:1.5em;
+	font-size:1.3em;
+}
+
+/* photo galleries */
+div.photo-gallery {
+	left:0;
+}
+div.photo-gallery .carousel-control {
+	background:none;
+	background-color:rgba(0,0,0,0);
+	font-size:4em;
+	color:rgba(255,255,255,0.85);
+}
+div.photo-gallery a, div.photo-gallery a:active {
+	color:rgba(255,255,255,0.85)!important;
 }
 
 /* pagination */
+body.home ul.pagination { display: none; }
 ul.pagination li {
 	font-size:1.15em;
 	height:2.5rem;
@@ -861,7 +877,7 @@ header .category-venue {
 @media (max-width:540px) {
 	div#content { padding-top:.5em; }
 	h1.archive-title, h2.archive-title {
-		font-size:1.35em;
+		font-size:1.2em;
 	}
 	.frontpage-post h2 {
 		font-size: 1.15em;
@@ -885,7 +901,7 @@ header .category-venue {
 		padding-bottom:.25em;
 	}
 	.single h1.entry-title {
-		font-size:1.9em;
+		font-size:1.45em;
 	}
 	.single .entry-content p {
 		margin: 0 0 1em;
@@ -897,7 +913,7 @@ header .category-venue {
 	}
 	.entry-body .entry-header .entry-meta span.social-dropdown-link { display:none; }
 	p, .top-bar li:not(.menu-item), figcaption {
-		font-size: 1.2em;
+		font-size: 1.1em;
 	}
 	.catpage-post p.catexcerpt,
 	.post-body-social .pm-reddit,
