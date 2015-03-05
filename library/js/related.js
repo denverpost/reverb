@@ -49,6 +49,7 @@ var outbrain_callback = function(json) {
 			$j('#related-content').html(resultstring);
 		} else {
 			$j('#related-ul').append(resultstring);
+			$j(document).foundation('equalizer', 'reflow');
 		}
 		$j('div.relatednext').bind('inview', function(event, visible) {
 			if (visible) {
