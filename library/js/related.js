@@ -9,7 +9,7 @@ var outbrain_callback = function(json) {
 	var firstTime = ( $j('#related-ul').length ? false : true);
 	var dataSuccess = false;
 
-	var resultstring = ( firstTime )? '<ul id="related-ul" class="multi-column large-block-grid-3 medium-block-grid-2" data-equalizer>' : '';
+	var resultstring = ( firstTime )? '<ul id="related-ul" class="multi-column large-block-grid-3 medium-block-grid-2 small-block-grid-2" data-equalizer>' : '';
 
 	$j.each( json.doc, function( index, value ) {
 		var nofollow = ( !value.same_source ) ? ' rel="nofollow"' : '';

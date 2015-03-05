@@ -47,7 +47,13 @@ button, .button {
 button:hover, button:focus, .button:hover, .button:focus {
 	background-color:#d34900;
 }
-img#wpstats{display:none}
+img#wpstats{ display:none; }
+div.clear {
+	width:100%;
+	display:block;
+	height:0;
+	clear:both;
+}
 
 /* header and logo */
 div.inner-header > div.row {
@@ -313,7 +319,7 @@ h2.archive-title {
 body:not(.home) .entry-body h2.entry-title {
 	font-family: 'Podkova', Georgia, serif;
 	font-weight: 700;
-	font-size: 2em;
+	font-size: 1.75em;
 	line-height:1.1;
 	color: #000;
 	margin:0 0 .25em;
@@ -321,7 +327,7 @@ body:not(.home) .entry-body h2.entry-title {
 .entry-body p.catexcerpt {
 	font-family: 'Alegreya Sans', Helvetica, Arial, sans-serif;
 	font-weight: 400;
-	font-size: 1.5em;
+	font-size: 1.35em;
 	line-height:1.3;
 	color: #888;
 }
@@ -953,11 +959,17 @@ body.home footer#footer { display: none; }
 	body.error404 article.error404 h6.oopsies {
 		font-size:12em;
 	}
+	#relatedwrap #related-content li h2.entry-title {
+	    font-size: 1.25em;
+	}
+	body:not(.home) .entry-body h2.entry-title {
+		font-size:1.4em;
+	}
 }
 @media (max-width:540px) {
 	div#content { padding-top:.5em; }
 	h1.archive-title, h2.archive-title {
-		font-size:1.2em;
+		font-size:1.5em;
 	}
 	.frontpage-post h2 {
 		font-size: 1.15em;
@@ -991,7 +1003,8 @@ body.home footer#footer { display: none; }
 	.entry-body .entry-meta {
 		font-size: 1.1em;
 	}
-	.entry-body .entry-header .entry-meta span.social-dropdown-link { display:none; }
+	.entry-body .entry-header .entry-meta span.social-dropdown-link,
+	.entry-body .entry-header .entry-meta span.comments { display:none; }
 	p, .top-bar li:not(.menu-item), figcaption {
 		font-size: 1.1em;
 	}
