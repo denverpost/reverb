@@ -9,7 +9,7 @@ var outbrain_callback = function(json) {
 	var firstTime = ( $j('#related-ul').length ? false : true);
 	var dataSuccess = false;
 
-	var resultstring = ( firstTime )? '<ul id="related-ul" class="multi-column large-block-grid-3 medium-block-grid-2 small-block-grid-2" data-equalizer>' : '';
+	var resultstring = ( firstTime )? '<ul id="related-ul" class="multi-column large-block-grid-3 medium-block-grid-2 small-block-grid-2">' : '';
 
 	$j.each( json.doc, function( index, value ) {
 		var nofollow = ( !value.same_source ) ? ' rel="nofollow"' : '';
@@ -30,7 +30,7 @@ var outbrain_callback = function(json) {
 								resultstring += '<a href="' + value.url +'" title="' + value.source_name + '"' + (!value.same_source ? ' class="sponsored"' : '') + '>' + value.source_name + '</a>';
 								resultstring += '</div>';
 							resultstring += '</div>';
-							resultstring += '<h2 class="entry-title" data-equalizer-watch>';
+							resultstring += '<h2 class="entry-title">';
 								resultstring += '<a href="' + value.url + '" title="' + value.content + '"' + nofollow + '>' + value.content + '</a>';
 							resultstring += '</h2>';
 						resultstring += '</header>';
@@ -49,7 +49,6 @@ var outbrain_callback = function(json) {
 			$j('#related-content').html(resultstring);
 		} else {
 			$j('#related-ul').append(resultstring);
-			$j(document).foundation('equalizer', 'reflow');
 		}
 		$j('div.relatednext').bind('inview', function(event, visible) {
 			if (visible) {

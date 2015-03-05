@@ -30,11 +30,6 @@ function showDisqusComments() {
 
 //Disqus button reveal
 $j(document).ready(function() {
-  $j(document).foundation({
-        equalizer: {
-            equalize_on_stack: true
-        }
-    });
 	var checkHash = location.hash;
 	if (checkHash == '#disqus_thread' || checkHash == '#comments') {
 		showDisqusComments();
