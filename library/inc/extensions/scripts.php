@@ -26,6 +26,7 @@ function reactor_register_scripts() {
 	wp_register_script('modernizr-js', get_template_directory_uri() . '/library/js/vendor/custom.modernizr.js', array(), false, false);
 	wp_register_script('jqueryui', '//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js', array(), false, false);
 	wp_register_script('foundation-js', get_template_directory_uri() . '/library/js/foundation.min.js', array(), false, true);
+	wp_register_script('equalizer-js', get_stylesheet_directory_uri() . '/library/js/foundation.equalizer.js', array(), false, true);
 	wp_register_script('reactor-js', get_template_directory_uri() . '/library/js/reactor.js', array(), false, true);
 	wp_register_script('mixitup-js', get_template_directory_uri() . '/library/js/mixitup.min.js', array(), false, true);
 	//Added DJS
@@ -46,6 +47,7 @@ function reactor_enqueue_scripts() {
 		wp_enqueue_script('modernizr-js');
 		wp_enqueue_script('jqueryui');
 		wp_enqueue_script('foundation-js');
+		wp_enqueue_script('equalizer-js');
 		wp_enqueue_script('reactor-js');
 		//Added DJS
 		wp_enqueue_script('dfmcore-js');
