@@ -527,16 +527,6 @@ div.showdisqus a:before {
     margin: 0 0 1em;
     display: none;
 }
-#relatedwrap .single header.entry-header {
-	margin-bottom: none;
-	padding-bottom: none;
-	border-bottom: none;
-}
-#relatedwrap li.relatedli {
-	margin-bottom: 2.5em;
-	padding-bottom: .5em;
-	border-bottom: 1px solid #ddd;
-}
 #related-content div.relatednext {
     display: inline;
     float: left;

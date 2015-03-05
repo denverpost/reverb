@@ -13,7 +13,7 @@ var outbrain_callback = function(json) {
 
 	$j.each( json.doc, function( index, value ) {
 		var nofollow = ( !value.same_source ) ? ' rel="nofollow"' : '';
-		resultstring += '<li class="relatedli" data-equalizer-watch>';
+		resultstring += '<li class="relatedli">';
 			resultstring += '<article class="post type-post status-publish format-standard hentry related">';
         		resultstring += '<div class="entry-body">';
             		resultstring += '<header class="entry-header">';
@@ -30,7 +30,7 @@ var outbrain_callback = function(json) {
 								resultstring += '<a href="' + value.url +'" title="' + value.source_name + '"' + (!value.same_source ? ' class="sponsored"' : '') + '>' + value.source_name + '</a>';
 								resultstring += '</div>';
 							resultstring += '</div>';
-							resultstring += '<h2 class="entry-title">';
+							resultstring += '<h2 class="entry-title" data-equalizer-watch>';
 								resultstring += '<a href="' + value.url + '" title="' + value.content + '"' + nofollow + '>' + value.content + '</a>';
 							resultstring += '</h2>';
 						resultstring += '</header>';
