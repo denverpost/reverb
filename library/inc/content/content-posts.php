@@ -305,7 +305,7 @@ function reactor_do_nav_single() {
             <?php //previous_post_link('%link', '<span class="meta-nav">' . _x('&larr;', 'Previous post link', 'reactor') . '</span> %title', false, $exclude); ?>
             </span> -->
             <span class="nav-next">
-            <?php next_post_link('%link', 'Next story: %title', false, $exclude); ?>
+            <?php next_post_link('%link', 'Up next: %title', false, $exclude); ?>
             </span>
         </nav><!-- .nav-single -->
 <?php }
