@@ -527,7 +527,7 @@ div.showdisqus a:before {
     margin: 0 0 1em;
     display: none;
 }
-#relatedwrap .single header.entry-header {
+#relatedwrap .relatedli header.entry-header {
 	border-bottom: none;
 }
 #related-content div.relatednext {
