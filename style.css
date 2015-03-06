@@ -529,6 +529,7 @@ div.showdisqus a:before {
 }
 #relatedwrap .relatedli header.entry-header {
 	border-bottom: none;
+	margin-bottom:0;
 }
 #related-content div.relatednext {
     display: inline;
