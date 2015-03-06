@@ -517,7 +517,7 @@ div.showdisqus a:before {
 div.showdisqus a:hover {
     background: #f79346;
     color: #fff;
-    cursor: default;
+    cursor: pointer;
 }
 div.showdisqus a:before {
 	text-decoration: none;
