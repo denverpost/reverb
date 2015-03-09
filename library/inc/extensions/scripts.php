@@ -45,7 +45,7 @@ function reactor_enqueue_scripts() {
 		//wp_enqueue_script('zepto-js');
 		wp_enqueue_script('modernizr-js');
 		wp_enqueue_script('jqueryui');
-		wp_enqueue_script('equalizer-js');
+		wp_enqueue_script('foundation-js');
 		wp_enqueue_script('reactor-js');
 		//Added DJS
 		wp_enqueue_script('dfmcore-js');

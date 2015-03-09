@@ -91,7 +91,7 @@ if (has_tag() ) {
 <!-- end WordPress head -->
 <?php reactor_head(); ?>
 
-<link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600|Alegreya:400italic,700italic,900italic,400,700,900|Podkova:400,700' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Alegreya:400italic,700italic,900italic,400,700,900|Podkova:400,700' rel='stylesheet' type='text/css'>
 <!-- EXPERIMENTAL SSP SUPPORT -->
 <link rel="stylesheet" href="http://www.heyreverb.com/wp-content/themes/spiegelmagazine-pro/styles/galleriffic-3.css" type="text/css" />
 <?php $GLOBALS['dfmcat'] = '';
