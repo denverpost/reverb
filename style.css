@@ -123,8 +123,8 @@ div.site-logo a img {
 .top-bar .name { height:35px; display:none; }
 .fixed .top-bar .name, .fixed .top-bar .title-area { display:block; }
 .fixed .top-bar .name p { height:30px; }
-.fixed .top-bar .name img { height:30px; width:auto; margin-top:3px; vertical-align:top; }
-.fixed .top-bar .name p a { width:100%; height:35px; }
+.fixed .top-bar .name img { max-height:30px; max-width:100%; margin:3px auto; vertical-align:top; }
+.fixed .top-bar .name p a { width:100%; height:35px; padding:0 3px;}
 .contain-to-grid.fixed,
 .contain-to-grid .top-bar,
 .contain-to-grid .top-bar .name,
