@@ -221,14 +221,14 @@ function reactor_do_post_body_social() {
 	$social_string = '<div class="post-body-social"><ul class="inline-list">';
 	//Twitter button
 	$social_string .= sprintf(
-	    '<li class="post-meta-social pm-twitter"><a href="javascript:void(0)" onclick="javascript:window.open(\'http://twitter.com/share?text=%1$s&url=%2$s&via=%3$s\', \'twitwin\', \'left=20,top=20,width=500,height=500,toolbar=1,resizable=1\');"><span class="fi-social-twitter">Twitter</span></a></li>',
+	    '<li class="post-meta-social pm-twitter"><a href="javascript:void(0)" onclick="javascript:window.open(\'http://twitter.com/share?text=%1$s&amp;url=%2$s&amp;via=%3$s\', \'twitwin\', \'left=20,top=20,width=500,height=500,toolbar=1,resizable=1\');"><span class="fi-social-twitter">Twitter</span></a></li>',
 	    urlencode(html_entity_decode($text, ENT_COMPAT, 'UTF-8') . ':'),
 	    rawurlencode( get_permalink() ),
 	    'rvrb'
 	);
 	//Facebook share
 	$social_string .= sprintf(
-	    '<li class="post-meta-social pm-facebook"><a href="javascript:void(0)" onclick="javascript:window.open(\'http://www.facebook.com/sharer/sharer.php?s=100&p[url]=%1$s&p[images][0]=%2$s&p[title]=%3$s&p[summary]=%4$s\', \'fbwin\', \'left=20,top=20,width=500,height=500,toolbar=1,resizable=1\');"><span class="fi-social-facebook">Facebook</span></a></li>',
+	    '<li class="post-meta-social pm-facebook"><a href="javascript:void(0)" onclick="javascript:window.open(\'http://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]=%1$s&amp;p[images][0]=%2$s&amp;p[title]=%3$s&amp;p[summary]=%4$s\', \'fbwin\', \'left=20,top=20,width=500,height=500,toolbar=1,resizable=1\');"><span class="fi-social-facebook">Facebook</span></a></li>',
 	    rawurlencode( get_permalink() ),
 	    rawurlencode( $image[0] ),
 	    urlencode( html_entity_decode($text, ENT_COMPAT, 'UTF-8') ),
@@ -241,7 +241,7 @@ function reactor_do_post_body_social() {
 	);
 	//Linkedin share
 	$social_string .= sprintf(
-	    '<li class="post-meta-social pm-linkedin"><a href="javascript:void(0)" onclick="javascript:window.open(\'http://www.linkedin.com/shareArticle?mini=true&url=%1$s&title=%2$s&source=%3$s\', \'linkedwin\', \'left=20,top=20,width=500,height=500,toolbar=1,resizable=1\');"><span class="fi-social-linkedin">LinkedIn</span></a></li>',
+	    '<li class="post-meta-social pm-linkedin"><a href="javascript:void(0)" onclick="javascript:window.open(\'http://www.linkedin.com/shareArticle?mini=true&amp;url=%1$s&amp;title=%2$s&amp;source=%3$s\', \'linkedwin\', \'left=20,top=20,width=500,height=500,toolbar=1,resizable=1\');"><span class="fi-social-linkedin">LinkedIn</span></a></li>',
 	    rawurlencode( get_permalink() ),
 	    urlencode( html_entity_decode($text, ENT_COMPAT, 'UTF-8') ),
 	    rawurlencode( home_url() )
@@ -255,7 +255,7 @@ function reactor_do_post_body_social() {
 	);
 	//Reddit submit
 	$social_string .= sprintf(
-	    '<li class="post-meta-social pm-reddit"><a href="javascript:void(0)" onclick="javascript:window.open(\'http://www.reddit.com/submit?url=%1$s&title=%2$s\', \'redditwin\', \'left=20,top=20,width=900,height=700,toolbar=1,resizable=1\');"><span class="fi-social-reddit">Reddit</span></a></li>',
+	    '<li class="post-meta-social pm-reddit"><a href="javascript:void(0)" onclick="javascript:window.open(\'http://www.reddit.com/submit?url=%1$s&amp;title=%2$s\', \'redditwin\', \'left=20,top=20,width=900,height=700,toolbar=1,resizable=1\');"><span class="fi-social-reddit">Reddit</span></a></li>',
 	    rawurlencode( get_permalink() ),
 	    urlencode( html_entity_decode($text, ENT_COMPAT, 'UTF-8') )
 	);
