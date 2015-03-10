@@ -34,7 +34,9 @@ function convert_smart_quotes($string)  {
     $search = array('&lsquo;','&rsquo;','&ldquo;','&rdquo;');
     $replace = array('&#039;','&#039;','&#034;','&#034;');
     return str_replace($search, $replace, $string); 
-} 
+}
+
+global $post;
 
 //Twitter Cards
 $twitter_thumbs = '';
