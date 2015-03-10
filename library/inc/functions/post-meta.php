@@ -96,11 +96,11 @@ if ( !function_exists('reactor_post_meta') ) {
 		$author_social = '';
 		if( $args['show_photo'] ) {
 			$author_social = sprintf('<ul class="author-social-small right inline-list">%1$s%2$s%3$s%4$s%5$s</ul>',
-	            ( get_the_author_meta('twitter') != '' ? sprintf('<li><a href="http://twitter.com/%1$s" alt="%1$s on Twitter">Twitter</a></li>', get_the_author_meta('twitter') ) : '' ),
-	            ( get_the_author_meta('facebook') != '' ? sprintf('<li><a href="%1$s" alt="%2$%s on Facebook">Facebook</a></li>', get_the_author_meta('facebook'), get_the_author() ) : '' ),
-	            ( get_the_author_meta('instagram') != '' ? sprintf('<li><a href="http://instagram.com/%1$s" alt="%1$s on Instagram">Instagram</a></li>', get_the_author_meta('instagram') ) : '' ),
-	            ( get_the_author_meta('googleplus') != '' ? sprintf('<li><a href="%1$s" alt="%2$%s on Google Plus" rel="me">Google+</a></li>', get_the_author_meta('googleplus'), get_the_author() ) : '' ),
-	            ( get_the_author_meta('email_public') != '' ? sprintf('<li><a href="mailto:%1$s" alt="Email %1$s">Email</a></li>', get_the_author_meta('email_public') ) : '' )
+	            ( get_the_author_meta('twitter') != '' ? sprintf('<li><a href="http://twitter.com/%1$s" title="%1$s on Twitter">Twitter</a></li>', get_the_author_meta('twitter') ) : '' ),
+	            ( get_the_author_meta('facebook') != '' ? sprintf('<li><a href="%1$s" title="%2$%s on Facebook">Facebook</a></li>', get_the_author_meta('facebook'), get_the_author() ) : '' ),
+	            ( get_the_author_meta('instagram') != '' ? sprintf('<li><a href="http://instagram.com/%1$s" title="%1$s on Instagram">Instagram</a></li>', get_the_author_meta('instagram') ) : '' ),
+	            ( get_the_author_meta('googleplus') != '' ? sprintf('<li><a href="%1$s" title="%2$%s on Google Plus" rel="me">Google+</a></li>', get_the_author_meta('googleplus'), get_the_author() ) : '' ),
+	            ( get_the_author_meta('email_public') != '' ? sprintf('<li><a href="mailto:%1$s" title="Email %1$s">Email</a></li>', get_the_author_meta('email_public') ) : '' )
 			);
 		}
 
@@ -133,14 +133,14 @@ if ( !function_exists('reactor_post_meta') ) {
 			$social_dropdown .= '<ul id="socialdrop" class="tiny content f-dropdown" data-dropdown-content>';
 				//Twitter button
 				$social_dropdown .= sprintf(
-				    '<li class="dropdown-social pm-twitter"><a href="javascript:void(0)" onclick="javascript:window.open(\'http://twitter.com/share?text=%1$s&url=%2$s&via=%3$s\', \'twitwin\', \'left=20,top=20,width=500,height=500,toolbar=1,resizable=1\');"><span class="fi-social-twitter">Twitter</span></a></li>',
+				    '<li class="dropdown-social pm-twitter"><a href="javascript:void(0)" onclick="javascript:window.open(\'http://twitter.com/share?text=%1$s&amp;url=%2$s&amp;via=%3$s\', \'twitwin\', \'left=20,top=20,width=500,height=500,toolbar=1,resizable=1\');"><span class="fi-social-twitter">Twitter</span></a></li>',
 				    urlencode(html_entity_decode($text, ENT_COMPAT, 'UTF-8') . ':'),
 				    rawurlencode( get_permalink() ),
 				    'rvrb'
 				);
 				//Facebook share
 				$social_dropdown .= sprintf(
-				    '<li class="dropdown-social pm-facebook"><a href="javascript:void(0)" onclick="javascript:window.open(\'http://www.facebook.com/sharer/sharer.php?s=100&p[url]=%1$s&p[images][0]=%2$s&p[title]=%3$s&p[summary]=%4$s\', \'fbwin\', \'left=20,top=20,width=500,height=500,toolbar=1,resizable=1\');"><span class="fi-social-facebook">Facebook</span></a></li>',
+				    '<li class="dropdown-social pm-facebook"><a href="javascript:void(0)" onclick="javascript:window.open(\'http://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]=%1$s&amp;p[images][0]=%2$s&amp;p[title]=%3$s&amp;p[summary]=%4$s\', \'fbwin\', \'left=20,top=20,width=500,height=500,toolbar=1,resizable=1\');"><span class="fi-social-facebook">Facebook</span></a></li>',
 				    rawurlencode( get_permalink() ),
 				    rawurlencode( $image[0] ),
 				    urlencode( html_entity_decode($text, ENT_COMPAT, 'UTF-8') ),
@@ -153,7 +153,7 @@ if ( !function_exists('reactor_post_meta') ) {
 				);
 				//Linkedin share
 				$social_dropdown .= sprintf(
-				    '<li class="dropdown-social pm-linkedin"><a href="javascript:void(0)" onclick="javascript:window.open(\'http://www.linkedin.com/shareArticle?mini=true&url=%1$s&title=%2$s&source=%3$s\', \'linkedwin\', \'left=20,top=20,width=500,height=500,toolbar=1,resizable=1\');"><span class="fi-social-linkedin">LinkedIn</span></a></li>',
+				    '<li class="dropdown-social pm-linkedin"><a href="javascript:void(0)" onclick="javascript:window.open(\'http://www.linkedin.com/shareArticle?mini=true&amp;url=%1$s&amp;title=%2$s&amp;source=%3$s\', \'linkedwin\', \'left=20,top=20,width=500,height=500,toolbar=1,resizable=1\');"><span class="fi-social-linkedin">LinkedIn</span></a></li>',
 				    rawurlencode( get_permalink() ),
 				    urlencode( html_entity_decode($text, ENT_COMPAT, 'UTF-8') ),
 				    rawurlencode( home_url() )
@@ -167,7 +167,7 @@ if ( !function_exists('reactor_post_meta') ) {
 				);
 				//Reddit submit
 				$social_dropdown .= sprintf(
-				    '<li class="dropdown-social pm-reddit"><a href="javascript:void(0)" onclick="javascript:window.open(\'http://www.reddit.com/submit?url=%1$s&title=%2$s\', \'redditwin\', \'left=20,top=20,width=900,height=700,toolbar=1,resizable=1\');"><span class="fi-social-reddit">Reddit</span></a></li>',
+				    '<li class="dropdown-social pm-reddit"><a href="javascript:void(0)" onclick="javascript:window.open(\'http://www.reddit.com/submit?url=%1$s&amp;title=%2$s\', \'redditwin\', \'left=20,top=20,width=900,height=700,toolbar=1,resizable=1\');"><span class="fi-social-reddit">Reddit</span></a></li>',
 				    rawurlencode( get_permalink() ),
 				    urlencode( html_entity_decode($text, ENT_COMPAT, 'UTF-8') )
 				);

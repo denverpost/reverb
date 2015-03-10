@@ -12,88 +12,12 @@
 <!--[if gt IE 8]><!--> <html <?php language_attributes(); ?> class="no-js"><!--<![endif]-->
 
 <head>
-<?php
-
-function convert_smart_quotes($string)  { 
-    $search = array('&lsquo;','&rsquo;','&ldquo;','&rdquo;');
-    $replace = array('&#039;','&#039;','&#034;','&#034;');
-    return str_replace($search, $replace, $string); 
-} 
-
-//Twitter Cards
-$twitter_thumbs = '';
-$temp_post = '';
-$temp_auth = '';
-$temp_gplus = '';
-$ogtype = 'blog';
-$twitter_desc   = '';
-if ( is_singular() ) {
-    $twitter_thumbs = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'full');
-    $temp_post = get_post($post->ID);
-    $temp_auth = get_the_author_meta('twitter', $post->post_author);
-    $temp_gplus = get_the_author_meta('googleplus', $post->post_author);
-    $ogtype = 'article';
-    $twitter_desc = strip_tags(get_the_excerpt());
-    $twitter_desc = ($twitter_desc != '') ? convert_smart_quotes(htmlentities($twitter_desc, ENT_QUOTES, 'UTF-8')) : get_bloginfo('description');
-}
-$twitter_url    = get_permalink();
-$twitter_title  = get_the_title();
-$twitter_thumb = ( ($twitter_thumbs != '') ? $twitter_thumbs[0] : get_stylesheet_directory_uri() . '/images/facebooklogo600.jpg' );
-$twitter_user_id = ( ($temp_post != '') && is_single() ) ? $temp_post->post_author : '@RVRB';
-$twitter_creator = ( ($temp_auth != '') && is_single() ) ? '@' . $temp_auth : '@RVRB';
-echo ( ($temp_gplus != '') && is_single() ) ? '<link rel="author" href="' . $temp_gplus . '" />' : '<link rel="publisher" href="http://plus.google.com/100931264054788579031" />';
-?>
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:site" content="@RVRB" />
-<meta name="twitter:creator" content="<?php echo $twitter_creator; ?>" />
-<meta name="twitter:url" content="<?php echo $twitter_url; ?>" />
-<meta name="twitter:title" content="<?php echo $twitter_title; ?>" />
-<meta name="twitter:description" content="<?php echo $twitter_desc; ?>" />
-<meta name="twitter:image:src" content="<?php echo $twitter_thumb; ?>" />
-<meta name="twitter:domain" content="heyreverb.com" />
-
-<meta property="fb:app_id" content="589548971098932"/>
-<meta property="og:title" content="<?php if ( is_singular() ) { wp_title(); } else { echo get_bloginfo('name') . ' - ' . get_bloginfo('description'); } ?>" />
-<meta property="og:type" content="<?php echo $ogtype; ?>" />
-<meta property="og:url" content="<?php echo get_permalink() ?>" />
-<meta property="og:image" content="<?php echo $twitter_thumb; ?>" />
-<meta property="og:site_name" content="<?php bloginfo('name') ?>" />
-<meta property="og:description" content="<?php echo $twitter_desc; ?>" />
-<meta property="article:publisher" content="http://www.facebook.com/heyreverb" />
-
-<?php if ( !is_singular() ) { ?>
-  <!-- <meta http-equiv="refresh" content="1800"> -->
-<?php } ?>
-<meta name="dcterms.audience" content="Global" />
-<?php echo ( (get_post_meta(get_the_ID(), 'sponsored_link', true) != '') ? '<meta name="Googlebot-News" content="noindex,follow">' : '' ); ?>
-<meta name="robots" content="follow, all" />
-
-<meta name="dcterms.rightsHolder" content="The Denver Post" />
-<meta name="dcterms.rights" content="All content copyright The Denver Post or other copyrighth holders. All rights reserved." />
-<meta name="dcterms.dateCopyrighted" content="<?php echo date_i18n('Y'); ?>" />
-
-<meta name="description" content="<?php echo $twitter_desc; ?>" />
-<meta name="news_keywords" content="colorado, reviews, music<?php
-$GLOBALS['rel_art'] = '';
-if (has_tag() ) {
-    $posttags = get_the_tags();
-    foreach($posttags as $tag) {
-        $GLOBALS['rel_art'] .= ', ' . $tag->name;
-    }
-    echo $GLOBALS['rel_art'];
-    } ?>" />
-<meta name="keywords" content="colorado, reviews, music<?php
-    echo $GLOBALS['rel_art'];
-    ?>" />
 
 <!-- WordPress head -->
 <?php wp_head(); ?>
 <!-- end WordPress head -->
 <?php reactor_head(); ?>
 
-<link href='http://fonts.googleapis.com/css?family=Alegreya:400italic,700italic,900italic,400,700,900|Podkova:400,700' rel='stylesheet' type='text/css'>
-<!-- EXPERIMENTAL SSP SUPPORT -->
-<link rel="stylesheet" href="http://www.heyreverb.com/wp-content/themes/spiegelmagazine-pro/styles/galleriffic-3.css" type="text/css" />
 <?php $GLOBALS['dfmcat'] = '';
   $GLOBALS['dfmby'] = '';
   $GLOBALS['dfmid'] = '';

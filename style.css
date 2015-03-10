@@ -124,7 +124,7 @@ div.site-logo a img {
 .fixed .top-bar .name, .fixed .top-bar .title-area { display:block; }
 .fixed .top-bar .name p { height:30px; }
 .fixed .top-bar .name img { max-height:30px; max-width:100%; margin:3px auto; vertical-align:top; }
-.fixed .top-bar .name p a { width:100%; height:35px; padding:0 3px;}
+.fixed .top-bar .name p a { width:100%; height:35px; display:block;}
 .contain-to-grid.fixed,
 .contain-to-grid .top-bar,
 .contain-to-grid .top-bar .name,
@@ -247,13 +247,13 @@ body.front-page .entry-body {
 	line-height:1.2;
 	padding: .5em;
 	color: rgba(17,17,17,1);
-	margin: 0 5%;
+	margin: 0 2.5%;
 }
 .frontpage-image h2 {
 	background-color: rgba(0,0,0,0.8);
 	color: #fff;
-	width: 40%;
-	padding: 9% 3%;
+	width: 44%;
+	padding: 7.5% 2.5%;
 }
 .frontpage-post h2 span {
 	font-family: 'Alegreya Sans', Helvetica, Arial, sans-serif;
@@ -718,10 +718,10 @@ ul.dpe-flexible-posts {
 	padding:0;
 }
 .dpe-flexible-posts h4 {
-	font-size:1.35em;
+	font-size:1.2em;
 	padding:3% 3% 12%;
 	text-align:center;
-	line-height:1.15;
+	line-height:1.2;
 	letter-spacing:.05em;
 }
 .dpe-flexible-posts h4 a.title-link {
@@ -731,7 +731,7 @@ ul.dpe-flexible-posts {
 	color: rgba(17,17,17,0.8);
 }
 .dpe-flexible-posts h4 span.category-title {
-	font-size:.7em;
+	font-size:.8em;
 	text-transform: uppercase;
 }
 .dpe-flexible-posts h4 span.category-title a:hover {
