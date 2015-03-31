@@ -213,6 +213,7 @@ div.site-logo a img {
 	padding-right:0;
 	padding-left:1em;
 }
+body.home #sidebar { display:none; }
 body.search h1.page-title {
 	margin-top:0;
 	margin-bottom:1em;
@@ -229,7 +230,6 @@ body.error404 article.error404 h6.oopsies {
 
 /* frontpage-posts */
 body.front-page .entry-body {
-	border:none;
 	padding-bottom:0;
 	margin-bottom:1.5em;
 	border:none;
@@ -1004,6 +1004,10 @@ body.home footer#footer { display: none; }
 	ul#menu-footer-links li {
 	    border-right: 1px solid #555;
 	    padding-right: .5em;
+	}
+	ul#menu-footer-links li:last-child {
+		border-right:none;
+		padding-right:0;
 	}
 	.single header.entry-header {
 		margin-bottom:1.5em;

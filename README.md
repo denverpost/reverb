@@ -22,7 +22,6 @@ A child theme for Reactor designed for The Denver Post's HeyReverb.com music sit
 
 1. Go to Settings -> General
 	* Set the Site Title to "Hey Reverb"
-	* Set the 
 
 ### Theme Customizations
 
@@ -45,7 +44,7 @@ All found in **Appearance -> Customize**
 4. Fonts & Colors
 	* Set *Title Font* to **Alegreya Sans**
 	* Set *Content Font* to **Alegreya Sans**
-5. Main Page
+5. Front Page
 	* Check *Exclude From Blog*
 	* Set *Post Columns* to **1 Column**
 	* Set *Number of Posts* to **10** or adjust as desired
@@ -78,13 +77,20 @@ Theme-based widgets, found in **Appearance -> Widgets**:
 		* Click *Save*
 	* You can add, remove or rearrange these as needed. They appear on the left edge of the home page.
 4. Activate the **Author Image** plugin
+5. For the WP-SEO plugin, go to its Social options (SEO -> Social)
+	* On the Facebook tab
+		* Make sure *Add Open Graph meta data* is *Unchecked*
+	* On the Twitter tab
+		* Make sure *Add Twitter card meta data* is *Unchecked*
+	* On the Google+ tab
+		* Make sure *Add Google+ specific post meta data* is *Unchecked*
 
 ### Set up Pages
 
 #### Front Page
 
 1. Create a blank page called **Music news and analysis from The Denver Post**
-	* Select the template **Main Page** from the *Page Template* dropdown at right
+	* Select the template **Front Page** from the *Page Template* dropdown at right
 	* Don't put any content in the page body
 2. Head to Settings -> Reading and set *Front page displays*  to **A static page**
 	* Select the **Music news and analysis from The Denver Post** page you just created under "Front page"
@@ -109,7 +115,7 @@ When adding items to menus, you can add or edit the *Navigation label* (displaye
 
 #### Top Bar menu
 
-* Name the menu something like **Top Bar** or **Main Navigation**
+* Must be named **top bar**
 * Assign to the *Top Bar Left* position
 * Add 6 top-level categories and place sub categories beneath them as desired
 
