@@ -251,8 +251,8 @@ body.front-page .entry-body {
 .frontpage-image h2 {
 	background-color: rgba(0,0,0,0.8);
 	color: #fff;
-	width: 44%;
-	padding: 7.5% 2.5%;
+	width: 42%;
+	padding: 10.5% 2.5%;
 }
 .frontpage-post h2 span {
 	font-family: 'Alegreya Sans', Helvetica, Arial, sans-serif;
@@ -442,6 +442,23 @@ nav.nav-single .nav-next a:hover {
     color: #fff;
     font-weight: 700;
     cursor: default;
+}
+div.edit-link {
+	display:block;
+	font-size:1.2em;
+	margin:0 auto;
+	color:#fff;
+	background: #f5e1b4;
+	font-weight: 700;
+	border:1px solid #e57124;
+	border-radius: 3px;
+	line-height: 1;
+	text-align:center;
+	padding:.5em 0;
+	transition: background-color 200ms ease-out;
+}
+div.edit-link span a {
+	color:#e57124!important;
 }
 #comments {
 	padding-top:2.5em;
@@ -901,6 +918,9 @@ body.home footer#footer { display: none; }
 	}
 	#colophon {
 		text-align:center;
+	}
+	.frontpage-image h2 {
+		width: 30%;
 	}
 	ul#menu-footer-links {
 		text-align:center;

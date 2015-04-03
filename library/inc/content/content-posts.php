@@ -175,30 +175,20 @@ function reactor_do_standard_thumbnail() {
 	<?php }
 }
 add_action('reactor_post_header', 'reactor_do_standard_thumbnail', 4);
-            
+
+
 /**
- * Post footer title 
- * in format-audio, format-gallery, format-image, format-video
+ * Post footer edit 
+ * in single.php
  * 
  * @since 1.0.0
  */
-function reactor_do_post_footer_title() {
-$format = ( get_post_format() ) ? get_post_format() : 'standard'; 
-
-    switch ( $format ) { 
-		case 'audio' : 
-		case 'gallery' :
-		case 'image' :
-		case 'video' : ?>
-        
-            <h2 class="entry-title">
-                <a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( __('%s', 'reactor'), the_title_attribute('echo=0') ) ); ?>" rel="bookmark"><?php the_title(); ?></a>
-            </h2>
-               
-		<?php break; 
+function reactor_do_post_edit() {
+	if ( is_single() ) {
+		edit_post_link( __('Edit this post', 'reactor'), '<div class="edit-link"><span>', '</span></div>');
 	}
 }
-add_action('reactor_post_footer', 'reactor_do_post_footer_title', 1);
+add_action('reactor_post_footer', 'reactor_do_post_edit', 1);
 
 
 /**
