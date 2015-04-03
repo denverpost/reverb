@@ -100,8 +100,11 @@
                     }
                     if ($photogsout != '') {
                         $staffdisplay .= '<h2 class="about-authors-list">Photographers:</h2><ul class="multi-column large-block-grid-2" data-match-height="">' . $photogsout . '</ul>';
-                    }
+                    } ?>
 
+                    <h2>Reverb Staff</h2>
+
+                    <?php
                     echo $staffdisplay;
                     ?>
                     
