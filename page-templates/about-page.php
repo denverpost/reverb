@@ -24,7 +24,8 @@
                     get_template_part('loops/loop', 'page'); ?>
 
                     <?php $args = array(
-                        'orderby'       => 'ID'
+                        'orderby'       => 'ID',
+                        'order'         => 'DESC'
                     );
 
                     $blogauthors = get_users( $args );
@@ -103,13 +104,6 @@
 
                     echo $staffdisplay;
                     ?>
-
-                    <ul>
-                        <li><a href="http://www-beta.heyreverb.com/advertise/">Advertise</a></li>
-                        <li><a title="Denver Post Ethics Policy" href="http://www.denverpost.com/ethics">Ethics Policy</a></li>
-                        <li><a title="Denver Post Terms of Use" href="http://www.denverpost.com/termsofuse">Terms of Use</a></li>
-                        <li><a title="Denver Post Privacy Policy" href="http://www.denverpost.com/privacypolicy">Privacy Policy</a></li>
-                    </ul>
                     
                 <?php reactor_inner_content_after(); ?>
                 
