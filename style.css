@@ -871,6 +871,41 @@ article.category-venue .frontpage-post h2 span,
 header .category-venue {
 	color:#2a79b3;
 }
+ul.dpe-flexible-posts li.category-the-ums h4 span.category-title a,
+article.category-the-ums .frontpage-post h2 span,
+header .category-the-ums {
+	color:#C5B358;
+}
+ul.dpe-flexible-posts li.category-columns h4 span.category-title a,
+article.category-columns .frontpage-post h2 span,
+header .category-columns {
+	color:#ca6559;
+}
+ul.dpe-flexible-posts li.category-album-reviews h4 span.category-title a,
+article.category-album-reviews .frontpage-post h2 span,
+header .category-album-reviews {
+	color:#5070a2;
+}
+ul.dpe-flexible-posts li.category-interviews h4 span.category-title a,
+article.category-interviews .frontpage-post h2 span,
+header .category-interviews {
+	color:#e9967a;
+}
+ul.dpe-flexible-posts li.category-features h4 span.category-title a,
+article.category-features .frontpage-post h2 span,
+header .category-features {
+	color:#996633;
+}
+ul.dpe-flexible-posts li.category-best-shows h4 span.category-title a,
+article.category-best-shows .frontpage-post h2 span,
+header .category-best-shows {
+	color:#FEDF00;
+}
+ul.dpe-flexible-posts li.category-live-reviews h4 span.category-title a,
+article.category-live-reviews .frontpage-post h2 span,
+header .category-live-reviews {
+	color:#8877ff;
+}
 
 #colophon { text-align:right; font-size:.8em; }
 
