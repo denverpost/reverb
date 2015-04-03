@@ -32,37 +32,37 @@
                         );
                     
                     global $authpage_query; 
-                    $authpage_query = new WP_Query( $args ); ?>
-                
-				<?php if ( $authpage_query->have_posts() ) : $authpage_query->the_post(); ?>
+                    $authpage_query = new WP_Query( $args );
+
+                    //if ( $authpage_query->have_posts() ) : $authpage_query->the_post(); ?>
 
                     <?php reactor_loop_before(); ?>
         
                     <header class="archive-header">
-                        <h1 class="archive-title author-title"><?php printf( __('%s', 'reactor'), get_the_author() ); ?></h1>
+                        <h1 class="archive-title author-title"><?php printf( __('%s', 'reactor'), $curauth->display_name ); ?></h1>
                     </header><!-- .archive-header -->
         
-                    <?php $authpage_query->rewind_posts(); ?>
+                    <?php //$authpage_query->rewind_posts(); ?>
         
                     <div class="row">
                         <?php // If a user has filled out their description, show a bio on their entries.
-                        if ( get_the_author_meta('description') ) : ?>
+                        if ( get_the_author_meta( 'description', $curauth->ID ) ) : ?>
                         <div class="author-info large-5 medium-5 small-12 columns panel">
                             <div class="author-avatar right large-6 medium-6 small-6">
                                 <?php echo sprintf('<img src="%1$s" class="authormug" alt="%2$s" />',
-                                    the_author_image_url( get_the_author_meta('ID') ),
-                                    esc_attr( sprintf( __('%s', 'reactor'), get_the_author() ) )
+                                    the_author_image_url( get_the_author_meta( 'ID', $curauth->ID ) ),
+                                    esc_attr( sprintf( __('%s', 'reactor'), $curauth->display_name ) )
                                  ); ?>
                             </div><!-- .author-avatar -->
                             <div class="author-description">
-                                <p><?php echo nl2br(get_the_author_meta('description')); ?></p>
+                                <p><?php echo nl2br( get_the_author_meta( 'description', $curauth->ID ) ); ?></p>
                                 <ul class="author-social">
                                     <?php 
-                                    $auth_tw = ( get_the_author_meta('twitter') != '' ? sprintf('<li>Twitter: <a href="http://twitter.com/%1$s" alt="%1$s on Twitter">@%1$s</a></li>', get_the_author_meta('twitter') ) : '' );
-                                    $auth_fb = ( get_the_author_meta('facebook') != '' ? sprintf('<li>Facebook: <a href="%1$s" alt="%2$%s on Facebook">%2$s</a></li>', get_the_author_meta('facebook'), get_the_author() ) : '' );
-                                    $auth_ig = ( get_the_author_meta('instagram') != '' ? sprintf('<li>Instagram: <a href="http://instagram.com/%1$s" alt="%2$%s on Instagram" rel="me">@%1$s</a></li>', get_the_author_meta('instagram'), get_the_author() ) : '' );
-                                    $auth_gp = ( get_the_author_meta('googleplus') != '' ? sprintf('<li>Google+: <a href="%1$s" alt="%2$%s on Google Plus" rel="me">%2$s</a></li>', get_the_author_meta('googleplus'), get_the_author() ) : '' );
-                                    $auth_em = ( get_the_author_meta('email_public') != '' ? sprintf('<li>Email: <a href="%1$s" alt="Email %2$%s" rel="me">%1$s</a></li>', get_the_author_meta('email_public'), get_the_author() ) : '' );
+                                    $auth_tw = ( get_the_author_meta( 'twitter', $curauth->ID ) != '' ? sprintf('<li>Twitter: <a href="http://twitter.com/%1$s" alt="%1$s on Twitter">@%1$s</a></li>', get_the_author_meta( 'twitter', $curauth->ID ) ) : '' );
+                                    $auth_fb = ( get_the_author_meta( 'facebook', $curauth->ID ) != '' ? sprintf('<li>Facebook: <a href="%1$s" alt="%2$%s on Facebook">%2$s</a></li>', get_the_author_meta( 'facebook', $curauth->ID ), $curauth->display_name ) : '' );
+                                    $auth_ig = ( get_the_author_meta( 'instagram', $curauth->ID ) != '' ? sprintf('<li>Instagram: <a href="http://instagram.com/%1$s" alt="%2$%s on Instagram" rel="me">@%1$s</a></li>', get_the_author_meta( 'instagram', $curauth->ID ), $curauth->display_name ) : '' );
+                                    $auth_gp = ( get_the_author_meta( 'googleplus', $curauth->ID ) != '' ? sprintf('<li>Google+: <a href="%1$s" alt="%2$%s on Google Plus" rel="me">%2$s</a></li>', get_the_author_meta( 'googleplus', $curauth->ID ), $curauth->display_name ) : '' );
+                                    $auth_em = ( get_the_author_meta( 'email_public', $curauth->ID ) != '' ? sprintf('<li>Email: <a href="%1$s" alt="Email %2$%s" rel="me">%1$s</a></li>', get_the_author_meta( 'email_public', $curauth->ID ), $curauth->display_name ) : '' );
                                     echo $auth_tw . $auth_fb . $auth_ig . $auth_gp . $auth_em;
                                     ?>
                                 </ul>
@@ -70,7 +70,7 @@
                         </div><!-- .author-info -->
                         <?php endif; ?>
 
-                    <?php endif; // end have_posts() check ?> 
+                    <?php //endif; // end have_posts() check ?> 
                     
                     <div class="author-posts large-7 medium-7 small-12 columns">
                         <h2 class="author-posts-title">Recent posts</h2>

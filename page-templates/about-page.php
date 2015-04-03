@@ -24,7 +24,7 @@
                     get_template_part('loops/loop', 'page'); ?>
 
                     <?php $args = array(
-                        'orderby'       => 'ID',
+                        'orderby'       => 'post_count',
                         'order'         => 'DESC'
                     );
 
