@@ -881,14 +881,14 @@ article.category-columns .frontpage-post h2 span,
 header .category-columns {
 	color:#ca6559;
 }
-ul.dpe-flexible-posts li.category-album-reviews h4 span.category-title a,
-article.category-album-reviews .frontpage-post h2 span,
-header .category-album-reviews {
+ul.dpe-flexible-posts li.category-cd-reviews h4 span.category-title a,
+article.category-cd-reviews .frontpage-post h2 span,
+header .category-cd-reviews {
 	color:#5070a2;
 }
-ul.dpe-flexible-posts li.category-interviews h4 span.category-title a,
-article.category-interviews .frontpage-post h2 span,
-header .category-interviews {
+ul.dpe-flexible-posts li.category-reverb-interview h4 span.category-title a,
+article.category-reverb-interview .frontpage-post h2 span,
+header .category-reverb-interview {
 	color:#e9967a;
 }
 ul.dpe-flexible-posts li.category-features h4 span.category-title a,
@@ -899,11 +899,11 @@ header .category-features {
 ul.dpe-flexible-posts li.category-best-shows h4 span.category-title a,
 article.category-best-shows .frontpage-post h2 span,
 header .category-best-shows {
-	color:#FEDF00;
+	color:#deaf00;
 }
-ul.dpe-flexible-posts li.category-live-reviews h4 span.category-title a,
-article.category-live-reviews .frontpage-post h2 span,
-header .category-live-reviews {
+ul.dpe-flexible-posts li.category-concert-review h4 span.category-title a,
+article.category-concert-review .frontpage-post h2 span,
+header .category-concert-review {
 	color:#8877ff;
 }
 
