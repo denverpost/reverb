@@ -223,13 +223,13 @@ function reactor_do_post_body_social() {
 	$social_string .= sprintf(
 	    '<li class="post-meta-social pm-twitter"><a href="javascript:void(0)" onclick="javascript:window.open(\'http://twitter.com/share?text=%1$s&amp;url=%2$s&amp;via=%3$s\', \'twitwin\', \'left=20,top=20,width=500,height=500,toolbar=1,resizable=1\');"><span class="fi-social-twitter">Twitter</span></a></li>',
 	    urlencode(html_entity_decode($text, ENT_COMPAT, 'UTF-8') . ':'),
-	    rawurlencode( get_permalink() ),
+	    rawurlencode( wp_get_shortlink() ),
 	    'rvrb'
 	);
 	//Facebook share
 	$social_string .= sprintf(
 	    '<li class="post-meta-social pm-facebook"><a href="javascript:void(0)" onclick="javascript:window.open(\'http://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]=%1$s&amp;p[images][0]=%2$s&amp;p[title]=%3$s&amp;p[summary]=%4$s\', \'fbwin\', \'left=20,top=20,width=500,height=500,toolbar=1,resizable=1\');"><span class="fi-social-facebook">Facebook</span></a></li>',
-	    rawurlencode( get_permalink() ),
+	    rawurlencode( wp_get_shortlink() ),
 	    rawurlencode( $image[0] ),
 	    urlencode( html_entity_decode($text, ENT_COMPAT, 'UTF-8') ),
 	    urlencode( html_entity_decode( $desc, ENT_COMPAT, 'UTF-8' ) )
@@ -237,26 +237,26 @@ function reactor_do_post_body_social() {
 	//Google plus share
 	$social_string .= sprintf(
 	    '<li class="post-meta-social pm-googleplus"><a href="javascript:void(0)" onclick="javascript:window.open(\'http://plus.google.com/share?url=%1$s\', \'gpluswin\', \'left=20,top=20,width=500,height=500,toolbar=1,resizable=1\');"><span class="fi-social-google-plus">Google+</span></a></li>',
-	    rawurlencode( get_permalink() )
+	    rawurlencode( wp_get_shortlink() )
 	);
 	//Linkedin share
 	$social_string .= sprintf(
 	    '<li class="post-meta-social pm-linkedin"><a href="javascript:void(0)" onclick="javascript:window.open(\'http://www.linkedin.com/shareArticle?mini=true&amp;url=%1$s&amp;title=%2$s&amp;source=%3$s\', \'linkedwin\', \'left=20,top=20,width=500,height=500,toolbar=1,resizable=1\');"><span class="fi-social-linkedin">LinkedIn</span></a></li>',
-	    rawurlencode( get_permalink() ),
+	    rawurlencode( wp_get_shortlink() ),
 	    urlencode( html_entity_decode($text, ENT_COMPAT, 'UTF-8') ),
 	    rawurlencode( home_url() )
 	);
 	//Pinterest Pin This
 	$social_string .= sprintf(
 	    '<li class="post-meta-social pm-pinterest"><a href="javascript:void(0)" onclick="javascript:window.open(\'http://pinterest.com/pin/create/button/?url=%1$s&amp;media=%2$s&amp;description=%3$s\', \'pintwin\', \'left=20,top=20,width=500,height=500,toolbar=1,resizable=1\');"><span class="fi-social-pinterest">Pinterest</span></a></li>',
-	    rawurlencode( get_permalink() ),
+	    rawurlencode( wp_get_shortlink() ),
 	    rawurlencode( $image[0] ),
 	    urlencode( html_entity_decode($text, ENT_COMPAT, 'UTF-8') )
 	);
 	//Reddit submit
 	$social_string .= sprintf(
 	    '<li class="post-meta-social pm-reddit"><a href="javascript:void(0)" onclick="javascript:window.open(\'http://www.reddit.com/submit?url=%1$s&amp;title=%2$s\', \'redditwin\', \'left=20,top=20,width=900,height=700,toolbar=1,resizable=1\');"><span class="fi-social-reddit">Reddit</span></a></li>',
-	    rawurlencode( get_permalink() ),
+	    rawurlencode( wp_get_shortlink() ),
 	    urlencode( html_entity_decode($text, ENT_COMPAT, 'UTF-8') )
 	);
 	$social_string .= '<div class="clear"></div></ul></div>';
