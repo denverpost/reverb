@@ -213,7 +213,6 @@ div.site-logo a img {
 	padding-right:0;
 	padding-left:1em;
 }
-body.home #sidebar { display:none; }
 body.search h1.page-title {
 	margin-top:0;
 	margin-bottom:1em;
@@ -950,6 +949,7 @@ body.home footer#footer { display: none; }
 	div.photo-gallery .carousel-control {
 		font-size:4em;
 	}
+	body.home #sidebar { display:none; }
 }
 
 @media (max-width:768px) {
