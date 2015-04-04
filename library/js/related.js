@@ -4,12 +4,13 @@ var request_data = {
 	widgetId: 'JS_1'
 };
 
+var OBiterations = 0;
+
 var outbrain_callback = function(json) {
 
 	var firstTime = ( $j('#related-ul').length ? false : true);
-	var dataSuccess = false;
 
-	var resultstring = ( firstTime )? '<ul id="related-ul" class="multi-column large-block-grid-3 medium-block-grid-2 small-block-grid-2">' : '';
+	var resultstring = ( firstTime ) ? '<ul id="related-ul" class="multi-column large-block-grid-3 medium-block-grid-2 small-block-grid-2">' : '';
 
 	$j.each( json.doc, function( index, value ) {
 		var nofollow = ( !value.same_source || value.source_name.toLowerCase() != 'reverb' ) ? ' rel="nofollow"' : '';
@@ -38,23 +39,23 @@ var outbrain_callback = function(json) {
     			resultstring += '<div class="clear"></div>';
 			resultstring += '</article>';
 		resultstring += '</li>';
-		dataSuccess = ( value.content.length ) ? true : false;
 	});
 	
 	resultstring += ( firstTime ) ? '</ul>' : '';
 
-	if ( resultstring.length && dataSuccess ) {
+	if (resultstring.length && OBiterations <= 8) {
+		$j('#relatedwrap').css('display', 'block');
 		if ( firstTime ) {
-			$j('#relatedwrap').css('display', 'block');
 			$j('#related-content').html(resultstring);
+			$j('div.relatednext').bind('inview', function(event, visible) {
+				if (visible) {
+					OBR.extern.callRecs(request_data, outbrain_callback);
+				}
+			});
 		} else {
 			$j('#related-ul').append(resultstring);
 		}
-		$j('div.relatednext').bind('inview', function(event, visible) {
-			if (visible) {
-				OBR.extern.callRecs(request_data, outbrain_callback);
-			}
-		});
+		OBiterations++;
 	}
 }
 
