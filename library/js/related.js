@@ -12,7 +12,7 @@ var outbrain_callback = function(json) {
 	var resultstring = ( firstTime )? '<ul id="related-ul" class="multi-column large-block-grid-3 medium-block-grid-2 small-block-grid-2">' : '';
 
 	$j.each( json.doc, function( index, value ) {
-		var nofollow = ( !value.same_source ) ? ' rel="nofollow"' : '';
+		var nofollow = ( !value.same_source || value.source_name.toLowerCase() != 'reverb' ) ? ' rel="nofollow"' : '';
 		resultstring += '<li class="relatedli">';
 			resultstring += '<article class="post type-post status-publish format-standard hentry related">';
         		resultstring += '<div class="entry-body">';
@@ -27,7 +27,7 @@ var outbrain_callback = function(json) {
 	    				}
 						resultstring += '<div class="entry-category">';
 							resultstring += '<div class="entry-meta">';
-								resultstring += '<a href="' + value.url +'" title="' + value.source_name + '"' + (!value.same_source ? ' class="sponsored"' : '') + '>' + value.source_name + '</a>';
+								resultstring += '<a href="' + value.url +'" title="' + value.source_name + '"' + ( ( !value.same_source || value.source_name.toLowerCase() != 'reverb' ) ? ' class="sponsored"' : '' ) + '>' + value.source_name + '</a>';
 								resultstring += '</div>';
 							resultstring += '</div>';
 							resultstring += '<h2 class="entry-title">';

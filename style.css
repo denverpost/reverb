@@ -470,7 +470,8 @@ div.edit-link span a {
 	border-bottom:1px solid #ddd;
 }
 .post-body-social ul {
-	margin:0;
+	margin:0 auto;
+	display:table;
 }
 .post-body-social ul li {
 	margin-left:0;
@@ -1033,6 +1034,9 @@ body.home footer#footer { display: none; }
 	}
 	body:not(.home) .entry-body h2.entry-title {
 		font-size:1.4em;
+	}
+	.frontpage-image h2 {
+		width: 40%;
 	}
 }
 @media (max-width:540px) {
