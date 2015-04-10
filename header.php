@@ -104,7 +104,7 @@ if ( is_category() ) {
   <!-- Replaced SiteCatalystCode_H_22_1.js with SiteCatalystCode_H_22_1_NC.js -->
   <script type="text/javascript" src='http://extras.mnginteractive.com/live/js/omniture/SiteCatalystCode_H_22_1_NC.js'></script>
   <script type="text/javascript" src='http://extras.mnginteractive.com/live/js/omniture/OmniUserObjAndHelper.js'></script>
-  <script type="text/javascript"><!--
+  <script type="text/javascript">
 
           //Local Variables
           var contentId = dfm.api("data","contentId");
@@ -129,7 +129,7 @@ if ( is_category() ) {
           /* You may give each page an identifying name, server, and channel on the next lines. */
           s.pageName=FriendlyName;
           s.channel=SectionName; // Same as prop1
-          s.server="";// Blank
+          s.server="HEYREVERB";
           s.pageType=""; // Error pages ONLY
           s.prop1="D=g";
           beanprop2 = ("" != "") && ("" != null) ? "" : "?";
@@ -143,10 +143,10 @@ if ( is_category() ) {
           } else {
               beanprop5 = "?" ;
           }
-                s.prop2='D=ch+' + "\"/" + unescbeanprop2 + "\"";
-                s.prop3='D=ch+' + "\"/" + unescbeanprop2 + "/" + beanprop3 + "\"";
-                s.prop4='D=ch+' + "\"/" + unescbeanprop2 + "/"+ beanprop3 + "/"+ beanprop4 + "\""; // Sub section 3  
-                s.prop5='D=ch+' + "\"/" + unescbeanprop2 + "/" + beanprop3 + "/" + beanprop4 + "/" + beanprop5 + "\""; // Sub section 4
+            s.prop2='D=ch+' + "\"/" + unescbeanprop2 + "\"";
+            s.prop3='D=ch+' + "\"/" + unescbeanprop2 + "/" + beanprop3 + "\"";
+            s.prop4='D=ch+' + "\"/" + unescbeanprop2 + "/"+ beanprop3 + "/"+ beanprop4 + "\""; // Sub section 3  
+            s.prop5='D=ch+' + "\"/" + unescbeanprop2 + "/" + beanprop3 + "/" + beanprop4 + "/" + beanprop5 + "\""; // Sub section 4
           s.prop6=dfm.api("data","Taxonomy1"); // Global - Section  TODO
           s.prop7=dfm.api("data","Taxonomy2"); // Global - Sub section 1  TODO
           s.prop8=dfm.api("data","Taxonomy3"); // Global - Sub section 2  TODO
@@ -235,7 +235,7 @@ if ( is_category() ) {
           s.eVar25="";
           s.eVar26=articleId;  // article ID
         s.eVar50=getCiQueryString("AADID");
-    //--></script>
+  </script>
   <script type="text/javascript" src='http://extras.mnginteractive.com/live/js/omniture/functions.js'></script>
   <script type="text/javascript"><!--//
         var s_code=s.t();if(s_code)document.write(s_code);
