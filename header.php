@@ -131,7 +131,7 @@ if ( is_category() ) {
           s.channel=SectionName; // Same as prop1
           s.server="HEYREVERB";
           s.pageType=""; // Error pages ONLY
-          s.prop1="D=g";
+          s.prop1="Reverb";
           beanprop2 = ("" != "") && ("" != null) ? "" : "?";
           var escbeanprop2 = escape(beanprop2);
           var unescbeanprop2 = unescape(escbeanprop2);
