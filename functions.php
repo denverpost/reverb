@@ -440,4 +440,10 @@ function rvrb_dynamic_sidebar_params( $params ) {
 }
 add_filter( 'dynamic_sidebar_params', 'rvrb_dynamic_sidebar_params' );
 
+// Disable both Twitter Cards and OG tags
+add_filter( 'jetpack_enable_open_graph', '__return_false', 99 );
+
+// Disable only the Twitter Cards
+add_filter( 'jetpack_disable_twitter_cards', '__return_true', 99 );
+
 ?>
