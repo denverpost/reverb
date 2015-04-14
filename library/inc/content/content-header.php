@@ -45,7 +45,7 @@ $temp_auth = '';
 $temp_gplus = '';
 $twitter_desc = get_bloginfo( 'description' );
 if ( is_home() || is_front_page() ) {
-  $twitter_url = get_bloginfo( 'site_url' );
+  $twitter_url = get_bloginfo( 'url' );
   $twitter_title = get_bloginfo( 'name' );
 } else if ( is_category() ) {
   $id = get_query_var( 'cat' );
@@ -73,7 +73,7 @@ $twitter_user_id = ( ($temp_post != '') && is_single() ) ? $temp_post->post_auth
 $twitter_creator = ( ($temp_auth != '') && is_single() ) ? '@' . $temp_auth : '@RVRB';
 echo ( ($temp_gplus != '') && is_single() ) ? '<link rel="author" href="' . $temp_gplus . '" />' : '<link rel="publisher" href="http://plus.google.com/100931264054788579031" />';
 ?>
-<meta name="twitter:card" content="<?php echo ( is_singular() ) ? 'summary_large_image' : 'summary'; ?>" />
+<meta name="twitter:card" content="<?php echo ( is_single() ) ? 'summary_large_image' : 'summary'; ?>" />
 <meta name="twitter:site" content="@RVRB" />
 <meta name="twitter:creator" content="<?php echo $twitter_creator; ?>" />
 <meta name="twitter:url" content="<?php echo $twitter_url; ?>" />
