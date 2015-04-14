@@ -395,6 +395,9 @@ body:not(.home) .entry-body h2.entry-title {
 .single .entry-content p {
 	margin:0 10% 1em;
 }
+.entry-content .twitter-tweet-rendered {
+	margin:0 auto!important;
+}
 .single .entry-meta-author .authorimage {
 	padding-right:1em;
 }
