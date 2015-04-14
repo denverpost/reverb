@@ -84,7 +84,7 @@ echo ( ($temp_gplus != '') && is_single() ) ? '<link rel="author" href="' . $tem
 
 <meta property="fb:app_id" content="589548971098932"/>
 <meta property="og:title" content="<?php echo $twitter_title; ?>" />
-<meta property="og:type" content="<?php echo ( is_singular() ) ? 'article' : 'blog'; ?>" />
+<meta property="og:type" content="<?php echo ( is_single() ) ? 'article' : 'blog'; ?>" />
 <meta property="og:url" content="<?php echo $twitter_url; ?>" />
 <meta property="og:image" content="<?php echo $twitter_thumb; ?>" />
 <meta property="og:site_name" content="<?php bloginfo('name') ?>" />
