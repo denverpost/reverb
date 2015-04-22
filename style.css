@@ -385,7 +385,8 @@ body:not(.home) .entry-body h2.entry-title {
 }
 .single .entry-content figure figcaption {
 	margin:.5em 1em 0;
-	font-size:1.1em;
+	font-size:1.05em;
+	line-height:1.25;
 	color:rgba(71,71,71,1);
 }
 .single .entry-content figure img {
