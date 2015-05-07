@@ -265,7 +265,9 @@ function SearchFilter($query) {
     }
     return $query;
 }
-add_filter('pre_get_posts','SearchFilter');
+if ( ! is_admin() ) {
+    add_filter('pre_get_posts','SearchFilter');
+}
 
 /**
  * Include posts from authors in the search results where
