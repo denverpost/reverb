@@ -212,6 +212,7 @@ if ( !function_exists('reactor_post_meta') ) {
 					$output = '<div class="entry-meta icons">' . $meta . '</div>';
 				}
 			} else if ( $args['show_photo'] && get_the_author_meta('list_author_single') ) {
+				$meta .= ( $tag_list && $args['show_tag'] ) ? '<div class="entry-tags">%2$s</div>' : '';
 				$meta .= ( $author_photo && $args['show_photo'] ) ? '%6$s' : '';
 				$meta .= '<div class="large-9 medium-9 small-9 columns">';
 				$meta .= ( $author && $args['show_author'] ) ? '<div class="by-author">%4$s</div>' : '';
