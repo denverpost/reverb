@@ -282,6 +282,15 @@ function reactor_footer_after() {
 }
 
 /**
+ * Register hook: reactor_inner_body_after
+ * 
+ * @since 0.0.3
+ */
+function reactor_inner_body_after() {
+	do_action( 'reactor_inner_body_after' );
+}
+
+/**
  * Register hook: reactor_foot
  *
  * 

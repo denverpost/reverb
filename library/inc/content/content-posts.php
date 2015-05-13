@@ -184,7 +184,7 @@ function rvrb_post_body_content_tags() {
 		reactor_post_meta( array( 'just_tags' => true ) );
 	}
 }
-add_action( 'reactor_inner_content_after', 'rvrb_post_body_content_tags', 1 );
+add_action( 'reactor_inner_body_after', 'rvrb_post_body_content_tags', 1 );
 
 /**
  * Post footer edit 

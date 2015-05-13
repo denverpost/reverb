@@ -26,7 +26,7 @@
             <div class="entry-content">
                 <?php the_content(); ?>
                 <?php wp_link_pages( array('before' => '<div class="page-links">' . __('Pages:', 'reactor'), 'after' => '</div>') ); ?>
-                <?php reactor_inner_content_after(); ?>
+                <?php reactor_inner_body_after(); ?>
             </div><!-- .entry-content -->
             <?php else : ?>
             <div class="entry-content">
