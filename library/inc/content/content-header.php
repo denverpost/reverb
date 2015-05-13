@@ -45,16 +45,19 @@ $temp_auth = '';
 $temp_gplus = '';
 $twitter_desc = get_bloginfo( 'description' );
 if ( is_home() || is_front_page() ) {
-  $twitter_url = get_bloginfo( 'url' );
-  $twitter_title = get_bloginfo( 'name' );
+	$twitter_url = get_bloginfo( 'url' );
+	$twitter_title = get_bloginfo( 'name' );
+	$GLOBALS['dfmcat'][0] = 'Home';
 } else if ( is_category() ) {
-  $id = get_query_var( 'cat' );
-    $twitter_desc = category_description( $id );
+	$id = get_query_var( 'cat' );
+    $twitter_desc_temp = category_description( $id );
+    $twitter_desc = ( strlen( $twitter_desc_temp ) > 0 ) ? strip_tags( category_description( $id ) ) : $twitter_desc;
     $twitter_url = get_category_link( $id );
     $twitter_title = get_cat_name( $id ) . ' - ' . get_bloginfo( 'name' );
+    $GLOBALS['dfmcat'][0] = get_cat_name( $id );
 } else if ( is_tag() ) {
-  $tag_slug = get_query_var( 'tag' );
-  $tag = get_term_by('slug', $tag_slug, 'post_tag');
+	$tag_slug = get_query_var( 'tag' );
+	$tag = get_term_by('slug', $tag_slug, 'post_tag');
     $twitter_desc = 'Articles tagged '. $tag->name;
     $twitter_url = get_tag_link( (int)$tag->term_id );
     $twitter_title = $tag->name . ' - ' . get_bloginfo( 'name' );
@@ -67,12 +70,17 @@ if ( is_home() || is_front_page() ) {
     $temp_post = get_post($post->ID);
     $temp_auth = get_the_author_meta('twitter', $post->post_author);
     $temp_gplus = get_the_author_meta('googleplus', $post->post_author);
+    $GLOBALS['dfmcat'][0] = ( ( $category[0]->category_parent != ( '' || null) ) ? get_cat_name($category[0]->category_parent) : $category[0]->cat_name );
+    $GLOBALS['dfmcat'][1] = ( ( $category[0]->category_parent != ( '' || null) ) ? $category[0]->cat_name : '');
+    $GLOBALS['dfmid'] = $post->ID;
+    $GLOBALS['dfmby'] = get_the_author_meta('display_name', $post->post_author);
 }
 $twitter_thumb = ( ($twitter_thumbs != '') ? $twitter_thumbs[0] : get_stylesheet_directory_uri() . '/images/facebooklogo600.jpg' );
 $twitter_user_id = ( ($temp_post != '') && is_single() ) ? $temp_post->post_author : '@RVRB';
 $twitter_creator = ( ($temp_auth != '') && is_single() ) ? '@' . $temp_auth : '@RVRB';
 echo ( ($temp_gplus != '') && is_single() ) ? '<link rel="author" href="' . $temp_gplus . '" />' : '<link rel="publisher" href="http://plus.google.com/100931264054788579031" />';
 ?>
+
 <meta name="twitter:card" content="<?php echo ( is_single() ) ? 'summary_large_image' : 'summary'; ?>" />
 <meta name="twitter:site" content="@RVRB" />
 <meta name="twitter:creator" content="<?php echo $twitter_creator; ?>" />
