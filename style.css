@@ -393,8 +393,14 @@ body:not(.home) .entry-body h2.entry-title {
 	width:100%;
 	height:auto;
 }
-.single .entry-content p {
+.single .entry-content p{
 	margin:0 10% 1em;
+}
+,
+.signle .entry-tags {
+	margin: 0 10%;
+	padding: .5em 0;
+	border-top:1px solid #ddd;
 }
 .entry-content .twitter-tweet-rendered {
 	margin:0 auto!important;
