@@ -211,17 +211,20 @@ if ( !function_exists('reactor_post_meta') ) {
 				if ( $meta ) {
 					$output = '<div class="entry-meta icons">' . $meta . '</div>';
 				}
-			} else if ( $args['show_photo'] && get_the_author_meta('list_author_single') ) {
+			} else if ( $args['show_photo'] ) {
 				$meta .= ( $tag_list && $args['show_tag'] ) ? '<div class="entry-tags">%2$s</div>' : '';
-				$meta .= ( $author_photo && $args['show_photo'] ) ? '%6$s' : '';
-				$meta .= '<div class="large-9 medium-9 small-9 columns">';
-				$meta .= ( $author && $args['show_author'] ) ? '<div class="by-author">%4$s</div>' : '';
-				$meta .= ( $author_desc ) ? '%8$s' : '';
-				$meta .= ( $author_social ) ? '%9$s' : '';
-				$meta .= '<div class="clear"></div></div>';
+				if ( get_the_author_meta('list_author_single') ) {
+					$meta .= '<div class="entry-meta-author panel radius row collapse">';
+					$meta .= ( $author_photo && $args['show_photo'] ) ? '%6$s' : '';
+					$meta .= '<div class="large-9 medium-9 small-9 columns">';
+					$meta .= ( $author && $args['show_author'] ) ? '<div class="by-author">%4$s</div>' : '';
+					$meta .= ( $author_desc ) ? '%8$s' : '';
+					$meta .= ( $author_social ) ? '%9$s' : '';
+					$meta .= '<div class="clear"></div></div></div>';
+				}
 				
 				if ( $meta ) {
-					$output = '<div class="entry-meta-author panel radius row collapse">' . __('', 'reactor') . $meta . '</div>';
+					$output = __('', 'reactor') . $meta;
 				}
 			} else if (!$args['show_photo']) {
 				$meta .= ( $date && $args['show_date'] ) ? '%3$s ' : '';
