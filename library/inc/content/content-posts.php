@@ -182,10 +182,10 @@ add_action('reactor_post_header', 'reactor_do_standard_thumbnail', 4);
 function rvrb_post_body_content_tags() {
 	if ( is_single() ) {
 		reactor_post_meta( array( 'just_tags' => true ) );
-		echo 'HERE';
 	}
+	echo 'HERE';
 }
-add_action( 'reactor_inner_body_after', 'rvrb_post_body_content_tags', 1 );
+add_action('reactor_inner_body_after', 'rvrb_post_body_content_tags', 1);
 
 /**
  * Post footer edit 
