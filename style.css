@@ -397,7 +397,7 @@ body:not(.home) .entry-body h2.entry-title {
 	margin:0 10% 1em;
 }
 ,
-.signle .entry-tags {
+.single .entry-tags {
 	margin: 0 10%;
 	padding: .5em 0;
 	border-top:1px solid #ddd;
