@@ -178,14 +178,14 @@ add_action('reactor_post_header', 'reactor_do_standard_thumbnail', 4);
 
 /**
  * Post content after tags
+ * in format-standard
  */
 function rvrb_post_body_content_tags() {
 	if ( is_single() ) {
 		reactor_post_meta( array( 'just_tags' => true ) );
 	}
-	echo 'HERE';
 }
-add_action('reactor_inner_body_after', 'rvrb_post_body_content_tags', 1);
+add_action('reactor_post_footer', 'rvrb_post_body_content_tags', 1);
 
 /**
  * Post footer edit 
@@ -198,7 +198,7 @@ function reactor_do_post_edit() {
 		edit_post_link( __('Edit this post', 'reactor'), '<div class="edit-link"><span>', '</span></div>');
 	}
 }
-add_action('reactor_post_footer', 'reactor_do_post_edit', 1);
+add_action('reactor_post_footer', 'reactor_do_post_edit', 2);
 
 
 /**
@@ -262,7 +262,7 @@ function reactor_do_post_body_social() {
 	$social_string .= '<div class="clear"></div></ul></div>';
 	echo $social_string;
 }
-add_action('reactor_post_footer', 'reactor_do_post_body_social', 2);
+add_action('reactor_post_footer', 'reactor_do_post_body_social', 3);
 
 /**
  * Post footer meta
@@ -289,7 +289,7 @@ function reactor_do_post_footer_meta() {
 		}
 	}
 }
-add_action('reactor_post_footer', 'reactor_do_post_footer_meta', 3);
+add_action('reactor_post_footer', 'reactor_do_post_footer_meta', 4);
 
 /**
  * Single post nav 
