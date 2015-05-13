@@ -263,7 +263,7 @@ add_action('reactor_post_footer', 'reactor_do_post_body_social', 2);
 function reactor_do_post_footer_meta() {
 
 	if ( is_single() ) {
-		reactor_post_meta( array('show_photo' => true) );
+		reactor_post_meta( array('show_photo' => true,'show_tag' => true) );
 	} else {
 		if ( is_page_template('page-templates/front-page.php') ) {
 			$post_meta = reactor_option('frontpage_post_meta', 1);
