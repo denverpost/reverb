@@ -58,7 +58,7 @@ if ( is_home() || is_front_page() ) {
 } else if ( is_tag() ) {
 	$tag_slug = get_query_var( 'tag' );
 	$tag = get_term_by('slug', $tag_slug, 'post_tag');
-    $twitter_desc = 'Articles tagged '. $tag->name;
+    $twitter_desc = 'Articles tagged '. $tag->name . ' - ' . get_bloginfo( 'description' );
     $twitter_url = get_tag_link( (int)$tag->term_id );
     $twitter_title = $tag->name . ' - ' . get_bloginfo( 'name' );
 } else if ( is_singular() ) {
