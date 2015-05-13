@@ -181,7 +181,7 @@ add_action('reactor_post_header', 'reactor_do_standard_thumbnail', 4);
  */
 function rvrb_post_body_content_tags() {
 	if ( is_single() ) {
-		reactor_post_meta( array('show_photo' => true,'show_tag' => true) );
+		reactor_post_meta( array( 'just_tags' => true ) );
 	}
 }
 add_action( 'reactor_inner_content_after', 'rvrb_post_body_content_tags', 1 );
