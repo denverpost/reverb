@@ -31,6 +31,7 @@
             <?php else : ?>
             <div class="entry-content">
                 <?php the_content(); ?>
+                <?php reactor_inner_body_after(); ?>
             </div><!-- .entry-content -->
             <?php endif; ?>
             
