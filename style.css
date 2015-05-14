@@ -954,6 +954,8 @@ body.home footer#footer { display: none; }
 	.toggle-social a {
 		color:#555;
 		font-size:22px;
+		padding: 0 .25em;
+		margin-right: 0.5em;
 	}
 	#frontpagemain {
 		margin-bottom:1.5em;
@@ -1086,6 +1088,9 @@ body.home footer#footer { display: none; }
 	}
 	.single .entry-content p {
 		margin: 0 0 1em;
+	}
+	.single .entry-footer .entry-meta .entry-tags {
+		margin:0;
 	}
 	.single .entry-meta-author ul.author-social-small li,
 	nav.nav-single .nav-next a,

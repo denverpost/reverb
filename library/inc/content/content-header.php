@@ -45,31 +45,31 @@ $temp_auth = '';
 $temp_gplus = '';
 $twitter_desc = get_bloginfo( 'description' );
 if ( is_home() || is_front_page() ) {
-	$twitter_url = get_bloginfo( 'url' );
-	$twitter_title = get_bloginfo( 'name' );
+	$twitter_url 	= get_bloginfo( 'url' );
+	$twitter_title 	= get_bloginfo( 'name' );
 	$GLOBALS['dfmcat'][0] = 'Home';
 } else if ( is_category() ) {
-	$id = get_query_var( 'cat' );
+	$id 			= get_query_var( 'cat' );
     $twitter_desc_temp = category_description( $id );
-    $twitter_desc = ( strlen( $twitter_desc_temp ) > 0 ) ? strip_tags( category_description( $id ) ) : $twitter_desc;
-    $twitter_url = get_category_link( $id );
-    $twitter_title = get_cat_name( $id ) . ' - ' . get_bloginfo( 'name' );
+    $twitter_desc 	= ( strlen( $twitter_desc_temp ) > 0 ) ? strip_tags( category_description( $id ) ) : $twitter_desc;
+    $twitter_url 	= get_category_link( $id );
+    $twitter_title 	= get_cat_name( $id ) . ' - ' . get_bloginfo( 'name' );
     $GLOBALS['dfmcat'][0] = get_cat_name( $id );
 } else if ( is_tag() ) {
-	$tag_slug = get_query_var( 'tag' );
-	$tag = get_term_by('slug', $tag_slug, 'post_tag');
-    $twitter_desc = 'Articles tagged '. $tag->name . ' - ' . get_bloginfo( 'description' );
-    $twitter_url = get_tag_link( (int)$tag->term_id );
-    $twitter_title = $tag->name . ' - ' . get_bloginfo( 'name' );
+	$tag_slug 		= get_query_var( 'tag' );
+	$tag 			= get_term_by('slug', $tag_slug, 'post_tag');
+    $twitter_desc 	= 'Articles tagged '. $tag->name . ' - ' . get_bloginfo( 'description' );
+    $twitter_url 	= get_tag_link( (int)$tag->term_id );
+    $twitter_title 	= $tag->name . ' - ' . get_bloginfo( 'name' );
 } else if ( is_singular() ) {
     $twitter_thumbs = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'large');
     $twitter_desc   = strip_tags(get_the_excerpt());
     $twitter_desc   = convert_smart_quotes(htmlentities($twitter_desc, ENT_QUOTES, 'UTF-8'));
     $twitter_url    = get_permalink();
     $twitter_title  = get_the_title();
-    $temp_post = get_post($post->ID);
-    $temp_auth = get_the_author_meta('twitter', $post->post_author);
-    $temp_gplus = get_the_author_meta('googleplus', $post->post_author);
+    $temp_post 		= get_post($post->ID);
+    $temp_auth 		= get_the_author_meta('twitter', $post->post_author);
+    $temp_gplus 	= get_the_author_meta('googleplus', $post->post_author);
     $GLOBALS['dfmcat'][0] = ( ( $category[0]->category_parent != ( '' || null) ) ? get_cat_name($category[0]->category_parent) : $category[0]->cat_name );
     $GLOBALS['dfmcat'][1] = ( ( $category[0]->category_parent != ( '' || null) ) ? $category[0]->cat_name : '');
     $GLOBALS['dfmid'] = $post->ID;
