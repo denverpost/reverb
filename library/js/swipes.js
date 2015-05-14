@@ -1,6 +1,8 @@
 jQuery(document).ready(function($) {
+	delete Hammer.defaults.cssProps.userSelect;
     function hammerSwipe() {
-		var hammerTime = $('body.gesture').Hammer();
+    	var hammerElem = $('body.gesture');
+		var hammerTime = new Hammer(hammerElem);
 		hammerTime.on("drag", function ( evnt ) {
 			var url = false;
 			if ( evnt.direction == 'right' ) {
