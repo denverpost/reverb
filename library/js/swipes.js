@@ -1,6 +1,6 @@
 jQuery(document).ready(function($) {
     function hammerSwipe() {
-		var hammerTime = $('body.gesture').hammer();
+		var hammerTime = $('body.gesture').Hammer();
 		hammerTime.on("drag", function ( evnt ) {
 			var url = false;
 			if ( evnt.direction == 'right' ) {
