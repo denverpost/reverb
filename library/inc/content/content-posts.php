@@ -301,9 +301,9 @@ function reactor_do_nav_single() {
     if ( is_single() ) { 
     $exclude = ( reactor_option('frontpage_exclude_cat', 1) ) ? reactor_option('frontpage_post_category', '') : ''; ?>
         <nav class="nav-single">
-            <!-- <span class="nav-previous alignleft">
-            <?php //previous_post_link('%link', '<span class="meta-nav">' . _x('&larr;', 'Previous post link', 'reactor') . '</span> %title', false, $exclude); ?>
-            </span> -->
+            <span class="nav-previous alignleft">
+            <?php previous_post_link('%link', 'Last hit: %title', false, $exclude); ?>
+            </span>
             <span class="nav-next">
             <?php next_post_link('%link', 'Up next: %title', false, $exclude); ?>
             </span>

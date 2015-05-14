@@ -37,7 +37,7 @@
 
 </head>
 
-<body <?php body_class(); ?>>
+<body <?php body_class( 'gesture' ); ?>>
 
 <div id="omniture" style="display:none">
     <script type="text/javascript">var s_account="mngireverb"</script>

@@ -428,6 +428,9 @@ body:not(.home) .entry-body h2.entry-title {
 nav.nav-single {
 	margin-bottom: 1.063em;
 }
+nav.nav-single .nav-previous {
+	display:none;
+}
 nav.nav-single .nav-next {
 	display:block;
 	width:100%;
