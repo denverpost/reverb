@@ -19,5 +19,7 @@ jQuery(document).ready(function($) {
 			}
 		});
     }
-	hammerSwipe();
+    if ( $('.gesture').hasClass( 'iphone' ) ) {
+	    hammerSwipe();
+	}
 });
