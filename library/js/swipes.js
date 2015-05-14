@@ -3,15 +3,17 @@ jQuery(document).ready(function($) {
     function hammerSwipe() {
     	var hammerElem = $('body.gesture');
 		var hammerTime = new Hammer(hammerElem.get(0));
-		hammerTime.on("drag", function ( evnt ) {
-			var url = false;
+		var url = false;
+		hammerTime.on("panright", function ( evnt ) {
 			console.log(evnt.direction);
-			if ( evnt.direction == 'right' ) {
-			    url = jQuery('.nav-next a').attr('href');
-			}		
-			if ( evnt.direction == 'left' ) {
-			    url = jQuery('.nav-previous a').attr('href');
+			url = jQuery('.nav-next a').attr('href');
+			if ( url ) {
+			    window.location = url;
 			}
+		});
+		hammerTime.on("panleft", function ( evnt ) {
+			console.log(evnt.direction);
+			url = jQuery('.nav-previous a').attr('href');
 			if ( url ) {
 			    window.location = url;
 			}
