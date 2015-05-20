@@ -43,25 +43,45 @@ $twitter_thumbs = '';
 $temp_post = '';
 $temp_auth = '';
 $temp_gplus = '';
-$ogtype = 'blog';
-$twitter_desc   = '';
-if ( is_singular() ) {
-    $twitter_thumbs = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'full');
-    $temp_post = get_post($post->ID);
-    $temp_auth = get_the_author_meta('twitter', $post->post_author);
-    $temp_gplus = get_the_author_meta('googleplus', $post->post_author);
-    $ogtype = 'article';
-    $twitter_desc = strip_tags(get_the_excerpt());
-    $twitter_desc = ($twitter_desc != '') ? convert_smart_quotes(htmlentities($twitter_desc, ENT_QUOTES, 'UTF-8')) : get_bloginfo('description');
+$twitter_desc = get_bloginfo( 'description' );
+if ( is_home() || is_front_page() ) {
+	$twitter_url 	= get_bloginfo( 'url' );
+	$twitter_title 	= get_bloginfo( 'name' );
+	$GLOBALS['dfmcat'][0] = 'Home';
+} else if ( is_category() ) {
+	$id 			= get_query_var( 'cat' );
+    $twitter_desc_temp = category_description( $id );
+    $twitter_desc 	= ( strlen( $twitter_desc_temp ) > 0 ) ? strip_tags( category_description( $id ) ) : $twitter_desc;
+    $twitter_url 	= get_category_link( $id );
+    $twitter_title 	= get_cat_name( $id ) . ' - ' . get_bloginfo( 'name' );
+    $GLOBALS['dfmcat'][0] = get_cat_name( $id );
+} else if ( is_tag() ) {
+	$tag_slug 		= get_query_var( 'tag' );
+	$tag 			= get_term_by('slug', $tag_slug, 'post_tag');
+    $twitter_desc 	= 'Articles tagged '. $tag->name . ' - ' . get_bloginfo( 'description' );
+    $twitter_url 	= get_tag_link( (int)$tag->term_id );
+    $twitter_title 	= $tag->name . ' - ' . get_bloginfo( 'name' );
+} else if ( is_singular() ) {
+    $twitter_thumbs = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'large');
+    $twitter_desc   = strip_tags(get_the_excerpt());
+    $twitter_desc   = convert_smart_quotes(htmlentities($twitter_desc, ENT_QUOTES, 'UTF-8'));
+    $twitter_url    = get_permalink();
+    $twitter_title  = get_the_title();
+    $temp_post 		= get_post($post->ID);
+    $temp_auth 		= get_the_author_meta('twitter', $post->post_author);
+    $temp_gplus 	= get_the_author_meta('googleplus', $post->post_author);
+    $GLOBALS['dfmcat'][0] = ( ( $category[0]->category_parent != ( '' || null) ) ? get_cat_name($category[0]->category_parent) : $category[0]->cat_name );
+    $GLOBALS['dfmcat'][1] = ( ( $category[0]->category_parent != ( '' || null) ) ? $category[0]->cat_name : '');
+    $GLOBALS['dfmid'] = $post->ID;
+    $GLOBALS['dfmby'] = get_the_author_meta('display_name', $post->post_author);
 }
-$twitter_url    = get_permalink();
-$twitter_title  = get_the_title();
 $twitter_thumb = ( ($twitter_thumbs != '') ? $twitter_thumbs[0] : get_stylesheet_directory_uri() . '/images/facebooklogo600.jpg' );
 $twitter_user_id = ( ($temp_post != '') && is_single() ) ? $temp_post->post_author : '@RVRB';
 $twitter_creator = ( ($temp_auth != '') && is_single() ) ? '@' . $temp_auth : '@RVRB';
 echo ( ($temp_gplus != '') && is_single() ) ? '<link rel="author" href="' . $temp_gplus . '" />' : '<link rel="publisher" href="http://plus.google.com/100931264054788579031" />';
 ?>
-<meta name="twitter:card" content="summary_large_image" />
+
+<meta name="twitter:card" content="<?php echo ( is_single() ) ? 'summary_large_image' : 'summary'; ?>" />
 <meta name="twitter:site" content="@RVRB" />
 <meta name="twitter:creator" content="<?php echo $twitter_creator; ?>" />
 <meta name="twitter:url" content="<?php echo $twitter_url; ?>" />
@@ -71,9 +91,9 @@ echo ( ($temp_gplus != '') && is_single() ) ? '<link rel="author" href="' . $tem
 <meta name="twitter:domain" content="heyreverb.com" />
 
 <meta property="fb:app_id" content="589548971098932"/>
-<meta property="og:title" content="<?php if ( is_singular() ) { wp_title(); } else { echo get_bloginfo('name') . ' - ' . get_bloginfo('description'); } ?>" />
-<meta property="og:type" content="<?php echo $ogtype; ?>" />
-<meta property="og:url" content="<?php echo get_permalink() ?>" />
+<meta property="og:title" content="<?php echo $twitter_title; ?>" />
+<meta property="og:type" content="<?php echo ( is_single() ) ? 'article' : 'blog'; ?>" />
+<meta property="og:url" content="<?php echo $twitter_url; ?>" />
 <meta property="og:image" content="<?php echo $twitter_thumb; ?>" />
 <meta property="og:site_name" content="<?php bloginfo('name') ?>" />
 <meta property="og:description" content="<?php echo $twitter_desc; ?>" />

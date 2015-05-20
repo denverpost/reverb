@@ -23,19 +23,21 @@ add_action('wp_enqueue_scripts', 'reactor_enqueue_scripts');
  
 function reactor_register_scripts() {
 	// register scripts
-	wp_register_script('modernizr-js', get_template_directory_uri() . '/library/js/vendor/custom.modernizr.js', array(), false, false);
-	wp_register_script('jqueryui', '//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js', array(), false, false);
-	wp_register_script('foundation-js', get_template_directory_uri() . '/library/js/foundation.min.js', array(), false, true);
+	wp_register_script('modernizr-js', get_template_directory_uri() . '/library/js/vendor/custom.modernizr.js', array(), false, true);
+	wp_register_script('jqueryui', '//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js', array('jquery'), false, true);
+	wp_register_script('foundation-js', get_template_directory_uri() . '/library/js/foundation.min.js', array('jquery'), false, true);
 	wp_register_script('reactor-js', get_template_directory_uri() . '/library/js/reactor.js', array(), false, true);
 	wp_register_script('mixitup-js', get_template_directory_uri() . '/library/js/mixitup.min.js', array(), false, true);
 	//Added DJS
-	wp_register_script('dfmcore-js', '//local.digitalfirstmedia.com/common/dfm/assets/js/dfm-core-level1.js', array(), false, false);
-	wp_register_script('jquery-inview', get_stylesheet_directory_uri() . '/library/js/jquery.inview.min.js', array(), false, true);
+	wp_register_script('jquery-inview', get_stylesheet_directory_uri() . '/library/js/jquery.inview.min.js', array('jquery'), false, true);
 	wp_register_script('rvfunctions-js', get_stylesheet_directory_uri() . '/library/js/rv-functions.js', array(), false, true);
 	wp_register_script('gads-js', '//www.googletagservices.com/tag/js/gpt.js', array(), false, false);
-	wp_register_script('outbrain-js', '//widgets.outbrain.com/outbrain.js', array(), false, false);
-	wp_register_script('jquery-infinite', get_stylesheet_directory_uri() . '/library/js/jquery.infinitescroll.min.js', array(), false, true);
-	wp_register_script('related-js', get_stylesheet_directory_uri() . '/library/js/related.js', array(), false, true);
+	wp_register_script('outbrain-js', '//widgets.outbrain.com/outbrain.js', array(), false, true);
+	wp_register_script('adnexus', 'https://secure.adnxs.com/seg?add=2836221&t=1', array('jquery'), false, true);
+	wp_register_script('jquery-infinite', get_stylesheet_directory_uri() . '/library/js/jquery.infinitescroll.min.js', array('jquery'), false, true);
+	wp_register_script('related-js', get_stylesheet_directory_uri() . '/library/js/related.js', array('jquery'), false, true);
+	wp_register_script('hammer-js', get_stylesheet_directory_uri() . '/library/js/hammer.min.js', array('jquery'), false, false);
+	wp_register_script('swipes-js', get_stylesheet_directory_uri() . '/library/js/swipes.js', array('hammer-js','jquery'), false, true);
 }
 
 function reactor_enqueue_scripts() {
@@ -48,16 +50,21 @@ function reactor_enqueue_scripts() {
 		wp_enqueue_script('foundation-js');
 		wp_enqueue_script('reactor-js');
 		//Added DJS
-		wp_enqueue_script('dfmcore-js');
 		wp_enqueue_script('jquery-inview');
 		wp_enqueue_script('rvfunctions-js');
 		wp_enqueue_script('gads-js');
+		wp_enqueue_script('adnexus');
 		wp_enqueue_script('outbrain-js');
 		wp_enqueue_script('related-js');
 
 		//enqueue on front page
 		if ( is_front_page() ) {
 			wp_enqueue_script('jquery-infinite');
+		}
+		//enqueue on single only
+		if ( is_single() ) {
+			wp_enqueue_script('hammer-js');
+			wp_enqueue_script('swipes-js');
 		}
 
 		// enqueue quicksand on portfolio page template

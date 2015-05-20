@@ -176,6 +176,16 @@ function reactor_do_standard_thumbnail() {
 }
 add_action('reactor_post_header', 'reactor_do_standard_thumbnail', 4);
 
+/**
+ * Post content after tags
+ * in format-standard
+ */
+function rvrb_post_body_content_tags() {
+	if ( is_single() ) {
+		reactor_post_meta( array( 'just_tags' => true ) );
+	}
+}
+add_action('reactor_post_footer', 'rvrb_post_body_content_tags', 1);
 
 /**
  * Post footer edit 
@@ -188,7 +198,7 @@ function reactor_do_post_edit() {
 		edit_post_link( __('Edit this post', 'reactor'), '<div class="edit-link"><span>', '</span></div>');
 	}
 }
-add_action('reactor_post_footer', 'reactor_do_post_edit', 1);
+add_action('reactor_post_footer', 'reactor_do_post_edit', 2);
 
 
 /**
@@ -252,7 +262,7 @@ function reactor_do_post_body_social() {
 	$social_string .= '<div class="clear"></div></ul></div>';
 	echo $social_string;
 }
-add_action('reactor_post_footer', 'reactor_do_post_body_social', 2);
+add_action('reactor_post_footer', 'reactor_do_post_body_social', 3);
 
 /**
  * Post footer meta
@@ -263,7 +273,7 @@ add_action('reactor_post_footer', 'reactor_do_post_body_social', 2);
 function reactor_do_post_footer_meta() {
 
 	if ( is_single() ) {
-		reactor_post_meta( array('show_photo' => true) );
+		reactor_post_meta( array('show_photo' => true,'show_tag' => true) );
 	} else {
 		if ( is_page_template('page-templates/front-page.php') ) {
 			$post_meta = reactor_option('frontpage_post_meta', 1);
@@ -279,7 +289,7 @@ function reactor_do_post_footer_meta() {
 		}
 	}
 }
-add_action('reactor_post_footer', 'reactor_do_post_footer_meta', 3);
+add_action('reactor_post_footer', 'reactor_do_post_footer_meta', 4);
 
 /**
  * Single post nav 
@@ -291,9 +301,9 @@ function reactor_do_nav_single() {
     if ( is_single() ) { 
     $exclude = ( reactor_option('frontpage_exclude_cat', 1) ) ? reactor_option('frontpage_post_category', '') : ''; ?>
         <nav class="nav-single">
-            <!-- <span class="nav-previous alignleft">
-            <?php //previous_post_link('%link', '<span class="meta-nav">' . _x('&larr;', 'Previous post link', 'reactor') . '</span> %title', false, $exclude); ?>
-            </span> -->
+            <span class="nav-previous alignleft">
+            <?php previous_post_link('%link', 'Last hit: %title', false, $exclude); ?>
+            </span>
             <span class="nav-next">
             <?php next_post_link('%link', 'Up next: %title', false, $exclude); ?>
             </span>

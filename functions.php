@@ -265,7 +265,9 @@ function SearchFilter($query) {
     }
     return $query;
 }
-add_filter('pre_get_posts','SearchFilter');
+if ( ! is_admin() ) {
+    add_filter('pre_get_posts','SearchFilter');
+}
 
 /**
  * Include posts from authors in the search results where
@@ -445,5 +447,43 @@ add_filter( 'jetpack_enable_open_graph', '__return_false', 99 );
 
 // Disable only the Twitter Cards
 add_filter( 'jetpack_disable_twitter_cards', '__return_true', 99 );
+
+// Dequeue Contact Form 7 scripts if they aren't needed
+function rvrb_dequeue_scripts() {
+    $load_scripts = false;
+    if( is_singular() ) {
+        $post = get_post();
+
+        if( has_shortcode($post->post_content, 'contact-form-7') ) {
+            $load_scripts = true;
+        }
+
+    }
+    if( ! $load_scripts ) {
+        wp_dequeue_script( 'contact-form-7' );
+        wp_dequeue_style( 'contact-form-7' );
+    }
+}
+add_action( 'wp_enqueue_scripts', 'rvrb_dequeue_scripts', 99 );  
+
+// Add body classes for mobile destection for swiping stuff
+function browser_body_class($classes) {
+    global $is_lynx, $is_gecko, $is_IE, $is_opera, $is_NS4, $is_safari, $is_chrome, $is_iphone;
+ 
+    if($is_lynx) $classes[] = 'lynx';
+    elseif($is_gecko) $classes[] = 'gecko';
+    elseif($is_opera) $classes[] = 'opera';
+    elseif($is_NS4) $classes[] = 'ns4';
+    elseif($is_safari) $classes[] = 'safari';
+    elseif($is_chrome) $classes[] = 'chrome';
+    elseif($is_IE) $classes[] = 'ie';
+    else $classes[] = 'unknown';
+ 
+    if($is_iphone) $classes[] = 'iphone';
+ 
+    return $classes;
+}
+ 
+add_filter( 'body_class', 'browser_body_class' );
 
 ?>

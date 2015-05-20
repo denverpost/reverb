@@ -33,6 +33,7 @@ if ( !function_exists('reactor_post_meta') ) {
 			'catpage' => false,
 			'show_photo' => false,
 			'social_dropdown'	=> false,
+			'just_tags'	=> false,
 		 );
         $args = wp_parse_args( $args, $defaults );
 		
@@ -111,7 +112,7 @@ if ( !function_exists('reactor_post_meta') ) {
 			$author_desc = '<p class="author-desc">' . smart_trim(get_the_author_meta('description'),30) . '</p>';
 		}
 
-		if ( 'post' == get_post_type() ) {
+		if ( 'post' == get_post_type() && the_author_image_url( get_the_author_meta('ID') ) ) {
 			$author_photo = sprintf('<div class="authorimage large-3 medium-3 small-3 columns"><div class="authorimageholder"></div><a class="url fn n" href="%1$s" title="%2$s" rel="author"><img src="%3$s" class="authormug" alt="%4$s" /></a></div>',
 				esc_url( get_author_posts_url( get_the_author_meta('ID') ) ),
 				esc_attr( sprintf( __('View all posts by %s', 'reactor'), get_the_author() ) ),
@@ -207,6 +208,12 @@ if ( !function_exists('reactor_post_meta') ) {
 				$meta .= ( $date && $args['show_date'] ) ? '<i class="general foundicon-calendar" title="Publish on"></i> %3$s' : '';
 				$meta .= ( $categories_list && $args['show_cat'] ) ? '<i class="general foundicon-folder" title="Posted in"></i> %1$s' : '';
 				$meta .= ( $tag_list && $args['show_tag'] ) ? '<div class="entry-tags"><i class="general foundicon-flag" title="Tagged with"></i> %2$s</div>' : '';
+				
+				if ( $meta ) {
+					$output = '<div class="entry-meta icons">' . $meta . '</div>';
+				}
+			} else if ( $args['just_tags'] ) {
+				$meta .= ( $tag_list ) ? '<div class="entry-tags">Post tags: %2$s</div>' : '';
 				
 				if ( $meta ) {
 					$output = '<div class="entry-meta icons">' . $meta . '</div>';
