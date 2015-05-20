@@ -79,6 +79,17 @@ if ( is_category() ) {
     var _sf_startpt=(new Date()).getTime();
     //confiure Outbrainvariables
     var outbrainurl = '<?php echo get_permalink(); ?>';
+/* CHARTBEAT a/b testing START */
+ var _sf_async_config = _sf_async_config || {};
+ _sf_async_config.uid = "2671";
+ _sf_async_config.domain = "heyreverb.com";
+ _sf_async_config.useCanonical = false;
+ var _sf_startpt = (new Date()).getTime();
+    var e = document.createElement('script');
+    e.setAttribute('type', 'text/javascript');
+    e.setAttribute('src', '//static.chartbeat.com/js/chartbeat_mab.js');
+    document.head.appendChild(e);
+/* CHARTBEAT a/b testing END */
 </script>
 
 <script>
