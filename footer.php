@@ -30,9 +30,10 @@
 	/** CONFIGURATION START **/
 	_sf_async_config.title = "<?php echo addslashes(html_entity_decode(wp_title('', false), ENT_QUOTES, 'UTF-8') ); ?>";
 	_sf_async_config.uid = 2671;
-	_sf_async_config.domain = "heyreverb.com";
+	_sf_async_config.domain = "thecannabist.co";
 	_sf_async_config.sections = "<?php echo $GLOBALS['dfmcat'][0]; ?>";
 	_sf_async_config.useCanonical = false;
+	var _sf_async_config={};
 	/** CONFIGURATION END **/
 	(function(){
 	  function loadChartbeat() {
