@@ -2,7 +2,7 @@ jQuery(document).ready(function($) {
 	delete Hammer.defaults.cssProps.userSelect;
     function hammerSwipe() {
     	var hammerElem = $('body.gesture');
-		var hammerTime = new Hammer(hammerElem..get('pan').set({threshold:25}));
+		var hammerTime = new Hammer(hammerElem.get('pan').set({threshold:25}));
 		var url = false;
 		hammerTime.on("panright", function ( evnt ) {
 			console.log(evnt.direction);
