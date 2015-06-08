@@ -3,7 +3,7 @@ jQuery(document).ready(function($) {
     function hammerSwipe() {
     	var hammerElem = $('body.gesture');
 		var hammerTime = new Hammer(hammerElem.get(0));
-		hammerTime.get('pan').set({threshold:25});
+		hammerTime.get('pan').set({threshold:40});
 		var url = false;
 		hammerTime.on("panright", function ( evnt ) {
 			console.log(evnt.direction);
