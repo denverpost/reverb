@@ -26,29 +26,24 @@
 }); */
 
 jQuery(document).ready(function($) {
-    function theSwipe() {
-    	$.event.special.swipe.scrollSupressionThreshold = (screen.availWidth) / 60;
-		$.event.special.swipe.horizontalDistanceThreshold = (screen.availWidth) / 60;
-		$.event.special.swipe.verticalDistanceThreshold = (screen.availHeight) / 13;
-		$.event.special.swipe.durationThreshold = 1000;
-    	var hammerElem = $('body.gesture');
-		var url = false;
-		hammerElem.on("swiperight", function () {
-			url = $('.nav-next a').attr('href');
-			console.log(url);
-			if ( url ) {
-			    window.location = url;
-			}
-		});
-		hammerElem.on("swipeleft", function () {
-			url = $('.nav-previous a').attr('href');
-			console.log(url);
-			if ( url ) {
-			    window.location = url;
-			}
-		});
-    }
-    // if ( $('.gesture').hasClass( 'iphone' ) ) {
-	    theSwipe();
-	// }
+	$.event.special.swipe.scrollSupressionThreshold = (screen.availWidth) / 60;
+	$.event.special.swipe.horizontalDistanceThreshold = (screen.availWidth) / 60;
+	$.event.special.swipe.verticalDistanceThreshold = (screen.availHeight) / 13;
+	$.event.special.swipe.durationThreshold = 1000;
+	var hammerElem = $('body.gesture');
+	var url = false;
+	hammerElem.on("swiperight", function () {
+		url = $('.nav-next a').attr('href');
+		console.log(url);
+		if ( url ) {
+		    window.location = url;
+		}
+	});
+	hammerElem.on("swipeleft", function () {
+		url = $('.nav-previous a').attr('href');
+		console.log(url);
+		if ( url ) {
+		    window.location = url;
+		}
+	});
 }); 
