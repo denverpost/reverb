@@ -31,7 +31,7 @@ jQuery(document).ready(function($) {
 	$.event.special.swipe.horizontalDistanceThreshold = (screen.availWidth) / 60;
 	$.event.special.swipe.verticalDistanceThreshold = (screen.availHeight) / 13;
 	$.event.special.swipe.durationThreshold = 1000;
-	var next = $('.nav-next a').attr('href'), 
+	var next = $('.nav-next a').attr('href');
     var prev = $('.nav-previous a').attr('href');
 
 	$(document).on('swipeleft swiperight', function(event) {
