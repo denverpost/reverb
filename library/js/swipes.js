@@ -29,13 +29,13 @@ jQuery(document).ready(function($) {
     function theSwipe() {
     	var hammerElem = $('body.gesture');
 		var url = false;
-		hammerElem.on("panright", function ( evnt ) {
+		hammerElem.on("swiperight", function () {
 			url = $('.nav-next a').attr('href');
 			if ( url ) {
 			    window.location = url;
 			}
 		});
-		hammerElem.on("panleft", function ( evnt ) {
+		hammerElem.on("swipeleft", function () {
 			url = $('.nav-previous a').attr('href');
 			if ( url ) {
 			    window.location = url;
