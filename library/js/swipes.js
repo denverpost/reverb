@@ -34,7 +34,7 @@ jQuery(document).ready(function($) {
 	next = $('.nav-next a').attr('href'), 
     prev = $('.nav-previous a').attr('href');
 
-	$(document).on('swipeleft swiperight', function() {
+	$(document).on('swipeleft swiperight', function(event) {
 		if ( event.type == 'swipeleft' ) {
 	        $.mobile.changePage( next , {transition: "slide"});
 		} 
