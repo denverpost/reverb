@@ -36,10 +36,10 @@ jQuery(document).ready(function($) {
 
 	$(document).on('swipeleft swiperight', function(event) {
 		if ( event.type == 'swipeleft' ) {
-	        $.mobile.changePage( next , {transition: "slide"});
+	        window.location = next;
 		} 
 		if ( event.type == 'swiperight' ) {
-	        $.mobile.changePage( prev, { transition: "slide" , reverse: true} );
+	        window.location = prev;
 		}
 	});
 }); 
