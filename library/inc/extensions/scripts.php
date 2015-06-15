@@ -37,7 +37,7 @@ function reactor_register_scripts() {
 	wp_register_script('adnexus', 'https://secure.adnxs.com/seg?add=2836221&t=1', array('jquery'), false, true);
 	wp_register_script('jquery-infinite', get_stylesheet_directory_uri() . '/library/js/jquery.infinitescroll.min.js', array('jquery'), false, true);
 	wp_register_script('related-js', get_stylesheet_directory_uri() . '/library/js/related.js', array('jquery'), false, true);
-	wp_register_script('swipes-js', get_stylesheet_directory_uri() . '/library/js/swipes.js', array('hammer-js','jquery'), false, true);
+	wp_register_script('swipes-js', get_stylesheet_directory_uri() . '/library/js/swipes.js', array('jquerymobile','jquery'), false, true);
 }
 
 function reactor_enqueue_scripts() {
