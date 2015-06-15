@@ -1,4 +1,4 @@
-jQuery(document).ready(function($) {
+/* jQuery(document).ready(function($) {
 	delete Hammer.defaults.cssProps.userSelect;
     function hammerSwipe() {
     	var hammerElem = $('body.gesture');
@@ -23,4 +23,26 @@ jQuery(document).ready(function($) {
     if ( $('.gesture').hasClass( 'iphone' ) ) {
 	    hammerSwipe();
 	}
-});
+}); */
+
+jQuery(document).ready(function($) {
+    function theSwipe() {
+    	var hammerElem = $('body.gesture');
+		var url = false;
+		hammerElem.on("panright", function ( evnt ) {
+			url = $('.nav-next a').attr('href');
+			if ( url ) {
+			    window.location = url;
+			}
+		});
+		hammerElem.on("panleft", function ( evnt ) {
+			url = $('.nav-previous a').attr('href');
+			if ( url ) {
+			    window.location = url;
+			}
+		});
+    }
+    if ( $('.gesture').hasClass( 'iphone' ) ) {
+	    theSwipe();
+	}
+}); */

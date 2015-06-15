@@ -30,13 +30,13 @@ function reactor_register_scripts() {
 	wp_register_script('mixitup-js', get_template_directory_uri() . '/library/js/mixitup.min.js', array(), false, true);
 	//Added DJS
 	wp_register_script('jquery-inview', get_stylesheet_directory_uri() . '/library/js/jquery.inview.min.js', array('jquery'), false, true);
+	wp_register_script('jquerymobile', '//ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js', array('jquery'), false, true);
 	wp_register_script('rvfunctions-js', get_stylesheet_directory_uri() . '/library/js/rv-functions.js', array(), false, true);
 	wp_register_script('gads-js', '//www.googletagservices.com/tag/js/gpt.js', array(), false, false);
 	wp_register_script('outbrain-js', '//widgets.outbrain.com/outbrain.js', array(), false, true);
 	wp_register_script('adnexus', 'https://secure.adnxs.com/seg?add=2836221&t=1', array('jquery'), false, true);
 	wp_register_script('jquery-infinite', get_stylesheet_directory_uri() . '/library/js/jquery.infinitescroll.min.js', array('jquery'), false, true);
 	wp_register_script('related-js', get_stylesheet_directory_uri() . '/library/js/related.js', array('jquery'), false, true);
-	wp_register_script('hammer-js', get_stylesheet_directory_uri() . '/library/js/hammer.min.js', array('jquery'), false, false);
 	wp_register_script('swipes-js', get_stylesheet_directory_uri() . '/library/js/swipes.js', array('hammer-js','jquery'), false, true);
 }
 
@@ -54,7 +54,7 @@ function reactor_enqueue_scripts() {
 		wp_enqueue_script('rvfunctions-js');
 		//enqueue on single only
 		if ( is_single() ) {
-			wp_enqueue_script('hammer-js');
+			wp_enqueue_script('jquerymobile');
 			wp_enqueue_script('swipes-js');
 		}
 		wp_enqueue_script('gads-js');
