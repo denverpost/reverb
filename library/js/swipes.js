@@ -16,12 +16,13 @@ jQuery(document).ready(function($) {
 	// if ( $('.gesture').hasClass( 'iphone' ) ) {
 		var next = $('.nav-next a').attr('href');
 	    var prev = $('.nav-previous a').attr('href');
+	    console.log('next: ' + next + ', prev: ' + prev);
 
 		$(document).on('swipeleft swiperight', function(event) {
-			if ( event.type == 'swipeleft' && next.indexOf('http') ) {
+			if ( event.type == 'swipeleft' && next.indexOf('reverb') ) {
 		        window.location = next;
 			} 
-			if ( event.type == 'swiperight' && prev.indexOf('http') ) {
+			if ( event.type == 'swiperight' && prev.indexOf('reverb') ) {
 		        window.location = prev;
 			}
 		});
