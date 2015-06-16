@@ -35,14 +35,14 @@ jQuery(document).ready(function($) {
 		fixedDiv.style.fontSize = '18px';
 		fixedDiv.style.fontFamily = '\'Open Sans\',\'PT Sans\',Arial,Helvetica,sans-serif';
 		fixedDiv.style.paddingBottom = '3px';
-		fixedDiv.style.opacity = '0.0';
+		fixedDiv.style.display = 'none';
 		fixedDiv.style.textAlign = 'center';
 		fixedDiv.innerHTML = '<span style="display:block;position:fixed;left:2%;bottom:0;font-size:22px;font-weight:bold;">&lt;</span>' + text + '<span style="display:block;position:fixed;right:2%;bottom:0;font-size:22px;font-weight:bold;">&gt;</span>';
 		document.body.appendChild(fixedDiv);
 		$('#messageBar').fadeIn('fast');
 		window.setTimeout(function(){
 			$('#messageBar').fadeOut('slow',function(){
-		//		$(this).remove();
+				$(this).remove();
 			});
 		},1500);
 	}
