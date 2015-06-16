@@ -37,7 +37,7 @@ jQuery(document).ready(function($) {
 		fixedDiv.style.paddingBottom = '3px';
 		fixedDiv.style.display = 'none';
 		fixedDiv.style.textAlign = 'center';
-		fixedDiv.innerHTML = '<span style="display:block;position:fixed;left:2%;bottom:0;font-size:22px;font-weight:bold;">&lt;</span>' + text + '<span style="display:block;position:fixed;right:2%;bottom:0;font-size:22px;font-weight:bold;">&gt;</span>';
+		fixedDiv.innerHTML = prev + text + next;
 		document.body.appendChild(fixedDiv);
 		$('#messageBar').fadeIn();
 		window.setTimeout(function(){
