@@ -39,7 +39,7 @@ jQuery(document).ready(function($) {
 		fixedDiv.style.textAlign = 'center';
 		fixedDiv.innerHTML = '<span style="display:block;position:fixed;left:2%;bottom:0;font-size:22px;font-weight:bold;">&lt;</span>' + text + '<span style="display:block;position:fixed;right:2%;bottom:0;font-size:22px;font-weight:bold;">&gt;</span>';
 		document.body.appendChild(fixedDiv);
-		$('#messageBar').fadeIn('fast');
+		$('#messageBar').fadeIn();
 		window.setTimeout(function(){
 			$('#messageBar').fadeOut('slow',function(){
 				$(this).remove();
