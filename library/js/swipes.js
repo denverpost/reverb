@@ -20,8 +20,8 @@ jQuery(document).ready(function($) {
 
 	function bringTheBar(text,prev,next) {
 		text = typeof text !== 'undefined' ? text : 'Swipe to navigate!';
-		prev = prev ? '<span style="display:block;position:fixed;left:2%;bottom:7px;font-size:22px;font-weight:bold;">&lt;</span>' : '';
-		next = next ? '<span style="display:block;position:fixed;right:2%;bottom:7px;font-size:22px;font-weight:bold;">&gt;</span>' : '';
+		prev = prev ? '<span style="display:block;position:fixed;left:2%;bottom:0;font-size:22px;font-weight:bold;">&lt;</span>' : '';
+		next = next ? '<span style="display:block;position:fixed;right:2%;bottom:0;font-size:22px;font-weight:bold;">&gt;</span>' : '';
 		var fixedDiv = document.createElement('div');
 		fixedDiv.id = 'messageBar';
 		fixedDiv.style.position = 'fixed';
