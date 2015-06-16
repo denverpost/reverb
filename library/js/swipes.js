@@ -4,10 +4,10 @@ jQuery(document).ready(function($) {
 	    var prev = $('.nav-previous a').attr('href');
 
 		$(document).on('swipeleft swiperight', function(event) {
-			if ( event.type == 'swipeleft' ) {
+			if ( event.type == 'swipeleft' && next.indexOf('http') ) {
 		        window.location = next;
 			} 
-			if ( event.type == 'swiperight' ) {
+			if ( event.type == 'swiperight' && prev.indexOf('http') ) {
 		        window.location = prev;
 			}
 		});
