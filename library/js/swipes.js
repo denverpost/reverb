@@ -39,7 +39,7 @@ jQuery(document).ready(function($) {
 		document.body.appendChild(fixedDiv);
 		window.setTimeout(function(){
 			$('#messageBar').remove();
-		}),1500);
+		},1500);
 	}
 	if ( $('.gesture').hasClass( 'iphone' ) ) {
 		
