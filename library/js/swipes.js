@@ -28,7 +28,7 @@ jQuery(document).ready(function($) {
 		fixedDiv.style.left = '0';
 		fixedDiv.style.height = '36px;';
 		fixedDiv.style.width = '100%';
-		fixedDiv.style.background = 'linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.5) 25%,rgba(0,0,0,1) 100%)';
+		fixedDiv.style.background = 'linear-gradient(to bottom, rgba(17,17,17,0) 0%,rgba(17,17,17,0.45) 25%,rgba(17,17,17,0.9) 100%)';
 		fixedDiv.style.fontWeight = 'bold';
 		fixedDiv.style.color = '#FFFFFF';
 		fixedDiv.style.fontSize = '18px';
