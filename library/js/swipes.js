@@ -49,8 +49,8 @@ jQuery(document).ready(function($) {
 		
 		var next = $('.nav-next a').attr('href');
 	    var prev = $('.nav-previous a').attr('href');
-	    nextYes = next.indexOf('reverb') ? true : false;
-	    prevYes = prev.indexOf('reverb') ? true : false;
+	    nextYes = typeof next !== 'undefined' && next.indexOf('reverb') ? true : false;
+	    prevYes = typeof prev !== 'undefined' && prev.indexOf('reverb') ? true : false;
 
 		if (!getCookie('seenTheBar')) {
 			bringTheBar('Swipe to navigate!',prevYes,nextYes);
