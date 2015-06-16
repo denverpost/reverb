@@ -21,7 +21,7 @@ function bringTheBar(text,prev,next) {
 	prev = prev ? '<span style="display:block;position:fixed;left:2%;bottom:7px;font-size:22px;font-weight:bold;">&lt;</span>' : '';
 	next = next ? '<span style="display:block;position:fixed;right:2%;bottom:7px;font-size:22px;font-weight:bold;">&gt;</span>' : '';
 	var fixedDiv = document.createElement('div');
-	fixedDiv.id = 'message-slide-up';
+	fixedDiv.id = 'messageBar';
 	fixedDiv.style.position = 'fixed';
 	fixedDiv.style.bottom = '0';
 	fixedDiv.style.left = '0';
@@ -36,6 +36,9 @@ function bringTheBar(text,prev,next) {
 	fixedDiv.style.textAlign = 'center';
 	fixedDiv.innerHTML = '<span style="display:block;position:fixed;left:2%;bottom:7px;font-size:22px;font-weight:bold;">&lt;</span>' + text + '<span style="display:block;position:fixed;right:2%;bottom:7px;font-size:22px;font-weight:bold;">&gt;</span>';
 	document.body.appendChild(fixedDiv);
+	var barTimeout = window.setTimeout(function(){
+		document.body.removeChild('messageBar');
+	}),1500);
 }
 
 jQuery(document).ready(function($) {
