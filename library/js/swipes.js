@@ -44,7 +44,7 @@ jQuery(document).ready(function($) {
 			$('#messageBar').fadeOut('slow',function(){
 				$(this).remove();
 			});
-		},1500);
+		},3000);
 	}
 	if ( $('.gesture').hasClass( 'iphone' ) ) {
 		
