@@ -1,5 +1,5 @@
 jQuery(document).ready(function($) {
-	function setCookie(cname, cvalue, exdays, path, domain) {
+	function setCookie(cname, cvalue, exdays, path) {
 	    var d = new Date();
 	    d.setTime(d.getTime() + (exdays*24*60*60*1000));
 	    var expires = "expires="+d.toUTCString() +
@@ -60,14 +60,14 @@ jQuery(document).ready(function($) {
 
 		$(document).on('swipeleft swiperight', function(event) {
 			if ( event.type == 'swipeleft' ) {
-				if ( next.indexOf('reverb') ) {
+				if ( typeof next !== 'undefined' && next.indexOf('reverb') ) {
 			        window.location = next;
 			    } else {
 			    	bringTheBar('Nothing newer posted.',true,false);
 			    }
 			} 
 			if ( event.type == 'swiperight' ) {
-		        if ( prev.indexOf('reverb') ) {
+		        if ( typeof prev !== 'undefined' && prev.indexOf('reverb') ) {
 		        	window.location = prev;
 		        } else {
 		        	bringTheBar('Nothing older posted.',false,true);
