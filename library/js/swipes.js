@@ -40,7 +40,9 @@ jQuery(document).ready(function($) {
 		document.body.appendChild(fixedDiv);
 		$('#messageBar').fadeIn('fast');
 		window.setTimeout(function(){
-			$('#messageBar').fadeOut('slow').remove();
+			$('#messageBar').fadeOut('slow',function(){
+				$(this).remove();
+			});
 		},1500);
 	}
 	if ( $('.gesture').hasClass( 'iphone' ) ) {
