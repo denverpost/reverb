@@ -39,12 +39,13 @@ jQuery(document).ready(function($) {
 		fixedDiv.style.textAlign = 'center';
 		fixedDiv.innerHTML = prev + text + next;
 		document.body.appendChild(fixedDiv);
-		$('#messageBar').fadeIn();
-		window.setTimeout(function(){
-			$('#messageBar').fadeOut('slow',function(){
-				$(this).remove();
-			});
-		},3000);
+		$('#messageBar').fadeIn(400,function(){
+			window.setTimeout(function(){
+				$('#messageBar').fadeOut('slow',function(){
+					$(this).remove();
+				});
+			},3500);
+		});
 	}
 	if ( $('.gesture').hasClass( 'iphone' ) ) {
 		
