@@ -393,7 +393,9 @@ body:not(.home) .entry-body h2.entry-title {
 	width:100%;
 	height:auto;
 }
-.single .entry-content p {
+.single .entry-content p,
+.single .entry-content blockquote,
+.single .entry-content ul {
 	margin:0 10% 1em;
 }
 .single .entry-footer .entry-meta .entry-tags {
