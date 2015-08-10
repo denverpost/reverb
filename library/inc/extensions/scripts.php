@@ -34,6 +34,7 @@ function reactor_register_scripts() {
 	wp_register_script('jquerymobile', get_stylesheet_directory_uri() . '/library/js/jquery.mobile.custom.min.js', array('minit','jquery'), false, true);
 	wp_register_script('rvfunctions-js', get_stylesheet_directory_uri() . '/library/js/rv-functions.js', array(), false, true);
 	wp_register_script('gads-js', '//www.googletagservices.com/tag/js/gpt.js', array(), false, false);
+	wp_register_script('adglue-js', '//as.studio.adglue.com/adserve/js/adServe.js', array(), false, true);
 	wp_register_script('outbrain-js', '//widgets.outbrain.com/outbrain.js', array(), false, true);
 	wp_register_script('adnexus', 'https://secure.adnxs.com/seg?add=2836221&t=1', array('jquery'), false, true);
 	wp_register_script('jquery-infinite', get_stylesheet_directory_uri() . '/library/js/jquery.infinitescroll.min.js', array('jquery'), false, true);
@@ -63,6 +64,7 @@ function reactor_enqueue_scripts() {
 		wp_enqueue_script('adnexus');
 		wp_enqueue_script('outbrain-js');
 		wp_enqueue_script('related-js');
+		wp_enqueue_script('adglue-js');
 
 		//enqueue on front page
 		if ( is_front_page() ) {

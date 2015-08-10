@@ -442,7 +442,6 @@ class sidebar_ad_widget_top_cube extends WP_Widget
 
                     <script id="ag-c-1Wy93NTaNApBTZT">
                         var AGSERVE = AGSERVE || {}; AGSERVE.cubby = { pub: \'ag-p-LCGqwoP2lOXEPT8\', ref: \'ag-c-1Wy93NTaNApBTZT\', width: \'300\', height: \'250\', synchronous: true };
-                        document.write(\'<script src="//as.studio.adglue.com/adserve/js/adServe.js"></script>\');
                     </script>
                 </div>
             </div>';
