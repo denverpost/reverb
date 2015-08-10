@@ -319,6 +319,65 @@ function db_filter_user_query( &$user_query ) {
 // Attempts to permanently disable the Visual Editor for all users, all the time.
 add_filter( 'user_can_richedit', '__return_false', 50 );
 
+function rvrb_get_top_category_slug() {
+    global $post;
+    $curr_cat = get_the_category_list( '/' , 'single', $post->ID );
+    $valid_cats = array('news','reviews','photos','audio','video','venue');
+    $curr_cat = explode( '/', $curr_cat );
+    foreach ( $curr_cat as $current ) {
+        if ( in_array( $current, $valid_cats ) ) {
+            return $current;
+        }
+    }
+}
+
+function rvrb_get_ad_value() {
+    $category = FALSE;
+    $kv = 'heyreverb';
+    $tax = '';
+    if ( is_home() || is_front_page() ) {
+        $kv = 'home';
+    } else if ( is_category() ) {
+        $id = get_query_var( 'cat' );
+        $cat = get_category( (int)$id );
+        $category = $cat->slug;
+    } else if ( is_single() ) {
+        $category = rvrb_get_top_category_slug();
+    }
+    if ( $category ) {
+        switch ( $category ) {
+            case 'news':
+                $kv = 'news';
+                $tax = '/News';
+                break;
+            case 'reviews':
+                $kv = 'reviews';
+                $tax = '/Reviews';
+                break;
+            case 'photos':
+                $kv = 'photos';
+                $tax = '/Photos';
+                break;
+            case 'audio':
+                $kv = 'audio';
+                $tax = '/Audio';
+                break;
+            case 'video':
+                $kv = 'video';
+                $tax = '/Video';
+                break;
+            case 'venue':
+                $kv = 'venue';
+                $tax = '/Venue';
+                break;
+            default:
+                $kv = 'heyreverb';
+                $tax = '';
+        }
+    }
+    return array( $kv, $tax );
+}
+
 // Create a simple widget for one-click newsletter signup
 class newsletter_signup_widget extends WP_Widget {
     public function __construct()
@@ -355,8 +414,77 @@ class newsletter_signup_widget extends WP_Widget {
     }
 }
 
+class sidebar_ad_widget_top_cube extends WP_Widget
+{
+    public function __construct()
+    {
+            parent::__construct(
+                'sidebar_ad_widget_top_cube',
+                __('Sidebar Ad - Top-of-rail Cube', 'sidebar_ad_widget_top_cube'),
+                array('description' => __('Big ads are a key component of the online browsing experience. Designed to be used at the top of the right rail.', 'sidebar_ad_widget_top_cube'), )
+            );
+    }
+
+    public function widget($args, $instance)
+    {
+        // It's a big ad.
+        $ad_tax = rvrb_get_ad_value();
+        echo '
+            <!-- ##ADPLACEMENT## -->
+            <div id="cube2_reverb_wrap" class="widget hide-for-small">
+                <div style="margin:0 auto;text-align:center;">
+                    <script>
+                        googletag.defineSlot(\'/8013/heyreverb.com' . $ad_tax[0] . '\', [300,250], \'cube1_reverb\').setTargeting(\'pos\',[\'Cube1_RRail_ATF\']).setTargeting(\'kv\', \'' . $ad_tax[1] . '\').addService(googletag.pubads());
+                        googletag.pubads().enableSyncRendering();
+                        googletag.enableServices();
+                        //googletag.display(\'cube1_reverb\');
+                    </script>
+
+                    <script id="ag-c-1Wy93NTaNApBTZT">
+                        var AGSERVE = AGSERVE || {}; AGSERVE.cubby = { pub: \'ag-p-LCGqwoP2lOXEPT8\', ref: \'ag-c-1Wy93NTaNApBTZT\', width: \'300\', height: \'250\', synchronous: true };
+                        document.write(\'<script src="//as.studio.adglue.com/adserve/js/adServe.js"></script>\');
+                    </script>
+                </div>
+            </div>';
+    }
+}
+
+class sidebar_ad_widget_cube extends WP_Widget
+{
+    public function __construct()
+    {
+            parent::__construct(
+                'sidebar_ad_widget_cube',
+                __('Sidebar Ad - Secondary Cube', 'sidebar_ad_widget_cube'),
+                array('description' => __('Ads are a key component of the online browsing experience. Designed ad positions below the top of the right rail.', 'sidebar_ad_widget_cube'), )
+            );
+    }
+
+    public function widget($args, $instance)
+    {
+        // It's an ad.
+        $ad_tax = rvrb_get_ad_value();
+        echo '
+            <!-- ##ADPLACEMENT## -->
+            <div id="cube1_reverb_wrap" class="widget">
+                <div style="margin:0 auto;text-align:center;">
+                    <script>
+                    googletag.defineSlot(\'/8013/heyreverb.com' . $ad_tax[0] . '\', [300,250], \'cube2_reverb\').setTargeting(\'pos\',[\'Cube2_RRail_mid\']).setTargeting(\'kv\', \'' . $ad_tax[1] . '\').addService(googletag.pubads());
+                    googletag.pubads().enableSyncRendering();
+                    googletag.enableServices();
+                    googletag.display(\'cube2_reverb\');
+                    </script>
+                </div>
+            </div>';
+    }
+}
+
 function register_newsletter_signup_widget() { register_widget('newsletter_signup_widget'); }
+function register_ad_widget_large_cube() { register_widget('sidebar_ad_widget_top_cube'); }
+function register_ad_widget_cube() { register_widget('sidebar_ad_widget_cube'); }
 add_action( 'widgets_init', 'register_newsletter_signup_widget' );
+add_action( 'widgets_init', 'register_ad_widget_large_cube' );
+add_action( 'widgets_init', 'register_ad_widget_cube' );
 
 // allows using Disqus on development deployments
 function childtheme_disqus_development() {
