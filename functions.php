@@ -437,7 +437,7 @@ class sidebar_ad_widget_top_cube extends WP_Widget
                         googletag.defineSlot(\'/8013/heyreverb.com' . $ad_tax[1] . '\', [300,250], \'cube1_reverb\').setTargeting(\'pos\',[\'Cube1_RRail_ATF\']).setTargeting(\'kv\', \'' . $ad_tax[0] . '\').addService(googletag.pubads());
                         googletag.pubads().enableSyncRendering();
                         googletag.enableServices();
-                        //googletag.display(\'cube1_reverb\');
+                        googletag.display(\'cube1_reverb\');
                     </script>
 
                     <script id="ag-c-1Wy93NTaNApBTZT">
