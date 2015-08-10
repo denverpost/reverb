@@ -431,8 +431,8 @@ class sidebar_ad_widget_top_cube extends WP_Widget
         $ad_tax = rvrb_get_ad_value();
         echo '
             <!-- ##ADPLACEMENT## -->
-            <div id="cube2_reverb_wrap" class="widget hide-for-small">
-                <div style="margin:0 auto;text-align:center;">
+            <div id="cube2_reverb_wrap" class="widget hide-for-small ad_wrap">
+                <div id="cube1_reverb">
                     <script>
                         googletag.defineSlot(\'/8013/heyreverb.com' . $ad_tax[1] . '\', [300,250], \'cube1_reverb\').setTargeting(\'pos\',[\'Cube1_RRail_ATF\']).setTargeting(\'kv\', \'' . $ad_tax[0] . '\').addService(googletag.pubads());
                         googletag.pubads().enableSyncRendering();
@@ -466,8 +466,8 @@ class sidebar_ad_widget_cube extends WP_Widget
         $ad_tax = rvrb_get_ad_value();
         echo '
             <!-- ##ADPLACEMENT## -->
-            <div id="cube1_reverb_wrap" class="widget">
-                <div style="margin:0 auto;text-align:center;">
+            <div id="cube1_reverb_wrap" class="widget ad_wrap">
+                <div id="cube2_reverb">
                     <script>
                     googletag.defineSlot(\'/8013/heyreverb.com' . $ad_tax[1] . '\', [300,250], \'cube2_reverb\').setTargeting(\'pos\',[\'Cube2_RRail_mid\']).setTargeting(\'kv\', \'' . $ad_tax[0] . '\').addService(googletag.pubads());
                     googletag.pubads().enableSyncRendering();

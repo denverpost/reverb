@@ -727,7 +727,11 @@ ul.pagination li a:hover {
     font-weight: 700;
     cursor: default;
 }
-
+/* ad widgets */
+.ad_wrap {
+	margin:0 auto;
+	text-align:center;
+}
 /* about page */
 .about-author .about-author-image {
     width: 20%;
