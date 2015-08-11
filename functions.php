@@ -439,10 +439,6 @@ class sidebar_ad_widget_top_cube extends WP_Widget
                         googletag.enableServices();
                         googletag.display(\'cube1_reverb\');
                     </script>
-
-                    <script id="ag-c-1Wy93NTaNApBTZT">
-                        var AGSERVE = AGSERVE || {}; AGSERVE.cubby = { pub: \'ag-p-LCGqwoP2lOXEPT8\', ref: \'ag-c-1Wy93NTaNApBTZT\', width: \'300\', height: \'250\', synchronous: true };
-                    </script>
                 </div>
             </div>';
     }
