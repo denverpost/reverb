@@ -730,6 +730,7 @@ ul.pagination li a:hover {
 /* ad widgets */
 .ad_wrap {
 	margin:0 auto;
+	padding-bottom:1.5em;
 	text-align:center;
 }
 /* about page */
