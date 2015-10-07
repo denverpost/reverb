@@ -1217,6 +1217,11 @@ body.home footer#footer { display: none; }
 	#infscr-loading img {
 		width:10%;
 	}
+	.single .entry-content figure.alignright,
+	.single .entry-content figure.alignleft {
+		width:100%;
+		margin:1em 0;
+	}
 }
 @media only print { 
     a[href]:after {    content: none !important }
