@@ -386,7 +386,11 @@ body:not(.home) .entry-body h2.entry-title {
 .single .entry-content figure.alignright,
 .single .entry-content figure.alignleft {
 	width:50%;
-	margin:.5em 0;
+	margin:.5em;
+}
+.single .entry-content figure.alignright:first-child,
+.single .entry-content figure.alignleft:first-child {
+	margin:0 .5em .5em;
 }
 .single .entry-content figure figcaption {
 	margin:.5em 1em 0;
