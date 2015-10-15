@@ -316,6 +316,33 @@ function db_filter_user_query( &$user_query ) {
     return $user_query;
 }
 
+// allow script tags in editor
+function rvrb_allow_script_tags( $allowedposttags ) {
+    if ( !current_user_can( 'publish_posts' ) )
+        return $allowedposttags;
+    $allowedposttags['script'] = array(
+        'src' => true,
+        'height' => true,
+        'width' => true,
+    );
+    $allowedposttags['iframe'] = array(
+        'align' => true,
+        'width' => true,
+        'height' => true,
+        'frameborder' => true,
+        'name' => true,
+        'src' => true,
+        'id' => true,
+        'class' => true,
+        'style' => true,
+        'scrolling' => true,
+        'marginwidth' => true,
+        'marginheight' => true,
+    );
+    return $allowedposttags;
+}
+add_filter('wp_kses_allowed_html','rvrb_allow_script_tags', 1, 1);
+
 // Attempts to permanently disable the Visual Editor for all users, all the time.
 add_filter( 'user_can_richedit', '__return_false', 50 );
 
