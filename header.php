@@ -25,36 +25,9 @@
     var outbrainurl = '<?php echo get_permalink(); ?>';
 </script>
 
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-60685156-1', 'auto');
-  ga('send', 'pageview');
-</script>
-
 </head>
 
 <body <?php body_class( 'gesture' ); ?>>
-
-<div id="omniture" style="display:none">
-    <script type="text/javascript">var s_account="mngireverb"</script>
-    <script type="text/javascript" src="http://extras.mnginteractive.com/live/omniture/sccore.js"></script>
-    <script type="text/javascript">
-        s.trackExternalLinks = false
-        s.pageName = document.title
-        s.channel = "Reverb"
-        s.prop1 = "D=g"
-        s.prop2 = "Reverb/?"
-        s.prop3 = "Reverb/?/?"
-        s.prop4 = "Reverb/?/?/?"
-        s.prop5 = "Reverb/?/?/?/" + document.title
-        var s_code=s.t();if(s_code)document.write(s_code)
-    </script>
-    <noscript><img src="http://denverpost.112.2O7.net/b/ss/denverpost/1/H.17--NS/0" height="1" width="1" border="0" alt="" /></noscript>
-</div>
 
 	<?php reactor_body_inside(); ?>
 
