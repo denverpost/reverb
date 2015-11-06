@@ -76,7 +76,7 @@
                 <script type='text/javascript'>
                 if ( document.getElementById("adPosition1").offsetWidth >= 970 ) {
                     document.write('<style type="text/css">#adPosition1 { margin:15px auto 0; }</style>');
-                    googletag.defineSlot('/8013/heyreverb.com/', [970,30], 'sbb_reverb').setTargeting('pos',['sbb']).setTargeting('kv', 'reverb').addService(googletag.pubads());
+                    googletag.defineSlot('/8013/heyreverb.com', [970,30], 'sbb_reverb').setTargeting('pos',['sbb']).setTargeting('kv', 'reverb').addService(googletag.pubads());
                     googletag.pubads().enableSyncRendering();
                     googletag.enableServices();
                     googletag.display('sbb_reverb');
