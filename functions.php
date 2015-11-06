@@ -363,7 +363,7 @@ function rvrb_get_ad_value() {
     $kv = 'heyreverb';
     $tax = '';
     if ( is_home() || is_front_page() ) {
-        $kv = 'home';
+        $kv = 'heyreverb';
     } else if ( is_category() ) {
         $id = get_query_var( 'cat' );
         $cat = get_category( (int)$id );
