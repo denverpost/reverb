@@ -403,7 +403,8 @@ body:not(.home) .entry-body h2.entry-title {
 	height:auto;
 }
 .single .entry-content p,
-.single .entry-content ul {
+.single .entry-content ul,
+.single .entry-content ol {
 	margin:0 10% 1em;
 }
 .single .entry-content blockquote {
@@ -1109,7 +1110,9 @@ body.home footer#footer { display: none; }
 	.single h1.entry-title {
 		font-size:1.5em;
 	}
-	.single .entry-content p {
+	.single .entry-content p,
+	.single .entry-content ul,
+	.single .entry-content ol {
 		margin: 0 0 1em;
 	}
 	.single .entry-footer .entry-meta .entry-tags {
