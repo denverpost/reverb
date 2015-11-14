@@ -408,6 +408,10 @@ body:not(.home) .entry-body h2.entry-title {
 .single .entry-content iframe {
 	margin:0 10% 1em;
 }
+.single .entry-content iframe.twitter-tweet {
+	margin:0 10% 1em!important;
+	width:80%;
+}
 .single .entry-content blockquote {
 	border-left:.5em solid #ddd;
 	padding:0;
