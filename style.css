@@ -404,7 +404,8 @@ body:not(.home) .entry-body h2.entry-title {
 }
 .single .entry-content p,
 .single .entry-content ul,
-.single .entry-content ol {
+.single .entry-content ol,
+.single .entry-content iframe {
 	margin:0 10% 1em;
 }
 .single .entry-content blockquote {
@@ -1112,7 +1113,8 @@ body.home footer#footer { display: none; }
 	}
 	.single .entry-content p,
 	.single .entry-content ul,
-	.single .entry-content ol {
+	.single .entry-content ol,
+	.single .entry-content iframe {
 		margin: 0 0 1em;
 	}
 	.single .entry-footer .entry-meta .entry-tags {
