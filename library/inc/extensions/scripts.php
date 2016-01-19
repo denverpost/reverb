@@ -39,6 +39,7 @@ function reactor_register_scripts() {
 	wp_register_script('jquery-infinite', get_stylesheet_directory_uri() . '/library/js/jquery.infinitescroll.min.js', array('jquery'), false, true);
 	wp_register_script('related-js', get_stylesheet_directory_uri() . '/library/js/related.js', array('jquery'), false, true);
 	wp_register_script('swipes-js', get_stylesheet_directory_uri() . '/library/js/swipes.js', array('jquerymobile','jquery'), false, true);
+	wp_register_script('ndn-js', '//launch.newsinc.com/js/embed.js', array(), false, true);
 }
 
 function reactor_enqueue_scripts() {
@@ -63,6 +64,7 @@ function reactor_enqueue_scripts() {
 		wp_enqueue_script('adnexus');
 		wp_enqueue_script('outbrain-js');
 		wp_enqueue_script('related-js');
+		wp_enqueue_script('ndn-js');
 
 		//enqueue on front page
 		if ( is_front_page() ) {
