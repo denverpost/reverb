@@ -367,6 +367,9 @@ body:not(.home) .entry-body h2.entry-title {
 .single .entry-body {
 	border-bottom:none;
 }
+.single .entry-content div.ndn_embed {
+	margin: 0 0 1.5em;
+}
 .single h1.entry-title {
 	font-family: 'Podkova', Georgia, serif;
 	font-weight: 700;
@@ -1124,7 +1127,8 @@ body.home footer#footer { display: none; }
 	.single .entry-content h3,
 	.single .entry-content ul,
 	.single .entry-content ol,
-	.single .entry-content iframe {
+	.single .entry-content iframe,
+	.single .entry-content div.ndn_embed {
 		margin: 0 0 1em;
 	}
 	.single .entry-footer .entry-meta .entry-tags {
