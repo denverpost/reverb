@@ -16,18 +16,11 @@ $post_columns = reactor_option('frontpage_post_columns', 3);
 $page_links = reactor_option('frontpage_page_links', 0); ?>
 
 					<?php // start the loop
-					if ( get_query_var('paged') ) {
-						$paged = get_query_var('paged');
-					} elseif ( get_query_var('page') ) {
-						$paged = get_query_var('page');
-					} else {
-						$paged = 1;
-					}
 	                $args = array( 
 						'post_type'           => 'post',
 						'cat'                 => $post_category,
 						'posts_per_page'      => $number_posts,
-						'paged'               => $paged
+						'paged'               => get_query_var( 'paged' ),
 						);
 					
 					global $frontpage_query;
