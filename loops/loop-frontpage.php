@@ -9,15 +9,25 @@
 ?>
 
 <?php // get the options
+$post_category = reactor_option('frontpage_post_category', '');
+if ( -1 == $post_category ) { $post_category = ''; } // fix customizer -1
 $number_posts = reactor_option('frontpage_number_posts', 3);
 $post_columns = reactor_option('frontpage_post_columns', 3);
 $page_links = reactor_option('frontpage_page_links', 0); ?>
 
 					<?php // start the loop
+					if ( get_query_var('paged') ) {
+						$paged = get_query_var('paged');
+					} elseif ( get_query_var('page') ) {
+						$paged = get_query_var('page');
+					} else {
+						$paged = 1;
+					}
 	                $args = array( 
 						'post_type'           => 'post',
+						'cat'                 => $post_category,
 						'posts_per_page'      => $number_posts,
-						'paged'               => get_query_var( 'paged' ),
+						'paged'               => $paged
 						);
 					
 					global $frontpage_query;

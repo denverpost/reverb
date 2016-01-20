@@ -68,7 +68,7 @@ function reactor_enqueue_scripts() {
 
 		//enqueue on front page
 		if ( is_front_page() ) {
-			//wp_enqueue_script('jquery-infinite');
+			wp_enqueue_script('jquery-infinite');
 		}
 
 		// enqueue quicksand on portfolio page template
