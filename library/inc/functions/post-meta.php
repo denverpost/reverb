@@ -88,9 +88,7 @@ if ( !function_exists('reactor_post_meta') ) {
 				$ii++;
 				$author .= ( $ii == $i ) ? ' and ' : ( ( $ii > 1 ) ? ', ' : '');
 				if ( isset( $coauthor->type ) && $coauthor->type == 'guest-author' ) {
-					$author .= sprintf( '<strong>%1$s</strong>',
-						$coauthor->display_name
-					);
+					$author .= $coauthor->display_name;
 				} else {
 					$author .= sprintf($authorraw,
 						esc_url( get_author_posts_url( $coauthor->ID ) ),
