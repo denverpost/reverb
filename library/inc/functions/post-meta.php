@@ -127,17 +127,16 @@ if ( !function_exists('reactor_post_meta') ) {
 			);
 		}
 
-		$nickname = ( (get_the_author_meta('nickname') != 'hidden' ) ? sprintf(', %s', get_the_author_meta('nickname') ) : '' );
+		$nickname = ( ( get_the_author_meta( 'nickname' ) != 'hidden' ) ? sprintf( ', %s', get_the_author_meta( 'nickname' ) ) : '' );
 
 		$author_desc = '';
-		if ( !is_null(get_the_author_meta('description') ) )  {
-			$author_desc = '<p class="author-desc">' . smart_trim(get_the_author_meta('description'),30) . '</p>';
+		if ( !is_null( get_the_author_meta( 'description' ) ) )  {
+			$author_desc = '<p class="author-desc">' . smart_trim( get_the_author_meta( 'description' ), 30 ) . '</p>';
 		}
 
 		if ( 'post' == get_post_type() && the_author_image_url( get_the_author_meta('ID') ) ) {
-			$author_photo = sprintf('<div class="authorimage large-3 medium-3 small-3 columns"><div class="authorimageholder"></div><a class="url fn n" href="%1$s" rel="author"><img src="%3$s" class="authormug" alt="%4$s" /></a></div>',
+			$author_photo = sprintf('<div class="authorimage large-3 medium-3 small-3 columns"><div class="authorimageholder"></div><a class="url fn n" href="%1$s" rel="author"><img src="%2$s" class="authormug" alt="%3$s" /></a></div>',
 				esc_url( get_author_posts_url( get_the_author_meta('ID') ) ),
-				esc_attr( sprintf( __('View all posts by %s', 'reactor'), get_the_author() ) ),
 				the_author_image_url( get_the_author_meta('ID') ),
 				get_the_author()
 			 );
