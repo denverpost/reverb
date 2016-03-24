@@ -126,6 +126,16 @@ add_filter('the_excerpt_rss', 'featured_image_in_rss');
 //Add the filter for RSS feed content
 add_filter('the_content_feed', 'featured_image_in_rss');
 
+/* ----- [ Display Co-Authors In RSS ] ----- */
+function coauthors_in_rss( $the_author ) {
+    if ( is_feed() && function_exists( 'coauthors' ) ) {
+        return coauthors( null, null, null, null, false );
+    } else {
+        return $the_author;
+    }
+}
+add_filter( 'the_author', 'coauthors_in_rss' );
+
 // Disable those annoying pingbacks from our own posts
 function disable_self_trackback( &$links ) {
   foreach ( $links as $l => $link )

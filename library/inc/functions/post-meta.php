@@ -69,7 +69,7 @@ if ( !function_exists('reactor_post_meta') ) {
 			$tag_list = get_the_tag_list( '', ', ', '' );
 		}
 	
-		$raw_date = ($args['link_date']) ? '<a href="%1$s" title="%2$s" rel="bookmark"><time class="entry-date" datetime="%3$s">%4$s</time></a>' : '<time class="entry-date" datetime="%3$s">%4$s</time>';
+		$raw_date = ($args['link_date']) ? '<a href="%1$s" rel="bookmark"><time class="entry-date" datetime="%3$s">%4$s</time></a>' : '<time class="entry-date" datetime="%3$s">%4$s</time>';
 		$date = sprintf($raw_date,
 			esc_url( get_month_link( get_the_time('Y'), get_the_time('m') ) ),
 			esc_attr( sprintf( __('View all posts from %s %s', 'reactor'), get_the_time('M'), get_the_time('Y') ) ),
@@ -77,12 +77,34 @@ if ( !function_exists('reactor_post_meta') ) {
 			esc_html( get_the_date() )
 		 );
 	
-		$authorraw = ( !$args['show_photo'] ) ? '<a class="url fn n" href="%1$s" title="%2$s" rel="author"><span>%3$s</span></a>' : '<a class="url fn n" href="%1$s" title="%2$s" rel="author"><h4>%3$s</h4></a>';
-		$author = sprintf($authorraw,
-			esc_url( get_author_posts_url( get_the_author_meta('ID') ) ),
-			esc_attr( sprintf( __('View all posts by %s', 'reactor'), get_the_author() ) ),
-			get_the_author()
-		 );
+		$authorraw = ( !$args['show_photo'] ) ? '<a class="url fn n" href="%1$s" rel="author"><span>%2$s</span></a>' : '<a class="url fn n" href="%1$s" rel="author"><h4>%2$s</h4></a>';
+		$author = '';
+		$do_bio = false;
+		if ( function_exists( 'get_coauthors' ) && count( get_coauthors( get_the_id() ) ) > 1 ) {
+			$coauthors = get_coauthors();
+			$i=count($coauthors);
+			$ii=0;
+			foreach( $coauthors as $coauthor ) {
+				$ii++;
+				$author .= ( $ii == $i ) ? ' and ' : ( ( $ii > 1 ) ? ', ' : '');
+				if ( isset( $coauthor->type ) && $coauthor->type == 'guest-author' ) {
+					$author .= sprintf( '<strong>%1$s</strong>',
+						$coauthor->display_name
+					);
+				} else {
+					$author .= sprintf($authorraw,
+						esc_url( get_author_posts_url( $coauthor->ID ) ),
+						$coauthor->display_name
+					 );
+				}
+			}
+		} else {
+			$author = sprintf($authorraw,
+				esc_url( get_author_posts_url( get_the_author_meta('ID') ) ),
+				get_the_author()
+			 );
+			$do_bio = true;
+		}
 
 		$num_comments = get_comments_number(); // get_comments_number returns only a numeric value
 		if ( $num_comments == 0 ) {
@@ -113,7 +135,7 @@ if ( !function_exists('reactor_post_meta') ) {
 		}
 
 		if ( 'post' == get_post_type() && the_author_image_url( get_the_author_meta('ID') ) ) {
-			$author_photo = sprintf('<div class="authorimage large-3 medium-3 small-3 columns"><div class="authorimageholder"></div><a class="url fn n" href="%1$s" title="%2$s" rel="author"><img src="%3$s" class="authormug" alt="%4$s" /></a></div>',
+			$author_photo = sprintf('<div class="authorimage large-3 medium-3 small-3 columns"><div class="authorimageholder"></div><a class="url fn n" href="%1$s" rel="author"><img src="%3$s" class="authormug" alt="%4$s" /></a></div>',
 				esc_url( get_author_posts_url( get_the_author_meta('ID') ) ),
 				esc_attr( sprintf( __('View all posts by %s', 'reactor'), get_the_author() ) ),
 				the_author_image_url( get_the_author_meta('ID') ),
@@ -218,7 +240,7 @@ if ( !function_exists('reactor_post_meta') ) {
 				if ( $meta ) {
 					$output = '<div class="entry-meta icons">' . $meta . '</div>';
 				}
-			} else if ( $args['show_photo'] && get_the_author_meta('list_author_single') ) {
+			} else if ( $do_bio && $args['show_photo'] && get_the_author_meta('list_author_single') ) {
 				$meta .= ( $author_photo && $args['show_photo'] ) ? '%6$s' : '';
 				$meta .= '<div class="large-9 medium-9 small-9 columns">';
 				$meta .= ( $author && $args['show_author'] ) ? '<div class="by-author">%4$s</div>' : '';
