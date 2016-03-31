@@ -90,7 +90,7 @@ echo ( ($temp_gplus != '') && is_single() ) ? '<link rel="author" href="' . $tem
 <meta name="twitter:image:src" content="<?php echo $twitter_thumb; ?>" />
 <meta name="twitter:domain" content="heyreverb.com" />
 
-<meta property="fb:app_id" content="589548971098932"/>
+<meta property="fb:app_id" content="682160958485333"/>
 <meta property="og:title" content="<?php echo $twitter_title; ?>" />
 <meta property="og:type" content="<?php echo ( is_single() ) ? 'article' : 'blog'; ?>" />
 <meta property="og:url" content="<?php echo $twitter_url; ?>" />
