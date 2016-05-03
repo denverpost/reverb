@@ -410,6 +410,7 @@ body:not(.home) .entry-body h2.entry-title {
 .single .entry-content h3,
 .single .entry-content iframe {
 	margin:0 10% 1em;
+	width:80%;
 }
 .single .entry-content ul,
 .single .entry-content ol {
