@@ -128,16 +128,26 @@ div.site-logo a img {
 .contain-to-grid.fixed,
 .contain-to-grid .top-bar,
 .contain-to-grid .top-bar .name,
-.top-bar-section .has-form {
-	background:#d0d5c7;
+.top-bar-section .has-form,
+.top-bar-section li:not(.has-form) a:not(.button),
+.top-bar-section li ul.dropdown li:not(.has-form):not(.active)>a:not(.button),
+.top-bar-section li.active:not(.has-form) a:not(.button),
+.top-bar-section li.active ul.dropdown li:not(.has-form):not(.active)>a:not(.button) {
+	background:#000;
+}
+.top-bar-section li.active:not(.has-form) a:not(.button):hover,
+.top-bar-section li:not(.has-form) a:not(.button):hover,
+.top-bar-section li .dropdown li:not(.has-form):hover>a:not(.button),
+.top-bar-section li.active:not(.has-form) .dropdown li:not(.has-form):hover>a:not(.button) {
+	background:#333;
 }
 .contain-to-grid.fixed .top-bar {
-	max-width:100%;
+	max-width:76em;
 }
 .contain-to-grid .top-bar .title-area .name p a,
 .top-bar.expanded .toggle-topbar a,
 .top-bar .toggle-topbar.menu-icon a {
-	color:#444;
+	color:#fff;
 }
 .top-bar .toggle-topbar.menu-icon a span:after,
 .top-bar.expanded .toggle-topbar a span:after {
@@ -152,17 +162,15 @@ div.site-logo a img {
 .top-bar-section li:not(.has-form) a:not(.button) {
 	padding:0 25px;
 }
+.top-bar-section li.has-dropdown > a:not(.button) {
+	text-align:center;
+}
 .top-bar .top-bar-menu.left li.divider, .top-bar .title-area {
 	display:none;
 }
 .top-bar-section .dropdown li.title h5 {
 	text-transform:uppercase;
 	font-size:.95em;
-}
-.top-bar input, .top-bar .button, .top-bar button {
-	height:35px;
-	top:0;
-	line-height: 1!important;
 }
 .top-bar li.has-form {
 	padding:0;
@@ -176,32 +184,28 @@ div.site-logo a img {
 	text-transform: uppercase;
 }
 .top-bar-section .has-dropdown>a:after {
-	content:'\003e';
-	border:none;
-	-webkit-transform: scale(2.5,1) rotate(90deg);
-	-moz-transform: scale(2.5,1) rotate(90deg);
-	-ms-transform: scale(2.5,1) rotate(90deg);
-	-o-transform: scale(2.5,1) rotate(90deg);
-	transform: scale(2.5,1) rotate(90deg);
-	width:auto;
-	height:1em;
-	top:14px;
-	right:-20%;
-	font-size:.8em;
+	display:none;
 }
-.fixed .top-bar-section .has-dropdown>a:after {
-	right:-15%;
+.top-bar input, .top-bar .button, .top-bar button {
+	height:31px;
+	top:0;
+	line-height: 1!important;
+	color:#eee;
 }
 .top-bar input#s {
 	border:none;
-	box-shadow: inset 1px 1px 3px rgba(0,0,0,0.3);
+	border-bottom:1px solid #fff;
+	box-shadow: none;
 	font-size:1.1rem;
-	padding:.25em .75em 0;
+	padding:.25em 0 0;
+	background:#000;
+	color:#eee;
 }
 .top-bar input#searchsubmit {
 	background-repeat: no-repeat;
-	background-position: center;
-	background-color: #222;
+	background-position: center center;
+	background-size:70%;
+	background-color: #000;
 	text-indent:-500px;
 }
 
@@ -835,54 +839,6 @@ div.inline-cube-ad {
 }
 
 /* category-based colors */
-.top-bar-section li.category-news:not(.has-form) a:not(.button),
-.top-bar-section li.category-news ul.dropdown li:not(.has-form):not(.active)>a:not(.button) {
-	background:#45a348;
-}
-.top-bar-section li.category-photos:not(.has-form) a:not(.button),
-.top-bar-section li.category-photos ul.dropdown li:not(.has-form):not(.active)>a:not(.button) {
-	background:#9d3762;
-}
-.top-bar-section li.category-reviews:not(.has-form) a:not(.button),
-.top-bar-section li.category-reviews ul.dropdown li:not(.has-form):not(.active)>a:not(.button) {
-	background:#d66523;
-}
-.top-bar-section li.category-audio:not(.has-form) a:not(.button),
-.top-bar-section li.category-audio ul.dropdown li:not(.has-form):not(.active)>a:not(.button) {
-	background:#00939e;
-}
-.top-bar-section li.category-video:not(.has-form) a:not(.button),
-.top-bar-section li.category-video ul.dropdown li:not(.has-form):not(.active)>a:not(.button) {
-	background:#d7424a;
-}
-.top-bar-section li.category-venue:not(.has-form) a:not(.button),
-.top-bar-section li.category-venue ul.dropdown li:not(.has-form):not(.active)>a:not(.button) {
-	background:#2a79b3;
-}
-.top-bar-section li.category-news:not(.has-form) a:not(.button):hover,
-.top-bar-section li.category-news ul.dropdown li:not(.has-form):not(.active)>a:not(.button):hover {
-	background:#65c368;
-}
-.top-bar-section li.category-photos:not(.has-form) a:not(.button):hover,
-.top-bar-section li.category-photos ul.dropdown li:not(.has-form):not(.active)>a:not(.button):hover {
-	background:#bd5782;
-}
-.top-bar-section li.category-reviews:not(.has-form) a:not(.button):hover,
-.top-bar-section li.category-reviews ul.dropdown li:not(.has-form):not(.active)>a:not(.button):hover {
-	background:#f68543;
-}
-.top-bar-section li.category-audio:not(.has-form) a:not(.button):hover,
-.top-bar-section li.category-audio ul.dropdown li:not(.has-form):not(.active)>a:not(.button):hover {
-	background:#20b3be;
-}
-.top-bar-section li.category-video:not(.has-form) a:not(.button):hover,
-.top-bar-section li.category-video ul.dropdown li:not(.has-form):not(.active)>a:not(.button):hover {
-	background:#f7626a;
-}
-.top-bar-section li.category-venue:not(.has-form) a:not(.button):hover,
-.top-bar-section li.category-venue ul.dropdown li:not(.has-form):not(.active)>a:not(.button):hover {
-	background:#4a99d3;
-}
 ul.dpe-flexible-posts li.category-reverb h4 span.category-title a,
 article.category-reverb .frontpage-post h2 span,
 header .category-reverb {
@@ -969,7 +925,7 @@ body.home footer#footer { display: none; }
 }
 
 @media (min-width:1025px) {
-	.top-bar-section ul.right { width:25%; }
+	.top-bar-section ul.right { width:11%; }
 	.top-bar-section ul.left { width:75%; }
 	.fixed .top-bar-section ul.left { width:65%; }
 	.fixed ul.title-area { width:10%; }
@@ -1097,9 +1053,6 @@ body.home footer#footer { display: none; }
 	}
 	.frontpage-post h2 {
 		font-size: 1.15em;
-	}
-	.fixed .top-bar-section .has-dropdown > a:after {
-		right:-5%;
 	}
 	.site-header .site-logo {
 		width:40%;
