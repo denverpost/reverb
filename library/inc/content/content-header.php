@@ -180,7 +180,7 @@ function reactor_do_title_logo() { ?>
 	</div><!-- .inner-header -->  
 <?php 
 }
-add_action('reactor_header_inside', 'reactor_do_title_logo', 1);
+//add_action('reactor_header_inside', 'reactor_do_title_logo', 1);
 
 /**
  * Nav bar and mobile nav button

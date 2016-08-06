@@ -120,11 +120,8 @@ div.site-logo a img {
 	background:none;
 }
 .toggle-social { display: none; }
-.top-bar .name { height:35px; display:none; }
+.top-bar .name { height:40px; display:none; }
 .fixed .top-bar .name, .fixed .top-bar .title-area { display:block; }
-.fixed .top-bar .name p { height:30px; }
-.fixed .top-bar .name img { max-height:30px; max-width:100%; margin:3px auto; vertical-align:top; }
-.fixed .top-bar .name p a { width:100%; height:35px; display:block;}
 .contain-to-grid.fixed,
 .contain-to-grid .top-bar,
 .contain-to-grid .top-bar .name,
@@ -153,10 +150,10 @@ div.site-logo a img {
 .top-bar.expanded .toggle-topbar a span:after {
 	box-shadow: 0 0 0 1px #444, 0 7px 0 1px #444, 0 14px 0 1px #444;
 }
-.fixed.expanded:not(.top-bar) .top-bar-section { margin-top:35px; }
+.fixed.expanded:not(.top-bar) .top-bar-section { margin-top:40px; }
 .top-bar-section>ul>.divider, .top-bar-section>ul>[role="separator"], .top-bar-section li.active:not(.has-form) a:not(.button), .top-bar-section li:not(.has-form) a:not(.button), .top-bar-section .has-form, .top-bar {
-	height:35px;
-	line-height:35px;
+	height:40px;
+	line-height:40px;
 	font-size:1em;
 }
 .top-bar-section li:not(.has-form) a:not(.button) {
@@ -165,7 +162,7 @@ div.site-logo a img {
 .top-bar-section li.has-dropdown > a:not(.button) {
 	text-align:center;
 }
-.top-bar .top-bar-menu.left li.divider, .top-bar .title-area {
+.top-bar .top-bar-menu li.divider, .top-bar .title-area {
 	display:none;
 }
 .top-bar-section .dropdown li.title h5 {
@@ -204,9 +201,22 @@ div.site-logo a img {
 .top-bar input#searchsubmit {
 	background-repeat: no-repeat;
 	background-position: center center;
-	background-size:70%;
+	background-size:55%;
 	background-color: #000;
 	text-indent:-500px;
+}
+.fixed div.title-area li.name p a {
+	padding:.5em 0 0;
+	margin:0;
+	display:block;
+	text-align:center;
+	width:100%;
+}
+.fixed div.title-area li.name p a:hover { background:#000; }
+.fixed div.title-area li p a img {
+	width:auto;
+	height:165%;
+	margin:0 auto;
 }
 
 /* page layout */
@@ -925,17 +935,18 @@ body.home footer#footer { display: none; }
 }
 
 @media (min-width:1025px) {
-	.top-bar-section ul.right { width:11%; }
-	.top-bar-section ul.left { width:75%; }
-	.fixed .top-bar-section ul.left { width:65%; }
-	.fixed ul.title-area { width:10%; }
-	.top-bar-section ul.left > li.menu-item-has-children { width:16.666667%; }
+	.top-bar-section ul.right:not(.top-bar-menu) { width:15%; }
+	.top-bar-section ul.top-bar-menu.left { width:40%; }
+	.top-bar-section ul.top-bar-menu.right { width:23%; }
+	.fixed div.title-area { width:20%; }
+	.top-bar-section ul.top-bar-menu.left > li.menu-item-has-children { width:33%; }
+	.top-bar-section ul.top-bar-menu.right > li.menu-item-has-children { width:50%; }
 }
 
 @media (max-width:1024px) {
 	.contain-to-grid .top-bar .title-area {
 		display:block;
-		height:35px;
+		height:40px;
 	}
 	.toggle-social {
 		right:54px;
