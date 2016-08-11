@@ -561,33 +561,6 @@ function rvrb_infinite_ad_widget($iteration) {
 }
 
 /**
- * Infinite Scroll
- */
-function custom_infinite_scroll_js() {
-    if ( is_front_page() ) { ?>
-    <script type="text/javascript">
-    var infinite_scroll = {
-        loading: {
-            img: "<?php echo get_stylesheet_directory_uri(); ?>/images/ajax-loader.gif",
-            msgText: "<?php _e( 'Loading more posts...', 'custom' ); ?>",
-            finishedMsg: "<?php _e( 'All posts loaded.', 'custom' ); ?>"
-        },
-        "nextSelector":"ul.pagination li a.next",
-        "navSelector":"ul.pagination",
-        "itemSelector":"article",
-        "contentSelector":"#frontpagemain",
-        "bufferPx":80
-    };
-    jQuery( infinite_scroll.contentSelector ).infinitescroll( infinite_scroll, function(newElements) {
-            jQuery( infinite_scroll.contentSelector ).append('<div class="inline-cube-ad"><iframe src="<?php echo get_stylesheet_directory_uri(); ?>/ad.html" style="margin:1em auto;width:300px;height:250px;overflow:hidden;border:none;"></iframe></div>');
-        });
-    </script>
-    <?php
-    }
-}
-add_action( 'wp_footer', 'custom_infinite_scroll_js',100 );
-
-/**
  * Widget Custom Classes
  */
 function rvrb_widget_form_extend( $instance, $widget ) {

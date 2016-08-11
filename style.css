@@ -17,9 +17,6 @@ Text Domain: reactor
 body {
 	-webkit-font-smoothing: antialiased;
 }
-.f-topbar-fixed {
-    padding-top: 60px!important;
-}
 div#content {
 	padding-top:1.5em;
 }
@@ -258,6 +255,38 @@ div.site-logo a img {
 .top-bar-section li.category-drink:not(.has-form) > a:not(.button):hover {
 	border-bottom:.5em solid #5cb767;
 }
+.top-bar-section li.has-dropdown.category-eat:not(.has-form) > a:not(.button) {
+	border-bottom:.3em solid #EC7D77;
+}
+.top-bar-section ul li.category-eat:hover:not(.has-form)>a,
+.top-bar-section li.category-eat.active:not(.has-form) > a:not(.button):hover,
+.top-bar-section li.category-eat:not(.has-form) > a:not(.button):hover {
+	border-bottom:.5em solid #EC7D77;
+}
+.top-bar-section li.has-dropdown.category-play:not(.has-form) > a:not(.button) {
+	border-bottom:.3em solid #498a90;
+}
+.top-bar-section ul li.category-play:hover:not(.has-form)>a,
+.top-bar-section li.category-play.active:not(.has-form) > a:not(.button):hover,
+.top-bar-section li.category-play:not(.has-form) > a:not(.button):hover {
+	border-bottom:.5em solid #498a90;
+}
+.top-bar-section li.has-dropdown.category-see:not(.has-form) > a:not(.button) {
+	border-bottom:.3em solid #586B9F;
+}
+.top-bar-section ul li.category-see:hover:not(.has-form)>a,
+.top-bar-section li.category-see.active:not(.has-form) > a:not(.button):hover,
+.top-bar-section li.category-see:not(.has-form) > a:not(.button):hover {
+	border-bottom:.5em solid #586B9F;
+}
+.top-bar-section li.has-dropdown.category-hear:not(.has-form) > a:not(.button) {
+	border-bottom:.3em solid #EDC776;
+}
+.top-bar-section ul li.category-hear:hover:not(.has-form)>a,
+.top-bar-section li.category-hear.active:not(.has-form) > a:not(.button):hover,
+.top-bar-section li.category-hear:not(.has-form) > a:not(.button):hover {
+	border-bottom:.5em solid #EDC776;
+}
 .top-bar-section .dropdown li:not(.has-form):not(.active):hover>a:not(.button) {
 	text-decoration:underline;
 }
@@ -342,16 +371,19 @@ body.front-page .entry-body {
 }
 
 /* category page styles */
+h1.archive-title,
+h2.archive-title {
+	margin:0 0 1em;
+}
 h1.archive-title a,
 h2.archive-title a {
 	font-family: 'Candal', 'Open Sans', Arial, Helvetica, sans-serif;
 	font-weight: 400;
 	font-size: 1.2em;
-	line-height:1;
+	line-height:1.2;
 	padding:.5em 1em;
 	color:#fff;
 	letter-spacing: 1px;
-	margin:0 0 1em;
 }
 h1.archive-title a {
 	font-size: 1.5em;
@@ -959,7 +991,6 @@ header .category-concert-review {
 .inner-footer {
 	border-top: 3px dotted #ddd;
 }
-body.home footer#footer { display: none; }
 
 @media (max-width:76em) {
 	#frontpageleft {
