@@ -126,7 +126,7 @@ if (has_tag() ) {
 
 <?php $favicon_uri = reactor_option('favicon_image') ? reactor_option('favicon_image') : get_stylesheet_directory_uri() . '/favicon.ico'; ?>
 <link rel="shortcut icon" href="<?php echo $favicon_uri; ?>">
-<link href='http://fonts.googleapis.com/css?family=Alegreya:400italic,700italic,900italic,400,700,900|Podkova:400,700' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:600|Candal|Josefin+Sans:400,400i,700,700i|Arvo' rel='stylesheet' type='text/css'>
 
 <?php 
 }

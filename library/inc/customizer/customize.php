@@ -56,12 +56,12 @@ function reactor_customizer_css() {
 	if ( reactor_option('title_color') ) {
 	    $output .= "\n" . 'h1,h2,h3,h4,h5,h6 { color: ' . reactor_option('title_color') . '; }';
 	}
-	if ( "'Helvetica Neue', Helvetica, Arial, sans-serif" != reactor_option('title_font', "'Helvetica Neue', Helvetica, Arial, sans-serif") ) {
+	/*if ( "'Helvetica Neue', Helvetica, Arial, sans-serif" != reactor_option('title_font', "'Helvetica Neue', Helvetica, Arial, sans-serif") ) {
 	    $output .= "\n" . 'h1,h2,h3,h4,h5,h6 { font-family: ' . reactor_option('title_font') . '; }';
 	}
 	if ( "'Helvetica Neue', Helvetica, Arial, sans-serif" != reactor_option('content_font', "'Helvetica Neue', Helvetica, Arial, sans-serif") ) {
 	    $output .= "\n" . 'body, p { font-family: ' . reactor_option('content_font') . '; }';
-	}
+	}*/
 	if ( reactor_option('link_color') ) {
 	    $output .= "\n" . '#main a { color: ' . reactor_option('link_color') . '; }';
 	}
@@ -110,6 +110,7 @@ if ( !function_exists('reactor_typography_get_google_fonts') ) {
 			"'Droid Sans', sans-serif" => "Droid Sans",
 			"'Droid Serif', serif" => "Droid Serif",
 			"'Josefin Slab', serif" => "Josefin Slab",
+			"'Josefin Sans', serif" => "Josefin Sans",
 			"'Lato', sans-serif" => "Lato",
 			"'Lobster', cursive" => "Lobster",
 			"'Nobile', sans-serif" => "Nobile",
@@ -152,7 +153,7 @@ function reactor_typography_google_fonts(){
         }
     }
 }
-add_action('wp_enqueue_scripts', 'reactor_typography_google_fonts');
+//add_action('wp_enqueue_scripts', 'reactor_typography_google_fonts');
 
 /**
  * Enqueues the Google $font that is passed
@@ -166,7 +167,7 @@ function reactor_typography_enqueue_google_font( $font ){
 	$font = str_replace( ' ', '+', $font );
 	$handle = 'typography-' . $font;
 	$src = 'http://fonts.googleapis.com/css?family=' . $font;
-	wp_enqueue_style( $handle, $src, false, null, 'all' );
+	//wp_enqueue_style( $handle, $src, false, null, 'all' );
 }
 
 /**
@@ -589,31 +590,6 @@ if ( !function_exists('reactor_customize_register') ) {
 					'type'     => 'checkbox',
 					'priority' => 7,
 				 ) );
-
-			$wp_customize->add_setting('reactor_options[comment_link]', array( 
-				'default'    => 1,
-				'type'       => 'option',
-				'capability' => 'manage_options',
-			 ) );
-				$wp_customize->add_control('reactor_options[comment_link]', array( 
-					'label'    => __('Show Comment Link', 'reactor'),
-					'section'  => 'reactor_customizer_posts',
-					'type'     => 'checkbox',
-					'priority' => 8,
-				 ) );
-
-			$wp_customize->add_setting('reactor_options[tumblog_icons]', array( 
-				'default'        => 0,
-				'type'           => 'option',
-				'capability'     => 'manage_options',
-				'theme_supports' => 'reactor-tumblog-icons',
-			 ) );
-				$wp_customize->add_control('reactor_options[tumblog_icons]', array( 
-					'label'    => __('Show Tumblog Icons', 'reactor'),
-					'section'  => 'reactor_customizer_posts',
-					'type'     => 'checkbox',
-					'priority' => 9,
-				 ) );
 	 
 			$wp_customize->add_setting('reactor_options[breadcrumbs]', array( 
 				'default'        => 1,
@@ -986,19 +962,6 @@ if ( !function_exists('reactor_customize_register') ) {
 					'type'     => 'checkbox',
 					'priority' => 8,
 				 ) );
-				 
-			$wp_customize->add_setting('reactor_options[frontpage_comment_link]', array( 
-				'default'        => 0,
-				'type'           => 'option',
-				'capability'     => 'manage_options',
-				'theme_supports' => 'reactor-page-templates'
-			 ) );
-				$wp_customize->add_control('reactor_options[frontpage_comment_link]', array( 
-					'label'    => __('Show Comment Link', 'reactor'),
-					'section'  => 'frontpage_settings',
-					'type'     => 'checkbox',
-					'priority' => 9,
-				 ) ); 
 				
 			$wp_customize->add_setting('reactor_options[frontpage_post_meta]', array( 
 				'default'        => 0,
@@ -1091,19 +1054,6 @@ if ( !function_exists('reactor_customize_register') ) {
 					'section'  => 'newspage_settings',
 					'type'     => 'checkbox',
 					'priority' => 5,
-				 ) );
-				 
-			$wp_customize->add_setting('reactor_options[newspage_comment_link]', array( 
-				'default'        => 1,
-				'type'           => 'option',
-				'capability'     => 'manage_options',
-				'theme_supports' => 'reactor-page-templates'
-			 ) );
-				$wp_customize->add_control('reactor_options[newspage_comment_link]', array( 
-					'label'    => __('Show Comment Link', 'reactor'),
-					'section'  => 'newspage_settings',
-					'type'     => 'checkbox',
-					'priority' => 6,
 				 ) );
 		}
 		

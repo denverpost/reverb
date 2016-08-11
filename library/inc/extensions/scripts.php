@@ -75,10 +75,5 @@ function reactor_enqueue_scripts() {
 		if ( is_page_template('page-templates/portfolio.php') ) {
 			wp_enqueue_script('mixitup-js');
 		}
-		
-		// comment reply script for threaded comments
-		if ( is_singular() && comments_open() && get_option('thread_comments') ) {
-			wp_enqueue_script('comment-reply'); 
-		}
 	}
 }

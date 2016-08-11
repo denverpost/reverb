@@ -96,8 +96,7 @@ function reactor_post_catpage_format() {
 			</a>
 			<p class="catexcerpt"><?php echo smart_trim(get_the_content(),25); ?></p>
 			<?php 
-			$showcomments = ( is_search() ) ? false : true;
-			reactor_post_meta(array('show_cat'=>false,'show_tag'=>false,'comments'=>$showcomments,'catpage'=>true,'link_date'=>false)); ?>
+			reactor_post_meta(array('show_cat'=>false,'show_tag'=>false,'catpage'=>true,'link_date'=>false)); ?>
 		</div>
 		<div class="clear"></div>
 	</div>
@@ -144,7 +143,7 @@ add_action('reactor_post_header', 'reactor_do_standard_header_titles', 3);
 function reactor_do_post_header_meta() {
 
 	if ( is_single() ) {
-		reactor_post_meta(array('show_cat'=>false,'show_tag'=>false,'comments'=>true,'catpage'=>true,'link_date'=>false,'social_dropdown'=>true));
+		reactor_post_meta(array('show_cat'=>false,'show_tag'=>false,'catpage'=>true,'link_date'=>false,'social_dropdown'=>true));
 	}
 }
 add_action('reactor_post_header', 'reactor_do_post_header_meta', 4);
@@ -311,33 +310,6 @@ function reactor_do_nav_single() {
 <?php }
 }
 add_action('reactor_post_after', 'reactor_do_nav_single', 1);
-
-/**
- * Comments 
- * in single.php
- * 
- * @since 1.0.0
- */
-function reactor_do_post_comments() {      
-	// If comments are open or we have at least one comment, load up the comment template
-	if ( is_single() && !is_category() && !is_tag() ) {
-		//comments_template('', true);
-		//$commentnum = ( '0' != get_comments_number() ? 'Read the comments (' . get_comments_number() . ')' : 'Show article comments');
-		$commentnum = '<a class="fi-comment radius" href="' . get_permalink() . '#disqus_thread" title="Display article comments">Add a comment</a>'
-		?>
-		<div id="comments" class="comments-area">
-        	<div id="disqus_thread"></div>
-        	<div class="showdisqus"><?php echo $commentnum; ?></div>
-		</div>
-		<div id="relatedwrap" class="noprint">
-			<h4 class="related-title widget-title noprint">Related Content</h4>
-			<div id="related-content" class="noprint"></div>
-			<div class="relatednext"></div>
-		</div>
-		<?php
-	}
-}
-add_action('reactor_post_after', 'reactor_do_post_comments', 2);
 
 /**
  * No posts format

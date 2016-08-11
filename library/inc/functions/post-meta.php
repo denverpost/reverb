@@ -29,7 +29,6 @@ if ( !function_exists('reactor_post_meta') ) {
 			'show_tag'    => true,
 			'show_icons'  => false,
 			'show_uncategorized' => false,
-			'comments' => false,
 			'catpage' => false,
 			'show_photo' => false,
 			'social_dropdown'	=> false,
@@ -103,16 +102,6 @@ if ( !function_exists('reactor_post_meta') ) {
 			 );
 			$do_bio = true;
 		}
-
-		$num_comments = get_comments_number(); // get_comments_number returns only a numeric value
-		if ( $num_comments == 0 ) {
-			$comments = __('No Comments');
-		} elseif ( $num_comments > 1 ) {
-			$comments = $num_comments . __(' Comments');
-		} else {
-			$comments = __('1 Comment');
-		}
-		$comments = '<span class="comments fi-comment right"><a href="' . get_comments_link() .'"><span>'. $comments.'</span></a></span>';
 
 		$author_social = '';
 		if( $args['show_photo'] ) {
@@ -203,19 +192,17 @@ if ( !function_exists('reactor_post_meta') ) {
 		 * 2	tag
 		 * 3	date
 		 * 4 	author's name
-		 * 5	comments
-		 * 6 	author's mugshot
-		 * 7	nickname (organization name)
-		 * 8	author short description
-		 * 9	author-social-small
-		 * 10	social dropdown
+		 * 5 	author's mugshot
+		 * 6	nickname (organization name)
+		 * 7	author short description
+		 * 8	author-social-small
+		 * 9	social dropdown
 		 */
 		if ( $date || $categories_list || $author || $tag_list ) {
 			if ( $args['catpage'] ) {
 				$meta .= ( $author && $args['show_author'] ) ? '<span class="by-author">%4$s</span> ' : '';
 				$meta .= ( $date && $args['show_date'] ) ? '%3$s ' : '';
-				$meta .= ( $comments && $args['comments'] ) ? '%5$s ' : '';
-				$meta .= ( $args['social_dropdown'] ) ? '%10$s' : '';
+				$meta .= ( $args['social_dropdown'] ) ? '%9$s' : '';
 				$meta .= ( $categories_list && $args['show_cat'] ) ? __('in', 'reactor') . ' %1$s' : '';
 				$meta .= ( $tag_list && $args['show_tag'] ) ? '<div class="entry-tags">' . __('Tags:', 'reactor') . ' %2$s</div>' : '';
 
@@ -238,11 +225,11 @@ if ( !function_exists('reactor_post_meta') ) {
 					$output = '<div class="entry-meta icons">' . $meta . '</div>';
 				}
 			} else if ( $do_bio && $args['show_photo'] && get_the_author_meta('list_author_single') ) {
-				$meta .= ( $author_photo && $args['show_photo'] ) ? '%6$s' : '';
+				$meta .= ( $author_photo && $args['show_photo'] ) ? '%5$s' : '';
 				$meta .= '<div class="large-9 medium-9 small-9 columns">';
 				$meta .= ( $author && $args['show_author'] ) ? '<div class="by-author">%4$s</div>' : '';
-				$meta .= ( $author_desc ) ? '%8$s' : '';
-				$meta .= ( $author_social ) ? '%9$s' : '';
+				$meta .= ( $author_desc ) ? '%7$s' : '';
+				$meta .= ( $author_social ) ? '%8$s' : '';
 				$meta .= '<div class="clear"></div></div>';
 				
 				if ( $meta ) {
@@ -259,7 +246,7 @@ if ( !function_exists('reactor_post_meta') ) {
 				}
 			}
 	
-			$post_meta = sprintf( $output, $categories_list, $tag_list, $date, $author, $comments, $author_photo, $nickname, $author_desc, $author_social, $social_dropdown );
+			$post_meta = sprintf( $output, $categories_list, $tag_list, $date, $author, $author_photo, $nickname, $author_desc, $author_social, $social_dropdown );
 
 			echo apply_filters('reactor_post_meta', $post_meta, $defaults);
 		}
