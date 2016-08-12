@@ -505,19 +505,27 @@ body:not(.home) .entry-body h2.entry-title {
 	margin:1em 10%;
 }
 .single .entry-footer .entry-meta .entry-tags {
-	margin: 0 10%;
 	padding: .5em 0;
-	border-bottom: 3px dotted #ddd;
+	margin:.5em 0;
+	border-top: 2px dotted #ddd;
+	border-bottom: 2px dotted #ddd;
 }
 .entry-content .twitter-tweet-rendered {
 	margin:0 auto!important;
 }
+.single .entry-meta-author {
+	padding:.5em 0;
+	margin-bottom:1em;
+}
 .single .entry-meta-author .authorimage {
 	padding-right:1em;
 }
-.single .entry-meta-author {
-	margin:0 10%;
-	padding:1rem;
+.single .entry-meta-author h4 {
+	font-family: 'Candal', 'Open Sans', Arial, Helvetica, sans-serif;
+	font-weight: 700;
+	font-size: 1.4em;
+	line-height: 1.2;
+	margin-top: 0;
 }
 .single .entry-meta-author p.author-desc,
 .single .entry-meta-author ul.author-social-small li {
@@ -563,10 +571,10 @@ nav.nav-single .nav-next a:hover {
     font-weight: 700;
     cursor: default;
 }
-div.edit-link {
+.entry-footer div.edit-link {
 	display:block;
 	font-size:1.2em;
-	margin:0 auto;
+	margin:2em auto 0;
 	color:#fff;
 	background: #f5e1b4;
 	font-weight: 700;
@@ -985,12 +993,9 @@ article.category-concert-review .frontpage-post h2 span,
 header .category-concert-review {
 	background-color:#8877ff;
 }
-
-#colophon { text-align:right; font-size:.8em; }
-
-.inner-footer {
-	border-top: 3px dotted #ddd;
-}
+#colophon { text-align:right; font-size:.6em; }
+.footer-links li { font-size:.9em; }
+.inner-footer { border-top: 3px dotted #ddd; }
 
 @media (max-width:76em) {
 	#frontpageleft {

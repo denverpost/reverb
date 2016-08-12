@@ -233,7 +233,7 @@ if ( !function_exists('reactor_post_meta') ) {
 				$meta .= '<div class="clear"></div></div>';
 				
 				if ( $meta ) {
-					$output = '<div class="entry-meta-author panel radius row collapse">' . __('', 'reactor') . $meta . '</div>';
+					$output = '<div class="entry-meta-author row collapse">' . __('', 'reactor') . $meta . '</div>';
 				}
 			} else if (!$args['show_photo']) {
 				$meta .= ( $date && $args['show_date'] ) ? '%3$s ' : '';
