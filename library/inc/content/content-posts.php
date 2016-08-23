@@ -251,6 +251,21 @@ function reactor_do_nav_single() {
 add_action('reactor_post_after', 'reactor_do_nav_single', 3);
 
 /**
+ * Single post related 
+ * in single.php
+ * 
+ * @since 1.0.0
+ */
+function rvrb_single_post_related() {
+    if ( function_exists( 'yarpp_related' ) ) { ?>
+    <div class="related">
+	    <?php yarpp_related( array( 'template' => 'yarpp-template-rvrb.php' ) ); ?>
+    </div>
+<?php }
+}
+add_action('reactor_post_after', 'rvrb_single_post_related', 4);
+
+/**
  * No posts format
  * loop else in page templates
  * 

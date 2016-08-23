@@ -1133,10 +1133,10 @@ header h2.category-concert-review a {
 @media (max-width:540px) {
 	div#content { padding-top:.5em; }
 	h1.archive-title {
-		font-size:1.6em;
+		font-size:1.25em;
 	}
 	h2.archive-title {
-		font-size:1.4em;
+		font-size:1.1em;
 	}
 	.frontpage-post h2 {
 		font-size: 1.15em;
@@ -1179,6 +1179,9 @@ header h2.category-concert-review a {
 	nav.nav-single .nav-next a,
 	.entry-body .entry-meta {
 		font-size: 1.1em;
+	}
+	nav.nav-single .nav-next a {
+		padding-top:.1em;
 	}
 	.entry-body .entry-header .entry-meta span.social-dropdown-link,
 	.entry-body .entry-header .entry-meta span.comments { display:none; }
