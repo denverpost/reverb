@@ -27,7 +27,7 @@ function reactor_do_overline() {
 			}
 		} ?>
         <header class="archive-header">
-            <h2 <?php post_class('archive-title'); ?>><a href="<?php echo get_category_link(intval($categories_list->term_id) ); ?>"><?php echo $categories_list->cat_name; ?></a></h2>
+            <h2 <?php post_class('archive-title'); ?>><span><a href="<?php echo get_category_link(intval($categories_list->term_id) ); ?>"><?php echo $categories_list->cat_name; ?></a></span></h2>
         </header><!-- .archive-header -->
 	<?php }
 }

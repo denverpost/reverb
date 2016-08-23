@@ -51,12 +51,12 @@ figcaption {
 	line-height:1.4;
 }
 button, .button {
-	background-color:#e57124;
-	border-color:#d34900;
+	background-color:#000000;
+	border-color:#424242;
 	transition:background-color 200ms ease-out;
 }
 button:hover, button:focus, .button:hover, .button:focus {
-	background-color:#d34900;
+	background-color:#424242;
 }
 img#wpstats{ display:none; }
 div.clear {
@@ -362,11 +362,10 @@ h2.archive-title {
 }
 h1.archive-title a,
 h2.archive-title a {
-	font-family: 'Candal', 'Open Sans', Arial, Helvetica, sans-serif;
-	font-weight: 400;
+	font-family:'Arvo',Georgia,Times,serif;
+	font-weight: 600;
 	font-size: 1.25em;
 	line-height:1.2;
-	padding:.65em 1em;
 	color:#fff;
 	text-transform: uppercase;
 }
@@ -446,7 +445,7 @@ body:not(.home) .entry-body h2.entry-title {
 	line-height:1.1;
 }
 .single header.entry-header {
-	margin-bottom: 2.5em;
+	margin-bottom: 1.5em;
 	padding-bottom:.5em;
 	border-bottom: 3px dotted #ddd;
 }
@@ -537,45 +536,54 @@ nav.nav-single .nav-previous {
 	display:none;
 }
 nav.nav-single .nav-next {
-	display:block;
-	width:100%;
 	text-align:right;
 }
 nav.nav-single .nav-next a {
-	display: block;
-	padding: .5rem 1rem .5rem;
-	background: none;
+	position: relative;
+	text-align:right;
+	padding: .9rem 0 .5em 1em;
 	font-weight: 700;
-	color:#676767;
-	border:1px solid #e57124;
-	border-radius: 3px;
+	background: #EC7D77;
+	color:#fff;
+	text-decoration: none;
 	font-size: 1.3em;
+	height:2.4em;
 	line-height: 1;
 	margin-top: 0;
-	transition: background-color 200ms ease-out;
+	margin-right:1em;
+	margin-left:auto;
+	display: block;
 }
 nav.nav-single .nav-next a:hover {
-    background: #f79346;
     color: #fff;
+    text-decoration: underline;
     font-weight: 700;
     cursor: default;
+}
+nav.nav-single .nav-next a:after {
+	content:'';
+	position: absolute;	
+	height:0;
+	width:0;
+	top:0em;
+	left:100%;
+	border-top:1.225em solid transparent;
+	border-bottom:1.225em solid transparent;
+	border-left:1em solid #EC7D77;
 }
 .entry-footer div.edit-link {
 	display:block;
 	font-size:1.2em;
 	margin:2em auto 0;
-	color:#fff;
-	background: #f5e1b4;
+	background: #f9a541;
 	font-weight: 700;
-	border:1px solid #e57124;
-	border-radius: 3px;
 	line-height: 1;
 	text-align:center;
 	padding:.5em 0;
 	transition: background-color 200ms ease-out;
 }
-div.edit-link span a {
-	color:#e57124!important;
+.entry-footer div.edit-link a {
+	color:#fff;
 }
 #comments {
 	padding-top:2.5em;
@@ -601,7 +609,7 @@ div.edit-link span a {
 	padding: .5rem 1rem .5rem;
 	background: none;
 	font-weight: 700;
-	border:1px solid #e57124;
+	border:1px solid #000000;
 	border-radius: 3px;
 	line-height: 1;
 	margin: .5em 0;
@@ -643,7 +651,7 @@ div.showdisqus a {
     font-size: 1.4em;
     font-weight: 700;
     cursor: pointer;
-    border: 1px solid #e57124;
+    border: 1px solid #000000;
 }
 div.showdisqus a:before {
 	margin-right:.5em;
@@ -677,14 +685,14 @@ div.showdisqus a:before {
 	font-family: 'Arvo', Georgia, serif;
 	font-weight: 900;
     padding: .5em 0 .35em;
-    color: #e57124;
+    color: #000000;
     font-size: 1.8em;
     margin-bottom: .5em;
     border-bottom: 1px solid #aaa;
 }
 #relatedwrap a.sponsored {
     color:#fff;
-    background:#e57124;
+    background:#000000;
     padding:.1em .3em;
 }
 
@@ -710,7 +718,7 @@ h2.author-posts-title {
 	line-height: 1;
 	margin-bottom: 1em;
 	padding-bottom: .3em;
-	border-bottom: 1px solid #e57124;
+	border-bottom: 1px solid #000000;
 }
 body.author .author-posts .entry-body h2.entry-title {
 	font-size:1.3em;
@@ -810,10 +818,10 @@ ul.pagination li {
 ul.pagination li a {
 	font-weight: 700;
 	color:#888;
-	border:1px solid #e57124;
+	border:1px solid #000000;
 }
 ul.pagination li.current a {
-    background: #e57124;
+    background: #000000;
     color: #fff;
     font-weight: 700;
     cursor: default;
@@ -907,83 +915,85 @@ div.inline-cube-ad {
 }
 /* category-based colors */
 ul.dpe-flexible-posts li h4 span.category-title a,
-article .frontpage-post h2 a {
+article .frontpage-post h2 a,
+header h2 a {
 	color:#fff;
 	text-decoration: none;
 	padding:.15em .25em;
 }
 ul.dpe-flexible-posts li h4 span.category-title a:hover,
-article .frontpage-post h2 a:hover {
+article .frontpage-post h2 a:hover,
+header h2 a:hover {
 	text-decoration: underline;
 }
 ul.dpe-flexible-posts li.category-reverb h4 span.category-title a,
 article.category-reverb .frontpage-post h2 a,
-header .category-reverb {
+header h2.category-reverb a {
 	background-color:#ca4345;
 }
 ul.dpe-flexible-posts li.category-news h4 span.category-title a,
 article.category-news .frontpage-post h2 a,
-header .category-news {
+header h2.category-news a {
 	background-color:#45a348;
 }
 ul.dpe-flexible-posts li.category-photos h4 span.category-title a,
 article.category-photos .frontpage-post h2 a,
-header .category-photos {
+header h2.category-photos a {
 	background-color:#9d3762;
 }
 ul.dpe-flexible-posts li.category-reviews h4 span.category-title a,
 article.category-reviews .frontpage-post h2 a,
-header .category-reviews {
+header h2.category-reviews a {
 	background-color:#d66523;
 }
 ul.dpe-flexible-posts li.category-audio h4 span.category-title a,
 article.category-audio .frontpage-post h2 a,
-header .category-audio {
+header h2.category-audio a {
 	background-color:#00939e;
 }
 ul.dpe-flexible-posts li.category-video h4 span.category-title a,
 article.category-video .frontpage-post h2 a,
-header .category-video {
+header h2.category-video a {
 	background-color:#d7424a;
 }
 ul.dpe-flexible-posts li.category-venue h4 span.category-title a,
 article.category-venue .frontpage-post h2 a,
-header .category-venue {
+header h2.category-venue a {
 	background-color:#2a79b3;
 }
 ul.dpe-flexible-posts li.category-the-ums h4 span.category-title a,
 article.category-the-ums .frontpage-post h2 a,
-header .category-the-ums {
+header h2.category-the-ums a {
 	background-color:#C5B358;
 }
 ul.dpe-flexible-posts li.category-columns h4 span.category-title a,
 article.category-columns .frontpage-post h2 a,
-header .category-columns {
+header h2.category-columns h2 a a {
 	background-color:#ca6559;
 }
 ul.dpe-flexible-posts li.category-cd-reviews h4 span.category-title a,
 article.category-cd-reviews .frontpage-post h2 a,
-header .category-cd-reviews {
+header h2.category-cd-reviews a {
 	background-color:#5070a2;
 }
 ul.dpe-flexible-posts li.category-reverb-interview h4 span.category-title a,
 article.category-reverb-interview .frontpage-post h2 a,
-header .category-reverb-interview {
+header h2.category-reverb-interview a {
 	background-color:#e9967a;
 }
 ul.dpe-flexible-posts li.category-features h4 span.category-title a,
 article.category-features .frontpage-post h2 a,
-header .category-features {
+header h2.category-features a {
 	background-color:#996633;
 }
 ul.dpe-flexible-posts li.category-best-shows h4 span.category-title a,
 article.category-best-shows .frontpage-post h2 a,
-header .category-best-shows {
+header h2.category-best-shows a {
 	background-color:#deaf00;
 }
 ul.dpe-flexible-posts li.category-concert-review h4 span.category-title a,
 article.category-concert-review .frontpage-post h2 a,
-header .category-concert-review {
+header h2.category-concert-review a {
 	background-color:#8877ff;
 }
 #colophon { text-align:right; font-size:.6em; }
