@@ -46,7 +46,7 @@ function reactor_post_frontpage_format() {
 	end($categories);
 	foreach($categories as $category) {
 		if ( strtolower($category->slug) != 'uncategorized' && $category->category_parent == 0) {
-			$categories_list = $category->name;
+			$categories_list = $category;
 		}
 	}
 
@@ -64,9 +64,12 @@ function reactor_post_frontpage_format() {
 	<?php } else { ?>
 		<div class="frontpage-post">
 	<?php } ?>
-		<a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( __('%s', 'reactor'), the_title_attribute('echo=0') ) ); ?>" rel="bookmark">
-			<h2 class="entry-title"><span><?php echo $categories_list; ?></span><?php the_title(); ?></h2>
-		</a>
+		<h2 class="entry-title">
+			<span>
+				<a href="<?php echo get_category_link(intval($categories_list->term_id) ); ?>"><?php echo $categories_list->cat_name; ?></a>
+			</span>
+			<?php the_title(); ?>
+		</h2>
 	</div>
 <?php }
 add_action('reactor_post_frontpage', 'reactor_post_frontpage_format', 1);

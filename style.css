@@ -31,11 +31,11 @@ h1, h2, h3, h4, h5, h6 {
 	font-size: 1rem;
 }
 a {
-	color:#e57124;
+	color:#498A99;
 	text-decoration:none;
 }
 a:hover, a:focus {
-	color:#f79346;
+	color:#3DA9C1;
 	text-decoration:underline;
 }
 p, li, blockquote {
@@ -340,26 +340,11 @@ body.front-page .entry-body {
 	padding: 10.5% 2.5%;
 }
 .frontpage-post h2 span {
-	font-family: 'Josefin Sans', Helvetica, Arial, sans-serif;
+	display:block;
+}
+.frontpage-post h2 a {
 	text-transform: uppercase;
-	letter-spacing: .05em;
 	font-size: .7em;
-	padding-right: 3px;
-	text-decoration: none;
-}
-.frontpage-post a:hover {
-	text-decoration: none;
-}
-.frontpage-post a:hover h2 {
-	color: rgba(17,17,17,0.8);
-}
-.frontpage-image a:hover h2 {
-	color: rgba(255,255,255,0.8);
-}
-.frontpage-post h2 span:after {
-	content:'/';
-	padding:0 .3em;
-	display:inline-block;
 }
 #infscr-loading {
 	text-align:center;
@@ -379,14 +364,18 @@ h1.archive-title a,
 h2.archive-title a {
 	font-family: 'Candal', 'Open Sans', Arial, Helvetica, sans-serif;
 	font-weight: 400;
-	font-size: 1.2em;
+	font-size: 1.25em;
 	line-height:1.2;
-	padding:.5em 1em;
+	padding:.65em 1em;
 	color:#fff;
-	letter-spacing: 1px;
+	text-transform: uppercase;
 }
 h1.archive-title a {
 	font-size: 1.5em;
+}
+h1.archive-title a:hover,
+h2.archive-title a:hover {
+	text-decoration: none!important;
 }
 .catpage-post.has-image .catpage-post-inner {
 	margin-left:33%;
@@ -871,7 +860,6 @@ ul.dpe-flexible-posts {
 .dpe-flexible-posts h4 {
 	font-size:1.2em;
 	padding:3% 3% 12%;
-	text-align:center;
 	line-height:1.2;
 	letter-spacing:.05em;
 }
@@ -883,15 +871,11 @@ ul.dpe-flexible-posts {
 }
 .dpe-flexible-posts h4 span.category-title {
 	font-size:.8em;
+	display:block;
 	text-transform: uppercase;
 }
 .dpe-flexible-posts h4 span.category-title a:hover {
 	text-decoration: none;
-}
-.dpe-flexible-posts h4 span.category-title a:after {
-	content:'/';
-	padding:0 .3em;
-	display:inline-block;
 }
 /* featured image in flexible posts widgets */
 .dpe-flexible-posts div.cat-thumbnail {
@@ -921,75 +905,84 @@ div.inline-cube-ad {
 	width:100%;
 	text-align:center;
 }
-
 /* category-based colors */
+ul.dpe-flexible-posts li h4 span.category-title a,
+article .frontpage-post h2 a {
+	color:#fff;
+	text-decoration: none;
+	padding:.15em .25em;
+}
+ul.dpe-flexible-posts li h4 span.category-title a:hover,
+article .frontpage-post h2 a:hover {
+	text-decoration: underline;
+}
 ul.dpe-flexible-posts li.category-reverb h4 span.category-title a,
-article.category-reverb .frontpage-post h2 span,
+article.category-reverb .frontpage-post h2 a,
 header .category-reverb {
 	background-color:#ca4345;
 }
 ul.dpe-flexible-posts li.category-news h4 span.category-title a,
-article.category-news .frontpage-post h2 span,
+article.category-news .frontpage-post h2 a,
 header .category-news {
 	background-color:#45a348;
 }
 ul.dpe-flexible-posts li.category-photos h4 span.category-title a,
-article.category-photos .frontpage-post h2 span,
+article.category-photos .frontpage-post h2 a,
 header .category-photos {
 	background-color:#9d3762;
 }
 ul.dpe-flexible-posts li.category-reviews h4 span.category-title a,
-article.category-reviews .frontpage-post h2 span,
+article.category-reviews .frontpage-post h2 a,
 header .category-reviews {
 	background-color:#d66523;
 }
 ul.dpe-flexible-posts li.category-audio h4 span.category-title a,
-article.category-audio .frontpage-post h2 span,
+article.category-audio .frontpage-post h2 a,
 header .category-audio {
 	background-color:#00939e;
 }
 ul.dpe-flexible-posts li.category-video h4 span.category-title a,
-article.category-video .frontpage-post h2 span,
+article.category-video .frontpage-post h2 a,
 header .category-video {
 	background-color:#d7424a;
 }
 ul.dpe-flexible-posts li.category-venue h4 span.category-title a,
-article.category-venue .frontpage-post h2 span,
+article.category-venue .frontpage-post h2 a,
 header .category-venue {
 	background-color:#2a79b3;
 }
 ul.dpe-flexible-posts li.category-the-ums h4 span.category-title a,
-article.category-the-ums .frontpage-post h2 span,
+article.category-the-ums .frontpage-post h2 a,
 header .category-the-ums {
 	background-color:#C5B358;
 }
 ul.dpe-flexible-posts li.category-columns h4 span.category-title a,
-article.category-columns .frontpage-post h2 span,
+article.category-columns .frontpage-post h2 a,
 header .category-columns {
 	background-color:#ca6559;
 }
 ul.dpe-flexible-posts li.category-cd-reviews h4 span.category-title a,
-article.category-cd-reviews .frontpage-post h2 span,
+article.category-cd-reviews .frontpage-post h2 a,
 header .category-cd-reviews {
 	background-color:#5070a2;
 }
 ul.dpe-flexible-posts li.category-reverb-interview h4 span.category-title a,
-article.category-reverb-interview .frontpage-post h2 span,
+article.category-reverb-interview .frontpage-post h2 a,
 header .category-reverb-interview {
 	background-color:#e9967a;
 }
 ul.dpe-flexible-posts li.category-features h4 span.category-title a,
-article.category-features .frontpage-post h2 span,
+article.category-features .frontpage-post h2 a,
 header .category-features {
 	background-color:#996633;
 }
 ul.dpe-flexible-posts li.category-best-shows h4 span.category-title a,
-article.category-best-shows .frontpage-post h2 span,
+article.category-best-shows .frontpage-post h2 a,
 header .category-best-shows {
 	background-color:#deaf00;
 }
 ul.dpe-flexible-posts li.category-concert-review h4 span.category-title a,
-article.category-concert-review .frontpage-post h2 span,
+article.category-concert-review .frontpage-post h2 a,
 header .category-concert-review {
 	background-color:#8877ff;
 }
@@ -1249,12 +1242,12 @@ header .category-concert-review {
 	article:not(:first-child) div.frontpage-image h2 {
 		margin:0 0 0 30%;	
 	}
-	article:not(:first-child) .frontpage-post h2 span {
+	article:not(:first-child) .frontpage-post h2 a {
 		display:block;
 		clear:right;
 		padding-bottom:.25em;
 	}
-	article:not(:first-child) .frontpage-post h2 span:after {
+	article:not(:first-child) .frontpage-post h2 a:after {
 		content:'';
 	}
 	article:not(:first-child) .frontpage-image h2 {
