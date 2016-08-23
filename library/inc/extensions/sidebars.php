@@ -57,19 +57,6 @@ function reactor_register_sidebars() {
 			'after_title'   => '</h4>',
 		) );
 	}
-	
-	if ( in_array( 'front-secondary', $sidebars[0] ) ) {
-		register_sidebar( array(
-			'name'          => __('Front Page Secondary', 'reactor'),
-			'id'            => 'sidebar-frontpage-2',
-			'description'   => 'Secondary sidebar for the front page template',
-			'class'         => '',
-			'before_widget' => '<div id="%1$s" class="widget frontpage-widget %2$s">',
-			'after_widget'  => '</div>',
-			'before_title'  => '<h4 class="widget-title">',
-			'after_title'   => '</h4>',
-		) );
-	}
 
 	if ( in_array( 'footer', $sidebars[0] ) ) {
 		$footer  = '<div id="%1$s" class="widget top-bar-widget ';
