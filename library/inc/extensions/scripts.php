@@ -30,7 +30,7 @@ function reactor_register_scripts() {
 	//Added DJS
 	wp_register_script('jquery-inview', get_stylesheet_directory_uri() . '/library/js/jquery.inview.min.js', array('jquery'), false, true);
 	wp_register_script('jquerymobile', get_stylesheet_directory_uri() . '/library/js/jquery.mobile.custom.min.js', array('minit','jquery'), false, true);
-	//wp_register_script('rvfunctions-js', get_stylesheet_directory_uri() . '/library/js/rv-functions.js', array(), false, true);
+	wp_register_script('rvfunctions-js', get_stylesheet_directory_uri() . '/library/js/rv-functions.js', array(), false, true);
 	wp_register_script('gads-js', '//www.googletagservices.com/tag/js/gpt.js', array(), false, false);
 	wp_register_script('adnexus', 'https://secure.adnxs.com/seg?add=2836221&t=1', array('jquery'), false, true);
 	wp_register_script('swipes-js', get_stylesheet_directory_uri() . '/library/js/swipes.js', array('jquerymobile','jquery'), false, true);
@@ -48,7 +48,7 @@ function reactor_enqueue_scripts() {
 		wp_enqueue_script('reactor-js');
 		//Added DJS
 		wp_enqueue_script('jquery-inview');
-		//wp_enqueue_script('rvfunctions-js');
+		wp_enqueue_script('rvfunctions-js');
 		//enqueue on single only
 		if ( is_single() ) {
 			wp_enqueue_script('jquerymobile');

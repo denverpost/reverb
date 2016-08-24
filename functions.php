@@ -375,6 +375,19 @@ add_filter('wp_kses_allowed_html', 'rvrb_filter_allowed_html', 10, 2);
 // Attempts to permanently disable the Visual Editor for all users, all the time.
 add_filter( 'user_can_richedit', '__return_false', 50 );
 
+function rvrb_get_display_category() {
+    global $post;
+    $categories_list = '';
+    $categories = get_the_category();
+    end($categories);
+    foreach($categories as $category) {
+        if ( strtolower($category->slug) != 'uncategorized' && $category->category_parent == 0) {
+            $categories_list = $category;
+        }
+    }
+    return $categories_list;
+}
+
 function rvrb_get_top_category_slug() {
     global $post;
     $curr_cat = get_the_category_list( '/' , 'single', $post->ID );

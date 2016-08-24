@@ -121,6 +121,7 @@ if ( !function_exists('reactor_post_meta') ) {
 			$author_desc = '<p class="author-desc">' . smart_trim( get_the_author_meta( 'description' ), 30 ) . '</p>';
 		}
 
+		$author_photo = '';
 		if ( 'post' == get_post_type() && the_author_image_url( get_the_author_meta('ID') ) ) {
 			$author_photo = sprintf('<div class="authorimage large-3 medium-3 small-3 columns"><div class="authorimageholder"></div><a class="url fn n" href="%1$s" rel="author"><img src="%2$s" class="authormug" alt="%3$s" /></a></div>',
 				esc_url( get_author_posts_url( get_the_author_meta('ID') ) ),

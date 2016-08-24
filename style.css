@@ -292,8 +292,8 @@ div.site-logo a img {
 }
 /* page layout */
 #sidebar-frontlower {
-	margin-top:1em;
-	padding-top:1em;
+	margin-top:1.5em;
+	padding-top:1.5em;
 	border-top: 2px dotted #ddd;
 }
 #sidebar {
@@ -447,7 +447,9 @@ div.cat-img {
 	display:block;
 	width:100%;
 	clear:both;
-	margin-bottom:1em;
+	margin:1em 0;
+	padding-top:1em;
+	border-top: 2px dotted #ddd;
 }
 .related-post {
 	width: 32%;

@@ -19,13 +19,8 @@
  */
 function reactor_do_overline() {
 	if ( is_single() ) {
-		$categories_list = '';
-		$categories = get_the_category();
-		foreach($categories as $category) {
-			if ( strtolower($category->slug) != 'uncategorized' && $category->category_parent == 0) {
-				$categories_list = $category;
-			}
-		} ?>
+		$categories_list = rvrb_get_display_category();
+		?>
         <header class="archive-header">
             <h2 <?php post_class('archive-title'); ?>><span><a href="<?php echo get_category_link(intval($categories_list->term_id) ); ?>"><?php echo $categories_list->cat_name; ?></a></span></h2>
         </header><!-- .archive-header -->
@@ -41,14 +36,7 @@ add_action('reactor_post_before', 'reactor_do_overline', 1);
  */
 function reactor_post_frontpage_format() {
 
-	$categories_list = '';
-	$categories = get_the_category();
-	end($categories);
-	foreach($categories as $category) {
-		if ( strtolower($category->slug) != 'uncategorized' && $category->category_parent == 0) {
-			$categories_list = $category;
-		}
-	}
+	$categories_list = rvrb_get_display_category();
 
 	if ( has_post_thumbnail() ) {
 		$large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'large');

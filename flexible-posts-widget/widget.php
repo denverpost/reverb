@@ -13,8 +13,8 @@ echo $before_widget;
 
 if( $flexible_posts->have_posts() ):
 	$catquery = get_term_by('id',$flexible_posts->query['tax_query'][0]['terms'][0],'category');
-	if ( !empty($title) )
-	echo $before_title . '<span class="fpe-widget-title category-' . $catquery->slug . '"><a href="' . get_category_link( intval( $catquery->term_id ) ) . '" title="' . $catquery->name . '">' . $catquery->name . '</a></span>' . $after_title;
+
+echo $before_title . '<span class="fpe-widget-title category-' . $catquery->slug . '"><a href="' . get_category_link( intval( $catquery->term_id ) ) . '" title="' . $catquery->name . '">' . $catquery->name . '</a></span>' . $after_title;
 ?>
 	<ul class="dpe-flexible-posts">
 	<?php while( $flexible_posts->have_posts() ) : $flexible_posts->the_post(); global $post; ?>
