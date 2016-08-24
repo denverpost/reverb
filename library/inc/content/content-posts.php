@@ -55,21 +55,19 @@ function reactor_post_frontpage_format() {
 	}
 	if (isset($large_image_url) && strlen($large_image_url[0]) >= 1) { ?>
 		<div class="frontpage-image frontpage-post" style="background-image:url('<?php echo $large_image_url[0]; ?>');">
-			<div class="front-thumbnail">
-				<div class="front-imgholder"></div>
-				<a href="<?php the_permalink(); ?>" rel="bookmark" title="<?php the_title_attribute(); ?>">
-					<div class="front-img" style="background-image:url('<?php echo $large_image_url[0]; ?>');"></div>
-				</a>
-			</div>
+			<div class="front-imgholder"></div>
+			<a href="<?php the_permalink(); ?>" rel="bookmark" title="<?php the_title_attribute(); ?>">
+				<div class="front-img" style="background-image:url('<?php echo $large_image_url[0]; ?>');"></div>
+			</a>
 	<?php } else { ?>
 		<div class="frontpage-post">
 	<?php } ?>
-		<h2 class="entry-title">
-			<span>
-				<a href="<?php echo get_category_link(intval($categories_list->term_id) ); ?>"><?php echo $categories_list->cat_name; ?></a>
-			</span>
-			<?php the_title(); ?>
-		</h2>
+			<h2 class="entry-title">
+				<span>
+					<a href="<?php echo get_category_link(intval($categories_list->term_id) ); ?>"><?php echo $categories_list->cat_name; ?></a>
+				</span>
+				<?php the_title(); ?>
+			</h2>
 	</div>
 <?php }
 add_action('reactor_post_frontpage', 'reactor_post_frontpage_format', 1);
