@@ -257,7 +257,7 @@ add_action('reactor_post_after', 'reactor_do_nav_single', 3);
  * @since 1.0.0
  */
 function rvrb_single_post_related() {
-    if ( function_exists( 'yarpp_related' ) ) { ?>
+    if ( is_single() && function_exists( 'yarpp_related' ) ) { ?>
     <div class="related">
 	    <?php yarpp_related( array( 'template' => 'yarpp-template-rvrb.php' ) ); ?>
     </div>
