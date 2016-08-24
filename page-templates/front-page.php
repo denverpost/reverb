@@ -21,9 +21,13 @@
                 
                 <?php reactor_inner_content_before(); ?>
                         
-                    <?php get_template_part('loops/loop', 'frontpage'); ?>
+                <?php get_template_part('loops/loop', 'frontpage'); ?>
+
+                <div class="clear"></div>
                     
                 <?php reactor_inner_content_after(); ?>
+
+                <?php get_sidebar('frontlower'); ?>
                 
                 </div><!-- .columns -->
 
