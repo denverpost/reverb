@@ -291,8 +291,10 @@ div.site-logo a img {
 	text-decoration:underline;
 }
 /* page layout */
-#frontpageleft {
-	padding-left:0;
+#sidebar-frontlower {
+	margin-top:1em;
+	padding-top:1em;
+	border-top: 2px dotted #ddd;
 }
 #sidebar {
 	padding-right:0;
@@ -370,17 +372,75 @@ article:first-child .frontpage-post h2 {
 	text-transform: uppercase;
 	font-size: .7em;
 }
-#infscr-loading {
-	text-align:center;
-	color:#555;
-	font-size:1.2em;
-}
-#infscr-loading img {
-	width:5%;
-}
 .frontpage-post .front-imgholder {
 	width:100%;
 	padding-bottom:70%;
+}
+/* front page flexible posts widgets */
+#sidebar-frontlower div.widget {
+	width:49%;
+	margin:0 1% 1.5em 0;
+	display:inline-block;
+	float:left;
+	border-right: 2px dotted #ddd;
+	padding-right:1%;
+}
+#sidebar-frontlower div.widget:nth-child(2n+2) {
+	margin-right:0;
+	padding-right: 0;
+	border-right:none;
+}
+.widget_dpe_fp_widget h4.widget-title {
+	display:block;
+	padding:0;
+	margin:0;
+	font-size:1em;
+}
+.widget_dpe_fp_widget h4.widget-title span.fpe-widget-title {
+	display: block;
+	padding: 0;
+	margin:0;
+}
+.widget_dpe_fp_widget h4.widget-title span.fpe-widget-title a {
+	text-transform: uppercase;
+	font-size: 1.4em;
+	line-height: 1.7;
+	padding:.25em .5em;
+}
+.widget_dpe_fp_widget div.cat-thumbnail {
+	position:relative;
+	width:100%;
+	display:block;
+	margin:.5em 0;
+}
+.widget_dpe_fp_widget div.cat-imgholder {
+	width:100%;
+	padding-bottom: 33%;
+}
+.widget_dpe_fp_widget div.cat-thumbnail a {
+	position: absolute;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	padding: 0;
+	display: block;
+}
+div.cat-img {
+	width:100%;
+	height:100%;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+#sidebar-frontlower ul.dpe-flexible-posts {
+	margin:.5em 0 0;
+}
+#sidebar-frontlower ul.dpe-flexible-posts li {
+	list-style: none inside;
+}
+#sidebar-frontlower ul.dpe-flexible-posts li a {
+	color:#0F202F;
 }
 /* related posts */
 .yarpp-related {
@@ -831,6 +891,7 @@ h4.widget-title {
 	margin-top: 0;
 }
 /* category-based colors */
+h4.widget-title span.fpe-widget-title a,
 .related-post h2.entry-title span a,
 article .frontpage-post h2 a,
 header h2 a {
@@ -838,76 +899,91 @@ header h2 a {
 	text-decoration: none;
 	padding:.15em .25em;
 }
+h4.widget-title span.fpe-widget-title a:hover,
 .related-post h2.entry-title span a:hover,
 article .frontpage-post h2 a:hover,
 header h2 a:hover {
 	text-decoration: underline;
 }
+h4.widget-title span.fpe-widget-title.category-reverb a,
 .related-post h2.entry-title.category-reverb span a,
 article.category-reverb .frontpage-post h2 a,
 header h2.category-reverb a {
 	background-color:#ca4345;
 }
+h4.widget-title span.fpe-widget-title.category-news a,
 .related-post h2.entry-title.category-news span a,
 article.category-news .frontpage-post h2 a,
 header h2.category-news a {
 	background-color:#45a348;
 }
+h4.widget-title span.fpe-widget-title.category-photos a,
 .related-post h2.entry-title.category-photos span a,
 article.category-photos .frontpage-post h2 a,
 header h2.category-photos a {
 	background-color:#9d3762;
 }
+h4.widget-title span.fpe-widget-title.category-reviews a,
 .related-post h2.entry-title.category-reviews span a,
 article.category-reviews .frontpage-post h2 a,
 header h2.category-reviews a {
 	background-color:#d66523;
 }
+h4.widget-title span.fpe-widget-title.category-audio a,
 .related-post h2.entry-title.category-audio span a,
 article.category-audio .frontpage-post h2 a,
 header h2.category-audio a {
 	background-color:#00939e;
 }
+h4.widget-title span.fpe-widget-title.category-video a,
 .related-post h2.entry-title.category-video span a,
 article.category-video .frontpage-post h2 a,
 header h2.category-video a {
 	background-color:#d7424a;
 }
+h4.widget-title span.fpe-widget-title.category-venue a,
 .related-post h2.entry-title.category-venue span a,
 article.category-venue .frontpage-post h2 a,
 header h2.category-venue a {
 	background-color:#2a79b3;
 }
+h4.widget-title span.fpe-widget-title.category-the-ums a,
 .related-post h2.entry-title.category-the-ums span a,
 article.category-the-ums .frontpage-post h2 a,
 header h2.category-the-ums a {
 	background-color:#C5B358;
 }
+h4.widget-title span.fpe-widget-title.category-columns a,
 .related-post h2.entry-title.category-columns span a,
 article.category-columns .frontpage-post h2 a,
 header h2.category-columns h2 a a {
 	background-color:#ca6559;
 }
+h4.widget-title span.fpe-widget-title.category-cd-reviews a,
 .related-post h2.entry-title.category-cd-reviews span a,
 article.category-cd-reviews .frontpage-post h2 a,
 header h2.category-cd-reviews a {
 	background-color:#5070a2;
 }
+h4.widget-title span.fpe-widget-title.category-reverb-interview a,
 .related-post h2.entry-title.category-reverb-interview span a,
 article.category-reverb-interview .frontpage-post h2 a,
 header h2.category-reverb-interview a {
 	background-color:#e9967a;
 }
+h4.widget-title span.fpe-widget-title.category-features a,
 .related-post h2.entry-title.category-features span a,
 article.category-features .frontpage-post h2 a,
 header h2.category-features a {
 	background-color:#996633;
 }
+h4.widget-title span.fpe-widget-title.category-best-shows a,
 .related-post h2.entry-title.category-best-shows span a,
 article.category-best-shows .frontpage-post h2 a,
 header h2.category-best-shows a {
 	background-color:#deaf00;
 }
+h4.widget-title span.fpe-widget-title.category-concert-review a,
 .related-post h2.entry-title.category-concert-review span a,
 article.category-concert-review .frontpage-post h2 a,
 header h2.category-concert-review a {
@@ -918,9 +994,6 @@ header h2.category-concert-review a {
 .inner-footer { border-top: 3px dotted #ddd; }
 
 @media (max-width:76em) {
-	#frontpageleft {
-		padding-left:.65em;
-	}
 	#sidebar {
 		padding-right:.65em;
 		padding-left:.65em;
@@ -955,9 +1028,6 @@ header h2.category-concert-review a {
 		margin-right: 0.5em;
 	}
 	#frontpagemain {
-		margin-bottom:1.5em;
-	}
-	#frontpageleft {
 		margin-bottom:1.5em;
 	}
 	#colophon {

@@ -7,19 +7,20 @@
 if ( !defined('ABSPATH') )
 	die('-1');
 
-echo $before_widget;
+$didthumb = false;
 
-if ( !empty($title) )
-	echo $before_title . $title . $after_title;
+echo $before_widget;
 
 if( $flexible_posts->have_posts() ):
 	$catquery = get_term_by('id',$flexible_posts->query['tax_query'][0]['terms'][0],'category');
+	if ( !empty($title) )
+	echo $before_title . '<span class="fpe-widget-title category-' . $catquery->slug . '"><a href="' . get_category_link( intval( $catquery->term_id ) ) . '" title="' . $catquery->name . '">' . $catquery->name . '</a></span>' . $after_title;
 ?>
 	<ul class="dpe-flexible-posts">
 	<?php while( $flexible_posts->have_posts() ) : $flexible_posts->the_post(); global $post; ?>
 		<li id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 				<?php
-					if( $thumbnail == true ) {
+					if( $thumbnail == true && !$didthumb ) {
 						// If the post has a feature image, show it
 						if( has_post_thumbnail() ) { 
 							$medium_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'medium'); ?>
@@ -30,8 +31,9 @@ if( $flexible_posts->have_posts() ):
 								</a>
 							</div>
 					<?php } ?>
-				<?php } ?>
-				<h4 class="title cat-<?php echo $catquery->slug; ?>"><span class="category-title"><a href="<?php echo get_category_link(intval($catquery->term_id)); ?>" title="<?php echo $catquery->name; ?>"><?php echo $catquery->name; ?></a></span><a href="<?php the_permalink(); ?>" rel="bookmark" class="title-link" title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a></h4>
+				<?php $didthumb = true;
+				} ?>
+				<h4 class="title"><a href="<?php the_permalink(); ?>" rel="bookmark" class="title-link" title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a></h4>
 		</li>
 	<?php endwhile; ?>
 	</ul><!-- .dpe-flexible-posts -->

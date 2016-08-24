@@ -22,5 +22,7 @@
         </div><!-- #sidebar-frontpage-2 -->
     
     <?php reactor_sidebar_after(); ?>
+
+    <div class="clear"></div>
     
     <?php endif; ?>
