@@ -555,11 +555,6 @@ function rvrb_add_excerpts_to_pages() {
 }
 add_action( 'init', 'rvrb_add_excerpts_to_pages' );
 
-/* an ad that can be pulled in my the front-page loop */
-function rvrb_infinite_ad_widget($iteration) {
-    echo '<div class="inline-cube-ad"><iframe src="' . get_stylesheet_directory_uri() . '/ad.html" style="margin:1em auto;width:300px;height:250px;overflow:hidden;border:none;"></iframe></div>';
-}
-
 /**
  * Widget Custom Classes
  */

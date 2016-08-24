@@ -7,37 +7,3 @@ function scrollDownTo(whereToScroll, scrollOffset) {
     }, 300);
     return false;
 }
-
-var disqus_shortname = 'dpreverb'; // required: replace example with your forum shortname
-jQuery.ajax({
-  type: 'GET',
-  url: '//dpreverb.disqus.com/count.js',
-  dataType: 'script',
-  cache: false
-});
-
-function showDisqusComments() {
-	var disqus_shortname = 'dpreverb';
-	$j.ajax({
-        type: "GET",
-        url: "http://" + disqus_shortname + ".disqus.com/embed.js",
-        dataType: "script",
-        cache: true
-    });
-    $j('.showdisqus').fadeOut();
-    scrollDownTo('#disqus_thread');
-}
-
-//Disqus button reveal
-$j(document).ready(function() {
-	var checkHash = location.hash;
-	if (checkHash == '#disqus_thread' || checkHash == '#comments') {
-		showDisqusComments();
-	}
-	$j('.showdisqus').on('click', function(){
-		showDisqusComments();
-	});
-	$j('.commentsNameLink').on('click', function(){
-		showDisqusComments();
-	});
-});
