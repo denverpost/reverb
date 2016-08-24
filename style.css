@@ -336,8 +336,8 @@ body.front-page .entry-body {
 .frontpage-image h2 {
 	background-color: rgba(0,0,0,0.8);
 	color: #fff;
-	width: 42%;
-	padding: 10.5% 2.5%;
+	width: 100%;
+	padding: 50% 0 0;
 }
 .frontpage-post h2 span {
 	display:block;
@@ -354,7 +354,70 @@ body.front-page .entry-body {
 #infscr-loading img {
 	width:5%;
 }
-
+/* related posts */
+.yarpp-related {
+	display:block;
+	width:100%;
+	clear:both;
+	margin-bottom:1em;
+}
+.related-post {
+	width: 32%;
+	display:inline-block;
+	float:left;
+	margin-right:2%;
+	position:relative;
+}
+.related-post .front-img {
+	position:absolute;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	padding: 0;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+.related-post .front-imgholder {
+	width: 100%;
+	height: 0;
+	padding-bottom: 65%;
+	position: relative;
+}
+.related-post:nth-child(3n+3) {
+	margin-right:0;
+}
+.related-post h2 {
+	font-family: 'Candal', 'Open Sans', Arial, Helvetica, sans-serif;
+	font-size: 1.1em;
+	line-height:1.1;
+	padding: .5em;
+	color: rgba(255,255,255,1);
+	position: absolute;
+	left:0;
+	bottom:0;
+	color: #fff;
+	width: 100%;
+	margin:0;
+	background: rgba(0,0,0,0.7);
+	background: -moz-linear-gradient(top, rgba(0,0,0,0.0) 0%,rgba(0,0,0,0.9) 100%);
+	background: -webkit-linear-gradient(top, rgba(0,0,0,0.0) 0%,rgba(0,0,0,0.9) 100%);
+	background: linear-gradient(to bottom, rgba(0,0,0,0.0) 0%,rgba(0,0,0,0.9) 100%);
+}
+.related-post h2 span {
+	display:block;
+	margin-bottom:.25em;
+}
+.related-post h2 span a {
+	font-size:.8em;
+}
+.related-post h2 a {
+	text-transform: uppercase;
+}
+.related-post h2 a:hover {
+	text-decoration: underline;
+}
 /* category page styles */
 h1.archive-title,
 h2.archive-title {
@@ -419,12 +482,10 @@ body:not(.home) .entry-body h2.entry-title {
 .entry-body .entry-meta .entry-date {
 	color:#888;
 }
-.entry-body .entry-meta .comments a span,
 .entry-body .entry-meta .social-dropdown-link a span,
 .entry-body .entry-meta .by-author a span {
 	color:#222;
 }
-.entry-body .entry-meta .fi-comment:before,
 .entry-body .entry-meta .fi-share:before {
 	color:#888;
 	margin:0 .25em;
@@ -585,9 +646,6 @@ nav.nav-single .nav-next a:after {
 .entry-footer div.edit-link a {
 	color:#fff;
 }
-#comments {
-	padding-top:2.5em;
-}
 .post-body-social {
 	padding:.8em 0;
 	margin:.5em 0 1em;
@@ -641,61 +699,6 @@ nav.nav-single .nav-next a:after {
 	font-size:1.2em;
 }
 
-/* commenting and related */
-div.showdisqus a {
-    text-align: center;
-    width: 50%;
-    margin: 0 auto;
-    display: block;
-    padding: .5em 0;
-    font-size: 1.4em;
-    font-weight: 700;
-    cursor: pointer;
-    border: 1px solid #000000;
-}
-div.showdisqus a:before {
-	margin-right:.5em;
-}
-div.showdisqus a:hover {
-    background: #f79346;
-    color: #fff;
-    cursor: pointer;
-}
-div.showdisqus a:before {
-	text-decoration: none;
-}
-#relatedwrap {
-    padding-top: 1em;
-    margin: 0 0 1em;
-    display: none;
-}
-#relatedwrap .relatedli header.entry-header {
-	border-bottom: none;
-	margin-bottom:0;
-}
-#related-content div.relatednext {
-    display: inline;
-    float: left;
-    clear: both;
-    width: 100%;
-    height: 1px;
-    padding: 0;
-}
-#relatedwrap h4.related-title {
-	font-family: 'Arvo', Georgia, serif;
-	font-weight: 900;
-    padding: .5em 0 .35em;
-    color: #000000;
-    font-size: 1.8em;
-    margin-bottom: .5em;
-    border-bottom: 1px solid #aaa;
-}
-#relatedwrap a.sponsored {
-    color:#fff;
-    background:#000000;
-    padding:.1em .3em;
-}
-
 /* author page */
 .author-info p, .author-info li {
 	font-size:1.3em;
@@ -722,65 +725,6 @@ h2.author-posts-title {
 }
 body.author .author-posts .entry-body h2.entry-title {
 	font-size:1.3em;
-}
-
-/* article related */
-#relatedwrap .entry-body div.entry-thumbnail {
-	width: 100%;
-	position: relative;
-}
-#relatedwrap .entry-body div.entry-thumbnail div.mainimgholder {
-	width: 100%;
-	height: 0;
-	padding-bottom: 65%;
-	position: relative;
-}
-#relatedwrap .entry-body div.entry-thumbnail div.mainimg {
-	width: 100%;
-	height: 100%;
-	background-size: cover;
-	background-repeat: no-repeat;
-	background-position: center center;
-	display: block;
-	position: absolute;
-	top: 0;
-	left: 0;
-}
-#relatedwrap {
-    padding-top: 1em;
-    margin: 0 0 1em;
-    border-top: 1px solid #ddd;
-    display: none;
-}
-#relatedwrap #related-content li .entry-category .entry-meta a {
-	font-weight:bold;
-}
-#relatedwrap #related-content li h2.entry-title {
-	font-size:1.5em;
-}
-#relatedwrap #related-content li h2.entry-title a {
-	color:#333;
-}
-#relatedwrap #related-content li a.sponsored {
-    color:#fff;
-    padding:0 .35em;
-    font-weight:400;
-}
-#related-content div.relatednext {
-    display: inline;
-    float: left;
-    clear: both;
-    width: 100%;
-    height: 1px;
-    padding: 0;
-}
-#relatedwrap h4.related-title {
-    padding: -2em .625em;
-    font-size: 1.5em;
-    margin-bottom: .5em;
-}
-#relatedwrap a.sponsored {
-    padding:.1em .3em;
 }
 
 /* photo galleries */
@@ -859,68 +803,84 @@ h4.widget-title {
 	margin-top: 0;
 }
 /* category-based colors */
+.related-post h2.entry-title span a,
 article .frontpage-post h2 a,
 header h2 a {
 	color:#fff;
 	text-decoration: none;
 	padding:.15em .25em;
 }
+.related-post h2.entry-title span a:hover,
 article .frontpage-post h2 a:hover,
 header h2 a:hover {
 	text-decoration: underline;
 }
+.related-post h2.entry-title.category-reverb span a,
 article.category-reverb .frontpage-post h2 a,
 header h2.category-reverb a {
 	background-color:#ca4345;
 }
+.related-post h2.entry-title.category-news span a,
 article.category-news .frontpage-post h2 a,
 header h2.category-news a {
 	background-color:#45a348;
 }
+.related-post h2.entry-title.category-photos span a,
 article.category-photos .frontpage-post h2 a,
 header h2.category-photos a {
 	background-color:#9d3762;
 }
+.related-post h2.entry-title.category-reviews span a,
 article.category-reviews .frontpage-post h2 a,
 header h2.category-reviews a {
 	background-color:#d66523;
 }
+.related-post h2.entry-title.category-audio span a,
 article.category-audio .frontpage-post h2 a,
 header h2.category-audio a {
 	background-color:#00939e;
 }
+.related-post h2.entry-title.category-video span a,
 article.category-video .frontpage-post h2 a,
 header h2.category-video a {
 	background-color:#d7424a;
 }
+.related-post h2.entry-title.category-venue span a,
 article.category-venue .frontpage-post h2 a,
 header h2.category-venue a {
 	background-color:#2a79b3;
 }
+.related-post h2.entry-title.category-the-ums span a,
 article.category-the-ums .frontpage-post h2 a,
 header h2.category-the-ums a {
 	background-color:#C5B358;
 }
+.related-post h2.entry-title.category-columns span a,
 article.category-columns .frontpage-post h2 a,
 header h2.category-columns h2 a a {
 	background-color:#ca6559;
 }
+.related-post h2.entry-title.category-cd-reviews span a,
 article.category-cd-reviews .frontpage-post h2 a,
 header h2.category-cd-reviews a {
 	background-color:#5070a2;
 }
+.related-post h2.entry-title.category-reverb-interview span a,
 article.category-reverb-interview .frontpage-post h2 a,
 header h2.category-reverb-interview a {
 	background-color:#e9967a;
 }
+.related-post h2.entry-title.category-features span a,
 article.category-features .frontpage-post h2 a,
 header h2.category-features a {
 	background-color:#996633;
 }
+.related-post h2.entry-title.category-best-shows span a,
 article.category-best-shows .frontpage-post h2 a,
 header h2.category-best-shows a {
 	background-color:#deaf00;
 }
+.related-post h2.entry-title.category-concert-review span a,
 article.category-concert-review .frontpage-post h2 a,
 header h2.category-concert-review a {
 	background-color:#8877ff;
@@ -1029,9 +989,6 @@ header h2.category-concert-review a {
 	body.error404 article.error404 h6.oopsies {
 		font-size:12em;
 	}
-	#relatedwrap #related-content li h2.entry-title {
-	    font-size: 1.25em;
-	}
 	body:not(.home) .entry-body h2.entry-title {
 		font-size:1.4em;
 	}
@@ -1092,8 +1049,7 @@ header h2.category-concert-review a {
 	nav.nav-single .nav-next a {
 		padding-top:.1em;
 	}
-	.entry-body .entry-header .entry-meta span.social-dropdown-link,
-	.entry-body .entry-header .entry-meta span.comments { display:none; }
+	.entry-body .entry-header .entry-meta span.social-dropdown-link { display:none; }
 	p, .top-bar li:not(.menu-item), figcaption {
 		font-size: 1.1em;
 	}
@@ -1102,14 +1058,6 @@ header h2.category-concert-review a {
 	.post-body-social .pm-pinterest,
 	.single .entry-meta-author p.author-desc {
 		display:none;
-	}
-	div.showdisqus a {
-		width:90%;
-		font-size: 1.1em;
-	}
-	#comments {
-		padding-top:1.5em;
-		padding-bottom: 1.5em;
 	}
 	.site-social a {
 		width:8%;
@@ -1206,11 +1154,8 @@ header h2.category-concert-review a {
     .noprint,
     .sidebar,
     .entry-thumbnail,
-    div#comments,
     div#breadcrumbs,
     header#header,
-    #relatedwrap,
-    .single-comments-link,
     .entry-meta-tags,
     .entry-meta-author,
     .archive-header,
