@@ -36,6 +36,40 @@
                     <?php endwhile; // end of the loop ?>
                     
                 <?php reactor_inner_content_after(); ?>
+
+                <?php global $post;
+                    $venue_name = get_the_terms($post->ID, 'venue'); ?>
+                
+                <div class="venue-related">
+                    <h2 class="archive-title"><a class="noclick" href="javascript:void(0);">Recent stories featuring <?php echo $venue_name[0]->name; ?></a></h2>
+
+                    <?php
+
+                        $args = array(
+                            'post_type' => 'post',
+                            'tax_query' => array(
+                                array(
+                                    'taxonomy' => 'venue',
+                                    'field' => 'slug',
+                                    'terms' => array( $venue_name[0]->slug )
+                                ),
+                            ),
+                            'posts_per_page' => 5,
+                            );
+                        
+                        $venue_query = new WP_Query( $args ); ?>
+
+                        <?php if ( $venue_query->have_posts() ) :
+                            
+                            while ( $venue_query->have_posts() ) : $venue_query->the_post(); ?>
+
+                                <?php get_template_part('post-formats/format', 'catpage'); ?>
+
+                            <?php endwhile;
+                        
+                        endif; ?>
+
+                    </div>
                 
                 </div><!-- .columns -->
                 

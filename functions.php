@@ -41,7 +41,7 @@ function reactor_child_theme_setup() {
 	remove_theme_support('reactor-sidebars');
 	add_theme_support(
 	   'reactor-sidebars',
-	   array('primary', 'secondary', 'front-lower', 'venue-lower', 'footer', 'error')
+	   array('primary', 'secondary', 'front-lower', 'footer', 'error')
 	);
 	
 	/* Support for layouts
@@ -269,14 +269,14 @@ function smart_trim($instring, $truncation) {
 }
 
 // Exclude Pages from search
-function SearchFilter($query) {
+function rvrb_search_filter_pages($query) {
     if ($query->is_search) {
         $query->set('post_type', 'post');
     }
     return $query;
 }
 if ( ! is_admin() ) {
-    add_filter('pre_get_posts','SearchFilter');
+    add_filter('pre_get_posts','rvrb_search_filter_pages');
 }
 
 /**
@@ -285,8 +285,7 @@ if ( ! is_admin() ) {
  *
  * @author danielbachhuber
  */
-add_filter( 'posts_search', 'db_filter_authors_search' );
-function db_filter_authors_search( $posts_search ) {
+function rvrb_filter_authors_search( $posts_search ) {
 
     // Don't modify the query at all if we're not on the search template
     // or if the LIKE is empty
@@ -296,7 +295,7 @@ function db_filter_authors_search( $posts_search ) {
     global $wpdb;
     // Get all of the users of the blog and see if the search query matches either
     // the display name or the user login
-    add_filter( 'pre_user_query', 'db_filter_user_query' );
+    add_filter( 'pre_user_query', 'rvrb_filter_user_query' );
     $search = sanitize_text_field( get_query_var( 's' ) );
     $args = array(
         'count_total' => false,
@@ -308,7 +307,7 @@ function db_filter_authors_search( $posts_search ) {
         'fields' => 'ID',
     );
     $matching_users = get_users( $args );
-    remove_filter( 'pre_user_query', 'db_filter_user_query' );
+    remove_filter( 'pre_user_query', 'rvrb_filter_user_query' );
     // Don't modify the query if there aren't any matching users
     if ( empty( $matching_users ) )
         return $posts_search;
@@ -316,10 +315,12 @@ function db_filter_authors_search( $posts_search ) {
     $posts_search = str_replace( ')))', ")) OR ( {$wpdb->posts}.post_author IN (" . implode( ',', array_map( 'absint', $matching_users ) ) . ")))", $posts_search );
     return $posts_search;
 }
+add_filter( 'posts_search', 'rvrb_filter_authors_search' );
+
 /**
  * Modify get_users() to search display_name instead of user_nicename
  */
-function db_filter_user_query( &$user_query ) {
+function rvrb_filter_user_query( &$user_query ) {
 
     if ( is_object( $user_query ) )
         $user_query->query_where = str_replace( "user_nicename LIKE", "display_name LIKE", $user_query->query_where );
@@ -550,19 +551,6 @@ add_action( 'widgets_init', 'register_newsletter_signup_widget' );
 add_action( 'widgets_init', 'register_ad_widget_large_cube' );
 add_action( 'widgets_init', 'register_ad_widget_cube' );
 
-// allows using Disqus on development deployments
-function childtheme_disqus_development() {
-?>
-  <script type="text/javascript">
-  // see http://docs.disqus.com/help/83/
-  var disqus_developer = 1; // developer mode is on
-  </script>
-<?php }
-
-// only enable this if the server is a .dev domain name
-if ( strpos($_SERVER['HTTP_HOST'], 'localhost') !== FALSE )
-  add_action('wp_head', 'childtheme_disqus_development', 100);
-
 function rvrb_add_excerpts_to_pages() {
     add_post_type_support( 'page', 'excerpt' );
 }
@@ -592,7 +580,7 @@ add_filter( 'widget_update_callback', 'rvrb_widget_update', 10, 2 );
 
 function rvrb_dynamic_sidebar_params( $params ) {
     global $wp_registered_widgets;
-    $widget_id    = $params[0]['widget_id'];
+    $widget_id     = $params[0]['widget_id'];
     $widget_obj    = $wp_registered_widgets[$widget_id];
     $widget_opt    = get_option($widget_obj['callback'][0]->option_name);
     $widget_num    = $widget_obj['params'][0]['number'];
@@ -736,10 +724,12 @@ function rvrb_register_venue_taxonomy() {
             'hierarchical' => false,
             'labels' => $labels,
             'public' => true,
+            'publicly_queryable' => false,
             'show_ui' => true,
             'show_in_nav_menus' => false,
             'show_tagcloud' => false,
-            'show_admin_column' => false
+            'show_admin_column' => false,
+            'rewrite' => array( 'slug' => 'venue','with_front' => false),
         )
     );
 }
@@ -822,4 +812,95 @@ function rvrb_venue_page_contextual_help( $contextual_help, $screen_id, $screen 
   return $contextual_help;
 }
 add_action( 'contextual_help', 'rvrb_venue_page_contextual_help', 10, 3 );
+
+// Popular widget
+class rvrb_popular_widget extends WP_Widget
+{
+    public function __construct()
+    {
+            parent::__construct(
+                'rvrb_popular_widget',
+                __('Reverb Popular widget', 'rvrb_popular_widget'),
+                array('description' => __('Put a Reverb popular posts widget in the sidebar', 'rvrb_popular_widget'), )
+            );
+    }
+
+    public function form( $instance ) {
+        //Check if limit_days exists, if its null, put "new limit_days" for use in the form
+        if ( isset( $instance[ 'limit_days' ] ) ) {
+            $limit_days = $instance[ 'limit_days' ];
+        }
+        else {
+            $limit_days = __( '0', 'wpb_widget_domain' );
+        } ?>
+        <p>
+        <label for="<?php echo $this->get_field_id( 'limit_days' ); ?>"><?php _e( 'Display popular posts from the last __ days (0 for no limit):' ); ?></label> 
+        <input class="widefat" id="<?php echo $this->get_field_id( 'limit_days' ); ?>" name="<?php echo $this->get_field_name( 'limit_days' ); ?>" type="text" value="<?php echo esc_attr( $limit_days ); ?>" />
+        </p>
+    <?php }
+
+    public function update( $new_instance, $old_instance ) {
+        $instance = array();
+        $instance[ 'limit_days' ] = ( ! empty( $new_instance[ 'limit_days' ] ) ) ? (int)strip_tags( $new_instance[ 'limit_days' ] ) : 0;
+        return $instance;
+    }
+
+    public function widget( $args, $instance ) {
+        $limit_days = $instance[ 'limit_days' ];
+        $limit_days = ( $limit_days != 0 ) ? (int)$limit_days : 10000;
+        if ( function_exists( 'stats_get_csv' ) ) {
+            echo '<div id="sidebar-popular" class="widget widget_pop">
+                    <h4 class="widget-title">Popular</h4>';
+            $top_posts = stats_get_csv( 'postviews', 'days=7&limit=200' );
+            if ( count( $top_posts ) > 0 ) {
+                echo '<ul>';
+                $i=1;
+                foreach ($top_posts as $p) {
+                    $post = get_post( $p[ 'post_id' ] );
+                    $post_date = strtotime( $post->post_date );
+                    $today_date = time();
+                    if ( $i <= 5 && ( $today_date - $post_date ) <= 60*60*24*(int)$limit_days && ( $p['post_title'] != 'Home page' ) ) { ?>
+                        <li class="clearfix"><span class="pop_num"><?php echo $i; ?></span><a href="<?php echo $p['post_permalink']; ?>"><?php echo $p['post_title']; ?></a><div class="clear"></div></li>
+                        <?php
+                        $i++;
+                    }
+                }
+                echo '</ul>
+                    </div>';
+            }
+        } else {
+            ?> <!-- Sorry, there are no Popular posts to display! --><?php
+        }
+        if ( term_exists( 'dont-miss', 'post_tag' ) ) {
+            $dm_tag = get_term_by( 'slug', 'dont-miss', 'post_tag' );
+            remove_all_filters('posts_orderby'); // disable Post Types Order ordering for this query
+            $args = array(
+                'post_type'         => 'post',
+                'tag_id'            => $dm_tag->term_id,
+                'posts_per_page'    => '5',
+                'orderby'           => 'rand',
+                );
+            $dm_query = new WP_Query( $args );
+            $i=1;
+            echo '<div id="sidebar-dontmiss" class="widget widget_dontmiss">
+                <h4 class="widget-title">Don\'t Miss</h4>
+                <ul>';
+            if ( $dm_query->have_posts() ) {
+                while ( $dm_query->have_posts() ) : $dm_query->the_post();
+                    if ( $i <= 5 ) { ?>
+                        <li class="clearfix"><span class="pop_num"><?php echo $i; ?></span><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a><div class="clear"></div></li>
+                    <?php $i++;
+                    }
+                endwhile;
+            } else {
+                ?> <!-- Sorry, there are no Don't Miss posts at this time! --><?php
+            }
+            echo '</ul>
+                </div>';
+        }
+    }
+}
+function register_popular_widget() { register_widget('rvrb_popular_widget'); }
+add_action( 'widgets_init', 'register_popular_widget' );
+
 ?>

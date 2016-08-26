@@ -18,11 +18,15 @@
  * @since 1.0.0
  */
 function reactor_do_overline() {
-	if ( is_single() ) {
+	if ( get_post_type() == 'venues' ) { ?>
+		<header class="archive-header">
+            <h1 class="archive-title venue-header"><span><a href="/venues/">Venues</a></span></h1>
+        </header><!-- .archive-header -->
+	<?php } else if ( is_single() ) {
 		$categories_list = rvrb_get_display_category();
 		?>
         <header class="archive-header">
-            <h2 <?php post_class('archive-title'); ?>><span><a href="<?php echo get_category_link(intval($categories_list->term_id) ); ?>"><?php echo $categories_list->cat_name; ?></a></span></h2>
+            <h2 <?php post_class('archive-title'); ?>><span><a href="<?php echo get_category_link( intval( $categories_list->term_id) ); ?>"><?php echo $categories_list->cat_name; ?></a></span></h2>
         </header><!-- .archive-header -->
 	<?php }
 }
@@ -39,9 +43,9 @@ function reactor_post_frontpage_format() {
 	$categories_list = rvrb_get_display_category();
 
 	if ( has_post_thumbnail() ) {
-		$large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'large');
+		$large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'large' );
 	}
-	if (isset($large_image_url) && strlen($large_image_url[0]) >= 1) { ?>
+	if ( isset( $large_image_url ) && strlen( $large_image_url[0] ) >= 1 ) { ?>
 		<div class="frontpage-image frontpage-post" style="background-image:url('<?php echo $large_image_url[0]; ?>');">
 			<div class="front-imgholder"></div>
 			<a href="<?php the_permalink(); ?>" rel="bookmark" title="<?php the_title_attribute(); ?>">
@@ -52,7 +56,7 @@ function reactor_post_frontpage_format() {
 	<?php } ?>
 			<h2 class="entry-title">
 				<span>
-					<a href="<?php echo get_category_link(intval($categories_list->term_id) ); ?>"><?php echo $categories_list->cat_name; ?></a>
+					<a href="<?php echo get_category_link( intval( $categories_list->term_id) ); ?>"><?php echo $categories_list->cat_name; ?></a>
 				</span>
 				<?php the_title(); ?>
 			</h2>
@@ -195,7 +199,6 @@ add_action('reactor_post_footer', 'reactor_do_post_edit', 4);
  * @since 1.0.0
  */
 function reactor_do_post_footer_meta() {
-
 	if ( is_single() ) {
 		reactor_post_meta( array('show_photo' => true,'show_tag' => true) );
 	} else {

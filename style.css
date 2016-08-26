@@ -34,9 +34,15 @@ a {
 	color:#498A99;
 	text-decoration:none;
 }
+a.noclick {
+	cursor:default;
+}
 a:hover, a:focus {
 	color:#3DA9C1;
 	text-decoration:underline;
+}
+a.noclick:hover, a.noclick:focus {
+	text-decoration:none;
 }
 p, li, blockquote {
 	font-family:'Arvo',Georgia,Times,serif;
@@ -51,12 +57,12 @@ figcaption {
 	line-height:1.4;
 }
 button, .button {
-	background-color:#000000;
-	border-color:#424242;
+	background-color:#498A99;
+	border-color:#3DA9C1;
 	transition:background-color 200ms ease-out;
 }
 button:hover, button:focus, .button:hover, .button:focus {
-	background-color:#424242;
+	background-color:#3DA9C1;
 }
 img#wpstats{ display:none; }
 div.clear {
@@ -236,7 +242,6 @@ div.site-logo a img {
 	text-indent:-500px;
 }
 .fixed div.title-area li.name p a {
-	padding:.25em 0 0!important;
 	margin:0;
 	display:block;
 	text-align:center;
@@ -245,7 +250,7 @@ div.site-logo a img {
 .fixed div.title-area li.name p a:hover { background:#000; }
 .fixed div.title-area li p a img {
 	width:auto;
-	height:170%;
+	height:150%;
 	margin:0 auto;
 }
 .top-bar-section li.has-dropdown.category-drink:not(.has-form) > a:not(.button) {
@@ -314,7 +319,56 @@ body.error404 article.error404 h6.oopsies {
 	text-align:center;
 	line-height:1;
 }
-
+/* Sidebar popular/don't miss */
+#sidebar div.widget_pop,
+#sidebar div.widget_dontmiss {
+	font-size: 1em;
+	margin-bottom:1.5em;
+}
+#sidebar div.widget_pop ul li span.pop_num,
+#sidebar div.widget_dontmiss ul li span.pop_num {
+    display:inline-block;
+    color:#fff;
+    background-color:#498A99;
+    margin:.25em .5em .25em -2.5em;
+    width:2em;
+    height:2em;
+    border-radius:1em;
+    text-align:center;
+    line-height:2;
+    text-indent:0;
+    float:left;
+}
+#sidebar div.widget_pop ul,
+#sidebar div.widget_dontmiss ul {
+    font-size:1em;
+    line-height:1.2;
+    color:#0F202F;
+    font-family: 'Arvo', Georgia, Times, serif;
+    font-weight:700;
+    list-style-type: none;
+    margin:0;
+}
+#sidebar div.widget_pop ul li,
+#sidebar div.widget_dontmiss ul li {
+    margin:0 0 .75em 3em;
+    font-size:1.15em;
+    line-height: 1.4;
+}
+#sidebar div.widget_pop ul li:last-child,
+#sidebar div.widget_dontmiss ul li:last-child {
+    margin-bottom:0;
+}
+#sidebar div.widget_pop ul li a,
+#sidebar div.widget_dontmiss ul li a {
+    color:#0F202F;
+    text-decoration:none;
+}
+#sidebar div.widget_pop ul li a:hover,
+#sidebar div.widget_dontmiss ul li a:hover {
+	color:#3DA9C1;
+	text-decoration:underline;	
+}
 /* frontpage-posts */
 body.front-page .entry-body {
 	padding-bottom:0;
@@ -521,7 +575,10 @@ h2.archive-title a {
 	font-size: 1.25em;
 	line-height:1.2;
 	color:#fff;
+	letter-spacing:.05em;
 	text-transform: uppercase;
+	background-color:#498A99;
+	padding:.25em .5em;
 }
 h1.archive-title a {
 	font-size: 1.5em;
@@ -891,7 +948,9 @@ h4.widget-title {
 	font-size: 1.4em;
 	line-height: 1.15;
 	letter-spacing: .1em;
-	margin-top: 0;
+	margin-bottom: .5em;
+	padding-bottom:.25em;
+	border-bottom: 2px dotted #ddd;
 }
 /* category-based colors */
 h4.widget-title span.fpe-widget-title a,
