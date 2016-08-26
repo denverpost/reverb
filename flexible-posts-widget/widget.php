@@ -14,7 +14,23 @@ echo $before_widget;
 if( $flexible_posts->have_posts() ):
 	$catquery = get_term_by('id',$flexible_posts->query['tax_query'][0]['terms'][0],'category');
 
-echo $before_title . '<span class="fpe-widget-title category-' . $catquery->slug . '"><a href="' . get_category_link( intval( $catquery->term_id ) ) . '" title="' . $catquery->name . '">' . $catquery->name . '</a></span>' . $after_title;
+if ( ! function_exists('rvrb_get_acceptable_parent') ) {
+	function rvrb_get_acceptable_parent($catquery) {
+		$cat_parents = get_category_parents( $catquery->term_id, false, '/' );
+		$valid_cats = array('music','food','drink','things-to-do','arts');
+		$cat_parents = explode( '/', $cat_parents );
+		foreach ( $cat_parents as $current ) {
+			$current = strtolower( $current );
+			if ( in_array( $current, $valid_cats ) ) {
+			    return $current;
+			}
+		}
+	}
+}
+
+$cat_parent = rvrb_get_acceptable_parent($catquery);
+
+echo $before_title . '<span class="fpe-widget-title category-' . $catquery->slug . ' category-' . $cat_parent . '"><a href="' . get_category_link( intval( $catquery->term_id ) ) . '" title="' . $catquery->name . '">' . $catquery->name . '</a></span>' . $after_title;
 ?>
 	<ul class="dpe-flexible-posts">
 	<?php while( $flexible_posts->have_posts() ) : $flexible_posts->the_post(); global $post; ?>

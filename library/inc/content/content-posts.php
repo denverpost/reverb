@@ -23,7 +23,7 @@ function reactor_do_overline() {
             <h1 class="archive-title venue-header"><span><a href="/venues/">Venues</a></span></h1>
         </header><!-- .archive-header -->
 	<?php } else if ( is_single() ) {
-		$categories_list = rvrb_get_display_category();
+		$categories_list = rvrb_get_top_category_slug();
 		?>
         <header class="archive-header">
             <h2 <?php post_class('archive-title'); ?>><span><a href="<?php echo get_category_link( intval( $categories_list->term_id) ); ?>"><?php echo $categories_list->cat_name; ?></a></span></h2>
@@ -40,7 +40,7 @@ add_action('reactor_post_before', 'reactor_do_overline', 1);
  */
 function reactor_post_frontpage_format() {
 
-	$categories_list = rvrb_get_display_category();
+	$categories_list = rvrb_get_top_category_slug();
 
 	if ( has_post_thumbnail() ) {
 		$large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'large' );
@@ -48,7 +48,7 @@ function reactor_post_frontpage_format() {
 	if ( isset( $large_image_url ) && strlen( $large_image_url[0] ) >= 1 ) { ?>
 		<div class="frontpage-image frontpage-post" style="background-image:url('<?php echo $large_image_url[0]; ?>');">
 			<div class="front-imgholder"></div>
-			<a href="<?php the_permalink(); ?>" rel="bookmark" title="<?php the_title_attribute(); ?>">
+			<a href="<?php the_permalink(); ?>" rel="bookmark"">
 				<div class="front-img" style="background-image:url('<?php echo $large_image_url[0]; ?>');"></div>
 			</a>
 	<?php } else { ?>
@@ -58,7 +58,7 @@ function reactor_post_frontpage_format() {
 				<span>
 					<a href="<?php echo get_category_link( intval( $categories_list->term_id) ); ?>"><?php echo $categories_list->cat_name; ?></a>
 				</span>
-				<?php the_title(); ?>
+				<a href="<?php the_permalink(); ?>" rel="bookmark""><?php the_title(); ?></a>
 			</h2>
 	</div>
 <?php }
@@ -84,7 +84,7 @@ function reactor_post_catpage_format() {
 	<div class="catpage-post">
 	<?php } ?>
 		<div class="catpage-post-inner">
-			<a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( __('%s', 'reactor'), the_title_attribute('echo=0') ) ); ?>" rel="bookmark">
+			<a href="<?php the_permalink(); ?>" rel="bookmark">
 				<h2 class="entry-title"><?php the_title(); ?></h2>
 			</a>
 			<p class="catexcerpt"><?php echo smart_trim(get_the_content(),25); ?></p>
@@ -111,16 +111,16 @@ function reactor_do_standard_header_titles() {
 		<?php if ( !$link_titles ) { ?>
 		<h2 class="entry-title"><?php the_title(); ?></h2>
 		<?php } else { ?>
-		<h2 class="entry-title"><a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( __('%s', 'reactor'), the_title_attribute('echo=0') ) ); ?>" rel="bookmark"><?php the_title(); ?></a></h2>
+		<h2 class="entry-title"><a href="<?php the_permalink(); ?>" rel="bookmark"><?php the_title(); ?></a></h2>
 	<?php }
 	} elseif ( is_author() ) { ?>
-		<a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( __('%s', 'reactor'), the_title_attribute('echo=0') ) ); ?>" rel="bookmark"><h2 class="entry-title"><?php the_title(); ?></h2></a>
+		<a href="<?php the_permalink(); ?>" rel="bookmark"><h2 class="entry-title"><?php the_title(); ?></h2></a>
 	<?php
 	} elseif ( !get_post_format() && !is_page_template('page-templates/front-page.php') ) {  ?>    
 		<?php if ( is_single() ) { ?>
 		<h1 class="entry-title"><?php the_title(); ?></h1>
 		<?php } else { ?>
-		<h2 class="entry-title"><a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( __('%s', 'reactor'), the_title_attribute('echo=0') ) ); ?>" rel="bookmark"><?php the_title(); ?></a></h2>
+		<h2 class="entry-title"><a href="<?php the_permalink(); ?>" rel="bookmark"><?php the_title(); ?></a></h2>
 		<?php } ?>
 <?php }
 }
@@ -157,9 +157,9 @@ function reactor_do_standard_thumbnail() {
 		<?php if ( is_page_template('page-templates/front-page.php') ) {
 			?>
 			<div class="mainimgholder"></div>
-			<a href="<?php the_permalink(); ?>" rel="bookmark" title="<?php the_title_attribute(); ?>"><div class="mainimg" style="background-image:url('<?php echo $large_image_url[0]; ?>');"></div></a>
+			<a href="<?php the_permalink(); ?>" rel="bookmark"><div class="mainimg" style="background-image:url('<?php echo $large_image_url[0]; ?>');"></div></a>
         <?php } else { ?>
-			<?php if (!is_single()) { ?><a href="<?php the_permalink(); ?>" rel="bookmark" title="<?php the_title_attribute(); ?>"><?php } ?>
+			<?php if (!is_single()) { ?><a href="<?php the_permalink(); ?>" rel="bookmark"><?php } ?>
 				<span class="postimg" style="background-image:url('<?php echo $large_image_url[0]; ?>');"></span>
 			<?php if (!is_single()) { ?></a><?php } ?>
         <?php } ?>

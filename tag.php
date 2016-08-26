@@ -22,7 +22,7 @@
                 
 				<?php if ( have_posts() ) : ?>
                     <header class="archive-header">
-                        <h1 <?php post_class('archive-title'); ?>><?php echo single_tag_title('', false); ?></h1>
+                        <h1 <?php post_class('archive-title'); ?>><a href="javascript:void(0);" class="noclick"><?php echo single_tag_title('', false); ?></a></h1>
                     </header><!-- .archive-header -->
                 <?php endif; // end have_posts() check ?> 
                 

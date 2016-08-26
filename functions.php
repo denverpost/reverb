@@ -376,28 +376,27 @@ add_filter('wp_kses_allowed_html', 'rvrb_filter_allowed_html', 10, 2);
 // Attempts to permanently disable the Visual Editor for all users, all the time.
 add_filter( 'user_can_richedit', '__return_false', 50 );
 
-function rvrb_get_display_category() {
-    global $post;
-    $categories_list = '';
-    $categories = get_the_category();
-    end($categories);
-    foreach($categories as $category) {
-        if ( strtolower($category->slug) != 'uncategorized' && $category->category_parent == 0) {
-            $categories_list = $category;
-        }
-    }
-    return $categories_list;
-}
-
 function rvrb_get_top_category_slug() {
     global $post;
-    $curr_cat = get_the_category_list( '/' , 'single', $post->ID );
-    $valid_cats = array('news','reviews','photos','audio','video','venue');
-    $curr_cat = explode( '/', $curr_cat );
-    foreach ( $curr_cat as $current ) {
-        if ( in_array( $current, $valid_cats ) ) {
-            return $current;
+    if ( ! (is_category() || is_tag() || is_tax() ) ) {
+        $curr_cat = get_the_category_list( '/' , 'multiple', $post->ID );
+        $valid_cats = array('music','food','drink','things-to-do','arts');
+        $curr_cat = explode( '/', $curr_cat );
+        $return_cat = array();
+        foreach ( $curr_cat as $current ) {
+            if ( in_array( $current, $valid_cats ) ) {
+                $return_cat['slug'] = $current;
+                break;
+            }
         }
+    }
+    if ( ! empty( $return_cat['slug'] ) ) { 
+        $cat_for_name = get_category_by_slug( $return_cat['slug'] );
+        $return_cat['cat_name'] = $cat_for_name->name;
+        $return_cat['term_id'] = $cat_for_name->term_id;
+        return (object) $return_cat;
+    } else {
+        return false;
     }
 }
 

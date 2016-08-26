@@ -44,7 +44,6 @@ $temp_post = '';
 $temp_auth = '';
 $temp_gplus = '';
 $twitter_desc = get_bloginfo( 'description' );
-$categories_list = rvrb_get_display_category();
 if ( is_home() || is_front_page() ) {
 	$twitter_url 	= get_bloginfo( 'url' );
 	$twitter_title 	= get_bloginfo( 'name' );
@@ -71,6 +70,7 @@ if ( is_home() || is_front_page() ) {
     $temp_post 		= get_post($post->ID);
     $temp_auth 		= get_the_author_meta('twitter', $post->post_author);
     $temp_gplus 	= get_the_author_meta('googleplus', $post->post_author);
+    $categories_list = rvrb_get_top_category_slug();
     $GLOBALS['dfmcat'][0] = ( get_post_type() == 'venues' ) ? 'venues' : $categories_list->cat_name;
     $GLOBALS['dfmid'] = $post->ID;
     $GLOBALS['dfmby'] = get_the_author_meta('display_name', $post->post_author);
