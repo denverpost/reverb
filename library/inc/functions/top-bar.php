@@ -77,7 +77,6 @@ if ( !function_exists('reactor_top_bar') ) {
 			'menu_name'  => '',
 			'left_menu'  => 'reactor_top_bar_l',
 			'right_menu' => 'reactor_top_bar_r',
-			'search_menu'=> false,
 			'fixed'      => false,
 			'contained'  => true,
 			'sticky'     => false,
@@ -86,12 +85,11 @@ if ( !function_exists('reactor_top_bar') ) {
 		$args = wp_parse_args( $args, $defaults );
 		$args = apply_filters( 'reactor_top_bar_args', $args );
 
-		$args['search_menu'] = ( $args['search'] ) ? 'reactor_topbar_search' : $args['search_menu'];
+		$args['right_menu'] = ( $args['search'] ) ? 'reactor_topbar_search' : $args['right_menu'];
 		
 		/* call functions to create right and left menus in the top bar. defaults to the registered menus for top bar */
         $left_menu = ( ( $args['left_menu'] && is_callable( $args['left_menu'] ) ) ) ? call_user_func( $args['left_menu'], (array) $args ) : '';
         $right_menu = ( ( $args['right_menu'] && is_callable( $args['right_menu'] ) ) ) ? call_user_func( $args['right_menu'], (array) $args ) : '';
-        $search_menu = ( ( $args['search_menu'] && is_callable( $args['search_menu'] ) ) ) ? call_user_func( $args['search_menu'], (array) $args ) : '';
 
         $social_dropdown = reactor_top_bar_social();
 		
@@ -108,20 +106,15 @@ if ( !function_exists('reactor_top_bar') ) {
 		if ( has_nav_menu('top-bar-l') || has_nav_menu('top-bar-r') ) {
 			$output .= '<div class="top-bar-container ' . $classes . '">';
 				$output .= '<nav class="top-bar" data-topbar data-options="is_hover:true; scrolltop:false; custom_back_text:true; back_text:&laquo; Back; mobile_show_parent_link: true;' . $stickyattrib . '">';
-					$output .= '<section class="top-bar-section">';
-						$output .= $left_menu;
-					$output .= '<div class="title-area">';
+					$output .= '<ul class="title-area">';
 						$output .= '<li class="name">';
 							$output .= '<p><a href="' . $args['title_url'] .'"><img src="' . get_stylesheet_directory_uri() . '/images/to-do-denver-logo.png" alt="Reverb site logo" /></a></p>';
 						$output .= '</li>';
 						$output .= '<li class="toggle-social menu-icon">' . $social_dropdown[0] . '</li>';
 						$output .= '<li class="toggle-topbar menu-icon"><a href="#"><span>' . $args['menu_name'] . '</span></a></li>';
-					$output .= '</div>';
-					$output .= '</section>';
+					$output .= '</ul>';
 					$output .= '<section class="top-bar-section">';
-						$output .= $search_menu;
-					$output .= '</section>';
-					$output .= '<section class="top-bar-section">';
+						$output .= $left_menu;
 						$output .= $right_menu;
 					$output .= '</section>';
 				$output .= '</nav>';

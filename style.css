@@ -138,7 +138,16 @@ div.site-logo a img {
 }
 .toggle-social { display: none; }
 .top-bar .name { height:40px; display:none; }
-.fixed .top-bar .name, .fixed .top-bar .title-area { display:block; }
+.fixed .top-bar .name,
+.fixed .top-bar .title-area {
+	display:block;
+}
+.fixed .top-bar .title-area {
+	width:20%;
+}
+.fixed .top-bar .title-area .name p a {
+	width:100%;
+}
 .contain-to-grid.fixed,
 .contain-to-grid .top-bar,
 .contain-to-grid .top-bar .name,
@@ -1026,11 +1035,8 @@ header h2.category-drink a {
 
 @media (min-width:1025px) {
 	.top-bar-section ul.right:not(.top-bar-menu) { width:15%; }
-	.top-bar-section ul.top-bar-menu.left { width:40%; }
-	.top-bar-section ul.top-bar-menu.right { width:23%; }
-	.fixed div.title-area { width:20%; }
-	.top-bar-section ul.top-bar-menu.left > li.menu-item-has-children { width:30%; }
-	.top-bar-section ul.top-bar-menu.right > li.menu-item-has-children { width:46%; }
+	.top-bar-section ul.top-bar-menu.left { width:65%; }
+	.top-bar-section ul.top-bar-menu.left > li.menu-item-has-children { width:18%; }
 }
 
 @media (max-width:1024px) {
