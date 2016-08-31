@@ -372,8 +372,9 @@ body.error404 article.error404 h6.oopsies {
 }
 #sidebar div.widget_pop ul li a,
 #sidebar div.widget_dontmiss ul li a {
-	font-family:'Arvo',Georgia,Times,serif;
-	font-size:1.35;
+	font-family:'Josefin Sans',Georgia,Times,serif;
+	font-size:1.2em;
+	line-height: 1.1;
     color:#0F202F;
     text-decoration:none;
 }
@@ -511,9 +512,9 @@ article:first-child .frontpage-post h2 {
 	margin-bottom: .75em;
 }
 .widget_dpe_fp_widget ul li h4.title a {
-	font-family:'Arvo',Georgia,Times,serif;
-	font-size:1.25em;
-	line-height:1.4;
+	font-family:'Josefin Sans',Georgia,Times,serif;
+	font-size:1.5em;
+	line-height:1.2;
 }
 div.cat-img {
 	width:100%;
