@@ -46,7 +46,7 @@ function reactor_child_theme_setup() {
 	
 	/* Support for layouts
 	Note: this doesn't remove sidebars */
-	// remove_theme_support('reactor-layouts');
+	remove_theme_support('reactor-layouts');
 	// add_theme_support(
 	// 	'reactor-layouts',
 	// 	array('1c', '2c-l', '2c-r', '3c-l', '3c-r', '3c-c')
