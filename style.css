@@ -509,7 +509,7 @@ article:first-child .frontpage-post h2 {
 	display: block;
 }
 .widget_dpe_fp_widget ul li {
-	margin-bottom: .75em;
+	margin-bottom: 1em;
 }
 .widget_dpe_fp_widget ul li h4.title a {
 	font-family:'Josefin Sans',Georgia,Times,serif;
