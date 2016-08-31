@@ -12,7 +12,7 @@ Text Domain: reactor
 
 /* whole page styles */
 * {
-	font-family:'Arvo',Georgia,Times,serif;
+	font-family:'Josefin Slab',Georgia,Times,serif;
 }
 body {
 	-webkit-font-smoothing: antialiased;
@@ -45,9 +45,9 @@ a.noclick:hover, a.noclick:focus {
 	text-decoration:none;
 }
 p, li, blockquote {
-	font-family:'Arvo',Georgia,Times,serif;
-	font-weight: 400;
-	font-size: 1.25em;
+	font-family:'Josefin Slab',Georgia,Times,serif;
+	font-weight: 600;
+	font-size: 1.3em;
 	line-height:1.4;
 }
 figcaption {
@@ -336,6 +336,7 @@ body.error404 article.error404 h6.oopsies {
 }
 #sidebar div.widget_pop ul li span.pop_num,
 #sidebar div.widget_dontmiss ul li span.pop_num {
+    font-family:'Arvo',Georgia,Times,serif;
     display:inline-block;
     color:#fff;
     background-color:#54AFB5;
@@ -360,6 +361,7 @@ body.error404 article.error404 h6.oopsies {
 }
 #sidebar div.widget_pop ul li,
 #sidebar div.widget_dontmiss ul li {
+    font-family:'Arvo',Georgia,Times,serif;
     margin:0 0 .75em 3em;
     font-size:1.15em;
     line-height: 1.4;
@@ -370,6 +372,8 @@ body.error404 article.error404 h6.oopsies {
 }
 #sidebar div.widget_pop ul li a,
 #sidebar div.widget_dontmiss ul li a {
+	font-family:'Arvo',Georgia,Times,serif;
+	font-size:1.35;
     color:#0F202F;
     text-decoration:none;
 }
@@ -405,18 +409,18 @@ article:first-child .frontpage-post {
 	float: none;
 }
 .frontpage-post h2 {
-	font-family: 'Candal', 'Open Sans', Arial, Helvetica, sans-serif;
-	font-size: 1.2em;
+	font-family: 'Josefin Sans', 'Open Sans', Arial, Helvetica, sans-serif;
+	font-size: 1.5em;
 	line-height:1.2;
 	padding: .5em;
 	color: rgba(17,17,17,1);
 	width:100%;
 }
 article:first-child .frontpage-post h2 {
-	font-size:2.25em;
+	font-size:2.5em;
 }
 .frontpage-image h2 {
-	font-family: 'Candal', 'Open Sans', Arial, Helvetica, sans-serif;
+	font-family: 'Josefin Sans', 'Open Sans', Arial, Helvetica, sans-serif;
 	position: absolute;
 	left:0;
 	bottom:0;
@@ -437,7 +441,7 @@ article:first-child .frontpage-post h2 {
 	left:0;
 }
 .frontpage-post h2 > a {
-	font-family: 'Candal', 'Open Sans', Arial, Helvetica, sans-serif;
+	font-family: 'Josefin Sans', 'Open Sans', Arial, Helvetica, sans-serif;
 	color: rgba(255,255,255,1);
 }
 .frontpage-post h2 span {
@@ -467,6 +471,7 @@ article:first-child .frontpage-post h2 {
 	border-right:none;
 }
 .widget_dpe_fp_widget h4.widget-title {
+	font-family:'Arvo',Georgia,Times,serif;
 	display:block;
 	padding:0;
 	margin:0;
@@ -501,6 +506,14 @@ article:first-child .frontpage-post h2 {
 	height:100%;
 	padding: 0;
 	display: block;
+}
+.widget_dpe_fp_widget ul li {
+	margin-bottom: .75em;
+}
+.widget_dpe_fp_widget ul li h4.title a {
+	font-family:'Arvo',Georgia,Times,serif;
+	font-size:1.25em;
+	line-height:1.4;
 }
 div.cat-img {
 	width:100%;
@@ -555,7 +568,7 @@ div.cat-img {
 	margin-right:0;
 }
 .related-post h2 {
-	font-family: 'Candal', 'Open Sans', Arial, Helvetica, sans-serif;
+	font-family: 'Josefin Sans', 'Open Sans', Arial, Helvetica, sans-serif;
 	font-size: 1.1em;
 	line-height:1.1;
 	padding: .5em;
@@ -592,7 +605,7 @@ h2.archive-title {
 h1.archive-title a,
 h2.archive-title a {
 	font-family:'Arvo',Georgia,Times,serif;
-	font-weight: 600;
+	font-weight: 400;
 	font-size: 1.25em;
 	line-height:1.2;
 	color:#fff;
@@ -625,7 +638,7 @@ h2.archive-title a:hover {
 	padding-bottom:100%;
 }
 body:not(.home) .entry-body h2.entry-title {
-	font-family: 'Candal', 'Open Sans', Arial, Helvetica, sans-serif;
+	font-family: 'Josefin Sans', 'Open Sans', Arial, Helvetica, sans-serif;
 	font-weight: 700;
 	font-size: 1.75em;
 	line-height:1.1;
@@ -670,7 +683,7 @@ body:not(.home) .entry-body h2.entry-title {
 .single h1.entry-title {
 	font-family: 'Josefin Sans', Helvetica, Arial, sans-serif;
 	font-weight: 700;
-	font-size: 2.5em;
+	font-size: 2.75em;
 	margin:0 0 .25em;
 	line-height:1.1;
 }
@@ -739,7 +752,7 @@ body:not(.home) .entry-body h2.entry-title {
 	padding-right:1em;
 }
 .single .entry-meta-author h4 {
-	font-family: 'Candal', 'Open Sans', Arial, Helvetica, sans-serif;
+	font-family: 'Josefin Sans', 'Open Sans', Arial, Helvetica, sans-serif;
 	font-weight: 700;
 	font-size: 1.4em;
 	line-height: 1.2;
@@ -975,12 +988,14 @@ h4.widget-title {
 	margin-bottom: .5em;
 	padding-bottom:.25em;
 	border-bottom: 2px dotted #ddd;
+	font-family:'Arvo',Georgia,Times,serif;
 }
 /* category-based colors */
 h4.widget-title span.fpe-widget-title a,
 .related-post h2.entry-title span a,
 article .frontpage-post h2 span a,
 header h2 a {
+	font-family:'Arvo',Georgia,Times,serif;
 	color:#fff;
 	text-decoration: none;
 	padding:.15em .25em;

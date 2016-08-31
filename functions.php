@@ -900,4 +900,35 @@ class rvrb_popular_widget extends WP_Widget
 function register_popular_widget() { register_widget('rvrb_popular_widget'); }
 add_action( 'widgets_init', 'register_popular_widget' );
 
+function rvrb_get_primary_category() {
+    
+    global $post;
+    
+    $primaryCat = new WPSEO_Primary_Term( 'category', $post->ID );
+    $primaryCat = $primaryCat->get_primary_term();
+    $primaryCat = get_cat_name($primaryCat);
+
+    $categories = get_the_category( $post->ID );
+    $return_cat = Array();
+
+    foreach( $categories as $category ) {
+       $defaultCat = $category->name;
+       $defaultCatLink = get_category_link( $category->term_id );
+    }
+
+    if ( $primaryCat !== "" ) {
+       $cat = new WPSEO_Primary_Term('category', $post->ID);
+       $cat = $cat->get_primary_term();
+
+       $return_cat['name'] = get_cat_name($cat);
+       $return_cat['url'] = get_category_link($cat);
+
+    } else {
+       $return_cat['name'] = $defaultCat;
+       $return_cat['url'] = $defaultCatLink;
+    }
+
+    return (object) $return_cat;
+}
+
 ?>

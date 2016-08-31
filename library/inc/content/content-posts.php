@@ -23,16 +23,10 @@ function reactor_do_overline() {
             <h1 class="archive-title venue-header"><span><a href="/venues/">Venues</a></span></h1>
         </header><!-- .archive-header -->
 	<?php } else if ( is_single() ) {
-		$categories_list = '';
-		$categories = get_the_category();
-		foreach($categories as $category) {
-			if ( strtolower($category->slug) != 'uncategorized' && $category->category_parent == 0) {
-				$categories_list = $category;
-			}
-		}
+		$primary_category = rvrb_get_primary_category();
 		?>
         <header class="archive-header">
-            <h2 <?php post_class('archive-title'); ?>><span><a href="<?php echo get_category_link( intval( $categories_list->term_id) ); ?>"><?php echo $categories_list->cat_name; ?></a></span></h2>
+            <h2 <?php post_class('archive-title'); ?>><span><a href="<?php echo $primary_category->url; ?>"><?php echo $primary_category->name; ?></a></span></h2>
         </header><!-- .archive-header -->
 	<?php }
 }
@@ -46,7 +40,7 @@ add_action('reactor_post_before', 'reactor_do_overline', 1);
  */
 function reactor_post_frontpage_format() {
 
-	$categories_list = rvrb_get_top_category_slug();
+	$primary_category = rvrb_get_primary_category();
 
 	if ( has_post_thumbnail() ) {
 		$large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'large' );
@@ -62,7 +56,7 @@ function reactor_post_frontpage_format() {
 	<?php } ?>
 			<h2 class="entry-title">
 				<span>
-					<a href="<?php echo get_category_link( intval( $categories_list->term_id) ); ?>"><?php echo $categories_list->cat_name; ?></a>
+					<a href="<?php echo $primary_category->url; ?>"><?php echo $primary_category->name; ?></a>
 				</span>
 				<a href="<?php the_permalink(); ?>" rel="bookmark""><?php the_title(); ?></a>
 			</h2>
