@@ -23,7 +23,13 @@ function reactor_do_overline() {
             <h1 class="archive-title venue-header"><span><a href="/venues/">Venues</a></span></h1>
         </header><!-- .archive-header -->
 	<?php } else if ( is_single() ) {
-		$categories_list = rvrb_get_top_category_slug();
+		$categories_list = '';
+		$categories = get_the_category();
+		foreach($categories as $category) {
+			if ( strtolower($category->slug) != 'uncategorized' && $category->category_parent == 0) {
+				$categories_list = $category;
+			}
+		}
 		?>
         <header class="archive-header">
             <h2 <?php post_class('archive-title'); ?>><span><a href="<?php echo get_category_link( intval( $categories_list->term_id) ); ?>"><?php echo $categories_list->cat_name; ?></a></span></h2>
