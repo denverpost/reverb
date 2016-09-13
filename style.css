@@ -966,6 +966,12 @@ ul.pagination li a:hover {
 	margin:0 auto;
 	padding-bottom:1.5em;
 	text-align:center;
+	width:100%;
+}
+.ad_wrap > div {
+	width:300px;
+	overflow:hidden;
+	margin:0 auto;
 }
 /* about page */
 .about-author .about-author-image {
