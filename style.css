@@ -12,7 +12,7 @@ Text Domain: reactor
 
 /* whole page styles */
 * {
-	font-family:'Josefin Slab',Georgia,Times,serif;
+	font-family:'Cabin',Arial,Helvetica,sans-serif;
 }
 body {
 	-webkit-font-smoothing: antialiased;
@@ -25,7 +25,7 @@ div#content {
 	padding-left:.65rem;
 }
 h1, h2, h3, h4, h5, h6 {
-	font-family: 'Josefin Sans', Helvetica, Arial, sans-serif;
+	font-family:'Cabin',Arial,Helvetica,sans-serif;
 	font-weight: 700;
 	color:rgba(17,17,17,1);
 	font-size: 1rem;
@@ -45,13 +45,13 @@ a.noclick:hover, a.noclick:focus {
 	text-decoration:none;
 }
 p, li, blockquote {
-	font-family:'Josefin Slab',Georgia,Times,serif;
+	font-family:'Cabin',Arial,Helvetica,sans-serif;
 	font-weight: 600;
 	font-size: 1.3em;
 	line-height:1.4;
 }
 figcaption {
-	font-family: 'Josefin Sans', Helvetica, Arial, sans-serif;
+	font-family:'Cabin',Arial,Helvetica,sans-serif;
 	font-weight: 400;
 	font-size: 1.25em;
 	line-height:1.4;
@@ -191,9 +191,9 @@ div.site-logo a img {
 .top-bar-section li:not(.has-form) a:not(.button),
 .top-bar-section .has-form,
 .top-bar {
-	font-family:'Arvo',Georgia,Times,serif;
-	height:42px;
-	line-height:1.5;
+	font-family:'Cabin',Arial,Helvetica,sans-serif;
+	height:50px;
+	line-height:1.8;
 	letter-spacing:.1em;
 	font-size:1.25em;
 	font-weight:400;
@@ -220,7 +220,7 @@ div.site-logo a img {
 	width:100%;
 }
 .top-bar-section ul li ul.dropdown li:not(.has-form) a:not(.button) {
-	font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+	font-family:'Cabin',Arial,Helvetica,sans-serif;
 	line-height:2;
 	font-weight:600;
 	font-size:90%;
@@ -229,7 +229,7 @@ div.site-logo a img {
 	display:none;
 }
 .top-bar input, .top-bar .button, .top-bar button {
-	height:31px;
+	height:40px;
 	top:0;
 	line-height: 1!important;
 	color:#eee;
@@ -243,10 +243,22 @@ div.site-logo a img {
 	background:#000;
 	color:#eee;
 }
-.top-bar input#searchsubmit {
+.top-bar #searchformbox {
 	background-repeat: no-repeat;
-	background-position: 0 80%;
-	background-size:45%;
+	background-position: center center;
+	background-size:contain;
+	background-image:url('./images/logo-denverpost.png');
+}
+.top-bar #searchformbox form {
+	display:none;
+}
+.top-bar input#searchsubmit {
+	margin-top:12px;
+	height: 26px;
+	width: 26px;
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size:contain;
 	background-color: #000;
 	text-indent:-500px;
 }
@@ -263,44 +275,44 @@ div.site-logo a img {
 	margin:0 auto;
 }
 .top-bar-section li.has-dropdown.category-see:not(.has-form) > a:not(.button) {
-	border-bottom:.3em solid #AF50AF;
+	border-top:.3em solid #AF50AF;
 }
 .top-bar-section ul li.category-see:hover:not(.has-form)>a,
 .top-bar-section li.category-see.active:not(.has-form) > a:not(.button):hover,
 .top-bar-section li.category-see:not(.has-form) > a:not(.button):hover {
-	border-bottom:.5em solid #AF50AF;
+	border-top:.5em solid #AF50AF;
 }
 .top-bar-section li.has-dropdown.category-hear:not(.has-form) > a:not(.button) {
-	border-bottom:.3em solid #FFA029;
+	border-top:.3em solid #FFA029;
 }
 .top-bar-section ul li.category-hear:hover:not(.has-form)>a,
 .top-bar-section li.category-hear.active:not(.has-form) > a:not(.button):hover,
 .top-bar-section li.category-hear:not(.has-form) > a:not(.button):hover {
-	border-bottom:.5em solid #FFA029;
+	border-top:.5em solid #FFA029;
 }
 .top-bar-section li.has-dropdown.category-play:not(.has-form) > a:not(.button) {
-	border-bottom:.3em solid #5CB767;
+	border-top:.3em solid #5CB767;
 }
 .top-bar-section ul li.category-play:hover:not(.has-form)>a,
 .top-bar-section li.category-play.active:not(.has-form) > a:not(.button):hover,
 .top-bar-section li.category-play:not(.has-form) > a:not(.button):hover {
-	border-bottom:.5em solid #5CB767;
+	border-top:.5em solid #5CB767;
 }
 .top-bar-section li.has-dropdown.category-eat:not(.has-form) > a:not(.button) {
-	border-bottom:.3em solid #EC7D77;
+	border-top:.3em solid #EC7D77;
 }
 .top-bar-section ul li.category-eat:hover:not(.has-form)>a,
 .top-bar-section li.category-eat.active:not(.has-form) > a:not(.button):hover,
 .top-bar-section li.category-eat:not(.has-form) > a:not(.button):hover {
-	border-bottom:.5em solid #EC7D77;
+	border-top:.5em solid #EC7D77;
 }
 .top-bar-section li.has-dropdown.category-drink:not(.has-form) > a:not(.button) {
-	border-bottom:.3em solid #127CD4;
+	border-top:.3em solid #127CD4;
 }
 .top-bar-section ul li.category-drink:hover:not(.has-form)>a,
 .top-bar-section li.category-drink.active:not(.has-form) > a:not(.button):hover,
 .top-bar-section li.category-drink:not(.has-form) > a:not(.button):hover {
-	border-bottom:.5em solid #127CD4;
+	border-top:.5em solid #127CD4;
 }
 .top-bar-section .dropdown li:not(.has-form):not(.active):hover>a:not(.button) {
 	text-decoration:underline;
@@ -322,7 +334,7 @@ body.search h1.page-title {
 }
 h1 span.searchresults { font-size:.75em; color:rgba(73,73,73,1); }
 body.error404 article.error404 h6.oopsies {
-	font-family: 'Josefin Sans', Helvetica, Arial, sans-serif;
+	font-family:'Cabin',Arial,Helvetica,sans-serif;
 	font-weight:900;
 	font-size:18em;
 	text-align:center;
@@ -336,7 +348,7 @@ body.error404 article.error404 h6.oopsies {
 }
 #sidebar div.widget_pop ul li span.pop_num,
 #sidebar div.widget_dontmiss ul li span.pop_num {
-    font-family:'Arvo',Georgia,Times,serif;
+    font-family:'Cabin',Arial,Helvetica,sans-serif;
     display:inline-block;
     color:#fff;
     background-color:rgba(84, 175, 181, 1);
@@ -354,14 +366,14 @@ body.error404 article.error404 h6.oopsies {
     font-size:1em;
     line-height:1.2;
     color:#0F202F;
-    font-family: 'Arvo', Georgia, Times, serif;
+    font-family:'Cabin',Arial,Helvetica,sans-serif;
     font-weight:700;
     list-style-type: none;
     margin:0;
 }
 #sidebar div.widget_pop ul li,
 #sidebar div.widget_dontmiss ul li {
-    font-family:'Arvo',Georgia,Times,serif;
+    font-family:'Cabin',Arial,Helvetica,sans-serif;
     margin:0 0 .75em 3em;
     font-size:1.15em;
     line-height: 1.4;
@@ -372,7 +384,7 @@ body.error404 article.error404 h6.oopsies {
 }
 #sidebar div.widget_pop ul li a,
 #sidebar div.widget_dontmiss ul li a {
-	font-family:'Arvo',Georgia,Times,serif;
+	font-family:'Cabin',Arial,Helvetica,sans-serif;
 	font-size:1.35;
 	color:rgba(0, 60, 72, .9);
     text-decoration:none;
@@ -409,7 +421,7 @@ article:first-child .frontpage-post {
 	float: none;
 }
 .frontpage-post h2 {
-	font-family: 'Josefin Sans', 'Open Sans', Arial, Helvetica, sans-serif;
+	font-family:'Cabin',Arial,Helvetica,sans-serif;
 	font-size: 1.5em;
 	line-height:1.2;
 	padding: .5em;
@@ -420,7 +432,7 @@ article:first-child .frontpage-post h2 {
 	font-size:2.5em;
 }
 .frontpage-image h2 {
-	font-family: 'Josefin Sans', 'Open Sans', Arial, Helvetica, sans-serif;
+	font-family:'Cabin',Arial,Helvetica,sans-serif;
 	position: absolute;
 	left:0;
 	bottom:0;
@@ -441,7 +453,7 @@ article:first-child .frontpage-post h2 {
 	left:0;
 }
 .frontpage-post h2 > a {
-	font-family: 'Josefin Sans', 'Open Sans', Arial, Helvetica, sans-serif;
+	font-family:'Cabin',Arial,Helvetica,sans-serif;
 	color: rgba(255,255,255,1);
 }
 .frontpage-post h2 span {
@@ -471,7 +483,7 @@ article:first-child .frontpage-post h2 {
 	border-right:none;
 }
 .widget_dpe_fp_widget h4.widget-title {
-	font-family:'Arvo',Georgia,Times,serif;
+	font-family:'Cabin',Arial,Helvetica,sans-serif;
 	display:block;
 	padding:0;
 	margin:0;
@@ -511,7 +523,7 @@ article:first-child .frontpage-post h2 {
 	margin-bottom: 1em;
 }
 .widget_dpe_fp_widget ul li h4.title a {
-	font-family:'Arvo',Georgia,Times,serif;
+	font-family:'Cabin',Arial,Helvetica,sans-serif;
 	color:rgba(0, 60, 72, .9);
 	font-size:1.15em;
 	line-height:1.4;
@@ -569,7 +581,7 @@ div.cat-img {
 	margin-right:0;
 }
 .related-post h2 {
-	font-family: 'Josefin Sans', 'Open Sans', Arial, Helvetica, sans-serif;
+	font-family:'Cabin',Arial,Helvetica,sans-serif;
 	font-size: 1.1em;
 	line-height:1.1;
 	padding: .5em;
@@ -605,7 +617,7 @@ h2.archive-title {
 }
 h1.archive-title a,
 h2.archive-title a {
-	font-family:'Arvo',Georgia,Times,serif;
+	font-family:'Cabin',Arial,Helvetica,sans-serif;
 	font-weight: 400;
 	font-size: 1.25em;
 	line-height:1.2;
@@ -639,7 +651,7 @@ h2.archive-title a:hover {
 	padding-bottom:100%;
 }
 body:not(.home) .entry-body h2.entry-title {
-	font-family: 'Josefin Sans', 'Open Sans', Arial, Helvetica, sans-serif;
+	font-family:'Cabin',Arial,Helvetica,sans-serif;
 	font-weight: 700;
 	font-size: 1.75em;
 	line-height:1.1;
@@ -647,7 +659,7 @@ body:not(.home) .entry-body h2.entry-title {
 	margin:0 0 .25em;
 }
 .entry-body p.catexcerpt {
-	font-family: 'Josefin Sans', Helvetica, Arial, sans-serif;
+	font-family:'Cabin',Arial,Helvetica,sans-serif;
 	font-weight: 400;
 	font-size: 1.35em;
 	line-height:1.3;
@@ -682,7 +694,7 @@ body:not(.home) .entry-body h2.entry-title {
 	margin: 0 0 1.5em;
 }
 .single h1.entry-title {
-	font-family: 'Josefin Sans', Helvetica, Arial, sans-serif;
+	font-family:'Cabin',Arial,Helvetica,sans-serif;
 	font-weight: 700;
 	font-size: 2.75em;
 	margin:0 0 .25em;
@@ -753,7 +765,7 @@ body:not(.home) .entry-body h2.entry-title {
 	padding-right:1em;
 }
 .single .entry-meta-author h4 {
-	font-family: 'Josefin Sans', 'Open Sans', Arial, Helvetica, sans-serif;
+	font-family:'Cabin',Arial,Helvetica,sans-serif;
 	font-weight: 700;
 	font-size: 1.4em;
 	line-height: 1.2;
@@ -985,24 +997,24 @@ h2.about-author-title { font-size: 1.4em }
 
 /* sidebar widget styles */
 h4.widget-title {
-	font-family: 'Josefin Sans', Helvetica, Arial, sans-serif;
+	font-family:'Cabin',Arial,Helvetica,sans-serif;
 	font-size: 1.4em;
 	line-height: 1.15;
 	letter-spacing: .1em;
 	margin-bottom: 1em;
 }
 #sidebar h4.widget-title {
+	font-family:'Cabin',Arial,Helvetica,sans-serif;
 	margin-bottom: .5em;
 	padding-bottom:.25em;
 	border-bottom: 2px dotted #ddd;
-	font-family:'Arvo',Georgia,Times,serif;
 }
 /* category-based colors */
 h4.widget-title span.fpe-widget-title a,
 .related-post h2.entry-title span a,
 article .frontpage-post h2 span a,
 header h2 a {
-	font-family:'Arvo',Georgia,Times,serif;
+	font-family:'Cabin',Arial,Helvetica,sans-serif;
 	color:#fff;
 	text-decoration: none;
 	padding:.15em .25em;
