@@ -354,6 +354,7 @@ body.error404 article.error404 h6.oopsies {
 	line-height:1;
 }
 /* Sidebar popular/don't miss */
+#sidebar div.widget_cal,
 #sidebar div.widget_pop,
 #sidebar div.widget_dontmiss {
 	font-size: 1em;

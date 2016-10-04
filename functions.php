@@ -481,6 +481,64 @@ class newsletter_signup_widget extends WP_Widget {
     }
 }
 
+// Calendar widget
+class rvrb_calendar_widget extends WP_Widget
+{
+    public function __construct()
+    {
+            parent::__construct(
+                'rvrb_calendar_widget',
+                __('Reverb Calendar widget', 'rvrb_calendar_widget'),
+                array('description' => __('Put an adaptive (by parent category) Reverb calendar widget in a sidebar', 'rvrb_calendar_widget'), )
+            );
+    }
+
+    public function widget( $args, $instance ) {
+
+        function rvrb_cal_category() {
+            $category = FALSE;
+            $calcat = '8354';
+            if ( is_home() || is_front_page() ) {
+                $calcat = '8354';
+            } else if ( is_category() ) {
+                $id = get_query_var( 'cat' );
+                $cat = get_category( (int)$id );
+                $category = $cat->slug;
+            } else if ( is_single() ) {
+                $category = rvrb_get_top_category_slug();
+            }
+            if ( $category ) {
+                switch ( $category ) {
+                    case 'music':
+                        $calcat = '8347';
+                        break;
+                    case 'arts':
+                        $calcat = '8350';
+                        break;
+                    case 'things-to-do':
+                        $calcat = '8351';
+                        break;
+                    case 'food':
+                        $calcat = '8352';
+                        break;
+                    case 'drink':
+                        $calcat = '8353';
+                        break;
+                    default:
+                        $calcat = '8354';
+                }
+            }
+            return $calcat;
+        }
+        echo '<div id="sidebar-calendar" class="widget widget_cal">
+                <div data-cswidget="' . rvrb_cal_category() . '"></div>
+                <script type="text/javascript" async defer src="//portal.CitySpark.com/js/widget.min.js"></script>
+                </div>';
+    }
+}
+function register_calendar_widget() { register_widget('rvrb_calendar_widget'); }
+add_action( 'widgets_init', 'register_calendar_widget' );
+
 class sidebar_ad_widget_top_cube extends WP_Widget
 {
     public function __construct()
