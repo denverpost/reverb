@@ -260,6 +260,7 @@ div.site-logo a img {
 	background-position: center center;
 	background-size:contain;
 	background-image:url('./images/logo-denverpost.png');
+	cursor:pointer;
 	width:80%;
 }
 .top-bar #searchformbox.unopened form {
