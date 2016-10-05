@@ -21,6 +21,11 @@ function searchOpen() {
     $j(this).css('display','none');
     $j('#searchformbox').removeClass('unopened');
     $j('#searchformbox input#s').focus();
+    $j('#searchformbox input#s').focusout(function(){
+      $j('#searchformbox').addClass('unopened');
+      $j('#searchopen').css('display','block');
+      dpLogoClick();
+    });
   });
 }
 

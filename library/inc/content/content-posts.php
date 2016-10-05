@@ -45,23 +45,18 @@ function reactor_post_frontpage_format() {
 	if ( has_post_thumbnail() ) {
 		$large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'large' );
 	}
-	if ( isset( $large_image_url ) && strlen( $large_image_url[0] ) >= 1 ) { ?>
-		<div class="frontpage-image frontpage-post" style="background-image:url('<?php echo $large_image_url[0]; ?>');">
+	if ( isset( $large_image_url ) && strlen( $large_image_url[0] ) >= 1 ) {
+		?><div class="frontpage-image frontpage-post" style="background-image:url('<?php echo $large_image_url[0]; ?>');">
 			<div class="front-imgholder"></div>
-			<a href="<?php the_permalink(); ?>" rel="bookmark"">
-				<div class="front-img" style="background-image:url('<?php echo $large_image_url[0]; ?>');"></div>
-			</a>
-	<?php } else { ?>
-		<div class="frontpage-post">
+			<a href="<?php the_permalink(); ?>" rel="bookmark"></a>
+		</div>
 	<?php } ?>
-			<h2 class="entry-title">
-				<span>
-					<a href="<?php echo $primary_category->url; ?>"><?php echo $primary_category->name; ?></a>
-				</span>
-				<a href="<?php the_permalink(); ?>" rel="bookmark""><?php the_title(); ?></a>
-			</h2>
-	</div>
-<?php }
+		<span>
+			<a href="<?php echo $primary_category->url; ?>"><?php echo $primary_category->name; ?></a>
+		</span>
+		<h2 class="entry-title">
+			<a href="<?php the_permalink(); ?>" rel="bookmark""><?php the_title(); ?></a>
+		</h2> <?php }
 add_action('reactor_post_frontpage', 'reactor_post_frontpage_format', 1);
 
 
