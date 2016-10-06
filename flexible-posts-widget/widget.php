@@ -20,7 +20,7 @@ if ( ! function_exists('rvrb_get_acceptable_parent') ) {
 		$valid_cats = array('music','food','drink','things-to-do','arts');
 		$cat_parents = explode( '/', $cat_parents );
 		foreach ( $cat_parents as $current ) {
-			$current = strtolower( $current );
+			$current = sanitize_title_with_dashes( $current );
 			if ( in_array( $current, $valid_cats ) ) {
 			    return $current;
 			}
