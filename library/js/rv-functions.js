@@ -7,7 +7,7 @@ function scrollDownTo(whereToScroll, scrollOffset) {
     }, 300);
     return false;
 }
-
+/* 
 function dpLogoClick() {
   $j('#searchformbox.unopened').on('click',function(){
     if ( $j(this).hasClass('unopened') ) {
@@ -27,12 +27,12 @@ function searchOpen() {
       dpLogoClick();
     });
   });
-}
+} */
 
 $j(document).ready(function() {
   $j(window).load(function() {
-    dpLogoClick();
-    searchOpen();
+    //dpLogoClick();
+    //searchOpen();
     boxes = $j('.frontpage-widget.widget_dpe_fp_widget');
     maxHeight = Math.max.apply(
     Math, boxes.map(function() {

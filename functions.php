@@ -458,7 +458,7 @@ class newsletter_signup_widget extends WP_Widget {
 
     public function widget($args, $instance)
     {
-        // List of icons linked to various social networks' Intent pages
+        // The signup form for the email
         echo '<div id="sidebar-newsletter" class="widget widget_newsletter">
                 <h4 class="widget-title">Get Mixtape Newsletters</h4>
                 <form action="http://www.denverpostplus.com/app/mailer/" method="post" name="reverbmail">
@@ -480,6 +480,30 @@ class newsletter_signup_widget extends WP_Widget {
             </div>';
     }
 }
+function register_newsletter_signup_widget() { register_widget('newsletter_signup_widget'); }
+add_action( 'widgets_init', 'register_newsletter_signup_widget' );
+
+class sidebar_tagline_widget extends WP_Widget
+{
+    public function __construct()
+    {
+            parent::__construct(
+                'sidebar_tagline_widget',
+                __('DP Logo + Tagline', 'sidebar_tagline_widget'),
+                array('description' => __('If they don\'t know we are affiliated with The Denver Post, will they even care?', 'sidebar_tagline_widget'), )
+            );
+    }
+
+    public function widget($args, $instance)
+    {
+        // Display a fixed tagline and The Denver Post logo
+        echo '<div id="sidebar-tagline" class="widget widget_tagline">
+                <p>What to do, where to be and what to see, from <img src="'.get_bloginfo('stylesheet_directory').'/images/dp-logo-blk.png" /></p>
+            </div>';
+    }
+}
+function register_sidebar_tagline_widget() { register_widget('sidebar_tagline_widget'); }
+add_action( 'widgets_init', 'register_sidebar_tagline_widget' );
 
 // Calendar widget
 class rvrb_calendar_widget extends WP_Widget
@@ -568,6 +592,8 @@ class sidebar_ad_widget_top_cube extends WP_Widget
             </div>';
     }
 }
+function register_ad_widget_large_cube() { register_widget('sidebar_ad_widget_top_cube'); }
+add_action( 'widgets_init', 'register_ad_widget_large_cube' );
 
 class sidebar_ad_widget_cube extends WP_Widget
 {
@@ -598,12 +624,7 @@ class sidebar_ad_widget_cube extends WP_Widget
             </div>';
     }
 }
-
-function register_newsletter_signup_widget() { register_widget('newsletter_signup_widget'); }
-function register_ad_widget_large_cube() { register_widget('sidebar_ad_widget_top_cube'); }
 function register_ad_widget_cube() { register_widget('sidebar_ad_widget_cube'); }
-add_action( 'widgets_init', 'register_newsletter_signup_widget' );
-add_action( 'widgets_init', 'register_ad_widget_large_cube' );
 add_action( 'widgets_init', 'register_ad_widget_cube' );
 
 function rvrb_add_excerpts_to_pages() {
