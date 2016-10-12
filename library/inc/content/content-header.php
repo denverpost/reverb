@@ -70,7 +70,7 @@ if ( is_home() || is_front_page() ) {
     $temp_post 		= get_post($post->ID);
     $temp_auth 		= get_the_author_meta('twitter', $post->post_author);
     $temp_gplus 	= get_the_author_meta('googleplus', $post->post_author);
-    $categories_list = rvrb_get_top_category_slug();
+    $categories_list = ( rvrb_get_top_category_slug() ) ? rvrb_get_top_category_slug() : 'none';
     $GLOBALS['dfmcat'][0] = ( get_post_type() == 'venues' ) ? 'venues' : $categories_list->cat_name;
     $GLOBALS['dfmid'] = $post->ID;
     $GLOBALS['dfmby'] = get_the_author_meta('display_name', $post->post_author);
