@@ -84,16 +84,7 @@ div.inner-header > div.row {
 	padding:0;
 }
 .site-header {
-	border:none;
-	margin:0;
-}
-.site-header .site-logo {
-	width:30%;
-	margin:0;
-}
-div.site-logo a img {
-	width:100%;
-	margin:1em;
+	display:none;
 }
 .site-social a {
 	position: absolute;
@@ -137,16 +128,19 @@ div.site-logo a img {
 	background:none;
 }
 .toggle-social { display: none; }
-.top-bar .name { height:40px; display:none; }
-.fixed .top-bar .name,
-.fixed .top-bar .title-area {
+.fixed .top-bar .name {
+	height:60px;
+	padding-top:3px;
 	display:block;
 }
 .fixed .top-bar .title-area {
+	height:60px;
 	width:20%;
+	display:block;
 }
 .fixed .top-bar .title-area .name p a {
 	width:100%;
+	text-align:center;
 }
 .contain-to-grid.fixed,
 .contain-to-grid .top-bar,
@@ -185,22 +179,22 @@ div.site-logo a img {
 .top-bar.expanded .toggle-topbar a span:after {
 	box-shadow: 0 0 0 1px #444, 0 7px 0 1px #444, 0 14px 0 1px #444;
 }
-.fixed.expanded:not(.top-bar) .top-bar-section { margin-top:40px; }
+.fixed.expanded:not(.top-bar) .top-bar-section { margin-top:70px; }
 .top-bar-section>ul>.divider, .top-bar-section>ul>[role="separator"],
 .top-bar-section li.active:not(.has-form) a:not(.button),
 .top-bar-section li:not(.has-form) a:not(.button),
 .top-bar-section .has-form,
 .top-bar {
 	font-family:'Cabin',Arial,Helvetica,sans-serif;
-	height:50px;
+	height:70px;
 	line-height:1.8;
 	letter-spacing:.1em;
-	font-size:1.25em;
+	font-size:1.4em;
 	font-weight:400;
 	text-transform: uppercase;
 }
 .top-bar-section li:not(.has-form) a:not(.button) {
-	padding:0 1em!important;
+	padding:0 .25em;
 }
 .top-bar-section li.has-dropdown > a:not(.button) {
 	text-align:center;
@@ -213,17 +207,19 @@ div.site-logo a img {
 }
 .top-bar-section .dropdown li.title h5 {
 	text-transform:uppercase;
-	font-size:.95em;
+	font-size:.9em;
 }
 .top-bar li.has-form {
-	padding:0;
+	padding:15px 0 0;
 	width:100%;
 }
 .top-bar-section ul li ul.dropdown li:not(.has-form) a:not(.button) {
 	font-family:'Cabin',Arial,Helvetica,sans-serif;
 	line-height:2;
-	font-weight:600;
+	font-weight:400;
+	height:50px;
 	font-size:90%;
+	padding:0 .25em;
 }
 .top-bar-section .has-dropdown>a:after {
 	display:none;
@@ -276,18 +272,6 @@ div.site-logo a img {
 	background-size:contain;
 	background-color: #000;
 	text-indent:-500px;
-}
-.fixed div.title-area li.name p a {
-	margin:0;
-	display:block;
-	text-align:center;
-	width:100%;
-}
-.fixed div.title-area li.name p a:hover { background:#000; }
-.fixed div.title-area li p a img {
-	width:auto;
-	height:150%;
-	margin:0 auto;
 }
 .top-bar-section li.has-dropdown.category-see:not(.has-form) > a:not(.button) {
 	border-top:.3em solid rgba(78,199,228,1.0);
@@ -1302,9 +1286,6 @@ header h2.category-drink a {
 	}
 	.frontpage-post h2 {
 		font-size: 1.15em;
-	}
-	.site-header .site-logo {
-		width:40%;
 	}
 	ul#menu-footer-links li a {
 		font-size: 1em;
