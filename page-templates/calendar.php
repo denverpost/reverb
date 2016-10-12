@@ -18,12 +18,6 @@
         	<div class="row">
                 <div class="<?php reactor_columns( array( 12, 12, 12 ) ); ?> primary">
 
-                    <style type="text/css">
-                        .cspark-modal {
-                            top: 10%!important;
-                        }
-                    </style>
-                    
                     <header class="archive-header">
                         <h1 class="archive-title post type-post status-publish format-standard hentry category-things-to-do"><a href="javascript:void(0);" class="noclick">Things to do</a></h1>
                     </header>
