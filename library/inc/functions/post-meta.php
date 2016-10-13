@@ -155,6 +155,7 @@ if ( !function_exists('reactor_post_meta') ) {
 		}
 
 		$author = $feedauthor = $description_author = '';
+		$do_bio = false;
 
 		if ( function_exists( 'get_coauthors' ) && count( get_coauthors( get_the_id() ) ) > 1 ) {
 			$coauthors = get_coauthors();
@@ -190,6 +191,7 @@ if ( !function_exists('reactor_post_meta') ) {
 					get_the_author_meta( 'display_name' ),
 					( get_the_author_meta('publication') != '' ) ? ', ' . get_the_author_meta( 'publication' ) : ''
 				 );
+				$do_bio = true;
 				$description_author = $author;
 			} else if ( get_post_meta( get_the_ID(), 'original_author_name', true ) != '' ) {
 				
