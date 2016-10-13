@@ -126,7 +126,7 @@ if (has_tag() ) {
 
 <?php $favicon_uri = reactor_option('favicon_image') ? reactor_option('favicon_image') : get_stylesheet_directory_uri() . '/favicon.ico'; ?>
 <link rel="shortcut icon" href="<?php echo $favicon_uri; ?>">
-<link href='http://fonts.googleapis.com/css?family=Cabin' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Open+Sans|Arvo' rel='stylesheet' type='text/css'>
 <style type="text/css">
 body { padding-top: 60px!important; }
 </style>

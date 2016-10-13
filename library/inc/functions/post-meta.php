@@ -154,7 +154,7 @@ if ( !function_exists('reactor_post_meta') ) {
 			}
 		}
 
-		$author = $nickname = $description_author = '';
+		$author = $feedauthor = $description_author = '';
 
 		if ( function_exists( 'get_coauthors' ) && count( get_coauthors( get_the_id() ) ) > 1 ) {
 			$coauthors = get_coauthors();
@@ -173,10 +173,6 @@ if ( !function_exists('reactor_post_meta') ) {
 						esc_url( get_author_posts_url( $coauthor->ID ) ),
 						$coauthor->display_name
 					 );
-					if ( $nickname == '' ) {
-						$nickname = ( ( get_the_author_meta( 'nickname', $coauthor->ID ) != 'hidden' ) ? sprintf( ', %s', get_the_author_meta( 'nickname', $coauthor->ID ) ) : ''
-						);
-					}
 					if ( $description_author == '' ) {
 						$description_author = sprintf( '<span class="author"><a class="url fn n" href="%1$s" rel="author">%2$s</a>%3$s</span>',
 							esc_url( get_author_posts_url( $coauthor->ID) ),
@@ -188,11 +184,11 @@ if ( !function_exists('reactor_post_meta') ) {
 			}
 			$author .= '</span>';
 		} else {
-			if ( get_the_author_meta('publication') != 'hidden' && get_the_author_meta('publication') != '' ) {
+			if ( get_the_author_meta('publication') != 'hidden'  ) {
 				$author = sprintf('<span class="author">By <a class="url fn n" href="%1$s" rel="author">%2$s</a>%3$s</span>',
 					esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
 					get_the_author_meta( 'display_name' ),
-					( get_the_author_meta( 'publication' ) ) ? ', ' . get_the_author_meta( 'publication' ) : ''
+					( get_the_author_meta('publication') != '' ) ? ', ' . get_the_author_meta( 'publication' ) : ''
 				 );
 				$description_author = $author;
 			} else if ( get_post_meta( get_the_ID(), 'original_author_name', true ) != '' ) {
@@ -257,8 +253,6 @@ if ( !function_exists('reactor_post_meta') ) {
 	            ( get_the_author_meta('email_public') != '' ? sprintf('<li><a href="mailto:%1$s" title="Email %1$s">Email</a></li>', get_the_author_meta('email_public') ) : '' )
 			);
 		}
-
-		$nickname = ( ( get_the_author_meta( 'nickname' ) != 'hidden' ) ? sprintf( ', %s', get_the_author_meta( 'nickname' ) ) : '' );
 
 		$author_desc = '';
 		if ( !is_null( get_the_author_meta( 'description' ) ) )  {
@@ -338,17 +332,16 @@ if ( !function_exists('reactor_post_meta') ) {
 		 * 3	date
 		 * 4 	author's name
 		 * 5 	author's mugshot
-		 * 6	nickname (organization name)
-		 * 7	author short description
-		 * 8	author-social-small
-		 * 9	social dropdown
+		 * 6	author short description
+		 * 7	author-social-small
+		 * 8	social dropdown
 		 */
 		if ( $date || $categories_list || $author || $tag_list ) {
 			if ( $args['catpage'] ) {
-				$meta .= ( $author && ($nickname != '') ) ? '<span class="by-author">%4$s</span> ' : '';
-				$meta .= ( !$author && $feedauthor ? '<span class="by-author">' . $feedauthor . '</span> ' : '');
+				$meta .= ( $author && ! $feedauthor ) ? '<span class="by-author">%4$s</span> ' : '';
+				$meta .= ( ! $author && $feedauthor ? '<span class="by-author">' . $feedauthor . '</span> ' : '');
 				$meta .= ( $date && $args['show_date'] ) ? '%3$s ' : '';
-				$meta .= ( $args['social_dropdown'] ) ? '%9$s' : '';
+				$meta .= ( $args['social_dropdown'] ) ? '%8$s' : '';
 				$meta .= ( $categories_list && $args['show_cat'] ) ? __('in', 'reactor') . ' %1$s' : '';
 				$meta .= ( $tag_list && $args['show_tag'] ) ? '<div class="entry-tags">' . __('Tags:', 'reactor') . ' %2$s</div>' : '';
 
@@ -374,8 +367,8 @@ if ( !function_exists('reactor_post_meta') ) {
 				$meta .= ( $author_photo && $args['show_photo'] ) ? '%5$s' : '';
 				$meta .= '<div class="large-9 medium-9 small-9 columns">';
 				$meta .= ( $author && $args['show_author'] ) ? '<div class="by-author">%4$s</div>' : '';
-				$meta .= ( $author_desc ) ? '%7$s' : '';
-				$meta .= ( $author_social ) ? '%8$s' : '';
+				$meta .= ( $author_desc ) ? '%6$s' : '';
+				$meta .= ( $author_social ) ? '%7$s' : '';
 				$meta .= '<div class="clear"></div></div>';
 				
 				if ( $meta ) {
@@ -392,7 +385,7 @@ if ( !function_exists('reactor_post_meta') ) {
 				}
 			}
 	
-			$post_meta = sprintf( $output, $categories_list, $tag_list, $date, $author, $author_photo, $nickname, $author_desc, $author_social, $social_dropdown );
+			$post_meta = sprintf( $output, $categories_list, $tag_list, $date, $author, $author_photo, $author_desc, $author_social, $social_dropdown );
 
 			echo apply_filters('reactor_post_meta', $post_meta, $defaults);
 		}
