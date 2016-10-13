@@ -32,11 +32,11 @@ function reactor_register_sidebars() {
 		) );
 	}
 	
-	if ( in_array( 'secondary', $sidebars[0] ) ) {	
+	if ( in_array( 'front-upper', $sidebars[0] ) ) {	
 		register_sidebar( array( 
-			'name'          => __('Secondary Sidebar', 'reactor'),
-			'id'            => 'sidebar-2',
-			'description'   => 'The secondary sidebar for 3 column layouts',
+			'name'          => __('Frontpage Upper Sidebar', 'reactor'),
+			'id'            => 'sidebar-frontupper',
+			'description'   => 'Lower sidebar for the front page template',
 			'class'         => '',
 			'before_widget' => '<div id="%1$s" class="widget %2$s">',
 			'after_widget'  => '</div>',

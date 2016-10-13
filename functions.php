@@ -41,7 +41,7 @@ function reactor_child_theme_setup() {
 	remove_theme_support('reactor-sidebars');
 	add_theme_support(
 	   'reactor-sidebars',
-	   array('primary', 'secondary', 'front-lower', 'footer', 'error')
+	   array('primary', 'front-upper', 'front-lower', 'footer', 'error')
 	);
 	
 	/* Support for layouts
@@ -483,10 +483,8 @@ class newsletter_signup_widget extends WP_Widget {
 function register_newsletter_signup_widget() { register_widget('newsletter_signup_widget'); }
 add_action( 'widgets_init', 'register_newsletter_signup_widget' );
 
-class sidebar_tagline_widget extends WP_Widget
-{
-    public function __construct()
-    {
+class sidebar_tagline_widget extends WP_Widget {
+    public function __construct() {
             parent::__construct(
                 'sidebar_tagline_widget',
                 __('DP Logo + Tagline', 'sidebar_tagline_widget'),
@@ -494,11 +492,31 @@ class sidebar_tagline_widget extends WP_Widget
             );
     }
 
-    public function widget($args, $instance)
-    {
+    public function form( $instance ) {
+        //Check if limit_days exists, if its null, put "new limit_days" for use in the form
+        if ( isset( $instance[ 'tagline_text' ] ) ) {
+            $tagline_text = $instance[ 'tagline_text' ];
+        }
+        else {
+            $tagline_text = __( 'What to do, where to be and what to see, from', 'wpb_widget_domain' );
+        } ?>
+        <p>
+        <label for="<?php echo $this->get_field_id( 'tagline_text' ); ?>"><?php _e( 'Tagline text (will be followed by "The Denver Post" logo):' ); ?></label> 
+        <input class="widefat" id="<?php echo $this->get_field_id( 'tagline_text' ); ?>" name="<?php echo $this->get_field_name( 'tagline_text' ); ?>" type="text" value="<?php echo esc_attr( $tagline_text ); ?>" />
+        </p>
+    <?php }
+
+    public function update( $new_instance, $old_instance ) {
+        $instance = array();
+        $instance[ 'tagline_text' ] = ( ! empty( $new_instance[ 'tagline_text' ] ) ) ? trim( strip_tags( $new_instance[ 'tagline_text' ] ) ) : 'What to do, where to be and what to see, from';
+        return $instance;
+    }
+
+    public function widget($args, $instance) {
+        $tagline_text = $instance[ 'tagline_text' ];
         // Display a fixed tagline and The Denver Post logo
         echo '<div id="sidebar-tagline" class="widget widget_tagline">
-                <p>What to do, where to be and what to see, from <img src="'.get_bloginfo('stylesheet_directory').'/images/dp-logo-blk.png" /></p>
+                <p>' . $tagline_text . ' <img src="'.get_bloginfo('stylesheet_directory').'/images/dp-logo-blk.png" /></p>
             </div>';
     }
 }

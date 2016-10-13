@@ -22,7 +22,7 @@ div#content {
 }
 .columns {
 	padding-left:.65rem;
-	padding-left:.65rem;
+	padding-right:.65rem;
 }
 h1, h2, h3, h4, h5, h6 {
 	font-family:'Arvo',Arial,Helvetica,sans-serif;
@@ -325,10 +325,9 @@ div.inner-header > div.row {
 	border-top: 1px solid #ddd;
 }
 #sidebar {
-	padding-right:0;
 	padding-left:1em;
 }
-#sidebar .widget:not(.ad_wrap):not(.widget_cal):not(.widget_tagline) {
+#sidebar .widget:not(.ad_wrap):not(.widget_cal) {
 	border:1px solid #ddd;
 	padding:1em;
 }
@@ -345,21 +344,24 @@ body.error404 article.error404 h6.oopsies {
 	text-align:center;
 	line-height:1;
 }
-#sidebar .widget_tagline {
+.widget_tagline {
 	margin-bottom:1em;
+	padding-bottom: .5em;
+	border-bottom:4px solid #000;
 }
-#sidebar .widget_tagline p {
-	font-size:1.05em;
+.widget_tagline p {
+	font-size:1.5em;
 	line-height:1.3;
 	font-weight: 300;
 	color:rgba(60,60,60,1.0);
 	text-align: center;
 	margin-bottom:0;
 }
-#sidebar .widget_tagline p img {
-	display:block;
+.widget_tagline p img {
+	display:inline;
 	height:1em;
-	margin:.25em auto 0;
+	margin:0 auto;
+	padding-bottom: .2em;
 }
 /* Sidebar popular/don't miss */
 #sidebar div.widget_cal,
