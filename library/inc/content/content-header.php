@@ -128,7 +128,7 @@ if (has_tag() ) {
 <link rel="shortcut icon" href="<?php echo $favicon_uri; ?>">
 <link href='http://fonts.googleapis.com/css?family=Open+Sans|Arvo' rel='stylesheet' type='text/css'>
 <style type="text/css">
-body { padding-top: 60px!important; }
+body { padding-top: 80px!important; }
 </style>
 
 <?php 
