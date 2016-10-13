@@ -138,7 +138,7 @@ div.inner-header > div.row {
 }
 .fixed .top-bar .title-area .name p a {
 	width:100%;
-	padding:3px 0 0;
+	padding:3px 0 0 3px;
 }
 .contain-to-grid.fixed,
 .contain-to-grid .top-bar,
