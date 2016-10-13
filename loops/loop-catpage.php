@@ -30,8 +30,8 @@ $number_posts = 25;
         <?php while ( $wp_query->have_posts() ) : $wp_query->the_post(); ?>
 
             <?php echo ( $i == 0 ) ? '<div class="cat-main">' : ''; ?>
-                    <?php echo ( $i == 1 ) ? '<div class="row"><div class="large-6 medium-6 small-12 columns cat-second">' : ''; ?>
-                    <?php echo ( $i == 2 ) ? '<div class="large-6 medium-6 small-12 columns cat-second">' : ''; ?>
+                    <?php echo ( $i == 1 ) ? '<div class="row cat-top"><div class="large-6 medium-6 small-12 columns cat-main">' : ''; ?>
+                    <?php echo ( $i == 2 ) ? '<div class="large-6 medium-6 small-12 columns cat-main">' : ''; ?>
 			
             			<?php reactor_post_before(); ?>
 

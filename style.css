@@ -777,16 +777,13 @@ body:not(.home) .cat-main .entry-body h2.entry-title {
 body:not(.home) .cat-second .entry-body h2.entry-title {
 	font-size:1.25em;
 }
-.cat-main .entry-body p.catexcerpt,
-.cat-second .entry-body p.catexcerpt {
+.cat-main .entry-body p.catexcerpt {
 	display:none;
 }
-.cat-main .entry-body,
-.cat-second .entry-body {
+.cat-main .entry-body {
 	border-bottom: none;
 }
-.cat-main .entry-body .entry-meta,
-.cat-second .entry-body .entry-meta {
+.cat-main .entry-body .entry-meta {
 	font-size:1em;
 }
 .cat-top {
