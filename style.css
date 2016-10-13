@@ -133,6 +133,9 @@ div.inner-header > div.row {
 	width:20%;
 	display:block;
 }
+.top-bar .name p {
+	line-height:100%;
+}
 .fixed .top-bar .title-area .name p a {
 	width:100%;
 	padding:3px 0 0;
@@ -171,7 +174,12 @@ div.inner-header > div.row {
 }
 .top-bar .toggle-topbar.menu-icon a span:after,
 .top-bar.expanded .toggle-topbar a span:after {
-	box-shadow: 0 0 0 1px #444, 0 7px 0 1px #444, 0 14px 0 1px #444;
+	box-shadow: 0 0 0 1px #fff, 0 12px 0 1px #fff, 0 24px 0 1px #fff;
+	width:24px;
+	margin-right: 1em;
+}
+.top-bar .toggle-topbar.menu-icon {
+	margin-top:-22px;
 }
 .fixed.expanded:not(.top-bar) .top-bar-section { margin-top:70px; }
 .top-bar-section>ul>.divider, .top-bar-section>ul>[role="separator"],
@@ -180,9 +188,9 @@ div.inner-header > div.row {
 .top-bar-section .has-form {
 	font-family:'Arvo',Arial,Helvetica,sans-serif;
 	height:75px;
-	line-height:2.75;
+	line-height:3;
 	letter-spacing:.1em;
-	font-size:1.2em;
+	font-size:1.05em;
 	font-weight:400;
 	text-transform: uppercase;
 }
@@ -369,7 +377,7 @@ body.error404 article.error404 h6.oopsies {
     margin:.35em .75em .25em -2.5em;
     width:2em;
     height:2em;
-    border:2px solid rgba(60,60,60,1.0);
+    border:2px solid rgba(100,100,100,1.0);
     border-radius:1em;
     text-align:center;
     line-height:1.7;
@@ -475,9 +483,9 @@ article:first-child .frontpage-post {
 	padding-top:.25em;
 	font-weight:300;
 	display: block;
-	font-size:1.5em;
+	font-size:1.4em;
 	line-height:1.2;
-	color: rgba(17,17,17,1);
+	color: rgba(50,50,50,1);
 }
 #frontpagemain article:first-child .frontpage-post > a {
 	height:100%;
@@ -499,7 +507,7 @@ article:first-child .frontpage-post {
 	color:#fff;
 }
 #frontpagemain article h2.entry-title a:hover {
-	color:#0073ae;
+	color:#0093ce;
 }
 .frontpage-post .front-imgholder {
 	width:100%;
@@ -576,7 +584,7 @@ article:first-child .frontpage-post .front-imgholder {
     width:1.1em;
     height:1.1em;
     color:rgba(255,255,255,1.0);
-    background-color:rgba(60,60,60,1.0);
+    background-color:rgba(100,100,100,1.0);
     border-radius:1.1em;
     text-align:center;
     font-size:1.1em;
@@ -1196,8 +1204,15 @@ header h2.category-drink a {
 @media (max-width:1024px) {
 	.contain-to-grid .top-bar .title-area {
 		display:block;
-		height:60px;
+		height:75px;
+		width:100%;
 	}
+	.contain-to-grid .top-bar .title-area p a img {
+		margin-left:10px;
+	}
+	.top-bar-section ul.right:not(.top-bar-menu) { width:100%; }
+	.top-bar-section ul.top-bar-menu.left { width:100%; }
+	.top-bar-section ul.top-bar-menu.left > li.menu-item-has-children { width:100%; }
 	.toggle-social {
 		right:54px;
 		margin-top:-13px;
