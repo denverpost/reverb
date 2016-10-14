@@ -434,7 +434,7 @@ function rvrb_get_ad_value() {
         }
     }
     return array( $kv, $tax );
-} */
+}
 
 // Create a simple widget for one-click newsletter signup
 class newsletter_signup_widget extends WP_Widget {
