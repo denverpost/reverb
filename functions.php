@@ -217,7 +217,7 @@ add_action( 'edit_user_profile_update', 'save_extra_profile_fields' );
 define( 'WP_AUTO_UPDATE_CORE', false );
 
 //This function intelligently trims a body of text to a certain number of words, but will not break a sentence.
-if ( ! function_exists( 'smart_trim' ) {
+if ( ! function_exists( 'smart_trim' ) ) {
 	function smart_trim($instring, $truncation) {
 		//remove shortcodes (and thereby images and embeds)
 	    $instring = strip_shortcodes( $instring );
