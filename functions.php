@@ -217,54 +217,56 @@ add_action( 'edit_user_profile_update', 'save_extra_profile_fields' );
 define( 'WP_AUTO_UPDATE_CORE', false );
 
 //This function intelligently trims a body of text to a certain number of words, but will not break a sentence.
-function smart_trim($instring, $truncation) {
-	//remove shortcodes (and thereby images and embeds)
-    $instring = strip_shortcodes( $instring );
-    //a little regex kills datelines
-    $instring = preg_replace("/\A((([A-Z ]+)\\,\s?([a-zA-Z ]+)\\.?)|[A-Z]+)\s?(&#8211;|&#8212;?)\s?/u", "", $instring);
-    //replace closing paragraph tags with a space to avoid collisions after punctuation
-    $instring = str_replace("</p>", " ", $instring);
-    //strip the HTML tags and then kill the entities
-    $string = html_entity_decode( strip_tags($instring), ENT_QUOTES, 'UTF-8');
+if ( ! function_exists( 'smart_trim') ) {
+    function smart_trim($instring, $truncation) {
+    	//remove shortcodes (and thereby images and embeds)
+        $instring = strip_shortcodes( $instring );
+        //a little regex kills datelines
+        $instring = preg_replace("/\A((([A-Z ]+)\\,\s?([a-zA-Z ]+)\\.?)|[A-Z]+)\s?(&#8211;|&#8212;?)\s?/u", "", $instring);
+        //replace closing paragraph tags with a space to avoid collisions after punctuation
+        $instring = str_replace("</p>", " ", $instring);
+        //strip the HTML tags and then kill the entities
+        $string = html_entity_decode( strip_tags($instring), ENT_QUOTES, 'UTF-8');
 
-    $matches = preg_split("/\s+/", $string);
-    $count = count($matches);
+        $matches = preg_split("/\s+/", $string);
+        $count = count($matches);
 
-    if($count > $truncation) {
-        //Grab the last word; we need to determine if
-        //it is the end of the sentence or not
-        $last_word = strip_tags($matches[$truncation-1]);
-        $lw_count = strlen($last_word);
+        if($count > $truncation) {
+            //Grab the last word; we need to determine if
+            //it is the end of the sentence or not
+            $last_word = strip_tags($matches[$truncation-1]);
+            $lw_count = strlen($last_word);
 
-        //The last word in our truncation has a sentence ender
-        if($last_word[$lw_count-1] == "." || $last_word[$lw_count-1] == "?" || $last_word[$lw_count-1] == "!") {
-            for($i=$truncation;$i<$count;$i++) {
-                unset($matches[$i]);
-            }
-
-        //The last word in our truncation doesn't have a sentence ender, find the next one
-        } else {
-            //Check each word following the last word until
-            //we determine a sentence's ending
-            $ending_found = false;
-            for($i=($truncation);$i<$count;$i++) {
-                if($ending_found != true) {
-                    $len = strlen(strip_tags($matches[$i]));
-                    if($matches[$i][$len-1] == "." || $matches[$i][$len-1] == "?" || $matches[$i][$len-1] == "!") {
-                        //Test to see if the next word starts with a capital
-                        if($matches[$i+1][0] == strtoupper($matches[$i+1][0])) {
-                            $ending_found = true;
-                        }
-                    }
-                } else {
+            //The last word in our truncation has a sentence ender
+            if($last_word[$lw_count-1] == "." || $last_word[$lw_count-1] == "?" || $last_word[$lw_count-1] == "!") {
+                for($i=$truncation;$i<$count;$i++) {
                     unset($matches[$i]);
                 }
+
+            //The last word in our truncation doesn't have a sentence ender, find the next one
+            } else {
+                //Check each word following the last word until
+                //we determine a sentence's ending
+                $ending_found = false;
+                for($i=($truncation);$i<$count;$i++) {
+                    if($ending_found != true) {
+                        $len = strlen(strip_tags($matches[$i]));
+                        if($matches[$i][$len-1] == "." || $matches[$i][$len-1] == "?" || $matches[$i][$len-1] == "!") {
+                            //Test to see if the next word starts with a capital
+                            if($matches[$i+1][0] == strtoupper($matches[$i+1][0])) {
+                                $ending_found = true;
+                            }
+                        }
+                    } else {
+                        unset($matches[$i]);
+                    }
+                }
             }
+            $body = implode(' ', $matches);
+            return $body;
+        } else {
+            return $string;
         }
-        $body = implode(' ', $matches);
-        return $body;
-    } else {
-        return $string;
     }
 }
 
