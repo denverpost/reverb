@@ -730,7 +730,6 @@ function browser_body_class($classes) {
  
 add_filter( 'body_class', 'browser_body_class' );
 
-<<<<<<< HEAD
 /**
  *
  * DESTROY ALL COMMENTS ARRRRR!
@@ -1030,8 +1029,3 @@ function rvrb_get_primary_category() {
 
     return (object) $return_cat;
 }
-
-?>
-=======
-?>
->>>>>>> db17dc376d17f0d865f57c5be053aa9565578362
