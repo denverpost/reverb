@@ -1242,7 +1242,7 @@ header h2.category-drink a {
 }
 #colophon { text-align:right; font-size:.6em; }
 .footer-links li { font-size:.9em; }
-.inner-footer { border-top: 3px dotted #ddd; }
+.inner-footer { border-top: 1px solid #ddd; margin-top:.5em; }
 
 @media (max-width:76em) {
 	#sidebar {

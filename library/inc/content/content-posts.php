@@ -242,11 +242,23 @@ add_action('reactor_post_after', 'reactor_do_nav_single', 3);
  * @since 1.0.0
  */
 function rvrb_single_post_related() {
-    if ( is_single() && function_exists( 'yarpp_related' ) ) { ?>
-    <div class="related">
-	    <?php yarpp_related( array( 'template' => 'yarpp-template-rvrb.php' ) ); ?>
-    </div>
-<?php }
+    if ( is_single() && function_exists( 'yarpp_related' ) ) { 
+    	global $post; ?>
+	    <div class="related">
+		    <?php yarpp_related( array( 
+		    	'post_type'			=> array('post'),
+		    	'show_pass_post'	=> false,
+		    	'exclude'			=> array(),
+		    	'recent'			=> '3 month',
+		    	'threshold'			=> 2,
+		    	'template'			=> 'yarpp-template-rvrb.php',
+		    	'limit'				=> 3,
+		    	'order'				=> 'score DESC'
+		    	),
+	    	$post->ID,
+	    	true); ?>
+	    </div>
+	<?php }
 }
 add_action('reactor_post_after', 'rvrb_single_post_related', 4);
 
