@@ -337,6 +337,7 @@ div.inner-header > div.row {
 #sidebar .widget:not(.ad_wrap):not(.widget_cal) {
 	border:1px solid #ddd;
 	padding:1em;
+	margin-bottom:1.5em;
 }
 body.search h1.page-title {
 	margin-top:0;
@@ -1216,6 +1217,21 @@ h4.widget-title {
 	margin-bottom: .5em;
 	padding-bottom:.25em;
 	border-bottom: 1px solid #ddd;
+}
+/* follow us widget */
+#sidebar-followus ul {
+	list-style-type: none;
+	padding:0;
+	margin:0;
+}
+#sidebar-followus ul li {
+	display:inline-block;
+	float:left;
+	width:20%;
+	margin-right:5%;
+}
+#sidebar-followus ul li:nth-last-child(2) {
+	margin-right:0;
 }
 /* category-based colors */
 #frontpagemain article span {

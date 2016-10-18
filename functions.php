@@ -270,6 +270,33 @@ if ( ! function_exists( 'smart_trim' ) ) {
 	}
 }
 
+class follow_us_on_widget extends WP_Widget
+{
+    public function __construct()
+    {
+            parent::__construct(
+                'follow_us_on_widget',
+                __('Follow Us On [social media]', 'follow_us_on_widget'),
+                array('description' => __('Command readers to like or follow us on various mission-critical social networks!', 'follow_us_on_widget'), )
+            );
+    }
+
+    public function widget($args, $instance)
+    {
+        // List of icons linked to various social networks' Intent pages
+        echo '<div id="sidebar-followus" class="widget widget_followus">
+                <h4 class="widget-title">Follow us:</h4>
+                <ul>
+                    <li class="followus"><a href="http://twitter.com/thknwco" title="Follow The Know on Twitter"><img src="' . get_stylesheet_directory_uri() . '/images/social-twitter.png" alt="Follow The Know on Twitter" /></a></li>
+                    <li class="followus"><a href="http://facebook.com/theknowco" title="Like The Know on Facebook"><img src="' . get_stylesheet_directory_uri() . '/images/social-facebook.png" alt="Like The Know on Facebook" /></a></li>
+                    <li class="followus"><a href="http://instagram.com/thknwco" title="Follow The Know on Instagram"><img src="' . get_stylesheet_directory_uri() . '/images/social-instagram.png" alt="Follow The Know on Instagram" /></a></li>
+                    <li class="followus"><a href="http://' . get_bloginfo( 'url' ) . '/feed/" title="Follow The Know on RSS"><img src="' . get_stylesheet_directory_uri() . '/images/social-rss.png" alt="Follow The Know on RSS" /></a></li>
+                    <div class="clear"></div>
+                </ul>
+            </div>';
+    }
+}
+
 // Exclude Pages from search
 function rvrb_search_filter_pages($query) {
     if ($query->is_search) {
@@ -280,6 +307,8 @@ function rvrb_search_filter_pages($query) {
 if ( ! is_admin() ) {
     add_filter('pre_get_posts','rvrb_search_filter_pages');
 }
+function register_follow_us_on_widget() { register_widget('follow_us_on_widget'); }
+add_action( 'widgets_init', 'register_follow_us_on_widget' );
 
 /**
  * Include posts from authors in the search results where
