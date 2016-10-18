@@ -253,7 +253,7 @@ if ( ! function_exists( 'smart_trim' ) ) {
 			    $len = strlen(strip_tags($matches[$i]));
 			    if($matches[$i][$len-1] == "." || $matches[$i][$len-1] == "?" || $matches[$i][$len-1] == "!") {
 				//Test to see if the next word starts with a capital
-				if($matches[$i+1][0] == strtoupper($matches[$i+1][0])) {
+				if( isset($matches[$i+1][0]) && $matches[$i+1][0] == strtoupper($matches[$i+1][0])) {
 				    $ending_found = true;
 				}
 			    }
@@ -1039,7 +1039,7 @@ function in_article_related_shortcode(){
     if ( is_single() && function_exists( 'yarpp_related' ) ) { 
         global $post;
         $related .= '<aside class="article-related">';
-            $related .= '<h3>Related articles</h3>';
+            $related .= '<h3>Related Articles</h3>';
             $related .= yarpp_related( array( 
                 'post_type'         => array('post'),
                 'show_pass_post'    => false,

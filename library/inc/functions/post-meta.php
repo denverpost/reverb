@@ -186,7 +186,8 @@ if ( !function_exists('reactor_post_meta') ) {
 			$author .= '</span>';
 		} else {
 			if ( get_the_author_meta('publication') != 'hidden'  ) {
-				$author = sprintf('<span class="author">By <a class="url fn n" href="%1$s" rel="author">%2$s</a>%3$s</span>',
+				$authorraw = ( !$args['show_photo'] ) ? '<span class="author">By <a class="url fn n" href="%1$s" rel="author">%2$s</a>%3$s</span>' : '<h4 class="author"><a class="url fn n" href="%1$s" rel="author">%2$s</a>%3$s</h4>';
+				$author = sprintf($authorraw,
 					esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
 					get_the_author_meta( 'display_name' ),
 					( get_the_author_meta('publication') != '' ) ? ', ' . get_the_author_meta( 'publication' ) : ''
@@ -366,7 +367,7 @@ if ( !function_exists('reactor_post_meta') ) {
 					$output = '<div class="entry-meta icons">' . $meta . '</div>';
 				}
 			} else if ( $do_bio && $args['show_photo'] && get_the_author_meta('list_author_single') ) {
-				$meta .= ( $author_photo && $args['show_photo'] ) ? '%5$s' : '';
+				$meta .= ( $author_photo ) ? '%5$s' : '';
 				$meta .= '<div class="large-9 medium-9 small-9 columns">';
 				$meta .= ( $author && $args['show_author'] ) ? '<div class="by-author">%4$s</div>' : '';
 				$meta .= ( $author_desc ) ? '%6$s' : '';

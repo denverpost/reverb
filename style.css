@@ -625,6 +625,41 @@ div.cat-img {
 	margin-bottom:.6em;
 	border-bottom:1px solid rgba(225,225,225,0.8);
 }
+/* in-article related lists */
+.entry-content aside.article-related {
+	width:40%;
+	float:right;
+	margin:1em 0 1em 1.5em;
+	border: 1px solid #ddd;
+    padding: 1em;
+}
+.entry-content aside.article-related .yarpp-related {
+	margin:0;
+	padding-top:0;
+	border-top:none;
+}
+.entry-content aside.article-related h3 {
+	font-size:1.3em;
+	width:100%;
+	margin:0 0 .5em;
+	padding:0 0 .25em;
+	border-bottom:1px solid #ddd;
+}
+.entry-content aside.article-related ul {
+	margin:0;
+	width:100%;
+}
+.entry-content aside.article-related ul li {
+	list-style-type:none;
+	margin-bottom: .75em;
+	line-height: 1.2;
+}
+.entry-content aside.article-related ul li a {
+	font-family:'Arvo',Arial,Helvetica,sans-serif;
+	font-weight:300;
+	font-size:.85em;
+	line-height: 1.2;
+}
 /* related posts */
 .yarpp-related {
 	display:block;
@@ -677,13 +712,6 @@ div.cat-img {
 	background: -moz-linear-gradient(top, rgba(0,0,0,0.0) 0%,rgba(0,0,0,0.9) 100%);
 	background: -webkit-linear-gradient(top, rgba(0,0,0,0.0) 0%,rgba(0,0,0,0.9) 100%);
 	background: linear-gradient(to bottom, rgba(0,0,0,0.0) 0%,rgba(0,0,0,0.9) 100%);
-}
-.related-post h2 span {
-	display:block;
-	margin-bottom:.25em;
-}
-.related-post h2 span a {
-	font-size:.8em;
 }
 .related-post h2 a {
 	text-transform: uppercase;
@@ -878,22 +906,28 @@ body:not(.home) .cat-second .entry-body h2.entry-title {
 	margin:0 auto!important;
 }
 .single .entry-meta-author {
-	padding:.5em 0;
-	margin-bottom:1em;
+	padding:1em;
+	margin:2em 0 1em!important;
+	border:1px solid #ddd;
 }
 .single .entry-meta-author .authorimage {
 	padding-right:1em;
 }
 .single .entry-meta-author h4 {
-	font-family:'Open Sans',Arial,Helvetica,sans-serif;
-	font-weight: 700;
-	font-size: 1.4em;
+	font-family:'Arvo',Arial,Helvetica,sans-serif;
+	font-weight: 300;
+	font-size: 1.2em;
 	line-height: 1.2;
 	margin-top: 0;
 }
-.single .entry-meta-author p.author-desc,
-.single .entry-meta-author ul.author-social-small li {
-	font-size:1.1em;
+.single .entry-meta-author p.author-desc {
+	font-size:1em;
+	margin-bottom: .25em;
+}
+.single .entry-meta-author ul.author-social-small li a {
+	font-size:.8em;
+	font-family:'Arvo',Arial,Helvetica,sans-serif;
+	font-weight: 300;
 }
 .single .entry-meta-author ul.author-social-small {
 	margin-bottom:0;
@@ -919,7 +953,7 @@ nav.nav-single .nav-next a {
 	text-align:right;
 	padding: .9rem 0 .5em 1em;
 	font-weight: 700;
-	background: #EC7D77;
+	background: rgba(0,115,174,0.7);
 	color:#fff;
 	text-decoration: none;
 	font-size: 1.3em;
@@ -945,7 +979,7 @@ nav.nav-single .nav-next a:after {
 	left:100%;
 	border-top:1.225em solid transparent;
 	border-bottom:1.225em solid transparent;
-	border-left:1em solid #EC7D77;
+	border-left:1em solid rgba(0,115,174,0.7);
 }
 .entry-footer div.edit-link {
 	display:block;
@@ -1351,6 +1385,11 @@ header h2.category-drink a {
 	}
 	.frontpage-image h2 {
 		width: 40%;
+	}
+	.entry-content aside.article-related {
+		width:100%;
+		margin-left:1em;
+		float:none;
 	}
 }
 @media (max-width:540px) {

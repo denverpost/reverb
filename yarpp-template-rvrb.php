@@ -6,15 +6,6 @@ Author: mitcho (Michael Yoshitaka Erlewine)
 */ ?>
 <?php if ( have_posts() ): ?>
 	<?php while ( have_posts() ) : the_post();
-		$categories_list = '';
-		$categories = get_the_category();
-		end( $categories );
-		foreach( $categories as $category ) {
-			if ( strtolower( $category->slug) != 'uncategorized' && $category->category_parent == 0 ) {
-				$categories_list = $category;
-			}
-		}
-
 		if ( has_post_thumbnail() ) {
 			$large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'medium' );
 		}
@@ -25,9 +16,6 @@ Author: mitcho (Michael Yoshitaka Erlewine)
 					<div class="front-img" style="background-image:url('<?php echo $large_image_url[0]; ?>');"></div>
 				</a>
 				<h2 <?php post_class('entry-title'); ?>>
-					<span>
-						<a href="<?php echo get_category_link( intval( $categories_list->term_id ) ); ?>"><?php echo $categories_list->cat_name; ?></a>
-					</span>
 					<?php the_title(); ?>
 				</h2>
 			</div>
