@@ -7,27 +7,15 @@ function scrollDownTo(whereToScroll, scrollOffset) {
     }, 300);
     return false;
 }
-/* 
-function dpLogoClick() {
-  $j('#searchformbox.unopened').on('click',function(){
-    if ( $j(this).hasClass('unopened') ) {
-      window.location.href = 'http://www.denverpost.com';
-    }
-  });
-}
 
-function searchOpen() {
-  $j('#searchopen').on('click',function(){
-    $j(this).css('display','none');
-    $j('#searchformbox').removeClass('unopened');
-    $j('#searchformbox input#s').focus();
-    $j('#searchformbox input#s').focusout(function(){
-      $j('#searchformbox').addClass('unopened');
-      $j('#searchopen').css('display','block');
-      dpLogoClick();
-    });
-  });
-} */
+$j(document).ready(function(){
+  $j('#insert-related-shortcode').click(insert_related_shortcode);
+  console.log('loaded');
+});
+
+function insert_related_shortcode() {
+  wp.media.editor.insert('[related]');
+}
 
 $j(document).ready(function() {
   $j(window).load(function() {

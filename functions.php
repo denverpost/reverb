@@ -1057,3 +1057,16 @@ function in_article_related_shortcode(){
     return $related;
 }
 add_shortcode('related', 'in_article_related_shortcode');
+
+function related_shortcode_button() {
+    echo '<a href="javascript:void(0);" id="insert-related-shortcode" class="button">Insert Related</a>';
+}
+add_action('media_buttons', 'related_shortcode_button',15);
+
+function rvrb_admin_enqueue($hook) {
+    if ( 'post.php' != $hook ) {
+        return;
+    }
+    wp_enqueue_script( 'rvadmin-js', get_stylesheet_directory_uri() . '/library/js/rv-admin.js' );
+}
+add_action( 'admin_enqueue_scripts', 'rvrb_admin_enqueue' );
