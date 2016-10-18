@@ -16,6 +16,8 @@ Text Domain: reactor
 }
 body {
 	-webkit-font-smoothing: antialiased;
+	padding:0!important;
+	margin-top:80px!important;
 }
 div#content {
 	padding-top:1.5em;
