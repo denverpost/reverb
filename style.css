@@ -629,8 +629,8 @@ div.cat-img {
 /* in-article related lists */
 .entry-content aside.article-related {
 	width:40%;
-	float:right;
-	margin:1em 0 1em 1.5em;
+	float:left;
+	margin:1em 1.5em 1em 0;
 	border: 1px solid #ddd;
     padding: 1em;
 }

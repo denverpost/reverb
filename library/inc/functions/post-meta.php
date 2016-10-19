@@ -157,9 +157,31 @@ if ( !function_exists('reactor_post_meta') ) {
 		$author = $feedauthor = $description_author = '';
 		$do_bio = false;
 
-		if ( function_exists( 'get_coauthors' ) && count( get_coauthors( get_the_id() ) ) > 1 ) {
+		if ( get_post_meta( get_the_ID(), 'original_author_name', true ) != '' ) {
+				
+			$feedauthorin = strtolower( html_entity_decode( get_post_meta( get_the_ID(), 'original_author_name', true ) ) );
+			$authnamematches = get_author_matches( $feedauthorin );
+			$feedauthorone = assemble_author_matches( $authnamematches, '' );
+			$feedauthortwo = '';
+			
+			if (get_post_meta(get_the_ID(), 'second_author_name', true) != '') {
+				$feedauthorintwo = strtolower( html_entity_decode( get_post_meta( get_the_ID(), 'second_author_name', true ) ) );
+				$authnamematchestwo = get_author_matches( $feedauthorintwo );
+				$feedauthortwo = assemble_author_matches( $authnamematchestwo, true );
+				$checkauthone = explode( ',', $feedauthorone );
+				$checkauthtwo = explode( ',', $feedauthortwo );
+				if ( isset( $checkauthone[1] ) && isset( $checkauthtwo[1] ) ) {
+					if ( $checkauthone[1] == $checkauthtwo[1] ) { 
+						$feedauthorone = $checkauthone[0];
+					} else {
+						$feedauthorone .= ', ';
+					}
+				}
+			}
+			$feedauthor = $feedauthorone . $feedauthortwo;
+		} else if ( function_exists( 'get_coauthors' ) && count( get_coauthors( get_the_id() ) ) > 1 ) {
 			$coauthors = get_coauthors();
-			$author = '<span class="author">';
+			$author = '<span class="author">By ';
 			$i=count($coauthors);
 			$ii=0;
 			foreach( $coauthors as $coauthor ) {
@@ -170,81 +192,25 @@ if ( !function_exists('reactor_post_meta') ) {
 						$coauthor->display_name
 					 );
 				} else {
-					$author .= sprintf( '<a class="url fn n" href="%1$s" rel="author">%2$s</a>',
+					$coauth_pub = ( get_the_author_meta( 'publication', $coauthor->ID ) && get_the_author_meta( 'publication', $coauthors[ $ii + 1 ]->ID ) != get_the_author_meta( 'publication', $coauthor->ID ) ) ? ', ' . get_the_author_meta( 'publication' ) : '';
+					$author .= sprintf( '<a class="url fn n" href="%1$s" rel="author">%2$s</a>%3$s',
 						esc_url( get_author_posts_url( $coauthor->ID ) ),
-						$coauthor->display_name
-					 );
-					if ( $description_author == '' ) {
-						$description_author = sprintf( '<span class="author"><a class="url fn n" href="%1$s" rel="author">%2$s</a>%3$s</span>',
-							esc_url( get_author_posts_url( $coauthor->ID) ),
-							get_the_author_meta( 'display_name', $coauthor->ID ),
-							( get_the_author_meta( 'publication' ) ) ? ', ' . get_the_author_meta( 'publication' ) : ''
-						);
-					}
+						$coauthor->display_name,
+						$coauth_pub
+					);
 				}
 			}
 			$author .= '</span>';
-		} else {
-			if ( get_the_author_meta('publication') != 'hidden'  ) {
-				$authorraw = ( !$args['show_photo'] ) ? '<span class="author">By <a class="url fn n" href="%1$s" rel="author">%2$s</a>%3$s</span>' : '<h4 class="author"><a class="url fn n" href="%1$s" rel="author">%2$s</a>%3$s</h4>';
-				$author = sprintf($authorraw,
-					esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
-					get_the_author_meta( 'display_name' ),
-					( get_the_author_meta('publication') != '' ) ? ', ' . get_the_author_meta( 'publication' ) : ''
-				 );
-				$do_bio = true;
-				$description_author = $author;
-			} else if ( get_post_meta( get_the_ID(), 'original_author_name', true ) != '' ) {
-				
-				$feedauthorin = strtolower( html_entity_decode( get_post_meta( get_the_ID(), 'original_author_name', true ) ) );
-				$authnamematches = get_author_matches( $feedauthorin );
-				$feedauthorone = assemble_author_matches( $authnamematches, '' );
-				$feedauthortwo = '';
-				
-				if (get_post_meta(get_the_ID(), 'second_author_name', true) != '') {
-					$feedauthorintwo = strtolower( html_entity_decode( get_post_meta( get_the_ID(), 'second_author_name', true ) ) );
-					$authnamematchestwo = get_author_matches( $feedauthorintwo );
-					$feedauthortwo = assemble_author_matches( $authnamematchestwo, true );
-					$checkauthone = explode( ',', $feedauthorone );
-					$checkauthtwo = explode( ',', $feedauthortwo );
-					if ( isset( $checkauthone[1] ) && isset( $checkauthtwo[1] ) ) {
-						if ( $checkauthone[1] == $checkauthtwo[1] ) { 
-							$feedauthorone = $checkauthone[0];
-						} else {
-							$feedauthorone .= ', ';
-						}
-					}
-				}
-				$feedauthor = $feedauthorone . $feedauthortwo;
-			}
-		}
-		/* 
-		$authorraw = ( !$args['show_photo'] ) ? '<a class="url fn n" href="%1$s" rel="author"><span>%2$s</span></a>' : '<a class="url fn n" href="%1$s" rel="author"><h4>%2$s</h4></a>';
-		$author = '';
-		$do_bio = false;
-		if ( function_exists( 'get_coauthors' ) && count( get_coauthors( get_the_id() ) ) > 1 ) {
-			$coauthors = get_coauthors();
-			$i=count($coauthors);
-			$ii=0;
-			foreach( $coauthors as $coauthor ) {
-				$ii++;
-				$author .= ( $ii == $i ) ? ' and ' : ( ( $ii > 1 ) ? ', ' : '');
-				if ( isset( $coauthor->type ) && $coauthor->type == 'guest-author' ) {
-					$author .= $coauthor->display_name;
-				} else {
-					$author .= sprintf($authorraw,
-						esc_url( get_author_posts_url( $coauthor->ID ) ),
-						$coauthor->display_name
-					 );
-				}
-			}
-		} else {
+		} else if ( get_the_author_meta('publication') != 'hidden'  ) {
+			$authorraw = ( !$args['show_photo'] ) ? '<span class="author">By <a class="url fn n" href="%1$s" rel="author">%2$s</a>%3$s</span>' : '<h4 class="author"><a class="url fn n" href="%1$s" rel="author">%2$s</a>%3$s</h4>';
 			$author = sprintf($authorraw,
-				esc_url( get_author_posts_url( get_the_author_meta('ID') ) ),
-				get_the_author()
+				esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
+				get_the_author_meta( 'display_name' ),
+				( get_the_author_meta('publication') != '' ) ? ', ' . get_the_author_meta( 'publication' ) : ''
 			 );
 			$do_bio = true;
-		} */
+			$description_author = $author;
+		}
 
 		$author_social = '';
 		if( $args['show_photo'] ) {

@@ -364,8 +364,8 @@ function rvrb_allow_script_tags( $allowedposttags ) {
         return $allowedposttags;
     $allowedposttags['script'] = array(
         'src' => true,
-        'height' => true,
-        'width' => true,
+        'async' => true,
+        'defer' => true,
     );
     $allowedposttags['iframe'] = array(
         'align' => true,
@@ -380,6 +380,7 @@ function rvrb_allow_script_tags( $allowedposttags ) {
         'scrolling' => true,
         'marginwidth' => true,
         'marginheight' => true,
+        'seamless' => true
     );
     return $allowedposttags;
 }
@@ -392,6 +393,7 @@ function rvrb_filter_allowed_html($allowed, $context){
     }
     if ($context === 'post') {
         $allowed['div']['data-config-widget-id'] = true;
+        $allowed['div']['data-config-widget-pb'] = true;
         $allowed['div']['data-config-type'] = true;
         $allowed['div']['data-config-tracking-group'] = true;
         $allowed['div']['data-config-playlist-id'] = true;
