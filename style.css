@@ -60,6 +60,20 @@ figcaption {
 	font-size: 1.1em;
 	line-height:1.4;
 }
+.single .entry-content .listicle figure figcaption {
+	background-color:#454545;
+	color:rgba(255,255,255,1.0);
+	margin:0;
+	padding:.5em 1em 1em;
+}
+.single .entry-content .listicle figure figcaption.wp-caption-text span {
+	float:left;
+	font-size:3.5em;
+	font-weight:600;
+	padding-right:.2em;
+	line-height:.8;
+	color:rgba(255,255,255,0.95);
+}
 button, .button {
 	background-color:rgba(0,115,174,1.0);
 	border-color:rgba(0,115,174,0.8);
@@ -1267,31 +1281,36 @@ header h2 a:hover {
 h4.widget-title span.fpe-widget-title.category-arts a,
 .related-post h2.entry-title.category-arts span a,
 #frontpagemain article.category-arts span,
-header h2.category-arts a {
+header h2.category-arts a,
+body.category-arts h1.archive-title a {
 	background-color:rgba(78,199,228,1.0);
 }
 h4.widget-title span.fpe-widget-title.category-music a,
 .related-post h2.entry-title.category-music span a,
 #frontpagemain article.category-music span,
-header h2.category-music a {
+header h2.category-music a,
+body.category-music h1.archive-title a {
 	background-color:rgba(240,75,36,1.0);
 }
 h4.widget-title span.fpe-widget-title.category-things-to-do a,
 .related-post h2.entry-title.category-things-to-do span a,
 #frontpagemain article.category-things-to-do span,
-header h2.category-things-to-do a {
+header h2.category-things-to-do a,
+body.category-things-to-do h1.archive-title a {
 	background-color:rgba(132,49,166,1.0);
 }
 h4.widget-title span.fpe-widget-title.category-food a,
 .related-post h2.entry-title.category-food span a,
 #frontpagemain article.category-food span,
-header h2.category-food a {
+header h2.category-food a,
+body.category-food h1.archive-title a {
 	background-color:rgba(200,218,66,1.0);
 }
 h4.widget-title span.fpe-widget-title.category-drink a,
 .related-post h2.entry-title.category-drink span a,
 #frontpagemain article.category-drink span,
-header h2.category-drink a {
+header h2.category-drink a,
+body.category-drink h1.archive-title a {
 	background-color:rgba(250,167,27,1.0);
 }
 #colophon { text-align:right; font-size:.6em; }

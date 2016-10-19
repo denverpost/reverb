@@ -95,7 +95,7 @@ function reactor_child_theme_setup() {
 	
 	/* Remove support for other langauges */
 	// remove_theme_support('reactor-translation');
-		
+    remove_theme_support('post-formats');		
 }
 
 // add a favicon to the site

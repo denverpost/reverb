@@ -8,19 +8,26 @@ function scrollDownTo(whereToScroll, scrollOffset) {
     return false;
 }
 
-$j(document).ready(function(){
-  $j('#insert-related-shortcode').click(insert_related_shortcode);
-  console.log('loaded');
-});
-
-function insert_related_shortcode() {
-  wp.media.editor.insert('[related]');
+function checkListicle() {
+  if ( $j('.listicle').length == 1 ) {
+    $j('.listicle figure.wp-caption figcaption.wp-caption-text').each(function(){
+      var node = $j(this).contents().filter(function () { 
+            return this.nodeType == 3;
+        }).first(),
+      text = node.text(),
+      first = text.slice(0, text.indexOf(" "));
+    if (!node.length)
+        return;
+    node[0].nodeValue = text.slice(first.length);
+    node.before('<span>' + first + '</span>');
+    });
+  }
 }
 
 $j(document).ready(function() {
   $j(window).load(function() {
     //dpLogoClick();
-    //searchOpen();
+    checkListicle();
     boxes = $j('.frontpage-widget.widget_dpe_fp_widget');
     maxHeight = Math.max.apply(
     Math, boxes.map(function() {
