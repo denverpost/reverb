@@ -449,6 +449,9 @@ body.error404 article.error404 h6.oopsies {
 	color:rgba(0,115,174,0.8);
 	text-decoration:none;	
 }
+#sidebar .widget p {
+	font-size:1em;
+}
 /* frontpage-posts */
 body.front-page .entry-body {
 	padding-bottom:0;

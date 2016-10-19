@@ -285,7 +285,7 @@ class follow_us_on_widget extends WP_Widget
     {
         // List of icons linked to various social networks' Intent pages
         echo '<div id="sidebar-followus" class="widget widget_followus">
-                <h4 class="widget-title">Follow us:</h4>
+                <h4 class="widget-title">Follow Us</h4>
                 <ul>
                     <li class="followus"><a href="http://twitter.com/thknwco" title="Follow The Know on Twitter"><img src="' . get_stylesheet_directory_uri() . '/images/social-twitter.png" alt="Follow The Know on Twitter" /></a></li>
                     <li class="followus"><a href="http://facebook.com/theknowco" title="Like The Know on Facebook"><img src="' . get_stylesheet_directory_uri() . '/images/social-facebook.png" alt="Like The Know on Facebook" /></a></li>
@@ -480,8 +480,7 @@ function rvrb_get_ad_value() {
 
 // Create a simple widget for one-click newsletter signup
 class newsletter_signup_widget extends WP_Widget {
-    public function __construct()
-    {
+    public function __construct() {
             parent::__construct(
                 'newsletter_signup_widget',
                 __('Newsletter Signup', 'newsletter_signup_widget'),
@@ -489,11 +488,32 @@ class newsletter_signup_widget extends WP_Widget {
             );
     }
 
-    public function widget($args, $instance)
-    {
+    public function form( $instance ) {
+        //Check if limit_days exists, if its null, put "new limit_days" for use in the form
+        if ( isset( $instance[ 'newletter_text' ] ) ) {
+            $newletter_text = $instance[ 'newletter_text' ];
+        }
+        else {
+            $newletter_text = __( 'Sign up for our <em>Now You Know</em> emails to get breaking entertainment news and weekend plans sent right to your inbox.', 'wpb_widget_domain' );
+        } ?>
+        <p>
+        <label for="<?php echo $this->get_field_id( 'newletter_text' ); ?>"><?php _e( 'Descriptive text (displayed above email form):' ); ?></label> 
+        <input class="widefat" id="<?php echo $this->get_field_id( 'newletter_text' ); ?>" name="<?php echo $this->get_field_name( 'newletter_text' ); ?>" type="text" value="<?php echo esc_attr( $newletter_text ); ?>" />
+        </p>
+    <?php }
+
+    public function update( $new_instance, $old_instance ) {
+        $instance = array();
+        $instance[ 'newletter_text' ] = ( ! empty( $new_instance[ 'newletter_text' ] ) ) ? trim( wp_kses( $new_instance[ 'newletter_text' ] ) ) : 'Sign up for our <em>Now You Know</em> emails to get breaking entertainment news and weekend plans sent right to your inbox.';
+        return $instance;
+    }
+
+    public function widget($args, $instance) {
+        $newletter_text = $instance[ 'newletter_text' ];
         // The signup form for the email
         echo '<div id="sidebar-newsletter" class="widget widget_newsletter">
-                <h4 class="widget-title">Get Mixtape Newsletters</h4>
+                <h4 class="widget-title">Get Our Newsletter</h4>
+                <p>' . $newletter_text . '</p>
                 <form action="http://www.denverpostplus.com/app/mailer/" method="post" name="reverbmail">
                     <div class="row collapse mx-form">
                         <div class="large-9 small-9 columns">
@@ -501,7 +521,7 @@ class newsletter_signup_widget extends WP_Widget {
                             <input type="hidden" name="goof111" value="TRUE" />
                             <input type="hidden" name="redirect" value="' . get_permalink() . '" />
                             <input type="hidden" name="id" value="autoadd" />
-                            <input type="hidden" name="which" value="reverb" />
+                            <input type="hidden" name="which" value="theknow" />
                             <input type="text" name="name_first" value="Humans: Do Not Use" style="display:none;" />
                             <input required placeholder="Email Address" type="text" name="email_address" maxlength="50" value="" />
                         </div>
