@@ -277,7 +277,7 @@ class follow_us_on_widget extends WP_Widget
             parent::__construct(
                 'follow_us_on_widget',
                 __('Follow Us On [social media]', 'follow_us_on_widget'),
-                array('description' => __('Command readers to like or follow us on various mission-critical social networks!', 'follow_us_on_widget'), )
+                array('description' => __('Command readers to follow us on various mission-critical social networks!', 'follow_us_on_widget'), )
             );
     }
 
@@ -288,9 +288,9 @@ class follow_us_on_widget extends WP_Widget
                 <h4 class="widget-title">Follow Us</h4>
                 <ul>
                     <li class="followus"><a href="http://twitter.com/thknwco" title="Follow The Know on Twitter"><img src="' . get_stylesheet_directory_uri() . '/images/social-twitter.png" alt="Follow The Know on Twitter" /></a></li>
-                    <li class="followus"><a href="http://facebook.com/theknowco" title="Like The Know on Facebook"><img src="' . get_stylesheet_directory_uri() . '/images/social-facebook.png" alt="Like The Know on Facebook" /></a></li>
+                    <li class="followus"><a href="http://facebook.com/denverentertain" title="Like The Know on Facebook"><img src="' . get_stylesheet_directory_uri() . '/images/social-facebook.png" alt="Like The Know on Facebook" /></a></li>
                     <li class="followus"><a href="http://instagram.com/thknwco" title="Follow The Know on Instagram"><img src="' . get_stylesheet_directory_uri() . '/images/social-instagram.png" alt="Follow The Know on Instagram" /></a></li>
-                    <li class="followus"><a href="http://' . get_bloginfo( 'url' ) . '/feed/" title="Follow The Know on RSS"><img src="' . get_stylesheet_directory_uri() . '/images/social-rss.png" alt="Follow The Know on RSS" /></a></li>
+                    <li class="followus"><a href="http://' . get_bloginfo( 'url' ) . '/feed/" title="Follow The Know via RSS"><img src="' . get_stylesheet_directory_uri() . '/images/social-rss.png" alt="Follow The Know via RSS" /></a></li>
                     <div class="clear"></div>
                 </ul>
             </div>';
