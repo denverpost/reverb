@@ -514,6 +514,8 @@ class newsletter_signup_widget extends WP_Widget {
 
     public function widget($args, $instance) {
         $newletter_text = $instance[ 'newletter_text' ];
+        global $wp;
+        $current_url = home_url(add_query_arg(array(),$wp->request));
         // The signup form for the email
         echo '<div id="sidebar-newsletter" class="widget widget_newsletter">
                 <h4 class="widget-title">Get Our Newsletter</h4>
@@ -523,7 +525,7 @@ class newsletter_signup_widget extends WP_Widget {
                         <div class="large-9 small-9 columns">
                             <input type="hidden" name="keebler" value="goof111" />
                             <input type="hidden" name="goof111" value="TRUE" />
-                            <input type="hidden" name="redirect" value="' . get_permalink() . '" />
+                            <input type="hidden" name="redirect" value="' . $current_url . '" />
                             <input type="hidden" name="id" value="autoadd" />
                             <input type="hidden" name="which" value="theknow" />
                             <input type="text" name="name_first" value="Humans: Do Not Use" style="display:none;" />
@@ -539,6 +541,46 @@ class newsletter_signup_widget extends WP_Widget {
 }
 function register_newsletter_signup_widget() { register_widget('newsletter_signup_widget'); }
 add_action( 'widgets_init', 'register_newsletter_signup_widget' );
+
+// Create a simple widget for one-click newsletter signup
+class newstip_submit_widget extends WP_Widget {
+    public function __construct() {
+            parent::__construct(
+                'newstip_submit_widget',
+                __('Newstip Submit', 'newstip_submit_widget'),
+                array('description' => __('Todd was warned about news tip submissions.', 'newstip_submit_widget'), )
+            );
+    }
+
+    public function widget($args, $instance) {
+        global $wp;
+        $current_url = home_url(add_query_arg(array(),$wp->request));
+        // The submit form for the newstip
+        echo '<div id="sidebar-newstip" class="widget widget_newstip">
+                <h4 class="widget-title">Send Us A Tip</h4>
+                <form action="http://neighbors.denverpost.com/app/mailer/" method="post" name="tipmail">
+                    <div class="row collapse mx-form">
+                        <textarea name="comments" rows="4" cols="30"></textarea>
+                        <input type="hidden" name="keebler" value="goof111" />
+                        <input type="hidden" name="goof111" value="TRUE" />
+                        <input type="hidden" name="redirect" value="' . $current_url . '" />
+                        <input type="hidden" name="id" value="newstip" />
+                        <input type="text" name="name_first" value="Humans: Do Not Use" style="display:none;" />
+                        <p>If you would like a reply, include your email:</p>
+                        <div class="large-9 small-9 columns">
+                            <input type="text" name="email_address" value="" maxlength="50" />
+                        </div>
+                        <div class="large-3 small-3 columns end">
+                            <input class="button prefix" type="submit" id="newstipsubmit" value="Send tip">
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </form>
+            </div>';
+    }
+}
+function register_newstip_submit_widget() { register_widget('newstip_submit_widget'); }
+add_action( 'widgets_init', 'register_newstip_submit_widget' );
 
 class sidebar_tagline_widget extends WP_Widget {
     public function __construct() {
