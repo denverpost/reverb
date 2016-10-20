@@ -409,15 +409,19 @@ add_filter('wp_kses_allowed_html', 'rvrb_filter_allowed_html', 10, 2);
 // Attempts to permanently disable the Visual Editor for all users, all the time.
 add_filter( 'user_can_richedit', '__return_false', 50 );
 
-function rvrb_get_top_category_slug() {
+function rvrb_get_top_category_slug($return_slug=false) {
     global $post;
     $curr_cat = get_the_category_list( '/' , 'multiple', $post->ID );
     $valid_cats = array('music','food','drink','things-to-do','arts');
     $curr_cat = explode( '/', $curr_cat );
     $return_cat = array();
     foreach ( $curr_cat as $current ) {
+        $current = sanitize_title( strtolower( $current ) );
         if ( in_array( $current, $valid_cats ) ) {
             $return_cat['slug'] = $current;
+            if ( $return_slug ) { 
+                return $current;
+            }
             break;
         }
     }
@@ -600,7 +604,7 @@ class rvrb_calendar_widget extends WP_Widget
                 $cat = get_category( (int)$id );
                 $category = $cat->slug;
             } else if ( is_single() ) {
-                $category = rvrb_get_top_category_slug();
+                $category = rvrb_get_top_category_slug(true);
             }
             if ( $category ) {
                 switch ( $category ) {
