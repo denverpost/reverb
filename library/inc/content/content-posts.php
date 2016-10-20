@@ -23,7 +23,7 @@ function reactor_do_overline() {
             <h1 class="archive-title venue-header"><span><a href="/venues/">Venues</a></span></h1>
         </header><!-- .archive-header -->
 	<?php } else if ( is_single() ) {
-		$primary_category = rvrb_get_primary_category();
+		$primary_category = tkno_get_primary_category();
 		?>
         <header class="archive-header">
             <h2 <?php post_class('archive-title'); ?>><span><a href="<?php echo $primary_category->url; ?>"><?php echo $primary_category->name; ?></a></span></h2>
@@ -40,7 +40,7 @@ add_action('reactor_post_before', 'reactor_do_overline', 1);
  */
 function reactor_post_frontpage_format() {
 
-	$primary_category = rvrb_get_primary_category();
+	$primary_category = tkno_get_primary_category();
 
 	if ( has_post_thumbnail() ) {
 		$large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'large' );
@@ -114,7 +114,9 @@ function reactor_do_standard_header_titles() {
 	} elseif ( !get_post_format() && !is_page_template('page-templates/front-page.php') ) {  ?>    
 		<?php if ( is_single() ) { ?>
 		<h1 class="entry-title"><?php the_title(); ?></h1>
-		<h2 class="entry-subtitle"><?php the_subtitle(); ?></h2>
+		<?php if ( get_the_subtitle() != '' ): ?>
+			<h2 class="entry-subtitle"><?php the_subtitle(); ?></h2>
+		<?php endif; ?>
 		<?php } else { ?>
 		<h2 class="entry-title"><a href="<?php the_permalink(); ?>" rel="bookmark"><?php the_title(); ?></a></h2>
 		<?php } ?>
@@ -168,12 +170,12 @@ add_action('reactor_post_header', 'reactor_do_standard_thumbnail', 4);
  * Post content after tags
  * in format-standard
  */
-function rvrb_post_body_content_tags() {
+function tkno_post_body_content_tags() {
 	if ( is_single() ) {
 		reactor_post_meta( array( 'just_tags' => true ) );
 	}
 }
-add_action('reactor_post_footer', 'rvrb_post_body_content_tags', 1);
+add_action('reactor_post_footer', 'tkno_post_body_content_tags', 1);
 
 /**
  * Post footer edit 
@@ -241,7 +243,7 @@ add_action('reactor_post_after', 'reactor_do_nav_single', 3);
  * 
  * @since 1.0.0
  */
-function rvrb_single_post_related() {
+function tkno_single_post_related() {
     if ( is_single() && function_exists( 'yarpp_related' ) ) { 
     	global $post; ?>
 	    <div class="related">
@@ -250,6 +252,12 @@ function rvrb_single_post_related() {
 		    	'show_pass_post'	=> false,
 		    	'exclude'			=> array(),
 		    	'recent'			=> '3 month',
+		    	'weight'			=> array(
+		    		'tax'	=> array(
+		    			'post_tag' => 2,
+		    			'venue'   => 1
+		    		)
+		    	),
 		    	'threshold'			=> 2,
 		    	'template'			=> 'yarpp-template-rvrb.php',
 		    	'limit'				=> 3,
@@ -260,7 +268,7 @@ function rvrb_single_post_related() {
 	    </div>
 	<?php }
 }
-add_action('reactor_post_after', 'rvrb_single_post_related', 4);
+add_action('reactor_post_after', 'tkno_single_post_related', 4);
 
 /**
  * No posts format

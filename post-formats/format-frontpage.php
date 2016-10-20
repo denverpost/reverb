@@ -7,7 +7,7 @@
  * @since 1.0.0
  */
 
-$categories_list = rvrb_get_top_category_slug();
+$categories_list = tkno_get_top_category_slug();
 $cat_slug_class = 'format-frontpage category-' . $categories_list->slug;
 ?>
 

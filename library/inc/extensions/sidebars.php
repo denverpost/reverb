@@ -86,20 +86,6 @@ function reactor_register_sidebars() {
 			'after_title'   => '</h4>',
 		) );
 	}
-
-	if ( in_array( 'error', $sidebars[0] ) ) {
-		$footer  = '<div id="%1$s" class="widget top-bar-widget large-6 medium-6 small-12 columns %2$s">';
-		register_sidebar( array(
-			'name'          => __('Error pages', 'reactor'),
-			'id'            => 'sidebar-error',
-			'description'   => 'Error pages widget area',
-			'class'         => '',
-			'before_widget' => $footer,
-			'after_widget'  => '</div>',
-			'before_title'  => '<h4 class="widget-title">',
-			'after_title'   => '</h4>',
-		) );
-	}
 	
 }
 

@@ -24,15 +24,21 @@ function checkListicle() {
   }
 }
 
+function widgetHeightAdjust() {
+  boxes = $j('.frontpage-widget.widget_dpe_fp_widget');
+  maxHeight = Math.max.apply(
+  Math, boxes.map(function() {
+    return $j(this).height();
+  }).get());
+  boxes.height(maxHeight);
+}
+
 $j(document).ready(function() {
   $j(window).load(function() {
     //dpLogoClick();
     checkListicle();
-    boxes = $j('.frontpage-widget.widget_dpe_fp_widget');
-    maxHeight = Math.max.apply(
-    Math, boxes.map(function() {
-      return $j(this).height();
-    }).get());
-    boxes.height(maxHeight);
+    if ( ! window.innerWidth < 541 ) {
+      widgetHeightAdjust();
+    }
   });
 });
