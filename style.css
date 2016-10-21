@@ -783,7 +783,7 @@ h2.archive-title a {
 	color:#fff;
 	letter-spacing:.05em;
 	text-transform: uppercase;
-	background-color:rgba(84, 175, 181, 1);
+	background-color:rgba(67,178,91,1.0);
 	padding:.25em .5em;
 }
 h1.archive-title a {
@@ -1329,6 +1329,7 @@ header h2 a {
 	text-decoration: none;
 	text-align:center;
 	letter-spacing:.1em;
+	background-color:rgba(67,178,91,1.0);
 }
 #frontpagemain article:first-child span {
 	display: none;

@@ -29,8 +29,9 @@ if ( ! function_exists('tkno_get_acceptable_parent') ) {
 }
 
 $cat_parent = tkno_get_acceptable_parent($catquery);
+$cat_display = ( ! empty( $title ) ) ? $title : $catquery->name;
 
-echo $before_title . '<span class="fpe-widget-title category-' . $catquery->slug . ' category-' . $cat_parent . '"><a href="' . get_category_link( intval( $catquery->term_id ) ) . '" title="' . $catquery->name . '">' . $catquery->name . '</a></span>' . $after_title;
+echo $before_title . '<span class="fpe-widget-title category-' . $catquery->slug . ' category-' . $cat_parent . '"><a href="' . get_category_link( intval( $catquery->term_id ) ) . '">' . $cat_display . '</a></span>' . $after_title;
 ?>
 	<ul class="dpe-flexible-posts">
 	<?php while( $flexible_posts->have_posts() ) : $flexible_posts->the_post(); global $post; ?>
