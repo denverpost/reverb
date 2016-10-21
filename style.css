@@ -28,6 +28,10 @@ div#content {
 	padding-left:.65rem;
 	padding-right:.65rem;
 }
+.columns.masocial {
+	padding-left:1.25em;
+	padding-right:1.25em;
+}
 h1, h2, h3, h4, h5, h6 {
 	font-family:'Arvo',Arial,Helvetica,sans-serif;
 	font-weight: 400;
@@ -826,7 +830,11 @@ body:not(.home) .entry-body h2.entry-title {
 }
 .entry-body .entry-meta {
 	font-size:1.1em;
-	margin-bottom:0;
+}
+.entry-body .entry-header .entry-meta {
+	margin-bottom:.25em;
+	padding-bottom:.5em;
+	border-bottom: 1px solid #ddd;
 }
 .entry-body .entry-meta .by-author:after {
 	content:'\2219';
@@ -901,11 +909,15 @@ body:not(.home) .cat-second .entry-body h2.entry-title {
 	margin:0 0 .75em;
 	line-height:1.1;
 }
-.page header.entry-header,
-.single header.entry-header {
+.page header.entry-header {
 	margin-bottom: 1.5em;
 	padding-bottom:.5em;
 	border-bottom: 2px solid #ddd;
+}
+.single header.entry-header {
+	margin-bottom: 1.5em;
+	padding-bottom:0;
+	border-bottom: 1px solid #ddd;
 }
 .page .entry-content figure,
 .single .entry-content figure {
@@ -971,6 +983,11 @@ body:not(.home) .cat-second .entry-body h2.entry-title {
 	margin:.5em 0;
 	border-top: 1px solid #ddd;
 	border-bottom: 1px solid #ddd;
+}
+.entry-footer {
+	margin-top:.5em;
+	padding-top:.5em;
+	border-top: 1px solid #ddd;	
 }
 .entry-content .twitter-tweet-rendered {
 	margin:0 auto!important;

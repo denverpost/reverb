@@ -126,7 +126,7 @@ add_action('reactor_post_header', 'reactor_do_standard_header_titles', 3);
 
 
 /**
- * Post footer meta
+ * Post header meta
  * in all formats
  * 
  * @since 1.0.0
@@ -134,37 +134,46 @@ add_action('reactor_post_header', 'reactor_do_standard_header_titles', 3);
 function reactor_do_post_header_meta() {
 
 	if ( is_single() ) {
-		reactor_post_meta(array('show_cat'=>false,'show_tag'=>false,'catpage'=>true,'link_date'=>false,'social_dropdown'=>true));
+		reactor_post_meta(array('show_cat'=>false,'show_tag'=>false,'catpage'=>true,'link_date'=>false,'social_dropdown'=>false));
 	}
 }
 add_action('reactor_post_header', 'reactor_do_post_header_meta', 4);
 
 /**
- * Post thumbnail
- * in format-standard
+ * Post header social
+ * in all formats
  * 
  * @since 1.0.0
  */
-function reactor_do_standard_thumbnail() { 
-	$link_titles = reactor_option('frontpage_link_titles', 0);
-	
-	if ( has_post_thumbnail() ) { 
-		$large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'large');
-		?>
-		<div class="entry-thumbnail">
-		<?php if ( is_page_template('page-templates/front-page.php') ) {
-			?>
-			<div class="mainimgholder"></div>
-			<a href="<?php the_permalink(); ?>" rel="bookmark"><div class="mainimg" style="background-image:url('<?php echo $large_image_url[0]; ?>');"></div></a>
-        <?php } else { ?>
-			<?php if (!is_single()) { ?><a href="<?php the_permalink(); ?>" rel="bookmark"><?php } ?>
-				<span class="postimg" style="background-image:url('<?php echo $large_image_url[0]; ?>');"></span>
-			<?php if (!is_single()) { ?></a><?php } ?>
-        <?php } ?>
+function reactor_do_post_header_social() {
+
+	if ( is_single() ) { ?>
+		<div class="row">
+			<div class="large-12 medium-12 small-12 columns masocial">
+				<?php echo do_shortcode('[mashshare]'); ?>
+			</div>
 		</div>
 	<?php }
 }
-add_action('reactor_post_header', 'reactor_do_standard_thumbnail', 4);
+add_action('reactor_post_header', 'reactor_do_post_header_social', 5);
+
+/**
+ * Post footer social
+ * in all formats
+ * 
+ * @since 1.0.0
+ */
+function reactor_do_post_footer_social() {
+
+	if ( is_single() ) { ?>
+		<div class="row">
+			<div class="large-12 medium-12 small-12 columns masocial">
+				<?php echo do_shortcode('[mashshare]'); ?>
+			</div>
+		</div>
+	<?php }
+}
+add_action('reactor_post_footer', 'reactor_do_post_footer_social', 1);
 
 /**
  * Post content after tags
@@ -175,20 +184,7 @@ function tkno_post_body_content_tags() {
 		reactor_post_meta( array( 'just_tags' => true ) );
 	}
 }
-add_action('reactor_post_footer', 'tkno_post_body_content_tags', 1);
-
-/**
- * Post footer edit 
- * in single.php
- * 
- * @since 1.0.0
- */
-function reactor_do_post_edit() {
-	if ( is_single() ) {
-		edit_post_link( __('Edit this post', 'reactor'), '<div class="edit-link"><span>', '</span></div>');
-	}
-}
-add_action('reactor_post_footer', 'reactor_do_post_edit', 4);
+add_action('reactor_post_footer', 'tkno_post_body_content_tags', 2);
 
 /**
  * Post footer meta
@@ -214,7 +210,20 @@ function reactor_do_post_footer_meta() {
 		}
 	}
 }
-add_action('reactor_post_footer', 'reactor_do_post_footer_meta', 2);
+add_action('reactor_post_footer', 'reactor_do_post_footer_meta', 3);
+
+/**
+ * Post footer edit 
+ * in single.php
+ * 
+ * @since 1.0.0
+ */
+function reactor_do_post_edit() {
+	if ( is_single() ) {
+		edit_post_link( __('Edit this post', 'reactor'), '<div class="edit-link"><span>', '</span></div>');
+	}
+}
+add_action('reactor_post_footer', 'reactor_do_post_edit', 4);
 
 /**
  * Single post nav 
