@@ -32,6 +32,11 @@ div#content {
 	padding-left:1.25em;
 	padding-right:1.25em;
 }
+.single-venues .columns.masocial {
+	padding-bottom:.5em;
+	margin-bottom:1em;
+	border-bottom:1px solid #ddd;
+}
 h1, h2, h3, h4, h5, h6 {
 	font-family:'Arvo',Arial,Helvetica,sans-serif;
 	font-weight: 400;
@@ -790,6 +795,14 @@ h2.archive-title a {
 	background-color:rgba(67,178,91,1.0);
 	padding:.25em .5em;
 }
+h1.archive-title.venue-header a,
+h2.archive-title.venue-header a,
+.single-venues h2.archive-title a {
+	background-color:#5a5a5a;
+}
+.venue-related h2.archive-title {
+	margin-bottom:1.5em;
+}
 h1.archive-title a {
 	font-size: 1.5em;
 }
@@ -887,6 +900,9 @@ body:not(.home) .cat-second .entry-body h2.entry-title {
 /* single page/post */
 .single .entry-body {
 	border-bottom:none;
+}
+.single-venues .entry-body {
+	margin-bottom:0;
 }
 .single .entry-content div.ndn_embed {
 	margin: 0 0 1.5em;
@@ -1034,6 +1050,9 @@ body:not(.home) .cat-second .entry-body h2.entry-title {
 }
 nav.nav-single {
 	margin-bottom: 1.063em;
+}
+.single-venues nav.nav-single {
+	display:none!important;
 }
 nav.nav-single .nav-previous {
 	display:none;

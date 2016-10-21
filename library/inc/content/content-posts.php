@@ -133,7 +133,7 @@ add_action('reactor_post_header', 'reactor_do_standard_header_titles', 3);
  */
 function reactor_do_post_header_meta() {
 
-	if ( is_single() ) {
+	if ( is_single() && ! ( get_post_type() == 'venues' ) ) {
 		reactor_post_meta(array('show_cat'=>false,'show_tag'=>false,'catpage'=>true,'link_date'=>false,'social_dropdown'=>false));
 	}
 }
@@ -147,7 +147,7 @@ add_action('reactor_post_header', 'reactor_do_post_header_meta', 4);
  */
 function reactor_do_post_header_social() {
 
-	if ( is_single() ) { ?>
+	if ( is_single() && ! ( get_post_type() == 'venues' ) ) { ?>
 		<div class="row">
 			<div class="large-12 medium-12 small-12 columns masocial">
 				<?php echo do_shortcode('[mashshare]'); ?>
@@ -193,9 +193,9 @@ add_action('reactor_post_footer', 'tkno_post_body_content_tags', 2);
  * @since 1.0.0
  */
 function reactor_do_post_footer_meta() {
-	if ( is_single() ) {
+	if ( is_single() && ! ( get_post_type() == 'venues' ) ) {
 		reactor_post_meta( array('show_photo' => true,'show_tag' => true) );
-	} else {
+	} else if ( ! get_post_type() == 'venues' ) {
 		if ( is_page_template('page-templates/front-page.php') ) {
 			$post_meta = reactor_option('frontpage_post_meta', 1);
 		}
@@ -219,7 +219,7 @@ add_action('reactor_post_footer', 'reactor_do_post_footer_meta', 3);
  * @since 1.0.0
  */
 function reactor_do_post_edit() {
-	if ( is_single() ) {
+	if ( is_single() && ! ( get_post_type() == 'venues' ) ) {
 		edit_post_link( __('Edit this post', 'reactor'), '<div class="edit-link"><span>', '</span></div>');
 	}
 }
@@ -253,7 +253,7 @@ add_action('reactor_post_after', 'reactor_do_nav_single', 3);
  * @since 1.0.0
  */
 function tkno_single_post_related() {
-    if ( is_single() && function_exists( 'yarpp_related' ) ) { 
+    if ( is_single() && ! ( get_post_type() == 'venues' ) && function_exists( 'yarpp_related' ) ) { 
     	global $post; ?>
 	    <div class="related">
 		    <?php yarpp_related( array( 
