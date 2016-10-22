@@ -28,13 +28,27 @@ div#content {
 	padding-left:.65rem;
 	padding-right:.65rem;
 }
+.columns.single_venue,
 .columns.masocial {
 	padding-left:1.25em;
 	padding-right:1.25em;
 }
-.single-venues .columns.masocial {
+.entry-footer .single_venue {
+	padding-top:.5em;
 	padding-bottom:.5em;
-	margin-bottom:1em;
+}
+.entry-footer .single_venue h3 {
+	text-align:center;
+	font-size:1.25em;
+	padding-bottom:1em;
+	border-bottom:1px solid #ddd;
+}
+.entry-footer .single_venue h3 a {
+	font-weight:600;
+}
+.single-venues .columns.masocial {
+	padding-bottom:1em;
+	margin-bottom:.5em;
 	border-bottom:1px solid #ddd;
 }
 h1, h2, h3, h4, h5, h6 {

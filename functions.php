@@ -406,9 +406,25 @@ function tkno_filter_allowed_html($allowed, $context){
 }
 add_filter('wp_kses_allowed_html', 'tkno_filter_allowed_html', 10, 2);
 
-// Attempts to permanently disable the Visual Editor for all users, all the time.
-add_filter( 'user_can_richedit', '__return_false', 50 );
+// Get a venue when the custom field matches a venue taxonomy slug
+function tkno_get_venue_from_slug($venue_slug) {
+    $args = array(
+        'post_type'     => 'venues',
+        'meta_query'    => array(
+            array(
+                'key'   => 'venue_slug',
+                'value' => $venue_slug,
+                'compare' => 'LIKE'
+                )
+            ),
+        'posts_limits'    => 1
+        );
+    $query = new WP_Query( $args );
+    $venues = $query->get_posts();
+    return $venues[0];
+}
 
+// Get an acceptable top-level category name and ID, or slug, for classes and labels
 function tkno_get_top_category_slug($return_slug=false) {
     global $post;
     $curr_cat = get_the_category_list( '/' , 'multiple', $post->ID );

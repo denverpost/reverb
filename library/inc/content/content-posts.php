@@ -158,6 +158,28 @@ function reactor_do_post_header_social() {
 add_action('reactor_post_header', 'reactor_do_post_header_social', 5);
 
 /**
+ * Post footer venue
+ * in all formats
+ * 
+ * @since 1.0.0
+ */
+function reactor_do_post_footer_venue() {
+	
+	global $post;
+	$venue = wp_get_post_terms( $post->ID, 'venue' );
+	$venue_page = ( ! empty( $venue[0] ) ) ? tkno_get_venue_from_slug( $venue[0]->slug ) : '';
+
+	if ( is_single() && ! $venue_page == '' ) { ?>
+		<div class="row">
+			<div class="large-12 medium-12 small-12 columns single_venue">
+				<h3>Venue: <a href="<?php echo get_permalink( $venue_page->ID ); ?>"><?php echo $venue_page->post_title; ?></a></h3>
+			</div>
+		</div>
+	<?php }
+}
+add_action('reactor_post_footer', 'reactor_do_post_footer_venue', 1);
+
+/**
  * Post footer social
  * in all formats
  * 
@@ -173,7 +195,7 @@ function reactor_do_post_footer_social() {
 		</div>
 	<?php }
 }
-add_action('reactor_post_footer', 'reactor_do_post_footer_social', 1);
+add_action('reactor_post_footer', 'reactor_do_post_footer_social', 2);
 
 /**
  * Post content after tags
@@ -184,7 +206,7 @@ function tkno_post_body_content_tags() {
 		reactor_post_meta( array( 'just_tags' => true ) );
 	}
 }
-add_action('reactor_post_footer', 'tkno_post_body_content_tags', 2);
+add_action('reactor_post_footer', 'tkno_post_body_content_tags', 3);
 
 /**
  * Post footer meta
@@ -208,9 +230,17 @@ function reactor_do_post_footer_meta() {
 		if ( $post_meta && current_theme_supports('reactor-post-meta') ) {
 			reactor_post_meta();
 		}
-	}
+	} else if ( get_post_type() == 'venues' ) {
+		global $post;
+		$link_uri = 'http://www-beta.heyreverb.com/calendar/#!/show/?search=' . rawurlencode( $post->post_title ); ?>
+		<div class="row">
+			<div class="large-12 medium-12 small-12 columns single_venue">
+				<h3>More events: <a href="<?php echo $link_uri; ?>"><?php echo $post->post_title; ?> on our calendar</a></h3>
+			</div>
+		</div>
+	<?php }
 }
-add_action('reactor_post_footer', 'reactor_do_post_footer_meta', 3);
+add_action('reactor_post_footer', 'reactor_do_post_footer_meta', 4);
 
 /**
  * Post footer edit 
@@ -223,7 +253,7 @@ function reactor_do_post_edit() {
 		edit_post_link( __('Edit this post', 'reactor'), '<div class="edit-link"><span>', '</span></div>');
 	}
 }
-add_action('reactor_post_footer', 'reactor_do_post_edit', 4);
+add_action('reactor_post_footer', 'reactor_do_post_edit', 5);
 
 /**
  * Single post nav 
