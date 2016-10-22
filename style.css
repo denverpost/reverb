@@ -921,7 +921,7 @@ body:not(.home) .cat-second .entry-body h2.entry-title {
 .single .entry-content div.ndn_embed {
 	margin: 0 0 1.5em;
 }
-
+.error404 h1.entry-title,
 .page h1.entry-title,
 .single h1.entry-title {
 	font-family:'Arvo',Arial,Helvetica,sans-serif;
@@ -944,6 +944,7 @@ body:not(.home) .cat-second .entry-body h2.entry-title {
 	padding-bottom:.5em;
 	border-bottom: 2px solid #ddd;
 }
+.error404 header.entry-header,
 .single header.entry-header {
 	margin-bottom: 1.5em;
 	padding-bottom:0;
