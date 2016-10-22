@@ -202,7 +202,7 @@ if ( !function_exists('reactor_post_meta') ) {
 			}
 			$author .= '</span>';
 		} else if ( get_the_author_meta('publication') != 'hidden'  ) {
-			$authorraw = ( !$args['show_photo'] ) ? '<span class="author">By <a class="url fn n" href="%1$s" rel="author">%2$s</a>%3$s</span>' : '<h4 class="author"><a class="url fn n" href="%1$s" rel="author">%2$s</a>%3$s</h4>';
+			$authorraw = ( !$args['show_photo'] ) ? '<span class="author">By <a class="url fn n" href="%1$s" rel="author">%2$s</a>%3$s</span>' : '<h4 class="author"><a class="url fn n" href="%1$s" rel="author">%2$s</a></h4>';
 			$author = sprintf($authorraw,
 				esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
 				get_the_author_meta( 'display_name' ),
