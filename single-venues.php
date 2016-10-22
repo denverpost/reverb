@@ -38,10 +38,11 @@
                 <?php reactor_inner_content_after(); ?>
 
                 <?php global $post;
-                    $venue_name = get_the_terms($post->ID, 'venue'); ?>
+                    $venue_slug = get_post_meta($post->ID, 'venue_slug');
+                    $venue_name = get_term_by( 'slug', $venue_slug[0], 'venue' ); ?>
                 
                 <div class="venue-related">
-                    <h2 class="archive-title"><a class="noclick" href="javascript:void(0);">Recent stories featuring <?php echo $venue_name[0]->name; ?></a></h2>
+                    <h2 class="archive-title"><a class="noclick" href="javascript:void(0);">Recent stories featuring <?php echo $venue_name->name; ?></a></h2>
 
                     <?php
 
@@ -51,10 +52,10 @@
                                 array(
                                     'taxonomy' => 'venue',
                                     'field' => 'slug',
-                                    'terms' => array( $venue_name[0]->slug )
+                                    'terms' => array( $venue_name->slug )
                                 ),
                             ),
-                            'posts_per_page' => 5,
+                            'posts_per_page' => 10,
                             );
                         
                         $venue_query = new WP_Query( $args ); ?>
