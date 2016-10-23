@@ -82,7 +82,7 @@ function reactor_post_catpage_format() {
 			<a href="<?php the_permalink(); ?>" rel="bookmark">
 				<h2 class="entry-title"><?php the_title(); ?></h2>
 			</a>
-			<p class="catexcerpt"><?php echo smart_trim(get_the_content(),25); ?></p>
+			<p class="catexcerpt"><?php echo smart_trim( strip_shortcodes( get_the_content() ), 25 ); ?></p>
 			<?php 
 			reactor_post_meta(array('show_cat'=>false,'show_tag'=>false,'catpage'=>true,'link_date'=>false)); ?>
 		</div>
