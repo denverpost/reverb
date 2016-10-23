@@ -1088,6 +1088,7 @@ class tkno_popular_widget extends WP_Widget
                 'tag_id'            => $dm_tag->term_id,
                 'posts_per_page'    => '5',
                 'orderby'           => 'rand',
+                'adp_disable'       => true,
                 );
             $dm_query = new WP_Query( $args );
             $i=1;
@@ -1187,6 +1188,28 @@ function tkno_admin_enqueue($hook) {
 }
 add_action( 'admin_enqueue_scripts', 'tkno_admin_enqueue' );
 
+/**
+ * Attempt to de-dupe the homepage results
+ */
+function tkno_exclude_duplicates( &$query ) {
+    if (!is_front_page()) return;
+    global $adp_posts;
+    $disable_now = $query->get('adp_disable'); // use 'adp_disable' to prevent exclusion
+    if (empty($query->post__not_in) && empty($disable_now)) {
+        $query->set('post__not_in', $adp_posts);
+    }
+}
+add_action('parse_query', 'tkno_exclude_duplicates');
+$adp_posts = array();
+function tkno_log_posts( $posts, $query ) {
+    if (!is_front_page()) return $posts;
+    global $adp_posts;
+    foreach ($posts as $i => $post) {
+        $adp_posts[] = $post->ID;
+    }
+    return $posts;
+}
+add_filter('the_posts', 'tkno_log_posts', 10, 2);
 
 /*
 Plugin Name: Default to GD
