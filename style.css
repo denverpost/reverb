@@ -1676,7 +1676,7 @@ body.category-drink h1.archive-title a {
 		width:100%;
 		margin:1em 0;
 	}
-	.columns.masocial mashicon-print {
+	.columns.masocial .mashsb-box .mashsb-buttons .mashicon-print {
 		display:none;
 	}
 }
