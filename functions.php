@@ -296,6 +296,8 @@ class follow_us_on_widget extends WP_Widget
             </div>';
     }
 }
+function register_follow_us_on_widget() { register_widget('follow_us_on_widget'); }
+add_action( 'widgets_init', 'register_follow_us_on_widget' );
 
 // Exclude Pages from search
 function tkno_search_filter_pages($query) {
@@ -307,8 +309,17 @@ function tkno_search_filter_pages($query) {
 if ( ! is_admin() ) {
     add_filter('pre_get_posts','tkno_search_filter_pages');
 }
-function register_follow_us_on_widget() { register_widget('follow_us_on_widget'); }
-add_action( 'widgets_init', 'register_follow_us_on_widget' );
+
+// Show search results by date
+function tkno_search_query( $query ) {
+    // not an admin page and is the main query
+    if ( !is_admin() && $query->is_main_query() ) {
+        if ( is_search() ) {
+            $query->set( 'orderby', 'date' );
+        }
+    }
+}
+add_action( 'pre_get_posts', 'tkno_search_query' );
 
 /**
  * Include posts from authors in the search results where
