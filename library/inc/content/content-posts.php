@@ -25,8 +25,9 @@ function reactor_do_overline() {
 	<?php } else if ( is_single() ) {
 		$primary_category = tkno_get_primary_category();
 		$class_category = 'archive-title category-' . tkno_get_top_category_slug(true);
+		$class_header_category = ' category-' . tkno_get_top_category_slug( true );
 		?>
-        <header class="archive-header">
+        <header class="archive-header<?php echo $class_header_category; ?>">
             <h2 <?php post_class($class_category); ?>><span><a href="<?php echo $primary_category->url; ?>"><?php echo $primary_category->name; ?></a></span></h2>
         </header><!-- .archive-header -->
 	<?php }
