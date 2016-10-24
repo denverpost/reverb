@@ -1069,7 +1069,7 @@ class tkno_popular_widget extends WP_Widget
                     $post = get_post( $p[ 'post_id' ] );
                     $post_date = strtotime( $post->post_date );
                     $today_date = time();
-                    if ( $i <= 5 && ( $today_date - $post_date ) <= 60*60*24*(int)$limit_days && ( $p['post_title'] != 'Home page' ) ) { ?>
+                    if ( $i <= 5 && ( $today_date - $post_date ) <= 60*60*24*(int)$limit_days && ( get_post_type( $p['post_id'] ) != 'page' ) ) { ?>
                         <li class="clearfix"><span class="pop_num"><?php echo $i; ?></span><a href="<?php echo $p['post_permalink']; ?>"><?php echo $p['post_title']; ?></a><div class="clear"></div></li>
                         <?php
                         $i++;
