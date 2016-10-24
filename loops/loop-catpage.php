@@ -39,9 +39,9 @@ $number_posts = 25;
 
                         <?php reactor_post_after(); ?>
 
-                <?php echo ( $i == 0 || $i == 1 ) ? '</div>' : ''; ?>
+                <?php echo ( ( $i == 0 || $i == 1 ) && $i != $wp_query->post_count - 1 ) ? '</div>' : ''; ?>
 
-            <?php echo ( $i == 2 ) ? '</div></div>' : ''; ?>
+            <?php echo ( $i == 2 || $i == $wp_query->post_count - 1 ) ? '</div></div>' : ''; ?>
 
             <?php $i++; ?>
 

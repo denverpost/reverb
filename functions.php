@@ -426,9 +426,9 @@ function tkno_get_venue_from_slug($venue_slug) {
 }
 
 // Get an acceptable top-level category name and ID, or slug, for classes and labels
-function tkno_get_top_category_slug($return_slug=false) {
+function tkno_get_top_category_slug($return_slug=false,$cat_id=false) {
     global $post;
-    $curr_cat = get_the_category_list( '/' , 'multiple', $post->ID );
+    $curr_cat = ( $cat_id ) ? get_category_parents( $cat_id, false, '/', true ) : get_the_category_list( '/' , 'multiple', $post->ID );
     $valid_cats = array('music','food','drink','things-to-do','arts');
     $curr_cat = explode( '/', $curr_cat );
     $return_cat = array();
