@@ -1093,21 +1093,21 @@ class tkno_popular_widget extends WP_Widget
                 );
             $dm_query = new WP_Query( $args );
             $i=1;
-            echo '<div id="sidebar-dontmiss" class="widget widget_dontmiss">
-                <h4 class="widget-title">Don\'t Miss</h4>
-                <ul>';
             if ( $dm_query->have_posts() ) {
+                echo '<div id="sidebar-dontmiss" class="widget widget_dontmiss">
+                    <h4 class="widget-title">Don\'t Miss</h4>
+                    <ul>';
                 while ( $dm_query->have_posts() ) : $dm_query->the_post();
                     if ( $i <= 5 ) { ?>
                         <li class="clearfix"><span class="pop_num"><?php echo $i; ?></span><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a><div class="clear"></div></li>
                     <?php $i++;
                     }
                 endwhile;
+                echo '</ul>
+                    </div>';
             } else {
                 ?> <!-- Sorry, there are no Don't Miss posts at this time! --><?php
             }
-            echo '</ul>
-                </div>';
         }
     }
 }
