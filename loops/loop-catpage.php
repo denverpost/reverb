@@ -24,14 +24,12 @@ $number_posts = 25;
     <?php if ( $wp_query->have_posts() ) : ?>
     
     <?php reactor_loop_before(); ?>
-
-        <?php $i=0; ?>
     	
         <?php while ( $wp_query->have_posts() ) : $wp_query->the_post(); ?>
 
-            <?php echo ( $i == 0 ) ? '<div class="cat-main">' : ''; ?>
-                    <?php echo ( $i == 1 ) ? '<div class="row cat-top"><div class="large-6 medium-6 small-12 columns cat-main">' : ''; ?>
-                    <?php echo ( $i == 2 ) ? '<div class="large-6 medium-6 small-12 columns cat-main">' : ''; ?>
+            <?php echo ( $wp_query->current_post == 0 ) ? '<div class="cat-main">' : ''; ?>
+                    <?php echo ( $wp_query->current_post == 1 ) ? '<div class="row cat-top"><div class="large-6 medium-6 small-12 columns cat-main">' : ''; ?>
+                    <?php echo ( $wp_query->current_post == 2 ) ? '<div class="large-6 medium-6 small-12 columns cat-main">' : ''; ?>
 			
             			<?php reactor_post_before(); ?>
 
@@ -39,11 +37,9 @@ $number_posts = 25;
 
                         <?php reactor_post_after(); ?>
 
-                <?php echo ( ( $i == 0 || $i == 1 ) ) ? '</div><!-- #end row-single -->' : ''; ?>
+                <?php echo ( $wp_query->current_post == 0 || ( $wp_query->current_post == 1 && $wp_query->post_count > 2 ) ) ? '</div><!-- #end row-single -->' : ''; ?>
 
-            <?php echo ( $i == 2 || $wp_query->post_count < 3 ) ? '</div></div><!-- #end row-double -->' : ''; ?>
-
-            <?php $i++; ?>
+            <?php echo ( $wp_query->current_post == 2 || ( $wp_query->current_post == 1 && $wp_query->post_count == 2 ) ) ? '</div></div><!-- #end row-double -->' : ''; ?>
 
         <?php endwhile; // end of the post loop ?>
 
