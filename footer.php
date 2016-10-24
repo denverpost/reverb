@@ -32,7 +32,7 @@
 	_sf_async_config.uid = 2671;
 	_sf_async_config.domain = "theknow.denverpost.com";
 	_sf_async_config.flickerControl = false;
-	_sf_async_config.sections = "<?php echo $GLOBALS['dfmcat'][0]; ?>";
+	_sf_async_config.sections = ["<?php echo $GLOBALS['dfmcat'][0]; ?>"];
 	<?php if ( is_single() && strlen( $GLOBALS['dfmby'] ) > 2 ): ?>
 		_sf_async_config.authors = '<?php echo $GLOBALS['dfmby']; ?>'
 	<?php endif; ?>
