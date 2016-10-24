@@ -575,7 +575,7 @@ class newstip_submit_widget extends WP_Widget {
         // The submit form for the newstip
         echo '<div id="sidebar-newstip" class="widget widget_newstip">
                 <h4 class="widget-title">Send Us A Tip</h4>
-                <form action="http://neighbors.denverpost.com/app/mailer/" method="post" name="tipmail">
+                <form action="http://www.denverpostplus.com/app/mailer/" method="post" name="tipmail">
                     <div class="row collapse mx-form">
                         <textarea name="comments" rows="4" cols="30"></textarea>
                         <input type="hidden" name="keebler" value="goof111" />
