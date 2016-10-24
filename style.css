@@ -414,6 +414,7 @@ body.search h1.page-title {
 	margin-top:0;
 	margin-bottom:1em;
 	border-bottom:1px solid #aaa;
+	font-size:1.5em;
 }
 h1 span.searchresults { font-size:.75em; color:rgba(73,73,73,1); }
 body.error404 article.error404 h6.oopsies {
@@ -1596,6 +1597,9 @@ header.category-drink h1.category-drink.archive-title a {
 	.page h1.entry-title,
 	.single h1.entry-title {
 		font-size:1.5em;
+	}
+	body.search h1.page-title {
+		font-size:1.05em;
 	}
 	.page .entry-content p,
 	.page .entry-content h2,

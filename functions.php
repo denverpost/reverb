@@ -310,17 +310,6 @@ if ( ! is_admin() ) {
     add_filter('pre_get_posts','tkno_search_filter_pages');
 }
 
-// Show search results by date
-function tkno_search_query( $query ) {
-    // not an admin page and is the main query
-    if ( !is_admin() && $query->is_main_query() ) {
-        if ( is_search() ) {
-            $query->set( 'orderby', 'date' );
-        }
-    }
-}
-add_action( 'pre_get_posts', 'tkno_search_query' );
-
 /**
  * Include posts from authors in the search results where
  * either their display name or user login matches the query string
