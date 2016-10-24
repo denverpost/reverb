@@ -16,6 +16,7 @@ if ( !function_exists('reactor_page_links') ) {
 		$defaults = array( 
 			'query' => 'wp_query',
 			'type'  => 'numbered',
+			'adp_disable' => true
 		 );
 		$args = wp_parse_args( $args, $defaults );
 
