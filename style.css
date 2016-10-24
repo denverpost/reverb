@@ -1397,35 +1397,35 @@ h4.widget-title span.fpe-widget-title.category-arts a,
 .yarpp-related .category-arts span,
 #frontpagemain article.category-arts span,
 header h2.category-arts a,
-body.category-arts h1.archive-title a {
+body h1.category-arts.archive-title a {
 	background-color:rgba(78,199,228,1.0);
 }
 h4.widget-title span.fpe-widget-title.category-music a,
 .yarpp-related .category-music span,
 #frontpagemain article.category-music span,
 header h2.category-music a,
-body.category-music h1.archive-title a {
+body h1.category-music.archive-title a {
 	background-color:rgba(240,75,36,1.0);
 }
 h4.widget-title span.fpe-widget-title.category-things-to-do a,
 .yarpp-related .category-things-to-do span,
 #frontpagemain article.category-things-to-do span,
 header h2.category-things-to-do a,
-body.category-things-to-do h1.archive-title a {
+body h1.category-things-to-do.archive-title a {
 	background-color:rgba(132,49,166,1.0);
 }
 h4.widget-title span.fpe-widget-title.category-food a,
 .yarpp-related .category-food span,
 #frontpagemain article.category-food span,
 header h2.category-food a,
-body.category-food h1.archive-title a {
+body h1.category-food.archive-title a {
 	background-color:rgba(200,218,66,1.0);
 }
 h4.widget-title span.fpe-widget-title.category-drink a,
 .yarpp-related .category-drink span,
 #frontpagemain article.category-drink span,
 header h2.category-drink a,
-body.category-drink h1.archive-title a {
+body h1.category-drink.archive-title a {
 	background-color:rgba(250,167,27,1.0);
 }
 #colophon { text-align:right; font-size:.6em; }
