@@ -41,7 +41,7 @@ $number_posts = 25;
 
                 <?php echo ( ( $i == 0 || $i == 1 ) ) ? '</div><!-- #end row-single -->' : ''; ?>
 
-            <?php echo ( $i == 2 || $wp_query->post_count = < 3 ) ? '</div></div><!-- #end row-double -->' : ''; ?>
+            <?php echo ( $i == 2 || $wp_query->post_count < 3 ) ? '</div></div><!-- #end row-double -->' : ''; ?>
 
             <?php $i++; ?>
 
