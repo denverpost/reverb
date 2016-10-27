@@ -1328,8 +1328,9 @@ ul.pagination li a:hover {
     margin-right: 1em;
 }
 h2.about-authors-list { font-size: 1.6em }
-h2.about-author-title { font-size: 1.4em }
-.about-author p { font-size: 1em }
+h2.about-author-title { font-size: 1.1em }
+h2.about-author-title span { font-size:.8em; }
+.about-author p { font-size: .9em }
 
 /* sidebar widget styles */
 h4.widget-title {

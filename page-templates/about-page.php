@@ -34,11 +34,13 @@
 
                     foreach($blogauthors as $author) {
                         if ( get_the_author_meta('list_author_about', $author->ID) == true ) {
+                            $display_title = ( get_the_author_meta( 'display_title', $author->ID ) ) ? '<span>, <em>' . get_the_author_meta( 'display_title', $author->ID ) . '</em></span>' : '';
                             if ( get_the_author_meta('display_author_as', $author->ID) == 'editor' ) {
                                 $editorsout .= '<li class="about-author">';
-                                    $editorsout .= sprintf('<h2 class="about-author-title"><a class="url fn n" href="%1$s" title="%2$s" rel="author">%2$s</a></h2>',
+                                    $editorsout .= sprintf('<h2 class="about-author-title"><a class="url fn n" href="%1$s" title="%2$s" rel="author">%2$s</a>%3$s</h2>',
                                         esc_url( get_author_posts_url( $author->ID ) ),
-                                        get_the_author_meta('display_name', $author->ID)
+                                        get_the_author_meta( 'display_name', $author->ID),
+                                        $display_title
                                     );
                                     $editorsout .= '<div class="about-author-image">';
                                     if (the_author_image_url($author->ID) !== '') {
@@ -54,9 +56,10 @@
                             }
                             if ( get_the_author_meta('display_author_as', $author->ID) == 'writer' ) {
                                 $authorsout .= '<li class="about-author">';
-                                    $authorsout .= sprintf('<h2 class="about-author-title"><a class="url fn n" href="%1$s" title="%2$s" rel="author">%2$s</a></h2>',
+                                    $authorsout .= sprintf('<h2 class="about-author-title"><a class="url fn n" href="%1$s" title="%2$s" rel="author">%2$s</a>%3$s</h2>',
                                         esc_url( get_author_posts_url( $author->ID ) ),
-                                        get_the_author_meta('display_name', $author->ID)
+                                        get_the_author_meta('display_name', $author->ID),
+                                        $display_title
                                     );
                                     $authorsout .= '<div class="about-author-image">';
                                     if (the_author_image_url($author->ID) !== '') {
@@ -72,9 +75,10 @@
                             }
                             if ( get_the_author_meta('display_author_as', $author->ID) == 'photographer' ) {
                                 $photogsout .= '<li class="about-author">';
-                                    $photogsout .= sprintf('<h2 class="about-author-title"><a class="url fn n" href="%1$s" title="%2$s" rel="author">%2$s</a></h2>',
+                                    $photogsout .= sprintf('<h2 class="about-author-title"><a class="url fn n" href="%1$s" title="%2$s" rel="author">%2$s</a>%3$s</h2>',
                                         esc_url( get_author_posts_url( $author->ID ) ),
-                                        get_the_author_meta('display_name', $author->ID)
+                                        get_the_author_meta('display_name', $author->ID),
+                                        $display_title
                                     );
                                     $photogsout .= '<div class="about-author-image">';
                                     if (the_author_image_url($author->ID) !== '') {
@@ -102,7 +106,7 @@
                         $staffdisplay .= '<h2 class="about-authors-list">Photographers:</h2><ul class="multi-column large-block-grid-2" data-match-height="">' . $photogsout . '</ul>';
                     } ?>
 
-                    <h2>Reverb Staff</h2>
+                    <h2>The Know Staff</h2>
 
                     <?php
                     echo $staffdisplay;

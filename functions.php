@@ -149,6 +149,7 @@ function modify_contact_methods($profile_fields) {
 
     // Add new fields
     $profile_fields['publication'] = 'Publication';
+    $profile_fields['display_title'] = 'Title (i.e.: \'Editor\'; leave blank to not display)';
     $profile_fields['instagram'] = 'Instagram username';
     $profile_fields['email_public'] = 'Public E-mail address (displayed on site)';
 
@@ -298,17 +299,6 @@ class follow_us_on_widget extends WP_Widget
 }
 function register_follow_us_on_widget() { register_widget('follow_us_on_widget'); }
 add_action( 'widgets_init', 'register_follow_us_on_widget' );
-
-// Exclude Pages from search
-function tkno_search_filter_pages($query) {
-    if ($query->is_search) {
-        $query->set('post_type', 'post');
-    }
-    return $query;
-}
-if ( ! is_admin() ) {
-    add_filter('pre_get_posts','tkno_search_filter_pages');
-}
 
 /**
  * Include posts from authors in the search results where
