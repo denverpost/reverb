@@ -106,7 +106,7 @@
                         $staffdisplay .= '<h2 class="about-authors-list">Photographers:</h2><ul class="multi-column large-block-grid-2" data-match-height="">' . $photogsout . '</ul>';
                     } ?>
 
-                    <h2>The Know Staff</h2>
+                    <h2 class="stafflist">The Know Staff</h2>
 
                     <?php
                     echo $staffdisplay;

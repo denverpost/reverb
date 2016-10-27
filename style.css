@@ -1327,7 +1327,8 @@ ul.pagination li a:hover {
     float: left;
     margin-right: 1em;
 }
-h2.about-authors-list { font-size: 1.6em }
+h2.stafflist { font-size:1.4em; }
+h2.about-authors-list { font-size: 1.25em }
 h2.about-author-title { font-size: 1.1em }
 h2.about-author-title span { font-size:.8em; }
 .about-author p { font-size: .9em }
