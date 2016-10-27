@@ -39,7 +39,7 @@
 				<?php reactor_loop_before(); ?>
 				
                 	        <header class="page-header">
-                        	<h1 class="page-title"><span class="searchresults">Showing <?php echo $entries; ?> <strong><?php echo $results_first; ?></strong> <?php if ( $wp_query->post_count != 1 && $paged != 0 ): ?> to <strong><?php echo $results_last; ?></strong> <?php endif; ?>(of <?php echo $results_total; ?>) for</span> <?php echo get_search_query(); ?></h1>
+                        	<h1 class="page-title"><span class="searchresults">Showing <?php echo $entries; ?> <strong><?php echo $results_first; ?></strong> <?php if ( $wp_query->post_count != 1 && $paged != 1 ): ?> to <strong><?php echo $results_last; ?></strong> <?php endif; ?>(of <?php echo $results_total; ?>) for</span> <?php echo get_search_query(); ?></h1>
                     		</header> 
 
 				<?php // start the loop
