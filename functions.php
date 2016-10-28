@@ -1233,8 +1233,8 @@ add_filter( 'title_save_pre',   'replace_smart_chars' );
 // Hide the Wordpress SEO canonical for posts that already have one from Autoblog
 function tkno_wpseo_canonical_override( $canonical ) {
     global $post;
-    if ( is_singular() && get_post_meta($post->ID, 'original_guid')) {
-        $canonical = get_post_meta($post->ID, 'original_guid')[0];
+    if ( is_singular() && get_post_meta( $post->ID, 'original_guid' ) ) {
+        $canonical = get_post_meta( $post->ID, 'original_guid' )[0];
     }
     return $canonical;
 }
@@ -1273,7 +1273,7 @@ add_action( 'wp_enqueue_scripts', 'tkno_dequeue_scripts', 99 );
 
 /**
  * Remove jquery migrate and move jquery to footer
- */
+ */ /*
 function tkno_remove_jquery_migrate( &$scripts)
 {
     if(!is_admin())
@@ -1283,7 +1283,7 @@ function tkno_remove_jquery_migrate( &$scripts)
     }
 }
 add_filter( 'wp_default_scripts', 'tkno_remove_jquery_migrate' );
-
+*/
 /**
  * deregister stupid wP emoji BS
  */
