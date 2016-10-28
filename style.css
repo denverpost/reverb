@@ -1210,6 +1210,14 @@ nav.nav-single .nav-next a:after {
 }
 
 /* author page */
+h1.author-title {
+	font-family:'Arvo',Arial,Helvetica,sans-serif;
+	font-weight: 400;
+	font-size: 1.6em;
+	line-height:1.2;
+	text-transform: uppercase;
+	margin-bottom: .5em;
+}
 .author-info p, .author-info li {
 	font-size:1.3em;
 }
@@ -1226,7 +1234,7 @@ ul.author-social {
 	padding-left:1em;
 }
 h2.author-posts-title {
-	font-size: 1.6em;
+	font-size: 1.4em;
 	margin-top: 0;
 	line-height: 1;
 	margin-bottom: 1em;
@@ -1234,7 +1242,7 @@ h2.author-posts-title {
 	border-bottom: 1px solid #000000;
 }
 body.author .author-posts .entry-body h2.entry-title {
-	font-size:1.3em;
+	font-size:1.2em;
 }
 
 /* GSS slideshows */
@@ -1363,7 +1371,9 @@ ul.pagination li a:hover {
 h2.stafflist { font-size:1.4em; }
 h2.about-authors-list { font-size: 1.25em }
 h2.about-author-title { font-size: 1.1em }
-h2.about-author-title span { font-size:.8em; }
+h2.about-author-title span,
+h1.author-title span,
+h4.author span { font-size:.8em; }
 .about-author p { font-size: .9em }
 
 /* sidebar widget styles */
