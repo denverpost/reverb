@@ -1231,15 +1231,16 @@ add_filter( 'content_save_pre', 'replace_smart_chars' );
 add_filter( 'title_save_pre',   'replace_smart_chars' );
 
 // Hide the Wordpress SEO canonical for posts that already have one from Autoblog
-/*function tkno_wpseo_canonical_override( $canonical ) {
+function tkno_wpseo_canonical_override( $canonical ) {
     global $post;
     if ( is_singular() && get_post_meta( $post->ID, 'original_guid' ) ) {
-        $canonical = get_post_meta( $post->ID, 'original_guid' )[0];
+        $meta_canonical = get_post_meta( $post->ID, 'original_guid' );
+        $canonical = $meta_canonical[0];
     }
     return $canonical;
 }
 add_filter( 'wpseo_canonical', 'tkno_wpseo_canonical_override' );
-*/
+
 
 // Increase Custom Field Limit
 function tkno_customfield_limit_increase( $limit ) {
@@ -1250,7 +1251,7 @@ add_filter( 'postmeta_form_limit' , 'tkno_customfield_limit_increase' );
 
 /**
  * dequeue WP Email, Contact Form 7 and Gallery Slideshow scripts when not necessary
- */ /*
+ */
 function tkno_dequeue_scripts() {
     if( is_singular() ) {
         $post = get_post();
@@ -1270,10 +1271,10 @@ function tkno_dequeue_scripts() {
     wp_dequeue_style( 'wp-email' );
 }
 add_action( 'wp_enqueue_scripts', 'tkno_dequeue_scripts', 99 );
-*/
+
 /**
  * Remove jquery migrate and move jquery to footer
- */ /*
+ */ 
 function tkno_remove_jquery_migrate( &$scripts)
 {
     if(!is_admin())
@@ -1283,16 +1284,16 @@ function tkno_remove_jquery_migrate( &$scripts)
     }
 }
 add_filter( 'wp_default_scripts', 'tkno_remove_jquery_migrate' );
-*/
+
 /**
  * deregister stupid wP emoji BS
- */ /*
+ */
 remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
 remove_action( 'wp_print_styles', 'print_emoji_styles' );
-*/
+
 /**
  * deregister unused Jetpack CSS
- */ /*
+ */ 
 function tkno_remove_all_jp_css() {
   wp_deregister_style( 'AtD_style' ); // After the Deadline
   wp_deregister_style( 'jetpack_likes' ); // Likes
@@ -1320,4 +1321,4 @@ function tkno_remove_all_jp_css() {
 if ( ! is_admin() ) {
     add_filter( 'jetpack_implode_frontend_css', '__return_false' );
     add_action('wp_print_styles', 'tkno_remove_all_jp_css' );
-} */
+} 
