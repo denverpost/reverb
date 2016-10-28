@@ -1250,7 +1250,7 @@ add_filter( 'postmeta_form_limit' , 'tkno_customfield_limit_increase' );
 
 /**
  * dequeue WP Email, Contact Form 7 and Gallery Slideshow scripts when not necessary
- */
+ */ /*
 function tkno_dequeue_scripts() {
     if( is_singular() ) {
         $post = get_post();
@@ -1270,7 +1270,7 @@ function tkno_dequeue_scripts() {
     wp_dequeue_style( 'wp-email' );
 }
 add_action( 'wp_enqueue_scripts', 'tkno_dequeue_scripts', 99 );
-
+*/
 /**
  * Remove jquery migrate and move jquery to footer
  */ /*
@@ -1286,10 +1286,10 @@ add_filter( 'wp_default_scripts', 'tkno_remove_jquery_migrate' );
 */
 /**
  * deregister stupid wP emoji BS
- */
+ */ /*
 remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
 remove_action( 'wp_print_styles', 'print_emoji_styles' );
-
+*/
 /**
  * deregister unused Jetpack CSS
  */ /*
