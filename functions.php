@@ -1231,7 +1231,7 @@ add_filter( 'content_save_pre', 'replace_smart_chars' );
 add_filter( 'title_save_pre',   'replace_smart_chars' );
 
 // Hide the Wordpress SEO canonical for posts that already have one from Autoblog
-function tkno_wpseo_canonical_override( $canonical ) {
+/*function tkno_wpseo_canonical_override( $canonical ) {
     global $post;
     if ( is_singular() && get_post_meta( $post->ID, 'original_guid' ) ) {
         $canonical = get_post_meta( $post->ID, 'original_guid' )[0];
@@ -1239,7 +1239,7 @@ function tkno_wpseo_canonical_override( $canonical ) {
     return $canonical;
 }
 add_filter( 'wpseo_canonical', 'tkno_wpseo_canonical_override' );
-
+*/
 
 // Increase Custom Field Limit
 function tkno_customfield_limit_increase( $limit ) {
