@@ -1292,7 +1292,7 @@ remove_action( 'wp_print_styles', 'print_emoji_styles' );
 
 /**
  * deregister unused Jetpack CSS
- */
+ */ /*
 function tkno_remove_all_jp_css() {
   wp_deregister_style( 'AtD_style' ); // After the Deadline
   wp_deregister_style( 'jetpack_likes' ); // Likes
@@ -1320,4 +1320,4 @@ function tkno_remove_all_jp_css() {
 if ( ! is_admin() ) {
     add_filter( 'jetpack_implode_frontend_css', '__return_false' );
     add_action('wp_print_styles', 'tkno_remove_all_jp_css' );
-}
+} */
