@@ -1247,3 +1247,21 @@ function replace_smart_chars( $str ) {
 // Add filters to modify the content before saving to the database
 add_filter( 'content_save_pre', 'replace_smart_chars' );
 add_filter( 'title_save_pre',   'replace_smart_chars' );
+
+// Hide the Wordpress SEO canonical for posts that already have one from Autoblog
+function wpseo_canonical_exclude( $canonical ) {
+    global $post;
+    if ( is_singular() && get_post_meta($post->ID, 'original_guid')) {
+        $canonical = false;
+    }
+    return $canonical;
+}
+add_filter( 'wpseo_canonical', 'wpseo_canonical_exclude' );
+
+
+// Increase Custom Field Limit
+function dpmj_customfield_limit_increase( $limit ) {
+    $limit = 100;
+    return $limit;
+}
+add_filter( 'postmeta_form_limit' , 'dpmj_customfield_limit_increase' );

@@ -982,21 +982,54 @@ body:not(.home) .cat-second .entry-body h2.entry-title {
 	height:auto;
 }
 .page .entry-content p,
-.page .entry-content h2,
-.page .entry-content h3,
 .page .entry-content iframe,
 .single .entry-content p,
-.single .entry-content h2,
-.single .entry-content h3,
 .single .entry-content iframe {
 	margin:0 10% 1em;
 	width:80%;
+}
+.page .entry-content h2,
+.page .entry-content h3,
+.page .entry-content h4,
+.single .entry-content h2,
+.single .entry-content h3,
+.single .entry-content h4 {
+	margin:0 8% 1em;
+	width:84%;
 }
 .page .entry-content ul,
 .page .entry-content ol,
 .single .entry-content ul,
 .single .entry-content ol {
 	margin:0 15% 1em;
+}
+.page .entry-content h2,
+.single .entry-content h2 {
+	font-family:'Arvo',Arial,Helvetica,sans-serif;
+	font-weight: 600;
+	font-size: 1.4em;
+	line-height: 1.2;
+	margin-top:1.5em;
+	margin-bottom:.75em;
+}
+.page .entry-content h3,
+.single .entry-content h3 {
+	font-family:'Open Sans',Arial,Helvetica,sans-serif;
+	font-weight: 600;
+	font-size: 1.4em;
+	line-height: 1.2;
+	margin-top:1.5em;
+	margin-bottom:.75em;
+}
+.page .entry-content h4,
+.single .entry-content h4 {
+	font-family:'Arvo',Arial,Helvetica,sans-serif;
+	font-weight: 300;
+	font-size: 1.2em;
+	line-height: 1.2;
+	margin-top:1.5em;
+	margin-bottom:.75em;
+	text-transform: uppercase;
 }
 .page .entry-content iframe.twitter-tweet,
 .single .entry-content iframe.twitter-tweet {
@@ -1606,6 +1639,7 @@ header.category-drink h1.category-drink.archive-title a {
 	.page .entry-content p,
 	.page .entry-content h2,
 	.page .entry-content h3,
+	.page .entry-content h4,
 	.page .entry-content ul,
 	.page .entry-content ol,
 	.page .entry-content iframe,
@@ -1613,6 +1647,7 @@ header.category-drink h1.category-drink.archive-title a {
 	.single .entry-content p,
 	.single .entry-content h2,
 	.single .entry-content h3,
+	.single .entry-content h4,
 	.single .entry-content ul,
 	.single .entry-content ol,
 	.single .entry-content iframe,
@@ -1715,12 +1750,14 @@ header.category-drink h1.category-drink.archive-title a {
 	.page .entry-content p,
 	.page .entry-content h2,
 	.page .entry-content h3,
+	.page .entry-content h4,
 	.page .entry-content ul,
 	.page .entry-content ol,
 	.page .entry-content iframe,
 	.single .entry-content p,
 	.single .entry-content h2,
 	.single .entry-content h3,
+	.single .entry-content h4,
 	.single .entry-content ul,
 	.single .entry-content ol,
 	.single .entry-content iframe { margin: 0 0 1em; }
