@@ -292,7 +292,7 @@ function tkno_single_post_related() {
 		    	'post_type'			=> array('post'),
 		    	'show_pass_post'	=> false,
 		    	'exclude'			=> array(),
-		    	'recent'			=> '3 month',
+		    	'recent'			=> '6 month',
 		    	'weight'			=> array(
 		    		'tax'	=> array(
 		    			'post_tag' => 2,
