@@ -1427,7 +1427,8 @@ header h2 a {
 	text-align:center;
 	letter-spacing:.1em;
 }
-h4.widget-title span.fpe-widget-title a {
+h4.widget-title span.fpe-widget-title a,
+.yarpp-related .related-wrap span {
 	background-color:rgba(67,178,91,1.0);
 }
 #frontpagemain article:first-child span {
