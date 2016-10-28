@@ -796,24 +796,6 @@ add_filter( 'jetpack_enable_open_graph', '__return_false', 99 );
 // Disable only the Twitter Cards
 add_filter( 'jetpack_disable_twitter_cards', '__return_true', 99 );
 
-// Dequeue Contact Form 7 scripts if they aren't needed
-function tkno_dequeue_scripts() {
-    $load_scripts = false;
-    if( is_singular() ) {
-        $post = get_post();
-
-        if( has_shortcode($post->post_content, 'contact-form-7') ) {
-            $load_scripts = true;
-        }
-
-    }
-    if( ! $load_scripts ) {
-        wp_dequeue_script( 'contact-form-7' );
-        wp_dequeue_style( 'contact-form-7' );
-    }
-}
-add_action( 'wp_enqueue_scripts', 'tkno_dequeue_scripts', 99 );  
-
 // Add body classes for mobile destection for swiping stuff
 function browser_body_class($classes) {
     global $is_lynx, $is_gecko, $is_IE, $is_opera, $is_NS4, $is_safari, $is_chrome, $is_iphone;
@@ -1249,19 +1231,93 @@ add_filter( 'content_save_pre', 'replace_smart_chars' );
 add_filter( 'title_save_pre',   'replace_smart_chars' );
 
 // Hide the Wordpress SEO canonical for posts that already have one from Autoblog
-function wpseo_canonical_exclude( $canonical ) {
+function tkno_wpseo_canonical_override( $canonical ) {
     global $post;
     if ( is_singular() && get_post_meta($post->ID, 'original_guid')) {
-        $canonical = false;
+        $canonical = get_post_meta($post->ID, 'original_guid')[0];
     }
     return $canonical;
 }
-add_filter( 'wpseo_canonical', 'wpseo_canonical_exclude' );
+add_filter( 'wpseo_canonical', 'tkno_wpseo_canonical_override' );
 
 
 // Increase Custom Field Limit
-function dpmj_customfield_limit_increase( $limit ) {
+function tkno_customfield_limit_increase( $limit ) {
     $limit = 100;
     return $limit;
 }
-add_filter( 'postmeta_form_limit' , 'dpmj_customfield_limit_increase' );
+add_filter( 'postmeta_form_limit' , 'tkno_customfield_limit_increase' );
+
+/**
+ * dequeue WP Email, Contact Form 7 and Gallery Slideshow scripts when not necessary
+ */
+function tkno_dequeue_scripts() {
+    if( is_singular() ) {
+        $post = get_post();
+        if( ! has_shortcode( $post->post_content, 'gallery' ) ) {
+            wp_dequeue_script( 'cycle2' );
+            wp_dequeue_script( 'cycle2_center' );
+            wp_dequeue_script( 'cycle2_carousel' );
+            wp_dequeue_script( 'gss_js' );
+            wp_dequeue_script( 'gss_custom_js' );
+            wp_dequeue_style( 'gss_css' );
+        }
+        if( ! has_shortcode( $post->post_content, 'contact-form-7' ) ) {
+            wp_dequeue_script( 'contact-form-7' );
+            wp_dequeue_style( 'contact-form-7' );
+        }
+    }
+    wp_dequeue_style( 'wp-email' );
+}
+add_action( 'wp_enqueue_scripts', 'tkno_dequeue_scripts', 99 );
+
+/**
+ * Remove jquery migrate and move jquery to footer
+ */
+function tkno_remove_jquery_migrate( &$scripts)
+{
+    if(!is_admin())
+    {
+        $scripts->remove( 'jquery');
+        $scripts->add( 'jquery', false, array( 'jquery-core' ), '1.10.2' );
+    }
+}
+add_filter( 'wp_default_scripts', 'tkno_remove_jquery_migrate' );
+
+/**
+ * deregister stupid wP emoji BS
+ */
+remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
+remove_action( 'wp_print_styles', 'print_emoji_styles' );
+
+/**
+ * deregister unused Jetpack CSS
+ */
+function tkno_remove_all_jp_css() {
+  wp_deregister_style( 'AtD_style' ); // After the Deadline
+  wp_deregister_style( 'jetpack_likes' ); // Likes
+  wp_deregister_style( 'jetpack_related-posts' ); //Related Posts
+  wp_deregister_style( 'jetpack-carousel' ); // Carousel
+  wp_deregister_style( 'the-neverending-homepage' ); // Infinite Scroll
+  wp_deregister_style( 'infinity-twentyten' ); // Infinite Scroll - Twentyten Theme
+  wp_deregister_style( 'infinity-twentyeleven' ); // Infinite Scroll - Twentyeleven Theme
+  wp_deregister_style( 'infinity-twentytwelve' ); // Infinite Scroll - Twentytwelve Theme
+  wp_deregister_style( 'noticons' ); // Notes
+  wp_deregister_style( 'post-by-email' ); // Post by Email
+  wp_deregister_style( 'publicize' ); // Publicize
+  wp_deregister_style( 'sharedaddy' ); // Sharedaddy
+  wp_deregister_style( 'sharing' ); // Sharedaddy Sharing
+  wp_deregister_style( 'stats_reports_css' ); // Stats
+  wp_deregister_style( 'jetpack-widgets' ); // Widgets
+  wp_deregister_style( 'jetpack-slideshow' ); // Slideshows
+  wp_deregister_style( 'presentations' ); // Presentation shortcode
+  wp_deregister_style( 'tiled-gallery' ); // Tiled Galleries
+  wp_deregister_style( 'widget-conditions' ); // Widget Visibility
+  wp_deregister_style( 'jetpack_display_posts_widget' ); // Display Posts Widget
+  wp_deregister_style( 'gravatar-profile-widget' ); // Gravatar Widget
+  wp_deregister_style( 'widget-grid-and-list' ); // Top Posts widget
+}
+if ( ! is_admin() ) {
+    add_filter( 'jetpack_implode_frontend_css', '__return_false' );
+    add_action('wp_print_styles', 'tkno_remove_all_jp_css' );
+}
