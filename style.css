@@ -841,7 +841,8 @@ h2.archive-title a:hover {
 	height: 0;
 	padding-bottom:100%;
 }
-body:not(.home) .entry-body h2.entry-title {
+body:not(.home) .entry-body h2.entry-title,
+body.date header h2 a {
 	font-family:'Arvo',Arial,Helvetica,sans-serif;
 	font-weight: 400;
 	font-size: 1.75em;
