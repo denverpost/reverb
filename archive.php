@@ -25,7 +25,7 @@
 				<?php reactor_loop_before(); ?>
 				
                 	        <header class="page-header">
-                        	<h1 class="page-title"><span class="searchresults">Daily archives:</span> <?php
+                        	<h1 class="page-title"><?php
                             if ( is_day() ) :
                                 printf( __('Daily Archives: %s', 'reactor'), '<span>' . get_the_date() . '</span>');
                             elseif ( is_month() ) :
