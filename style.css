@@ -410,7 +410,8 @@ div.inner-header > div.row {
 	padding:1em;
 	margin-bottom:1.5em;
 }
-body.search h1.page-title {
+body.search h1.page-title,
+body.date h1.page-title {
 	margin-top:0;
 	margin-bottom:1em;
 	border-bottom:1px solid #aaa;
