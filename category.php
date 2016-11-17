@@ -20,9 +20,12 @@
                 
                 <?php reactor_inner_content_before(); ?>
                 
-				<?php if ( have_posts() ) : ?>
-                    <header class="archive-header">
-                        <h1 <?php post_class('archive-title'); ?>><?php echo single_cat_title( '', false ); ?></h1>
+				<?php if ( have_posts() ) : 
+                    $query_cat = $wp_query->get_queried_object();
+                    $class_category = 'archive-title category-' . tkno_get_top_category_slug( true, $query_cat->cat_id );
+                    $class_header_category = ' category-' . tkno_get_top_category_slug( true, $query_cat->cat_id ); ?>
+                    <header class="archive-header<?php echo $class_header_category; ?>">
+                        <h1 <?php post_class( $class_category ); ?>><a href="javascript:void(0);" class="noclick"><?php echo $query_cat->name; ?></a></h1>
                     </header><!-- .archive-header -->
                 <?php endif; // end have_posts() check ?> 
                 

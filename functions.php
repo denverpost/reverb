@@ -41,12 +41,12 @@ function reactor_child_theme_setup() {
 	remove_theme_support('reactor-sidebars');
 	add_theme_support(
 	   'reactor-sidebars',
-	   array('primary', 'secondary', 'front-secondary', 'footer', 'error')
+	   array( 'primary', 'front-upper', 'front-lower', 'footer' )
 	);
 	
 	/* Support for layouts
 	Note: this doesn't remove sidebars */
-	// remove_theme_support('reactor-layouts');
+	remove_theme_support('reactor-layouts');
 	// add_theme_support(
 	// 	'reactor-layouts',
 	// 	array('1c', '2c-l', '2c-r', '3c-l', '3c-r', '3c-c')
@@ -63,7 +63,7 @@ function reactor_child_theme_setup() {
 	remove_theme_support('reactor-page-templates');
 	add_theme_support(
 	   'reactor-page-templates',
-	 	array('front-page')
+	 	array( 'front-page' )
 	);
 	
 	/* Remove support for background options in customizer */
@@ -85,7 +85,7 @@ function reactor_child_theme_setup() {
 	// remove_theme_support('reactor-post-meta');
 	
 	/* Remove support for taxonomy subnav function */
-	// remove_theme_support('reactor-taxonomy-subnav');
+	remove_theme_support('reactor-taxonomy-subnav');
 	
 	/* Remove support for shortcodes */
 	// remove_theme_support('reactor-shortcodes');
@@ -95,7 +95,7 @@ function reactor_child_theme_setup() {
 	
 	/* Remove support for other langauges */
 	// remove_theme_support('reactor-translation');
-		
+    remove_theme_support('post-formats');		
 }
 
 // add a favicon to the site
@@ -149,6 +149,7 @@ function modify_contact_methods($profile_fields) {
 
     // Add new fields
     $profile_fields['publication'] = 'Publication';
+    $profile_fields['display_title'] = 'Title (i.e.: \'Editor\'; leave blank to not display)';
     $profile_fields['instagram'] = 'Instagram username';
     $profile_fields['email_public'] = 'Public E-mail address (displayed on site)';
 
@@ -253,7 +254,7 @@ if ( ! function_exists( 'smart_trim' ) ) {
 			    $len = strlen(strip_tags($matches[$i]));
 			    if($matches[$i][$len-1] == "." || $matches[$i][$len-1] == "?" || $matches[$i][$len-1] == "!") {
 				//Test to see if the next word starts with a capital
-				if($matches[$i+1][0] == strtoupper($matches[$i+1][0])) {
+				if( isset($matches[$i+1][0]) && $matches[$i+1][0] == strtoupper($matches[$i+1][0])) {
 				    $ending_found = true;
 				}
 			    }
@@ -270,16 +271,34 @@ if ( ! function_exists( 'smart_trim' ) ) {
 	}
 }
 
-// Exclude Pages from search
-function SearchFilter($query) {
-    if ($query->is_search) {
-        $query->set('post_type', 'post');
+class follow_us_on_widget extends WP_Widget
+{
+    public function __construct()
+    {
+            parent::__construct(
+                'follow_us_on_widget',
+                __('Follow Us On [social media]', 'follow_us_on_widget'),
+                array('description' => __('Command readers to follow us on various mission-critical social networks!', 'follow_us_on_widget'), )
+            );
     }
-    return $query;
+
+    public function widget($args, $instance)
+    {
+        // List of icons linked to various social networks' Intent pages
+        echo '<div id="sidebar-followus" class="widget widget_followus">
+                <h4 class="widget-title">Follow Us</h4>
+                <ul>
+                    <li class="followus"><a href="http://twitter.com/thknwco" title="Follow The Know on Twitter"><img src="' . get_stylesheet_directory_uri() . '/images/social-twitter.png" alt="Follow The Know on Twitter" /></a></li>
+                    <li class="followus"><a href="http://facebook.com/denverentertain" title="Like The Know on Facebook"><img src="' . get_stylesheet_directory_uri() . '/images/social-facebook.png" alt="Like The Know on Facebook" /></a></li>
+                    <li class="followus"><a href="http://instagram.com/thknwco" title="Follow The Know on Instagram"><img src="' . get_stylesheet_directory_uri() . '/images/social-instagram.png" alt="Follow The Know on Instagram" /></a></li>
+                    <li class="followus"><a href="http://' . get_bloginfo( 'url' ) . '/feed/" title="Follow The Know via RSS"><img src="' . get_stylesheet_directory_uri() . '/images/social-rss.png" alt="Follow The Know via RSS" /></a></li>
+                    <div class="clear"></div>
+                </ul>
+            </div>';
+    }
 }
-if ( ! is_admin() ) {
-    add_filter('pre_get_posts','SearchFilter');
-}
+function register_follow_us_on_widget() { register_widget('follow_us_on_widget'); }
+add_action( 'widgets_init', 'register_follow_us_on_widget' );
 
 /**
  * Include posts from authors in the search results where
@@ -287,8 +306,7 @@ if ( ! is_admin() ) {
  *
  * @author danielbachhuber
  */
-add_filter( 'posts_search', 'db_filter_authors_search' );
-function db_filter_authors_search( $posts_search ) {
+function tkno_filter_authors_search( $posts_search ) {
 
     // Don't modify the query at all if we're not on the search template
     // or if the LIKE is empty
@@ -298,7 +316,7 @@ function db_filter_authors_search( $posts_search ) {
     global $wpdb;
     // Get all of the users of the blog and see if the search query matches either
     // the display name or the user login
-    add_filter( 'pre_user_query', 'db_filter_user_query' );
+    add_filter( 'pre_user_query', 'tkno_filter_user_query' );
     $search = sanitize_text_field( get_query_var( 's' ) );
     $args = array(
         'count_total' => false,
@@ -310,7 +328,7 @@ function db_filter_authors_search( $posts_search ) {
         'fields' => 'ID',
     );
     $matching_users = get_users( $args );
-    remove_filter( 'pre_user_query', 'db_filter_user_query' );
+    remove_filter( 'pre_user_query', 'tkno_filter_user_query' );
     // Don't modify the query if there aren't any matching users
     if ( empty( $matching_users ) )
         return $posts_search;
@@ -318,10 +336,12 @@ function db_filter_authors_search( $posts_search ) {
     $posts_search = str_replace( ')))', ")) OR ( {$wpdb->posts}.post_author IN (" . implode( ',', array_map( 'absint', $matching_users ) ) . ")))", $posts_search );
     return $posts_search;
 }
+add_filter( 'posts_search', 'tkno_filter_authors_search' );
+
 /**
  * Modify get_users() to search display_name instead of user_nicename
  */
-function db_filter_user_query( &$user_query ) {
+function tkno_filter_user_query( &$user_query ) {
 
     if ( is_object( $user_query ) )
         $user_query->query_where = str_replace( "user_nicename LIKE", "display_name LIKE", $user_query->query_where );
@@ -329,13 +349,13 @@ function db_filter_user_query( &$user_query ) {
 }
 
 // allow script tags in editor
-function rvrb_allow_script_tags( $allowedposttags ) {
+function tkno_allow_script_tags( $allowedposttags ) {
     if ( !current_user_can( 'publish_posts' ) )
         return $allowedposttags;
     $allowedposttags['script'] = array(
         'src' => true,
-        'height' => true,
-        'width' => true,
+        'async' => true,
+        'defer' => true,
     );
     $allowedposttags['iframe'] = array(
         'align' => true,
@@ -350,18 +370,20 @@ function rvrb_allow_script_tags( $allowedposttags ) {
         'scrolling' => true,
         'marginwidth' => true,
         'marginheight' => true,
+        'seamless' => true
     );
     return $allowedposttags;
 }
-add_filter('wp_kses_allowed_html','rvrb_allow_script_tags', 1, 1);
+add_filter('wp_kses_allowed_html','tkno_allow_script_tags', 1, 1);
 
 // allow HTML5 data- atributes for NDN videos
-function rvrb_filter_allowed_html($allowed, $context){
+function tkno_filter_allowed_html($allowed, $context){
     if (is_array($context)) {
         return $allowed;
     }
     if ($context === 'post') {
         $allowed['div']['data-config-widget-id'] = true;
+        $allowed['div']['data-config-widget-pb'] = true;
         $allowed['div']['data-config-type'] = true;
         $allowed['div']['data-config-tracking-group'] = true;
         $allowed['div']['data-config-playlist-id'] = true;
@@ -372,24 +394,55 @@ function rvrb_filter_allowed_html($allowed, $context){
     }
     return $allowed;
 }
-add_filter('wp_kses_allowed_html', 'rvrb_filter_allowed_html', 10, 2);
+add_filter('wp_kses_allowed_html', 'tkno_filter_allowed_html', 10, 2);
 
-// Attempts to permanently disable the Visual Editor for all users, all the time.
-add_filter( 'user_can_richedit', '__return_false', 50 );
+// Get a venue when the custom field matches a venue taxonomy slug
+function tkno_get_venue_from_slug($venue_slug) {
+    $args = array(
+        'post_type'     => 'venues',
+        'meta_query'    => array(
+            array(
+                'key'   => 'venue_slug',
+                'value' => $venue_slug,
+                'compare' => 'LIKE',
+                'adp_disable' => true
+                )
+            ),
+        'posts_limits'    => 1
+        );
+    $query = new WP_Query( $args );
+    $venues = $query->get_posts();
+    return $venues[0];
+}
 
-function rvrb_get_top_category_slug() {
+// Get an acceptable top-level category name and ID, or slug, for classes and labels
+function tkno_get_top_category_slug($return_slug=false,$cat_id=false) {
     global $post;
-    $curr_cat = get_the_category_list( '/' , 'single', $post->ID );
-    $valid_cats = array('news','reviews','photos','audio','video','venue');
+    $curr_cat = ( $cat_id ) ? get_category_parents( $cat_id, false, '/', true ) : get_the_category_list( '/' , 'multiple', $post->ID );
+    $valid_cats = array('music','food','drink','things-to-do','arts');
     $curr_cat = explode( '/', $curr_cat );
+    $return_cat = array();
     foreach ( $curr_cat as $current ) {
+        $current = sanitize_title( strtolower( $current ) );
         if ( in_array( $current, $valid_cats ) ) {
-            return $current;
+            $return_cat['slug'] = $current;
+            if ( $return_slug ) { 
+                return $current;
+            }
+            break;
         }
+    }
+    if ( ! empty( $return_cat['slug'] ) ) { 
+        $cat_for_name = get_category_by_slug( $return_cat['slug'] );
+        $return_cat['cat_name'] = $cat_for_name->name;
+        $return_cat['term_id'] = $cat_for_name->term_id;
+        return (object) $return_cat;
+    } else {
+        return false;
     }
 }
 
-function rvrb_get_ad_value() {
+function tkno_get_ad_value() {
     $category = FALSE;
     $kv = 'heyreverb';
     $tax = '';
@@ -400,7 +453,7 @@ function rvrb_get_ad_value() {
         $cat = get_category( (int)$id );
         $category = $cat->slug;
     } else if ( is_single() ) {
-        $category = rvrb_get_top_category_slug();
+        $category = tkno_get_top_category_slug();
     }
     if ( $category ) {
         switch ( $category ) {
@@ -438,8 +491,7 @@ function rvrb_get_ad_value() {
 
 // Create a simple widget for one-click newsletter signup
 class newsletter_signup_widget extends WP_Widget {
-    public function __construct()
-    {
+    public function __construct() {
             parent::__construct(
                 'newsletter_signup_widget',
                 __('Newsletter Signup', 'newsletter_signup_widget'),
@@ -447,19 +499,42 @@ class newsletter_signup_widget extends WP_Widget {
             );
     }
 
-    public function widget($args, $instance)
-    {
-        // List of icons linked to various social networks' Intent pages
+    public function form( $instance ) {
+        //Check if limit_days exists, if its null, put "new limit_days" for use in the form
+        if ( isset( $instance[ 'newletter_text' ] ) ) {
+            $newletter_text = $instance[ 'newletter_text' ];
+        }
+        else {
+            $newletter_text = __( 'Sign up for our <em>Now You Know</em> emails to get breaking entertainment news and weekend plans sent right to your inbox.', 'wpb_widget_domain' );
+        } ?>
+        <p>
+        <label for="<?php echo $this->get_field_id( 'newletter_text' ); ?>"><?php _e( 'Descriptive text (displayed above email form):' ); ?></label> 
+        <input class="widefat" id="<?php echo $this->get_field_id( 'newletter_text' ); ?>" name="<?php echo $this->get_field_name( 'newletter_text' ); ?>" type="text" value="<?php echo esc_attr( $newletter_text ); ?>" />
+        </p>
+    <?php }
+
+    public function update( $new_instance, $old_instance ) {
+        $instance = array();
+        $instance[ 'newletter_text' ] = ( ! empty( $new_instance[ 'newletter_text' ] ) ) ? trim( wp_kses( $new_instance[ 'newletter_text' ] ) ) : 'Sign up for our <em>Now You Know</em> emails to get breaking entertainment news and weekend plans sent right to your inbox.';
+        return $instance;
+    }
+
+    public function widget($args, $instance) {
+        $newletter_text = $instance[ 'newletter_text' ];
+        global $wp;
+        $current_url = home_url(add_query_arg(array(),$wp->request));
+        // The signup form for the email
         echo '<div id="sidebar-newsletter" class="widget widget_newsletter">
-                <h4 class="widget-title">Get Mixtape Newsletters</h4>
+                <h4 class="widget-title">Get Our Newsletter</h4>
+                <p>' . $newletter_text . '</p>
                 <form action="http://www.denverpostplus.com/app/mailer/" method="post" name="reverbmail">
                     <div class="row collapse mx-form">
                         <div class="large-9 small-9 columns">
                             <input type="hidden" name="keebler" value="goof111" />
                             <input type="hidden" name="goof111" value="TRUE" />
-                            <input type="hidden" name="redirect" value="' . get_permalink() . '" />
+                            <input type="hidden" name="redirect" value="' . $current_url . '" />
                             <input type="hidden" name="id" value="autoadd" />
-                            <input type="hidden" name="which" value="reverb" />
+                            <input type="hidden" name="which" value="theknow" />
                             <input type="text" name="name_first" value="Humans: Do Not Use" style="display:none;" />
                             <input required placeholder="Email Address" type="text" name="email_address" maxlength="50" value="" />
                         </div>
@@ -471,6 +546,146 @@ class newsletter_signup_widget extends WP_Widget {
             </div>';
     }
 }
+function register_newsletter_signup_widget() { register_widget('newsletter_signup_widget'); }
+add_action( 'widgets_init', 'register_newsletter_signup_widget' );
+
+// Create a simple widget for one-click newsletter signup
+class newstip_submit_widget extends WP_Widget {
+    public function __construct() {
+            parent::__construct(
+                'newstip_submit_widget',
+                __('Newstip Submit', 'newstip_submit_widget'),
+                array('description' => __('Todd was warned about news tip submissions.', 'newstip_submit_widget'), )
+            );
+    }
+
+    public function widget($args, $instance) {
+        global $wp;
+        $current_url = home_url(add_query_arg(array(),$wp->request));
+        // The submit form for the newstip
+        echo '<div id="sidebar-newstip" class="widget widget_newstip">
+                <h4 class="widget-title">Send Us A Tip</h4>
+                <form action="http://www.denverpostplus.com/app/mailer/" method="post" name="tipmail">
+                    <div class="row collapse mx-form">
+                        <textarea name="comments" rows="4" cols="30"></textarea>
+                        <input type="hidden" name="keebler" value="goof111" />
+                        <input type="hidden" name="goof111" value="TRUE" />
+                        <input type="hidden" name="redirect" value="' . $current_url . '" />
+                        <input type="hidden" name="id" value="newstip" />
+                        <input type="text" name="name_first" value="Humans: Do Not Use" style="display:none;" />
+                        <p>If you would like a reply, include your email:</p>
+                        <div class="large-9 small-9 columns">
+                            <input type="text" name="email_address" value="" maxlength="50" />
+                        </div>
+                        <div class="large-3 small-3 columns end">
+                            <input class="button prefix" type="submit" id="newstipsubmit" value="Send tip">
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </form>
+            </div>';
+    }
+}
+function register_newstip_submit_widget() { register_widget('newstip_submit_widget'); }
+add_action( 'widgets_init', 'register_newstip_submit_widget' );
+
+class sidebar_tagline_widget extends WP_Widget {
+    public function __construct() {
+            parent::__construct(
+                'sidebar_tagline_widget',
+                __('DP Logo + Tagline', 'sidebar_tagline_widget'),
+                array('description' => __('If they don\'t know we are affiliated with The Denver Post, will they even care?', 'sidebar_tagline_widget'), )
+            );
+    }
+
+    public function form( $instance ) {
+        //Check if limit_days exists, if its null, put "new limit_days" for use in the form
+        if ( isset( $instance[ 'tagline_text' ] ) ) {
+            $tagline_text = $instance[ 'tagline_text' ];
+        }
+        else {
+            $tagline_text = __( 'What to do, where to be and what to see, from', 'wpb_widget_domain' );
+        } ?>
+        <p>
+        <label for="<?php echo $this->get_field_id( 'tagline_text' ); ?>"><?php _e( 'Tagline text (will be followed by "The Denver Post" logo):' ); ?></label> 
+        <input class="widefat" id="<?php echo $this->get_field_id( 'tagline_text' ); ?>" name="<?php echo $this->get_field_name( 'tagline_text' ); ?>" type="text" value="<?php echo esc_attr( $tagline_text ); ?>" />
+        </p>
+    <?php }
+
+    public function update( $new_instance, $old_instance ) {
+        $instance = array();
+        $instance[ 'tagline_text' ] = ( ! empty( $new_instance[ 'tagline_text' ] ) ) ? trim( strip_tags( $new_instance[ 'tagline_text' ] ) ) : 'What to do, where to be and what to see, from';
+        return $instance;
+    }
+
+    public function widget($args, $instance) {
+        $tagline_text = $instance[ 'tagline_text' ];
+        // Display a fixed tagline and The Denver Post logo
+        echo '<div id="sidebar-tagline" class="widget widget_tagline">
+                <p>' . $tagline_text . ' <img src="'.get_bloginfo('stylesheet_directory').'/images/dp-logo-blk.png" /></p>
+            </div>';
+    }
+}
+function register_sidebar_tagline_widget() { register_widget('sidebar_tagline_widget'); }
+add_action( 'widgets_init', 'register_sidebar_tagline_widget' );
+
+// Calendar widget
+class tkno_calendar_widget extends WP_Widget
+{
+    public function __construct()
+    {
+            parent::__construct(
+                'tkno_calendar_widget',
+                __('The Know Calendar', 'tkno_calendar_widget'),
+                array('description' => __('Put an adaptive (by parent category) The Know calendar widget in a sidebar', 'tkno_calendar_widget'), )
+            );
+    }
+
+    public function widget( $args, $instance ) {
+
+        function tkno_cal_category() {
+            $category = FALSE;
+            $calcat = '8354';
+            if ( is_home() || is_front_page() ) {
+                $calcat = '8354';
+            } else if ( is_category() ) {
+                $id = get_query_var( 'cat' );
+                $cat = get_category( (int)$id );
+                $category = $cat->slug;
+            } else if ( is_single() ) {
+                $category = tkno_get_top_category_slug(true);
+            }
+            if ( $category ) {
+                switch ( $category ) {
+                    case 'music':
+                        $calcat = '8347';
+                        break;
+                    case 'arts':
+                        $calcat = '8350';
+                        break;
+                    case 'things-to-do':
+                        $calcat = '8351';
+                        break;
+                    case 'food':
+                        $calcat = '8352';
+                        break;
+                    case 'drink':
+                        $calcat = '8353';
+                        break;
+                    default:
+                        $calcat = '8354';
+                }
+            }
+            return $calcat;
+        }
+        echo '<div id="sidebar-calendar" class="widget widget_cal">
+                <div data-cswidget="' . tkno_cal_category() . '"></div>
+                <script type="text/javascript" async defer src="//portal.CitySpark.com/js/widget.min.js"></script>
+                </div>';
+    }
+}
+function register_calendar_widget() { register_widget('tkno_calendar_widget'); }
+add_action( 'widgets_init', 'register_calendar_widget' );
 
 class sidebar_ad_widget_top_cube extends WP_Widget
 {
@@ -486,10 +701,10 @@ class sidebar_ad_widget_top_cube extends WP_Widget
     public function widget($args, $instance)
     {
         // It's a big ad.
-        $ad_tax = rvrb_get_ad_value();
+        $ad_tax = tkno_get_ad_value();
         echo '
             <!-- ##ADPLACEMENT## -->
-            <div id="cube1_reverb_wrap" class="widget hide-for-small ad_wrap">
+            <div id="cube1_reverb_wrap" class="widget ad_wrap">
                 <div>
                     <script>
                         googletag.defineSlot(\'/8013/heyreverb.com' . $ad_tax[1] . '\', [300,250], \'cube1_reverb\').setTargeting(\'pos\',[\'Cube1_RRail_ATF\']).setTargeting(\'kv\', \'' . $ad_tax[0] . '\').addService(googletag.pubads());
@@ -501,6 +716,8 @@ class sidebar_ad_widget_top_cube extends WP_Widget
             </div>';
     }
 }
+function register_ad_widget_large_cube() { register_widget('sidebar_ad_widget_top_cube'); }
+add_action( 'widgets_init', 'register_ad_widget_large_cube' );
 
 class sidebar_ad_widget_cube extends WP_Widget
 {
@@ -516,7 +733,7 @@ class sidebar_ad_widget_cube extends WP_Widget
     public function widget($args, $instance)
     {
         // It's an ad.
-        $ad_tax = rvrb_get_ad_value();
+        $ad_tax = tkno_get_ad_value();
         echo '
             <!-- ##ADPLACEMENT## -->
             <div id="cube2_reverb_wrap" class="widget ad_wrap">
@@ -531,68 +748,18 @@ class sidebar_ad_widget_cube extends WP_Widget
             </div>';
     }
 }
-
-function register_newsletter_signup_widget() { register_widget('newsletter_signup_widget'); }
-function register_ad_widget_large_cube() { register_widget('sidebar_ad_widget_top_cube'); }
 function register_ad_widget_cube() { register_widget('sidebar_ad_widget_cube'); }
-add_action( 'widgets_init', 'register_newsletter_signup_widget' );
-add_action( 'widgets_init', 'register_ad_widget_large_cube' );
 add_action( 'widgets_init', 'register_ad_widget_cube' );
 
-// allows using Disqus on development deployments
-function childtheme_disqus_development() {
-?>
-  <script type="text/javascript">
-  // see http://docs.disqus.com/help/83/
-  var disqus_developer = 1; // developer mode is on
-  </script>
-<?php }
-
-// only enable this if the server is a .dev domain name
-if ( strpos($_SERVER['HTTP_HOST'], 'localhost') !== FALSE )
-  add_action('wp_head', 'childtheme_disqus_development', 100);
-
-function rvrb_add_excerpts_to_pages() {
+function tkno_add_excerpts_to_pages() {
     add_post_type_support( 'page', 'excerpt' );
 }
-add_action( 'init', 'rvrb_add_excerpts_to_pages' );
-
-/* an ad that can be pulled in my the front-page loop */
-function rvrb_infinite_ad_widget($iteration) {
-    echo '<div class="inline-cube-ad"><iframe src="' . get_stylesheet_directory_uri() . '/ad.html" style="margin:1em auto;width:300px;height:250px;overflow:hidden;border:none;"></iframe></div>';
-}
-
-/**
- * Infinite Scroll
- */
-function custom_infinite_scroll_js() {
-    if ( is_front_page() ) { ?>
-    <script type="text/javascript">
-    var infinite_scroll = {
-        loading: {
-            img: "<?php echo get_stylesheet_directory_uri(); ?>/images/ajax-loader.gif",
-            msgText: "<?php _e( 'Loading more posts...', 'custom' ); ?>",
-            finishedMsg: "<?php _e( 'All posts loaded.', 'custom' ); ?>"
-        },
-        "nextSelector":"ul.pagination li a.next",
-        "navSelector":"ul.pagination",
-        "itemSelector":"article",
-        "contentSelector":"#frontpagemain",
-        "bufferPx":80
-    };
-    jQuery( infinite_scroll.contentSelector ).infinitescroll( infinite_scroll, function(newElements) {
-            jQuery( infinite_scroll.contentSelector ).append('<div class="inline-cube-ad"><iframe src="<?php echo get_stylesheet_directory_uri(); ?>/ad.html" style="margin:1em auto;width:300px;height:250px;overflow:hidden;border:none;"></iframe></div>');
-        });
-    </script>
-    <?php
-    }
-}
-add_action( 'wp_footer', 'custom_infinite_scroll_js',100 );
+add_action( 'init', 'tkno_add_excerpts_to_pages' );
 
 /**
  * Widget Custom Classes
  */
-function rvrb_widget_form_extend( $instance, $widget ) {
+function tkno_widget_form_extend( $instance, $widget ) {
     if ( !isset($instance['classes']) )
     $instance['classes'] = null;
     $row = "<p>\n";
@@ -603,17 +770,17 @@ function rvrb_widget_form_extend( $instance, $widget ) {
     echo $row;
     return $instance;
 }
-add_filter('widget_form_callback', 'rvrb_widget_form_extend', 10, 2);
+add_filter('widget_form_callback', 'tkno_widget_form_extend', 10, 2);
 
-function rvrb_widget_update( $instance, $new_instance ) {
+function tkno_widget_update( $instance, $new_instance ) {
     $instance['classes'] = $new_instance['classes'];
         return $instance;
     }
-add_filter( 'widget_update_callback', 'rvrb_widget_update', 10, 2 );
+add_filter( 'widget_update_callback', 'tkno_widget_update', 10, 2 );
 
-function rvrb_dynamic_sidebar_params( $params ) {
+function tkno_dynamic_sidebar_params( $params ) {
     global $wp_registered_widgets;
-    $widget_id    = $params[0]['widget_id'];
+    $widget_id     = $params[0]['widget_id'];
     $widget_obj    = $wp_registered_widgets[$widget_id];
     $widget_opt    = get_option($widget_obj['callback'][0]->option_name);
     $widget_num    = $widget_obj['params'][0]['number'];
@@ -621,31 +788,13 @@ function rvrb_dynamic_sidebar_params( $params ) {
         $params[0]['before_widget'] = preg_replace( '/class="/', "class=\"{$widget_opt[$widget_num]['classes']} ", $params[0]['before_widget'], 1 );
     return $params;
 }
-add_filter( 'dynamic_sidebar_params', 'rvrb_dynamic_sidebar_params' );
+add_filter( 'dynamic_sidebar_params', 'tkno_dynamic_sidebar_params' );
 
 // Disable both Twitter Cards and OG tags
 add_filter( 'jetpack_enable_open_graph', '__return_false', 99 );
 
 // Disable only the Twitter Cards
 add_filter( 'jetpack_disable_twitter_cards', '__return_true', 99 );
-
-// Dequeue Contact Form 7 scripts if they aren't needed
-function rvrb_dequeue_scripts() {
-    $load_scripts = false;
-    if( is_singular() ) {
-        $post = get_post();
-
-        if( has_shortcode($post->post_content, 'contact-form-7') ) {
-            $load_scripts = true;
-        }
-
-    }
-    if( ! $load_scripts ) {
-        wp_dequeue_script( 'contact-form-7' );
-        wp_dequeue_style( 'contact-form-7' );
-    }
-}
-add_action( 'wp_enqueue_scripts', 'rvrb_dequeue_scripts', 99 );  
 
 // Add body classes for mobile destection for swiping stuff
 function browser_body_class($classes) {
@@ -667,6 +816,374 @@ function browser_body_class($classes) {
  
 add_filter( 'body_class', 'browser_body_class' );
 
+/**
+ *
+ * DESTROY ALL COMMENTS ARRRRR!
+ * 
+ */
+
+// Disable support for comments and trackbacks in post types
+function tkno_disable_comments_post_types_support() {
+    $post_types = get_post_types();
+    foreach ($post_types as $post_type) {
+        if(post_type_supports($post_type, 'comments')) {
+            remove_post_type_support($post_type, 'comments');
+            remove_post_type_support($post_type, 'trackbacks');
+        }
+    }
+}
+add_action('admin_init', 'tkno_disable_comments_post_types_support');
+
+// Close comments on the front-end
+function tkno_disable_comments_status() {
+    return false;
+}
+add_filter('comments_open', 'tkno_disable_comments_status', 20, 2);
+add_filter('pings_open', 'tkno_disable_comments_status', 20, 2);
+
+// Hide existing comments
+function tkno_disable_comments_hide_existing_comments($comments) {
+    $comments = array();
+    return $comments;
+}
+add_filter('comments_array', 'tkno_disable_comments_hide_existing_comments', 10, 2);
+
+// Remove comments page in menu
+function tkno_disable_comments_admin_menu() {
+    remove_menu_page('edit-comments.php');
+}
+add_action('admin_menu', 'tkno_disable_comments_admin_menu');
+
+// Redirect any user trying to access comments page
+function tkno_disable_comments_admin_menu_redirect() {
+    global $pagenow;
+    if ($pagenow === 'edit-comments.php') {
+        wp_redirect(admin_url()); exit;
+    }
+}
+add_action('admin_init', 'tkno_disable_comments_admin_menu_redirect');
+
+// Remove comments metabox from dashboard
+function tkno_disable_comments_dashboard() {
+    remove_meta_box('dashboard_recent_comments', 'dashboard', 'normal');
+}
+add_action('admin_init', 'tkno_disable_comments_dashboard');
+
+// Remove comments links from admin bar
+function tkno_disable_comments_admin_bar() {
+    if (is_admin_bar_showing()) {
+        remove_action('admin_bar_menu', 'wp_admin_bar_comments_menu', 60);
+    }
+}
+add_action('init', 'tkno_disable_comments_admin_bar');
+
+/**
+ * Add a Venue taxonomy for venues (to tie into a Venue post format)
+ */
+function tkno_register_venue_taxonomy() {
+    $labels = array(
+        'name'                           => 'Venues',
+        'singular_name'                  => 'Venue',
+        'search_items'                   => 'Search Venues',
+        'all_items'                      => 'All Venues',
+        'edit_item'                      => 'Edit Venue',
+        'update_item'                    => 'Update Venue',
+        'add_new_item'                   => 'Add New Venue',
+        'new_item_name'                  => 'New Venue Name',
+        'menu_name'                      => 'Venues',
+        'view_item'                      => 'View Venues',
+        'popular_items'                  => 'Popular Venues',
+        'separate_items_with_commas'     => 'Separate venues with commas',
+        'add_or_remove_items'            => 'Add or remove venues',
+        'choose_from_most_used'          => 'Choose from the most used venues',
+        'not_found'                      => 'No venues found'
+    );
+    register_taxonomy(
+        'venue',
+        array('post'),
+        array(
+            'label' => __( 'Venue' ),
+            'hierarchical' => false,
+            'labels' => $labels,
+            'public' => true,
+            'publicly_queryable' => false,
+            'show_ui' => true,
+            'show_in_nav_menus' => false,
+            'show_tagcloud' => false,
+            'show_admin_column' => false,
+            'rewrite' => array( 'slug' => 'venue','with_front' => false),
+        )
+    );
+}
+add_action( 'init', 'tkno_register_venue_taxonomy' );
+
+/**
+ * Add a Venue Page post type to tie in to the taxonomy
+ */
+function tkno_register_venue_page_posttype() {
+    $labels = array(
+        'name'               => _x( 'Venue Pages', 'post type general name' ),
+        'singular_name'      => _x( 'Venue Page', 'post type singular name' ),
+        'add_new'            => _x( 'Add New', 'venue' ),
+        'add_new_item'       => __( 'Add New Venue Page' ),
+        'edit_item'          => __( 'Edit Venue Page' ),
+        'new_item'           => __( 'New Venue Page' ),
+        'all_items'          => __( 'All Venue Pages' ),
+        'view_item'          => __( 'View Venue Pages' ),
+        'search_items'       => __( 'Search Venue Pages' ),
+        'not_found'          => __( 'No venue pages found' ),
+        'not_found_in_trash' => __( 'No venue pages found in the Trash' ), 
+        'parent_item_colon'  => '',
+        'menu_name'          => 'Venue Pages'
+    );
+    $args = array(
+        'labels'        => $labels,
+        'description'   => 'Venue Pages feature a single venue and pull in related items based on the Venue taxonomy',
+        'public'        => true,
+        'publicly_queryable' => true,
+        'show_ui'       => true,
+        'menu_position' => 5,
+        'capability_type' => 'post',
+        'query_var'     => true,
+        'supports'      => array( 'title', 'editor', 'thumbnail', 'excerpt', 'page-attibutes', 'revisions', 'author', 'custom-fields', ),
+        'rewrite' => array( 'slug' => 'venues','with_front' => false),
+        'has_archive'   => true,
+    );
+    register_post_type( 'venues', $args );
+}
+add_action( 'init', 'tkno_register_venue_page_posttype' );
+
+/**
+ * Custom iunteraction messages for Venue Page post type
+ */
+function tkno_venue_page_messages( $messages ) {
+    global $post, $post_ID;
+    $messages['venues'] = array(
+        0 => '', 
+        1 => sprintf( __('Venue page updated. <a href="%s">View venue page</a>'), esc_url( get_permalink($post_ID) ) ),
+        2 => __('Custom field updated.'),
+        3 => __('Custom field deleted.'),
+        4 => __('Venue page updated.'),
+        5 => isset($_GET['revision']) ? sprintf( __('Venue page restored to revision from %s'), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
+        6 => sprintf( __('Venue page published. <a href="%s">View venue page</a>'), esc_url( get_permalink($post_ID) ) ),
+        7 => __('Venue page saved.'),
+        8 => sprintf( __('Venue page submitted. <a target="_blank" href="%s">Preview venue page</a>'), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) ),
+        9 => sprintf( __('Venue page scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview venue page</a>'), date_i18n( __( 'M j, Y @ G:i' ), strtotime( $post->post_date ) ), esc_url( get_permalink($post_ID) ) ),
+        10 => sprintf( __('Venue page draft updated. <a target="_blank" href="%s">Preview venue page</a>'), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) ),
+    );
+    return $messages;
+}
+add_filter( 'post_updated_messages', 'tkno_venue_page_messages' );
+
+/**
+ * Contextual help for venue pages
+ */
+function tkno_venue_page_contextual_help( $contextual_help, $screen_id, $screen ) { 
+  if ( 'venues' == $screen->id ) {
+
+    $contextual_help = '<h2>Venue pages</h2>
+    <p>Venue pages show details about a particular venue, and tie in recent posts assigned to that venue. You can see a list of them on this page in reverse chronological order - the latest one we added is first.</p> 
+    <p>You can view/edit the details of each venue page by clicking on its name, or you can perform bulk actions using the dropdown menu and selecting multiple items.</p>';
+
+  } elseif ( 'edit-venue_page' == $screen->id ) {
+
+    $contextual_help = '<h2>Editing venue pages</h2>
+    <p>This page allows you to view/modify venue pages. Please make sure to fill out the available boxes with the appropriate details and <strong>not</strong> add these details to the venue description.</p>';
+
+  }
+  return $contextual_help;
+}
+add_action( 'contextual_help', 'tkno_venue_page_contextual_help', 10, 3 );
+
+// Popular widget
+class tkno_popular_widget extends WP_Widget
+{
+    public function __construct()
+    {
+            parent::__construct(
+                'tkno_popular_widget',
+                __('The Know Popular widget', 'tkno_popular_widget'),
+                array('description' => __('Put a The Know popular posts widget in the sidebar', 'tkno_popular_widget'), )
+            );
+    }
+
+    public function form( $instance ) {
+        //Check if limit_days exists, if its null, put "new limit_days" for use in the form
+        if ( isset( $instance[ 'limit_days' ] ) ) {
+            $limit_days = $instance[ 'limit_days' ];
+        }
+        else {
+            $limit_days = __( '0', 'wpb_widget_domain' );
+        } ?>
+        <p>
+        <label for="<?php echo $this->get_field_id( 'limit_days' ); ?>"><?php _e( 'Display popular posts from the last __ days (0 for no limit):' ); ?></label> 
+        <input class="widefat" id="<?php echo $this->get_field_id( 'limit_days' ); ?>" name="<?php echo $this->get_field_name( 'limit_days' ); ?>" type="text" value="<?php echo esc_attr( $limit_days ); ?>" />
+        </p>
+    <?php }
+
+    public function update( $new_instance, $old_instance ) {
+        $instance = array();
+        $instance[ 'limit_days' ] = ( ! empty( $new_instance[ 'limit_days' ] ) ) ? (int)strip_tags( $new_instance[ 'limit_days' ] ) : 0;
+        return $instance;
+    }
+
+    public function widget( $args, $instance ) {
+        $limit_days = $instance[ 'limit_days' ];
+        $limit_days = ( $limit_days != 0 ) ? (int)$limit_days : 10000;
+        if ( function_exists( 'stats_get_csv' ) ) {
+            echo '<div id="sidebar-popular" class="widget widget_pop">
+                    <h4 class="widget-title">Popular</h4>';
+            $top_posts = stats_get_csv( 'postviews', 'days=7&limit=200' );
+            if ( count( $top_posts ) > 0 ) {
+                echo '<ul>';
+                $i=1;
+                foreach ($top_posts as $p) {
+                    $post = get_post( $p[ 'post_id' ] );
+                    $post_date = strtotime( $post->post_date );
+                    $today_date = time();
+                    if ( $i <= 5 && ( $today_date - $post_date ) <= 60*60*24*(int)$limit_days && ( get_post_type( $p['post_id'] ) != 'page' ) ) { ?>
+                        <li class="clearfix"><span class="pop_num"><?php echo $i; ?></span><a href="<?php echo $p['post_permalink']; ?>"><?php echo $p['post_title']; ?></a><div class="clear"></div></li>
+                        <?php
+                        $i++;
+                    }
+                }
+                echo '</ul>
+                    </div>';
+            }
+        } else {
+            ?> <!-- Sorry, there are no Popular posts to display! --><?php
+        }
+        if ( term_exists( 'dont-miss', 'post_tag' ) ) {
+            $dm_tag = get_term_by( 'slug', 'dont-miss', 'post_tag' );
+            remove_all_filters('posts_orderby'); // disable Post Types Order ordering for this query
+            $args = array(
+                'post_type'         => 'post',
+                'tag_id'            => $dm_tag->term_id,
+                'posts_per_page'    => '5',
+                'orderby'           => 'rand',
+                'adp_disable'       => true,
+                );
+            $dm_query = new WP_Query( $args );
+            $i=1;
+            if ( $dm_query->have_posts() ) {
+                echo '<div id="sidebar-dontmiss" class="widget widget_dontmiss">
+                    <h4 class="widget-title">Don\'t Miss</h4>
+                    <ul>';
+                while ( $dm_query->have_posts() ) : $dm_query->the_post();
+                    if ( $i <= 5 ) { ?>
+                        <li class="clearfix"><span class="pop_num"><?php echo $i; ?></span><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a><div class="clear"></div></li>
+                    <?php $i++;
+                    }
+                endwhile;
+                echo '</ul>
+                    </div>';
+            } else {
+                ?> <!-- Sorry, there are no Don't Miss posts at this time! --><?php
+            }
+        }
+    }
+}
+function register_popular_widget() { register_widget('tkno_popular_widget'); }
+add_action( 'widgets_init', 'register_popular_widget' );
+
+function tkno_get_primary_category() {
+    
+    global $post;
+    
+    $primaryCat = new WPSEO_Primary_Term( 'category', $post->ID );
+    $primaryCat = $primaryCat->get_primary_term();
+    $primaryCat = get_cat_name($primaryCat);
+
+    $categories = get_the_category( $post->ID );
+    $return_cat = Array();
+
+    foreach( $categories as $category ) {
+       $defaultCat = $category->name;
+       $defaultCatLink = get_category_link( $category->term_id );
+    }
+
+    if ( $primaryCat !== "" ) {
+       $cat = new WPSEO_Primary_Term('category', $post->ID);
+       $cat = $cat->get_primary_term();
+
+       $return_cat['name'] = get_cat_name($cat);
+       $return_cat['url'] = get_category_link($cat);
+
+    } else {
+       $return_cat['name'] = $defaultCat;
+       $return_cat['url'] = $defaultCatLink;
+    }
+
+    return (object) $return_cat;
+}
+
+/**
+ * in_article_related_shortcode
+ * @return html list inserted in content based on tag
+ */
+function in_article_related_shortcode(){
+    $related = '';
+    if ( is_single() && function_exists( 'yarpp_related' ) ) { 
+        global $post;
+        $related .= yarpp_related( array( 
+            'post_type'         => array('post'),
+            'show_pass_post'    => false,
+            'exclude'           => array(),
+            'recent'            => '6 month',
+            'weight'            => array(
+                'tax'   => array(
+                    'post_tag' => 2,
+                    'venue'   => 1
+                )
+            ),
+            'threshold'         => 2,
+            'template'          => 'yarpp-template-inarticle.php',
+            'limit'             => 5,
+            'order'             => 'score DESC'
+            ),
+        $post->ID,
+        false);
+    }
+    return $related;
+}
+add_shortcode('related', 'in_article_related_shortcode');
+
+function related_shortcode_button() {
+    echo '<a href="javascript:void(0);" id="insert-related-shortcode" class="button">Insert Related</a>';
+}
+add_action('media_buttons', 'related_shortcode_button',15);
+
+function tkno_admin_enqueue($hook) {
+    if ( 'post.php' != $hook ) {
+        return;
+    }
+    wp_enqueue_script( 'rvadmin-js', get_stylesheet_directory_uri() . '/library/js/rv-admin.js' );
+}
+add_action( 'admin_enqueue_scripts', 'tkno_admin_enqueue' );
+
+/**
+ * Attempt to de-dupe the homepage results
+ */
+function tkno_exclude_duplicates( &$query ) {
+    if ( ! is_front_page() || $query->get('adp_disable') ) return;
+    global $adp_posts;
+    if ( empty( $query->post__not_in ) ) {
+        $query->set( 'post__not_in', $adp_posts );
+    }
+}
+add_action( 'parse_query', 'tkno_exclude_duplicates' );
+
+function tkno_log_posts( $posts, $query ) {
+    $adp_posts = array(); 
+    if ( ! is_front_page() ) return $posts;
+    global $adp_posts;
+    foreach ( $posts as $i => $post ) {
+        $adp_posts[] = $post->ID;
+    }
+    return $posts;
+}
+add_filter( 'the_posts', 'tkno_log_posts', 10, 2 );
+
 /*
 Plugin Name: Default to GD
 Plugin URI: http://wordpress.org/extend/plugins/default-to-gd
@@ -682,3 +1199,126 @@ function ms_image_editor_default_to_gd( $editors ) {
     return $editors;
 }
 add_filter( 'wp_image_editors', 'ms_image_editor_default_to_gd' );
+
+/**
+ * Removes "smart" characters from word processors and replaces them with the correct hmtl safe characters
+ * @param: sting $str - The string to be fixed
+ * @return: cleaned string
+ */
+function replace_smart_chars( $str ) {
+       
+        // Replace the smart quotes that cause question marks to appear
+        $str = str_replace(
+                array("\xe2\x80\x98", "\xe2\x80\x99", "\xe2\x80\x9c", "\xe2\x80\x9d", "\xe2\x80\x93", "\xe2\x80\x94", "\xe2\x80\xa6"),
+                array("'", "'", '"', '"', '-', '--', '...'), $str);
+       
+        // Replace the smart quotes that cause question marks to appear
+        $str = str_replace(
+                array(chr(145), chr(146), chr(147), chr(148), chr(150), chr(151), chr(133)),
+                array("'", "'", '"', '"', '-', '--', '...'), $str);
+       
+        // Replace special chars (tm) (c) (r)
+        $str = str_replace(
+                array('™', '©', '®'),
+                array('&trade;', '&copy;', '&reg;'), $str);
+       
+        // Return the fixed string
+        return $str;
+}
+
+// Add filters to modify the content before saving to the database
+add_filter( 'content_save_pre', 'replace_smart_chars' );
+add_filter( 'title_save_pre',   'replace_smart_chars' );
+
+// Hide the Wordpress SEO canonical for posts that already have one from Autoblog
+function tkno_wpseo_canonical_override( $canonical ) {
+    global $post;
+    if ( is_singular() && get_post_meta( $post->ID, 'original_guid' ) ) {
+        $meta_canonical = get_post_meta( $post->ID, 'original_guid' );
+        $canonical = $meta_canonical[0];
+    }
+    return $canonical;
+}
+add_filter( 'wpseo_canonical', 'tkno_wpseo_canonical_override' );
+
+
+// Increase Custom Field Limit
+function tkno_customfield_limit_increase( $limit ) {
+    $limit = 100;
+    return $limit;
+}
+add_filter( 'postmeta_form_limit' , 'tkno_customfield_limit_increase' );
+
+/**
+ * dequeue WP Email, Contact Form 7 and Gallery Slideshow scripts when not necessary
+ */
+function tkno_dequeue_scripts() {
+    if( is_singular() ) {
+        $post = get_post();
+        if( ! has_shortcode( $post->post_content, 'gallery' ) ) {
+            wp_dequeue_script( 'cycle2' );
+            wp_dequeue_script( 'cycle2_center' );
+            wp_dequeue_script( 'cycle2_carousel' );
+            wp_dequeue_script( 'gss_js' );
+            wp_dequeue_script( 'gss_custom_js' );
+            wp_dequeue_style( 'gss_css' );
+        }
+        if( ! has_shortcode( $post->post_content, 'contact-form-7' ) ) {
+            wp_dequeue_script( 'contact-form-7' );
+            wp_dequeue_style( 'contact-form-7' );
+        }
+    }
+    wp_dequeue_style( 'wp-email' );
+}
+add_action( 'wp_enqueue_scripts', 'tkno_dequeue_scripts', 99 );
+
+/**
+ * Remove jquery migrate and move jquery to footer
+ */ 
+function tkno_remove_jquery_migrate( &$scripts)
+{
+    if(!is_admin())
+    {
+        $scripts->remove( 'jquery');
+        $scripts->add( 'jquery', false, array( 'jquery-core' ), '1.10.2' );
+    }
+}
+add_filter( 'wp_default_scripts', 'tkno_remove_jquery_migrate' );
+
+/**
+ * deregister stupid wP emoji BS
+ */
+remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
+remove_action( 'wp_print_styles', 'print_emoji_styles' );
+
+/**
+ * deregister unused Jetpack CSS
+ */ 
+function tkno_remove_all_jp_css() {
+  wp_deregister_style( 'AtD_style' ); // After the Deadline
+  wp_deregister_style( 'jetpack_likes' ); // Likes
+  wp_deregister_style( 'jetpack_related-posts' ); //Related Posts
+  wp_deregister_style( 'jetpack-carousel' ); // Carousel
+  wp_deregister_style( 'the-neverending-homepage' ); // Infinite Scroll
+  wp_deregister_style( 'infinity-twentyten' ); // Infinite Scroll - Twentyten Theme
+  wp_deregister_style( 'infinity-twentyeleven' ); // Infinite Scroll - Twentyeleven Theme
+  wp_deregister_style( 'infinity-twentytwelve' ); // Infinite Scroll - Twentytwelve Theme
+  wp_deregister_style( 'noticons' ); // Notes
+  wp_deregister_style( 'post-by-email' ); // Post by Email
+  wp_deregister_style( 'publicize' ); // Publicize
+  wp_deregister_style( 'sharedaddy' ); // Sharedaddy
+  wp_deregister_style( 'sharing' ); // Sharedaddy Sharing
+  wp_deregister_style( 'stats_reports_css' ); // Stats
+  wp_deregister_style( 'jetpack-widgets' ); // Widgets
+  wp_deregister_style( 'jetpack-slideshow' ); // Slideshows
+  wp_deregister_style( 'presentations' ); // Presentation shortcode
+  wp_deregister_style( 'tiled-gallery' ); // Tiled Galleries
+  wp_deregister_style( 'widget-conditions' ); // Widget Visibility
+  wp_deregister_style( 'jetpack_display_posts_widget' ); // Display Posts Widget
+  wp_deregister_style( 'gravatar-profile-widget' ); // Gravatar Widget
+  wp_deregister_style( 'widget-grid-and-list' ); // Top Posts widget
+}
+if ( ! is_admin() ) {
+    add_filter( 'jetpack_implode_frontend_css', '__return_false' );
+    add_action('wp_print_styles', 'tkno_remove_all_jp_css' );
+}

@@ -32,11 +32,11 @@ function reactor_register_sidebars() {
 		) );
 	}
 	
-	if ( in_array( 'secondary', $sidebars[0] ) ) {	
+	if ( in_array( 'front-upper', $sidebars[0] ) ) {	
 		register_sidebar( array( 
-			'name'          => __('Secondary Sidebar', 'reactor'),
-			'id'            => 'sidebar-2',
-			'description'   => 'The secondary sidebar for 3 column layouts',
+			'name'          => __('Frontpage Upper Sidebar', 'reactor'),
+			'id'            => 'sidebar-frontupper',
+			'description'   => 'Lower sidebar for the front page template',
 			'class'         => '',
 			'before_widget' => '<div id="%1$s" class="widget %2$s">',
 			'after_widget'  => '</div>',
@@ -57,12 +57,12 @@ function reactor_register_sidebars() {
 			'after_title'   => '</h4>',
 		) );
 	}
-	
-	if ( in_array( 'front-secondary', $sidebars[0] ) ) {
+
+	if ( in_array( 'front-lower', $sidebars[0] ) ) {
 		register_sidebar( array(
-			'name'          => __('Front Page Secondary', 'reactor'),
-			'id'            => 'sidebar-frontpage-2',
-			'description'   => 'Secondary sidebar for the front page template',
+			'name'          => __('Front Page Lower', 'reactor'),
+			'id'            => 'sidebar-frontlower',
+			'description'   => 'Lower sidebar for the front page template',
 			'class'         => '',
 			'before_widget' => '<div id="%1$s" class="widget frontpage-widget %2$s">',
 			'after_widget'  => '</div>',
@@ -79,20 +79,6 @@ function reactor_register_sidebars() {
 			'name'          => __('Footer', 'reactor'),
 			'id'            => 'sidebar-footer',
 			'description'   => 'Footer widget area',
-			'class'         => '',
-			'before_widget' => $footer,
-			'after_widget'  => '</div>',
-			'before_title'  => '<h4 class="widget-title">',
-			'after_title'   => '</h4>',
-		) );
-	}
-
-	if ( in_array( 'error', $sidebars[0] ) ) {
-		$footer  = '<div id="%1$s" class="widget top-bar-widget large-6 medium-6 small-12 columns %2$s">';
-		register_sidebar( array(
-			'name'          => __('Error pages', 'reactor'),
-			'id'            => 'sidebar-error',
-			'description'   => 'Error pages widget area',
 			'class'         => '',
 			'before_widget' => $footer,
 			'after_widget'  => '</div>',

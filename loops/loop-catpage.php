@@ -26,12 +26,20 @@ $number_posts = 25;
     <?php reactor_loop_before(); ?>
     	
         <?php while ( $wp_query->have_posts() ) : $wp_query->the_post(); ?>
+
+            <?php echo ( $wp_query->current_post == 0 ) ? '<div class="cat-main">' : ''; ?>
+                    <?php echo ( $wp_query->current_post == 1 ) ? '<div class="row cat-top"><div class="large-6 medium-6 small-12 columns cat-main">' : ''; ?>
+                    <?php echo ( $wp_query->current_post == 2 ) ? '<div class="large-6 medium-6 small-12 columns cat-main">' : ''; ?>
 			
-			<?php reactor_post_before(); ?>
+            			<?php reactor_post_before(); ?>
 
-            <?php get_template_part('post-formats/format', 'catpage'); ?>
+                        <?php get_template_part('post-formats/format', 'catpage'); ?>
 
-            <?php reactor_post_after(); ?>
+                        <?php reactor_post_after(); ?>
+
+                <?php echo ( $wp_query->current_post == 0 || ( $wp_query->current_post == 1 && $wp_query->post_count > 2 ) ) ? '</div><!-- #end row-single -->' : ''; ?>
+
+            <?php echo ( $wp_query->current_post == 2 || ( $wp_query->current_post == 1 && $wp_query->post_count == 2 ) ) ? '</div></div><!-- #end row-double -->' : ''; ?>
 
         <?php endwhile; // end of the post loop ?>
 

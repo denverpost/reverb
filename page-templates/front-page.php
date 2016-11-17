@@ -17,20 +17,22 @@
         <div id="content" role="main">
         	<div class="row">
 
-                <div class="large-6 large-push-2 medium-12 small-12 columns" id="frontpagemain">
+                <div class="large-12 medium-12 small-12 columns" id="frontupper">
+                    <?php get_sidebar('frontupper'); ?>
+                </div>
+
+                <div class="large-8 medium-12 small-12 columns" id="frontpagemain">
                 
                 <?php reactor_inner_content_before(); ?>
                         
-                    <?php get_template_part('loops/loop', 'frontpage'); ?>
+                <?php get_template_part('loops/loop', 'frontpage'); ?>
+
+                <div class="clear"></div>
                     
                 <?php reactor_inner_content_after(); ?>
+
+                <?php get_sidebar('frontlower'); ?>
                 
-                </div><!-- .columns -->
-
-                <div class="large-2 large-pull-6 medium-6 small-12 columns" id="frontpageleft">
-
-                    <?php get_sidebar('frontpagetwo'); ?>
-
                 </div><!-- .columns -->
 
 				<?php get_sidebar('primary'); ?>

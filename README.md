@@ -1,6 +1,6 @@
 # Reverb
 
-A child theme for Reactor designed for The Denver Post's HeyReverb.com music site, focusing on video and photos.
+A child theme for Reactor designed for The Denver Post's upcoming Entertainment/Things-To-Do site, based on the Reverb theme.
 
 ## Setting up for dev, beta or prod
 

@@ -33,13 +33,14 @@
                     
                     global $authpage_query; 
                     $authpage_query = new WP_Query( $args );
+                    $display_title = ( get_the_author_meta( 'display_title', $author->ID ) ) ? '<span>, <em>' . get_the_author_meta( 'display_title', $author->ID ) . '</em></span>' : '';
 
                     //if ( $authpage_query->have_posts() ) : $authpage_query->the_post(); ?>
 
                     <?php reactor_loop_before(); ?>
         
                     <header class="archive-header">
-                        <h1 class="archive-title author-title"><?php printf( __('%s', 'reactor'), $curauth->display_name ); ?></h1>
+                        <h1 class="author-title"><?php printf( __('%s', 'reactor'), $curauth->display_name ); ?><?php echo $display_title; ?></h1>
                     </header><!-- .archive-header -->
         
                     <?php //$authpage_query->rewind_posts(); ?>

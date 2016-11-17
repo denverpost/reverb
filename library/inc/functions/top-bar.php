@@ -90,8 +90,6 @@ if ( !function_exists('reactor_top_bar') ) {
 		/* call functions to create right and left menus in the top bar. defaults to the registered menus for top bar */
         $left_menu = ( ( $args['left_menu'] && is_callable( $args['left_menu'] ) ) ) ? call_user_func( $args['left_menu'], (array) $args ) : '';
         $right_menu = ( ( $args['right_menu'] && is_callable( $args['right_menu'] ) ) ) ? call_user_func( $args['right_menu'], (array) $args ) : '';
-
-        $social_dropdown = reactor_top_bar_social();
 		
 		// assemble classes for top bar
 		$classes = array(); $output = '';
@@ -108,9 +106,8 @@ if ( !function_exists('reactor_top_bar') ) {
 				$output .= '<nav class="top-bar" data-topbar data-options="is_hover:true; scrolltop:false; custom_back_text:true; back_text:&laquo; Back; mobile_show_parent_link: true;' . $stickyattrib . '">';
 					$output .= '<ul class="title-area">';
 						$output .= '<li class="name">';
-							$output .= '<p><a href="' . $args['title_url'] .'"><img src="' . get_stylesheet_directory_uri() . '/images/site-logo-small-black.png" alt="Reverb site logo" /></a></p>';
+							$output .= '<p><a href="' . $args['title_url'] .'"><img src="' . get_stylesheet_directory_uri() . '/images/to-do-denver-logo.png" alt="' . get_bloginfo('name') . ' logo" /></a></p>';
 						$output .= '</li>';
-						$output .= '<li class="toggle-social menu-icon">' . $social_dropdown[0] . '</li>';
 						$output .= '<li class="toggle-topbar menu-icon"><a href="#"><span>' . $args['menu_name'] . '</span></a></li>';
 					$output .= '</ul>';
 					$output .= '<section class="top-bar-section">';
@@ -119,7 +116,6 @@ if ( !function_exists('reactor_top_bar') ) {
 					$output .= '</section>';
 				$output .= '</nav>';
 			$output .= '</div>';
-			$output .= $social_dropdown[1];
 			
 		echo apply_filters('reactor_top_bar', $output, $args);	
 	    }
@@ -142,7 +138,7 @@ if(!function_exists('reactor_topbar_search')) {
 		$args = wp_parse_args( $args, $defaults );
 		$args = apply_filters( 'reactor_top_bar_args', $args );
 		
-		$output  = '<ul class="' . $args['side'] . '"><li class="has-form">';
+		$output  = '<ul class="' . $args['side'] . '"><li class="has-form" id="searchformbox">';
 		$output .= '<form role="search" method="get" id="searchform" action="' . home_url() . '"><div class="row collapse">';
 		$output .= '<div class="large-10 small-10 columns">';
 		$output .= '<input type="text" value="' . get_search_query() . '" name="s" id="s" placeholder="' . esc_attr__('Search', 'reactor') . '" />';

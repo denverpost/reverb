@@ -18,16 +18,17 @@
  * @since 1.0.0
  */
 function reactor_do_overline() {
-	if ( is_single() ) {
-		$categories_list = '';
-		$categories = get_the_category();
-		foreach($categories as $category) {
-			if ( strtolower($category->slug) != 'uncategorized' && $category->category_parent == 0) {
-				$categories_list = $category;
-			}
-		} ?>
-        <header class="archive-header">
-            <h2 <?php post_class('archive-title'); ?>><a href="<?php echo get_category_link(intval($categories_list->term_id) ); ?>"><?php echo $categories_list->cat_name; ?></a></h2>
+	if ( get_post_type() == 'venues' ) { ?>
+		<header class="archive-header">
+            <h1 class="archive-title venue-header"><span><a href="/venues/">Venues</a></span></h1>
+        </header><!-- .archive-header -->
+	<?php } else if ( is_single() ) {
+		$primary_category = tkno_get_primary_category();
+		$class_category = 'archive-title category-' . tkno_get_top_category_slug(true);
+		$class_header_category = ' category-' . tkno_get_top_category_slug( true );
+		?>
+        <header class="archive-header<?php echo $class_header_category; ?>">
+            <h2 <?php post_class($class_category); ?>><span><a href="<?php echo $primary_category->url; ?>"><?php echo $primary_category->name; ?></a></span></h2>
         </header><!-- .archive-header -->
 	<?php }
 }
@@ -41,34 +42,23 @@ add_action('reactor_post_before', 'reactor_do_overline', 1);
  */
 function reactor_post_frontpage_format() {
 
-	$categories_list = '';
-	$categories = get_the_category();
-	end($categories);
-	foreach($categories as $category) {
-		if ( strtolower($category->slug) != 'uncategorized' && $category->category_parent == 0) {
-			$categories_list = $category->name;
-		}
-	}
+	$primary_category = tkno_get_primary_category();
 
 	if ( has_post_thumbnail() ) {
-		$large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'large');
+		$large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'large' );
 	}
-	if (isset($large_image_url) && strlen($large_image_url[0]) >= 1) { ?>
-		<div class="frontpage-image frontpage-post" style="background-image:url('<?php echo $large_image_url[0]; ?>');">
-			<div class="front-thumbnail">
-				<div class="front-imgholder"></div>
-				<a href="<?php the_permalink(); ?>" rel="bookmark" title="<?php the_title_attribute(); ?>">
-					<div class="front-img" style="background-image:url('<?php echo $large_image_url[0]; ?>');"></div>
-				</a>
-			</div>
-	<?php } else { ?>
-		<div class="frontpage-post">
+	if ( isset( $large_image_url ) && strlen( $large_image_url[0] ) >= 1 ) {
+		?><div class="frontpage-image frontpage-post" style="background-image:url('<?php echo $large_image_url[0]; ?>');">
+			<div class="front-imgholder"></div>
+			<a href="<?php the_permalink(); ?>" rel="bookmark"></a>
+		</div>
 	<?php } ?>
-		<a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( __('%s', 'reactor'), the_title_attribute('echo=0') ) ); ?>" rel="bookmark">
-			<h2 class="entry-title"><span><?php echo $categories_list; ?></span><?php the_title(); ?></h2>
-		</a>
-	</div>
-<?php }
+		<span>
+			<a href="<?php echo $primary_category->url; ?>"><?php echo $primary_category->name; ?></a>
+		</span>
+		<h2 class="entry-title">
+			<a href="<?php the_permalink(); ?>" rel="bookmark""><?php the_title(); ?></a>
+		</h2> <?php }
 add_action('reactor_post_frontpage', 'reactor_post_frontpage_format', 1);
 
 
@@ -91,13 +81,12 @@ function reactor_post_catpage_format() {
 	<div class="catpage-post">
 	<?php } ?>
 		<div class="catpage-post-inner">
-			<a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( __('%s', 'reactor'), the_title_attribute('echo=0') ) ); ?>" rel="bookmark">
+			<a href="<?php the_permalink(); ?>" rel="bookmark">
 				<h2 class="entry-title"><?php the_title(); ?></h2>
 			</a>
-			<p class="catexcerpt"><?php echo smart_trim(get_the_content(),25); ?></p>
+			<p class="catexcerpt"><?php echo smart_trim( strip_shortcodes( get_the_content() ), 25 ); ?></p>
 			<?php 
-			$showcomments = ( is_search() ) ? false : true;
-			reactor_post_meta(array('show_cat'=>false,'show_tag'=>false,'comments'=>$showcomments,'catpage'=>true,'link_date'=>false)); ?>
+			reactor_post_meta(array('show_cat'=>false,'show_tag'=>false,'catpage'=>true,'link_date'=>false)); ?>
 		</div>
 		<div class="clear"></div>
 	</div>
@@ -119,16 +108,19 @@ function reactor_do_standard_header_titles() {
 		<?php if ( !$link_titles ) { ?>
 		<h2 class="entry-title"><?php the_title(); ?></h2>
 		<?php } else { ?>
-		<h2 class="entry-title"><a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( __('%s', 'reactor'), the_title_attribute('echo=0') ) ); ?>" rel="bookmark"><?php the_title(); ?></a></h2>
+		<h2 class="entry-title"><a href="<?php the_permalink(); ?>" rel="bookmark"><?php the_title(); ?></a></h2>
 	<?php }
 	} elseif ( is_author() ) { ?>
-		<a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( __('%s', 'reactor'), the_title_attribute('echo=0') ) ); ?>" rel="bookmark"><h2 class="entry-title"><?php the_title(); ?></h2></a>
+		<a href="<?php the_permalink(); ?>" rel="bookmark"><h2 class="entry-title"><?php the_title(); ?></h2></a>
 	<?php
 	} elseif ( !get_post_format() && !is_page_template('page-templates/front-page.php') ) {  ?>    
 		<?php if ( is_single() ) { ?>
 		<h1 class="entry-title"><?php the_title(); ?></h1>
+		<?php if ( get_the_subtitle() != '' ): ?>
+			<h2 class="entry-subtitle"><?php the_subtitle(); ?></h2>
+		<?php endif; ?>
 		<?php } else { ?>
-		<h2 class="entry-title"><a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( __('%s', 'reactor'), the_title_attribute('echo=0') ) ); ?>" rel="bookmark"><?php the_title(); ?></a></h2>
+		<h2 class="entry-title"><a href="<?php the_permalink(); ?>" rel="bookmark"><?php the_title(); ?></a></h2>
 		<?php } ?>
 <?php }
 }
@@ -136,133 +128,87 @@ add_action('reactor_post_header', 'reactor_do_standard_header_titles', 3);
 
 
 /**
- * Post footer meta
+ * Post header meta
  * in all formats
  * 
  * @since 1.0.0
  */
 function reactor_do_post_header_meta() {
 
-	if ( is_single() ) {
-		reactor_post_meta(array('show_cat'=>false,'show_tag'=>false,'comments'=>true,'catpage'=>true,'link_date'=>false,'social_dropdown'=>true));
+	if ( is_single() && ! ( get_post_type() == 'venues' ) ) {
+		reactor_post_meta(array('show_cat'=>false,'show_tag'=>false,'catpage'=>true,'link_date'=>false,'social_dropdown'=>false));
 	}
 }
 add_action('reactor_post_header', 'reactor_do_post_header_meta', 4);
 
 /**
- * Post thumbnail
- * in format-standard
+ * Post header social
+ * in all formats
  * 
  * @since 1.0.0
  */
-function reactor_do_standard_thumbnail() { 
-	$link_titles = reactor_option('frontpage_link_titles', 0);
-	
-	if ( has_post_thumbnail() ) { 
-		$large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'large');
-		?>
-		<div class="entry-thumbnail">
-		<?php if ( is_page_template('page-templates/front-page.php') ) {
-			?>
-			<div class="mainimgholder"></div>
-			<a href="<?php the_permalink(); ?>" rel="bookmark" title="<?php the_title_attribute(); ?>"><div class="mainimg" style="background-image:url('<?php echo $large_image_url[0]; ?>');"></div></a>
-        <?php } else { ?>
-			<?php if (!is_single()) { ?><a href="<?php the_permalink(); ?>" rel="bookmark" title="<?php the_title_attribute(); ?>"><?php } ?>
-				<span class="postimg" style="background-image:url('<?php echo $large_image_url[0]; ?>');"></span>
-			<?php if (!is_single()) { ?></a><?php } ?>
-        <?php } ?>
+function reactor_do_post_header_social() {
+
+	if ( is_single() && ! ( get_post_type() == 'venues' ) ) { ?>
+		<div class="row">
+			<div class="large-12 medium-12 small-12 columns masocial">
+				<?php echo do_shortcode('[mashshare]'); ?>
+			</div>
 		</div>
 	<?php }
 }
-add_action('reactor_post_header', 'reactor_do_standard_thumbnail', 4);
+add_action('reactor_post_header', 'reactor_do_post_header_social', 5);
+
+/**
+ * Post footer venue
+ * in all formats
+ * 
+ * @since 1.0.0
+ */
+function reactor_do_post_footer_venue() {
+	
+	global $post;
+	$venue = wp_get_post_terms( $post->ID, 'venue' );
+	$venue_page = ( ! empty( $venue[0] ) ) ? tkno_get_venue_from_slug( $venue[0]->slug ) : '';
+
+	if ( is_single() && ! $venue_page == '' ) { ?>
+		<div class="row">
+			<div class="large-12 medium-12 small-12 columns single_venue">
+				<h3>Venue: <a href="<?php echo get_permalink( $venue_page->ID ); ?>"><?php echo $venue_page->post_title; ?></a></h3>
+			</div>
+		</div>
+	<?php }
+}
+add_action('reactor_post_footer', 'reactor_do_post_footer_venue', 1);
+
+/**
+ * Post footer social
+ * in all formats
+ * 
+ * @since 1.0.0
+ */
+function reactor_do_post_footer_social() {
+
+	if ( is_single() ) { ?>
+		<div class="row">
+			<div class="large-12 medium-12 small-12 columns masocial">
+				<?php echo do_shortcode('[mashshare]'); ?>
+			</div>
+		</div>
+	<?php }
+}
+add_action('reactor_post_footer', 'reactor_do_post_footer_social', 2);
 
 /**
  * Post content after tags
  * in format-standard
  */
-function rvrb_post_body_content_tags() {
+function tkno_post_body_content_tags() {
 	if ( is_single() ) {
 		reactor_post_meta( array( 'just_tags' => true ) );
 	}
 }
-add_action('reactor_post_footer', 'rvrb_post_body_content_tags', 1);
-
-/**
- * Post footer edit 
- * in single.php
- * 
- * @since 1.0.0
- */
-function reactor_do_post_edit() {
-	if ( is_single() ) {
-		edit_post_link( __('Edit this post', 'reactor'), '<div class="edit-link"><span>', '</span></div>');
-	}
-}
-add_action('reactor_post_footer', 'reactor_do_post_edit', 2);
-
-
-/**
- * Post body social links
- * in format-standard
- * 
- * @since 1.0.0
- */
-function reactor_do_post_body_social() {
-	global $wp;
-	global $post;
-
-	$text = html_entity_decode(get_the_title());
-	if ( (is_single() || is_page() ) && has_post_thumbnail($post->ID) ) {
-		$image = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'large');
-	} else {
-		$image = get_stylesheet_directory_uri() . '/images/logo-large.png';
-	}
-	$desc = ( get_the_excerpt() != '' ? get_the_excerpt() : get_bloginfo('description') );
-	$social_string = '<div class="post-body-social"><ul class="inline-list">';
-	//Twitter button
-	$social_string .= sprintf(
-	    '<li class="post-meta-social pm-twitter"><a href="javascript:void(0)" onclick="javascript:window.open(\'http://twitter.com/share?text=%1$s&amp;url=%2$s&amp;via=%3$s\', \'twitwin\', \'left=20,top=20,width=500,height=500,toolbar=1,resizable=1\');"><span class="fi-social-twitter">Twitter</span></a></li>',
-	    urlencode(html_entity_decode($text, ENT_COMPAT, 'UTF-8') . ':'),
-	    rawurlencode( wp_get_shortlink() ),
-	    'rvrb'
-	);
-	//Facebook share
-	$social_string .= sprintf(
-	    '<li class="post-meta-social pm-facebook"><a href="javascript:void(0)" onclick="javascript:window.open(\'http://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]=%1$s&amp;p[images][0]=%2$s&amp;p[title]=%3$s&amp;p[summary]=%4$s\', \'fbwin\', \'left=20,top=20,width=500,height=500,toolbar=1,resizable=1\');"><span class="fi-social-facebook">Facebook</span></a></li>',
-	    rawurlencode( wp_get_shortlink() ),
-	    rawurlencode( $image[0] ),
-	    urlencode( html_entity_decode($text, ENT_COMPAT, 'UTF-8') ),
-	    urlencode( html_entity_decode( $desc, ENT_COMPAT, 'UTF-8' ) )
-	);
-	//Google plus share
-	$social_string .= sprintf(
-	    '<li class="post-meta-social pm-googleplus"><a href="javascript:void(0)" onclick="javascript:window.open(\'http://plus.google.com/share?url=%1$s\', \'gpluswin\', \'left=20,top=20,width=500,height=500,toolbar=1,resizable=1\');"><span class="fi-social-google-plus">Google+</span></a></li>',
-	    rawurlencode( wp_get_shortlink() )
-	);
-	//Linkedin share
-	$social_string .= sprintf(
-	    '<li class="post-meta-social pm-linkedin"><a href="javascript:void(0)" onclick="javascript:window.open(\'http://www.linkedin.com/shareArticle?mini=true&amp;url=%1$s&amp;title=%2$s&amp;source=%3$s\', \'linkedwin\', \'left=20,top=20,width=500,height=500,toolbar=1,resizable=1\');"><span class="fi-social-linkedin">LinkedIn</span></a></li>',
-	    rawurlencode( wp_get_shortlink() ),
-	    urlencode( html_entity_decode($text, ENT_COMPAT, 'UTF-8') ),
-	    rawurlencode( home_url() )
-	);
-	//Pinterest Pin This
-	$social_string .= sprintf(
-	    '<li class="post-meta-social pm-pinterest"><a href="javascript:void(0)" onclick="javascript:window.open(\'http://pinterest.com/pin/create/button/?url=%1$s&amp;media=%2$s&amp;description=%3$s\', \'pintwin\', \'left=20,top=20,width=500,height=500,toolbar=1,resizable=1\');"><span class="fi-social-pinterest">Pinterest</span></a></li>',
-	    rawurlencode( wp_get_shortlink() ),
-	    rawurlencode( $image[0] ),
-	    urlencode( html_entity_decode($text, ENT_COMPAT, 'UTF-8') )
-	);
-	//Reddit submit
-	$social_string .= sprintf(
-	    '<li class="post-meta-social pm-reddit"><a href="javascript:void(0)" onclick="javascript:window.open(\'http://www.reddit.com/submit?url=%1$s&amp;title=%2$s\', \'redditwin\', \'left=20,top=20,width=900,height=700,toolbar=1,resizable=1\');"><span class="fi-social-reddit">Reddit</span></a></li>',
-	    rawurlencode( wp_get_shortlink() ),
-	    urlencode( html_entity_decode($text, ENT_COMPAT, 'UTF-8') )
-	);
-	$social_string .= '<div class="clear"></div></ul></div>';
-	echo $social_string;
-}
-add_action('reactor_post_footer', 'reactor_do_post_body_social', 3);
+add_action('reactor_post_footer', 'tkno_post_body_content_tags', 3);
 
 /**
  * Post footer meta
@@ -271,10 +217,9 @@ add_action('reactor_post_footer', 'reactor_do_post_body_social', 3);
  * @since 1.0.0
  */
 function reactor_do_post_footer_meta() {
-
-	if ( is_single() ) {
+	if ( is_single() && ! ( get_post_type() == 'venues' ) ) {
 		reactor_post_meta( array('show_photo' => true,'show_tag' => true) );
-	} else {
+	} else if ( ! get_post_type() == 'venues' ) {
 		if ( is_page_template('page-templates/front-page.php') ) {
 			$post_meta = reactor_option('frontpage_post_meta', 1);
 		}
@@ -287,9 +232,30 @@ function reactor_do_post_footer_meta() {
 		if ( $post_meta && current_theme_supports('reactor-post-meta') ) {
 			reactor_post_meta();
 		}
-	}
+	} else if ( get_post_type() == 'venues' ) {
+		global $post;
+		$link_uri = 'http://www-beta.heyreverb.com/calendar/#!/show/?search=' . rawurlencode( $post->post_title ); ?>
+		<div class="row">
+			<div class="large-12 medium-12 small-12 columns single_venue">
+				<h3>More events: <a href="<?php echo $link_uri; ?>"><?php echo $post->post_title; ?> on our calendar</a></h3>
+			</div>
+		</div>
+	<?php }
 }
 add_action('reactor_post_footer', 'reactor_do_post_footer_meta', 4);
+
+/**
+ * Post footer edit 
+ * in single.php
+ * 
+ * @since 1.0.0
+ */
+function reactor_do_post_edit() {
+	if ( is_single() && ! ( get_post_type() == 'venues' ) ) {
+		edit_post_link( __('Edit this post', 'reactor'), '<div class="edit-link"><span>', '</span></div>');
+	}
+}
+add_action('reactor_post_footer', 'reactor_do_post_edit', 5);
 
 /**
  * Single post nav 
@@ -310,34 +276,40 @@ function reactor_do_nav_single() {
         </nav><!-- .nav-single -->
 <?php }
 }
-add_action('reactor_post_after', 'reactor_do_nav_single', 1);
+add_action('reactor_post_after', 'reactor_do_nav_single', 3);
 
 /**
- * Comments 
+ * Single post related 
  * in single.php
  * 
  * @since 1.0.0
  */
-function reactor_do_post_comments() {      
-	// If comments are open or we have at least one comment, load up the comment template
-	if ( is_single() && !is_category() && !is_tag() ) {
-		//comments_template('', true);
-		//$commentnum = ( '0' != get_comments_number() ? 'Read the comments (' . get_comments_number() . ')' : 'Show article comments');
-		$commentnum = '<a class="fi-comment radius" href="' . get_permalink() . '#disqus_thread" title="Display article comments">Add a comment</a>'
-		?>
-		<div id="comments" class="comments-area">
-        	<div id="disqus_thread"></div>
-        	<div class="showdisqus"><?php echo $commentnum; ?></div>
-		</div>
-		<div id="relatedwrap" class="noprint">
-			<h4 class="related-title widget-title noprint">Related Content</h4>
-			<div id="related-content" class="noprint"></div>
-			<div class="relatednext"></div>
-		</div>
-		<?php
-	}
+function tkno_single_post_related() {
+    if ( is_single() && ! ( get_post_type() == 'venues' ) && function_exists( 'yarpp_related' ) ) { 
+    	global $post; ?>
+	    <div class="related">
+		    <?php yarpp_related( array( 
+		    	'post_type'			=> array('post'),
+		    	'show_pass_post'	=> false,
+		    	'exclude'			=> array(),
+		    	'recent'			=> '6 month',
+		    	'weight'			=> array(
+		    		'tax'	=> array(
+		    			'post_tag' => 2,
+		    			'venue'   => 1
+		    		)
+		    	),
+		    	'threshold'			=> 2,
+		    	'template'			=> 'yarpp-template-rvrb.php',
+		    	'limit'				=> 3,
+		    	'order'				=> 'score DESC'
+		    	),
+	    	$post->ID,
+	    	true); ?>
+	    </div>
+	<?php }
 }
-add_action('reactor_post_after', 'reactor_do_post_comments', 2);
+add_action('reactor_post_after', 'tkno_single_post_related', 4);
 
 /**
  * No posts format

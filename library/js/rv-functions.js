@@ -8,36 +8,37 @@ function scrollDownTo(whereToScroll, scrollOffset) {
     return false;
 }
 
-var disqus_shortname = 'dpreverb'; // required: replace example with your forum shortname
-jQuery.ajax({
-  type: 'GET',
-  url: '//dpreverb.disqus.com/count.js',
-  dataType: 'script',
-  cache: false
-});
-
-function showDisqusComments() {
-	var disqus_shortname = 'dpreverb';
-	$j.ajax({
-        type: "GET",
-        url: "http://" + disqus_shortname + ".disqus.com/embed.js",
-        dataType: "script",
-        cache: true
+function checkListicle() {
+  if ( $j('.listicle').length == 1 ) {
+    $j('.listicle figure.wp-caption figcaption.wp-caption-text').each(function(){
+      var node = $j(this).contents().filter(function () { 
+            return this.nodeType == 3;
+        }).first(),
+      text = node.text(),
+      first = text.slice(0, text.indexOf(" "));
+    if (!node.length)
+        return;
+    node[0].nodeValue = text.slice(first.length);
+    node.before('<span>' + first + '</span>');
     });
-    $j('.showdisqus').fadeOut();
-    scrollDownTo('#disqus_thread');
+  }
 }
 
-//Disqus button reveal
+function widgetHeightAdjust() {
+  boxes = $j('.frontpage-widget.widget_dpe_fp_widget');
+  maxHeight = Math.max.apply(
+  Math, boxes.map(function() {
+    return $j(this).height();
+  }).get());
+  boxes.height(maxHeight);
+}
+
 $j(document).ready(function() {
-	var checkHash = location.hash;
-	if (checkHash == '#disqus_thread' || checkHash == '#comments') {
-		showDisqusComments();
-	}
-	$j('.showdisqus').on('click', function(){
-		showDisqusComments();
-	});
-	$j('.commentsNameLink').on('click', function(){
-		showDisqusComments();
-	});
+  $j(window).load(function() {
+    //dpLogoClick();
+    checkListicle();
+    if ( ! window.innerWidth < 541 ) {
+      widgetHeightAdjust();
+    }
+  });
 });

@@ -29,7 +29,6 @@ if ( !function_exists('reactor_post_meta') ) {
 			'show_tag'    => true,
 			'show_icons'  => false,
 			'show_uncategorized' => false,
-			'comments' => false,
 			'catpage' => false,
 			'show_photo' => false,
 			'social_dropdown'	=> false,
@@ -76,43 +75,144 @@ if ( !function_exists('reactor_post_meta') ) {
 			esc_attr( get_the_date('c') ),
 			esc_html( get_the_date() )
 		 );
-	
-		$authorraw = ( !$args['show_photo'] ) ? '<a class="url fn n" href="%1$s" rel="author"><span>%2$s</span></a>' : '<a class="url fn n" href="%1$s" rel="author"><h4>%2$s</h4></a>';
-		$author = '';
+		
+		if (!function_exists('authorTitleCase')) {
+			function authorTitleCase($string) {
+				$word_splitters = array(' ', '-', "O'", "L'", "D'", 'St.', 'Mc');
+				$lowercase_exceptions = array('van', 'den', 'von', 'und', 'der', 'de', 'da', 'of', 'and', "l'", "d'");
+				$uppercase_exceptions = array('III', 'IV', 'VI', 'VII', 'VIII', 'IX');
+			 
+				$string = strtolower($string);
+				foreach ($word_splitters as $delimiter)
+				{ 
+					$words = explode($delimiter, $string); 
+					$newwords = array(); 
+					foreach ($words as $word)
+					{ 
+						if (in_array(strtoupper($word), $uppercase_exceptions)) {
+							$word = strtoupper($word);
+						} else if (!in_array($word, $lowercase_exceptions)) {
+							$word = ucfirst($word); 
+						}
+						$newwords[] = $word;
+					}
+					if (in_array(strtolower($delimiter), $lowercase_exceptions)) {
+						$delimiter = strtolower($delimiter);
+					}
+					$string = join($delimiter, $newwords); 
+				} 
+				return $string; 
+			}
+		}
+
+		if (!function_exists('get_author_matches')) {
+			function get_author_matches($feedauthor) {
+				$feedauthor = preg_replace('/\s\s\s+/', ',', $feedauthor);
+				$feedauthor = str_replace('<br>', ',', $feedauthor);
+				$feedauthor = str_replace(' camera staff writer', ',camera staff writer', $feedauthor);
+				$feedauthor = str_replace(' longmont times-call', ',longmont times-call', $feedauthor);
+				$feedauthor = str_replace(' reporter-herald staff writer', ',reporter-herald staff writer', $feedauthor);
+				$feedauthor = strip_tags( $feedauthor );
+				$feedauthor = str_replace(',,,', ',', $feedauthor);
+				$feedauthor = str_replace(', ,', ',', $feedauthor);
+				$feedauthor = str_replace(',,', ',', $feedauthor);
+				$authpart = explode(',', $feedauthor);
+				foreach ($authpart as $value) {
+				    $authparts[] = authorTitleCase($value);
+				}
+				$feedauthname = str_replace('By ', '', $authparts[0]);
+				$feedauthname = str_replace('Yourhub', 'YourHub', $feedauthname);
+				$feedauthname = str_replace('7news', '7News', $feedauthname);
+				$feedauthname = str_replace('Propublica', 'ProPublica', $feedauthname);
+				$feedauthnametwo = '';
+				if ( isset( $authparts[1] ) ) {
+					$authparts[1] = str_replace('Yourhub', 'YourHub', $authparts[1]);
+					$authparts[1] = str_replace('7news', '7News', $authparts[1]);
+					$authparts[1] = str_replace('Propublica', 'ProPublica', $authparts[1]);
+					$feedauthnametwo = $authparts[1];
+				}
+				$feedauthname = str_replace(' And ', ' and ', $feedauthname);
+
+				return array($feedauthname,$feedauthnametwo);
+			}
+		}
+		
+		if (!function_exists('assemble_author_matches')) {
+			function assemble_author_matches($authormatches,$is_second) {
+				$before_name = $is_second ? ' and' : 'By';
+				$authmatches = array('Associated Press','The Associated Press','The Denver Post','Longmont Times-Call','Boulder Daily Camera','Steamboat Pilot and Today','The Denver Post Editorial Board','The Gazette','7News','The Cannabist','The Cannabist Staff');
+				if ( in_array( $authormatches[0], $authmatches, true ) ) {
+					$feedauthorout = '<em>By ' . $authormatches[0] . '</em>';
+				} else if ($authormatches[0] == 'Denver Post Staff' || $authormatches[0] == 'Daily Camera' || $authormatches[0] == 'Cannabist Staff') {
+					$feedauthorout = '<em>' . $authormatches[0] . '</em>';
+				} else {
+					$feedauthorg = ($authormatches[1] == 'Associated Press' || $authormatches[1] == 'Denver Post' || $authormatches[1] == 'Daily Camera' ) ? 'The ' . $authormatches[1] : $authormatches[1];
+					$feedauthorg = ($feedauthorg != '') ? ', <em>' . $feedauthorg . '</em>' : '';
+					$feedauthorout = $before_name . ' <strong>' . $authormatches[0] . '</strong>' . $feedauthorg;
+				}
+				return $feedauthorout;
+			}
+		}
+
+		$author = $feedauthor = $description_author = '';
 		$do_bio = false;
-		if ( function_exists( 'get_coauthors' ) && count( get_coauthors( get_the_id() ) ) > 1 ) {
+
+		if ( get_post_meta( get_the_ID(), 'original_author_name', true ) != '' ) {
+				
+			$feedauthorin = strtolower( html_entity_decode( get_post_meta( get_the_ID(), 'original_author_name', true ) ) );
+			$authnamematches = get_author_matches( $feedauthorin );
+			$feedauthorone = assemble_author_matches( $authnamematches, '' );
+			$feedauthortwo = '';
+			
+			if (get_post_meta(get_the_ID(), 'second_author_name', true) != '') {
+				$feedauthorintwo = strtolower( html_entity_decode( get_post_meta( get_the_ID(), 'second_author_name', true ) ) );
+				$authnamematchestwo = get_author_matches( $feedauthorintwo );
+				$feedauthortwo = assemble_author_matches( $authnamematchestwo, true );
+				$checkauthone = explode( ',', $feedauthorone );
+				$checkauthtwo = explode( ',', $feedauthortwo );
+				if ( isset( $checkauthone[1] ) && isset( $checkauthtwo[1] ) ) {
+					if ( $checkauthone[1] == $checkauthtwo[1] ) { 
+						$feedauthorone = $checkauthone[0];
+					} else {
+						$feedauthorone .= ', ';
+					}
+				}
+			}
+			$feedauthor = $feedauthorone . $feedauthortwo;
+		} else if ( function_exists( 'get_coauthors' ) && count( get_coauthors( get_the_id() ) ) > 1 ) {
 			$coauthors = get_coauthors();
+			$author = '<span class="author">By ';
 			$i=count($coauthors);
 			$ii=0;
 			foreach( $coauthors as $coauthor ) {
 				$ii++;
 				$author .= ( $ii == $i ) ? ' and ' : ( ( $ii > 1 ) ? ', ' : '');
 				if ( isset( $coauthor->type ) && $coauthor->type == 'guest-author' ) {
-					$author .= $coauthor->display_name;
-				} else {
-					$author .= sprintf($authorraw,
-						esc_url( get_author_posts_url( $coauthor->ID ) ),
+					$author .= sprintf( '<strong>%1$s</strong>',
 						$coauthor->display_name
 					 );
+				} else {
+					$coauth_pub = ( get_the_author_meta( 'publication', $coauthor->ID ) && get_the_author_meta( 'publication', $coauthors[ $ii + 1 ]->ID ) != get_the_author_meta( 'publication', $coauthor->ID ) ) ? ', ' . get_the_author_meta( 'publication' ) : '';
+					$author .= sprintf( '<a class="url fn n" href="%1$s" rel="author">%2$s</a>%3$s',
+						esc_url( get_author_posts_url( $coauthor->ID ) ),
+						$coauthor->display_name,
+						$coauth_pub
+					);
 				}
 			}
-		} else {
+			$author .= '</span>';
+		} else if ( get_the_author_meta('publication') != 'hidden'  ) {
+			$authorraw = ( !$args['show_photo'] ) ? '<span class="author">By <a class="url fn n" href="%1$s" rel="author"><strong>%2$s</strong></a>%3$s</span>' : '<h4 class="author"><a class="url fn n" href="%1$s" rel="author">%2$s</a>%4$s</h4>';
+			$display_title = ( get_the_author_meta( 'display_title' ) ) ? '<span>, <em>' . get_the_author_meta( 'display_title' ) . '</em></span>' : '';
 			$author = sprintf($authorraw,
-				esc_url( get_author_posts_url( get_the_author_meta('ID') ) ),
-				get_the_author()
+				esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
+				get_the_author_meta( 'display_name' ),
+				( get_the_author_meta('publication') != '' ) ? ', <em>' . get_the_author_meta( 'publication' ) . '</em>' : '',
+				$display_title
 			 );
 			$do_bio = true;
+			$description_author = $author;
 		}
-
-		$num_comments = get_comments_number(); // get_comments_number returns only a numeric value
-		if ( $num_comments == 0 ) {
-			$comments = __('No Comments');
-		} elseif ( $num_comments > 1 ) {
-			$comments = $num_comments . __(' Comments');
-		} else {
-			$comments = __('1 Comment');
-		}
-		$comments = '<span class="comments fi-comment right"><a href="' . get_comments_link() .'"><span>'. $comments.'</span></a></span>';
 
 		$author_social = '';
 		if( $args['show_photo'] ) {
@@ -125,13 +225,12 @@ if ( !function_exists('reactor_post_meta') ) {
 			);
 		}
 
-		$nickname = ( ( get_the_author_meta( 'nickname' ) != 'hidden' ) ? sprintf( ', %s', get_the_author_meta( 'nickname' ) ) : '' );
-
 		$author_desc = '';
 		if ( !is_null( get_the_author_meta( 'description' ) ) )  {
 			$author_desc = '<p class="author-desc">' . smart_trim( get_the_author_meta( 'description' ), 30 ) . '</p>';
 		}
 
+		$author_photo = '';
 		if ( 'post' == get_post_type() && the_author_image_url( get_the_author_meta('ID') ) ) {
 			$author_photo = sprintf('<div class="authorimage large-3 medium-3 small-3 columns"><div class="authorimageholder"></div><a class="url fn n" href="%1$s" rel="author"><img src="%2$s" class="authormug" alt="%3$s" /></a></div>',
 				esc_url( get_author_posts_url( get_the_author_meta('ID') ) ),
@@ -203,19 +302,17 @@ if ( !function_exists('reactor_post_meta') ) {
 		 * 2	tag
 		 * 3	date
 		 * 4 	author's name
-		 * 5	comments
-		 * 6 	author's mugshot
-		 * 7	nickname (organization name)
-		 * 8	author short description
-		 * 9	author-social-small
-		 * 10	social dropdown
+		 * 5 	author's mugshot
+		 * 6	author short description
+		 * 7	author-social-small
+		 * 8	social dropdown
 		 */
 		if ( $date || $categories_list || $author || $tag_list ) {
 			if ( $args['catpage'] ) {
-				$meta .= ( $author && $args['show_author'] ) ? '<span class="by-author">%4$s</span> ' : '';
+				$meta .= ( $author && ! $feedauthor ) ? '<span class="by-author">%4$s</span> ' : '';
+				$meta .= ( ! $author && $feedauthor ? '<span class="by-author">' . $feedauthor . '</span> ' : '');
 				$meta .= ( $date && $args['show_date'] ) ? '%3$s ' : '';
-				$meta .= ( $comments && $args['comments'] ) ? '%5$s ' : '';
-				$meta .= ( $args['social_dropdown'] ) ? '%10$s' : '';
+				$meta .= ( $args['social_dropdown'] ) ? '%8$s' : '';
 				$meta .= ( $categories_list && $args['show_cat'] ) ? __('in', 'reactor') . ' %1$s' : '';
 				$meta .= ( $tag_list && $args['show_tag'] ) ? '<div class="entry-tags">' . __('Tags:', 'reactor') . ' %2$s</div>' : '';
 
@@ -238,15 +335,15 @@ if ( !function_exists('reactor_post_meta') ) {
 					$output = '<div class="entry-meta icons">' . $meta . '</div>';
 				}
 			} else if ( $do_bio && $args['show_photo'] && get_the_author_meta('list_author_single') ) {
-				$meta .= ( $author_photo && $args['show_photo'] ) ? '%6$s' : '';
+				$meta .= ( $author_photo ) ? '%5$s' : '';
 				$meta .= '<div class="large-9 medium-9 small-9 columns">';
 				$meta .= ( $author && $args['show_author'] ) ? '<div class="by-author">%4$s</div>' : '';
-				$meta .= ( $author_desc ) ? '%8$s' : '';
-				$meta .= ( $author_social ) ? '%9$s' : '';
+				$meta .= ( $author_desc ) ? '%6$s' : '';
+				$meta .= ( $author_social ) ? '%7$s' : '';
 				$meta .= '<div class="clear"></div></div>';
 				
 				if ( $meta ) {
-					$output = '<div class="entry-meta-author panel radius row collapse">' . __('', 'reactor') . $meta . '</div>';
+					$output = '<div class="entry-meta-author row collapse">' . __('', 'reactor') . $meta . '</div>';
 				}
 			} else if (!$args['show_photo']) {
 				$meta .= ( $date && $args['show_date'] ) ? '%3$s ' : '';
@@ -259,7 +356,7 @@ if ( !function_exists('reactor_post_meta') ) {
 				}
 			}
 	
-			$post_meta = sprintf( $output, $categories_list, $tag_list, $date, $author, $comments, $author_photo, $nickname, $author_desc, $author_social, $social_dropdown );
+			$post_meta = sprintf( $output, $categories_list, $tag_list, $date, $author, $author_photo, $author_desc, $author_social, $social_dropdown );
 
 			echo apply_filters('reactor_post_meta', $post_meta, $defaults);
 		}
