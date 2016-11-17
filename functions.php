@@ -30,77 +30,77 @@ add_action('after_setup_theme', 'reactor_child_theme_setup', 11);
 function reactor_child_theme_setup() {
 
     /* Support for menus */
-	// remove_theme_support('reactor-menus');
-	// add_theme_support(
-	// 	'reactor-menus',
-	// 	array('top-bar-l', 'top-bar-r', 'main-menu', 'side-menu', 'footer-links')
-	// );
-	
-	/* Support for sidebars
-	Note: this doesn't change layout options */
-	remove_theme_support('reactor-sidebars');
-	add_theme_support(
-	   'reactor-sidebars',
-	   array( 'primary', 'front-upper', 'front-lower', 'footer' )
-	);
-	
-	/* Support for layouts
-	Note: this doesn't remove sidebars */
-	remove_theme_support('reactor-layouts');
-	// add_theme_support(
-	// 	'reactor-layouts',
-	// 	array('1c', '2c-l', '2c-r', '3c-l', '3c-r', '3c-c')
-	// );
-	
-	/* Support for custom post types */
-	remove_theme_support('reactor-post-types');
-	// add_theme_support(
-	// 	'reactor-post-types',
-	// 	array('slides', 'portfolio')
-	// );
-	
-	/* Support for page templates */
-	remove_theme_support('reactor-page-templates');
-	add_theme_support(
-	   'reactor-page-templates',
-	 	array( 'front-page' )
-	);
-	
-	/* Remove support for background options in customizer */
-	 remove_theme_support('reactor-backgrounds');
-	
-	/* Remove support for font options in customizer */
-	// remove_theme_support('reactor-fonts');
-	
-	/* Remove support for custom login options in customizer */
-	// remove_theme_support('reactor-custom-login');
-	
-	/* Remove support for breadcrumbs function */
-	 remove_theme_support('reactor-breadcrumbs');
-	
-	/* Remove support for page links function */
-	// remove_theme_support('reactor-page-links');
-	
-	/* Remove support for page meta function */
-	// remove_theme_support('reactor-post-meta');
-	
-	/* Remove support for taxonomy subnav function */
-	remove_theme_support('reactor-taxonomy-subnav');
-	
-	/* Remove support for shortcodes */
-	// remove_theme_support('reactor-shortcodes');
-	
-	/* Remove support for tumblog icons */
-	 remove_theme_support('reactor-tumblog-icons');
-	
-	/* Remove support for other langauges */
-	// remove_theme_support('reactor-translation');
-    remove_theme_support('post-formats');		
+    // remove_theme_support('reactor-menus');
+    // add_theme_support(
+    //  'reactor-menus',
+    //  array('top-bar-l', 'top-bar-r', 'main-menu', 'side-menu', 'footer-links')
+    // );
+    
+    /* Support for sidebars
+    Note: this doesn't change layout options */
+    remove_theme_support('reactor-sidebars');
+    add_theme_support(
+       'reactor-sidebars',
+       array( 'primary', 'front-upper', 'front-lower', 'footer' )
+    );
+    
+    /* Support for layouts
+    Note: this doesn't remove sidebars */
+    remove_theme_support('reactor-layouts');
+    // add_theme_support(
+    //  'reactor-layouts',
+    //  array('1c', '2c-l', '2c-r', '3c-l', '3c-r', '3c-c')
+    // );
+    
+    /* Support for custom post types */
+    remove_theme_support('reactor-post-types');
+    // add_theme_support(
+    //  'reactor-post-types',
+    //  array('slides', 'portfolio')
+    // );
+    
+    /* Support for page templates */
+    remove_theme_support('reactor-page-templates');
+    add_theme_support(
+       'reactor-page-templates',
+        array( 'front-page' )
+    );
+    
+    /* Remove support for background options in customizer */
+     remove_theme_support('reactor-backgrounds');
+    
+    /* Remove support for font options in customizer */
+    // remove_theme_support('reactor-fonts');
+    
+    /* Remove support for custom login options in customizer */
+    // remove_theme_support('reactor-custom-login');
+    
+    /* Remove support for breadcrumbs function */
+     remove_theme_support('reactor-breadcrumbs');
+    
+    /* Remove support for page links function */
+    // remove_theme_support('reactor-page-links');
+    
+    /* Remove support for page meta function */
+    // remove_theme_support('reactor-post-meta');
+    
+    /* Remove support for taxonomy subnav function */
+    remove_theme_support('reactor-taxonomy-subnav');
+    
+    /* Remove support for shortcodes */
+    // remove_theme_support('reactor-shortcodes');
+    
+    /* Remove support for tumblog icons */
+     remove_theme_support('reactor-tumblog-icons');
+    
+    /* Remove support for other langauges */
+    // remove_theme_support('reactor-translation');
+    remove_theme_support('post-formats');       
 }
 
 // add a favicon to the site
 function blog_favicon() {
-	echo '<link rel="shortcut icon" type="image/x-icon" href="'.get_bloginfo('stylesheet_directory').'/favicon.ico" />' . "\n";
+    echo '<link rel="shortcut icon" type="image/x-icon" href="'.get_bloginfo('stylesheet_directory').'/favicon.ico" />' . "\n";
 }
 add_action('wp_head', 'blog_favicon');
 add_action('admin_head', 'blog_favicon');
@@ -219,56 +219,56 @@ define( 'WP_AUTO_UPDATE_CORE', false );
 
 //This function intelligently trims a body of text to a certain number of words, but will not break a sentence.
 if ( ! function_exists( 'smart_trim' ) ) {
-	function smart_trim($instring, $truncation) {
-		//remove shortcodes (and thereby images and embeds)
-	    $instring = strip_shortcodes( $instring );
-	    //a little regex kills datelines
-	    $instring = preg_replace("/\A((([A-Z ]+)\\,\s?([a-zA-Z ]+)\\.?)|[A-Z]+)\s?(&#8211;|&#8212;?)\s?/u", "", $instring);
-	    //replace closing paragraph tags with a space to avoid collisions after punctuation
-	    $instring = str_replace("</p>", " ", $instring);
-	    //strip the HTML tags and then kill the entities
-	    $string = html_entity_decode( strip_tags($instring), ENT_QUOTES, 'UTF-8');
+    function smart_trim($instring, $truncation) {
+        //remove shortcodes (and thereby images and embeds)
+        $instring = strip_shortcodes( $instring );
+        //a little regex kills datelines
+        $instring = preg_replace("/\A((([A-Z ]+)\\,\s?([a-zA-Z ]+)\\.?)|[A-Z]+)\s?(&#8211;|&#8212;?)\s?/u", "", $instring);
+        //replace closing paragraph tags with a space to avoid collisions after punctuation
+        $instring = str_replace("</p>", " ", $instring);
+        //strip the HTML tags and then kill the entities
+        $string = html_entity_decode( strip_tags($instring), ENT_QUOTES, 'UTF-8');
 
-	    $matches = preg_split("/\s+/", $string);
-	    $count = count($matches);
+        $matches = preg_split("/\s+/", $string);
+        $count = count($matches);
 
-	    if($count > $truncation) {
-		//Grab the last word; we need to determine if
-		//it is the end of the sentence or not
-		$last_word = strip_tags($matches[$truncation-1]);
-		$lw_count = strlen($last_word);
+        if($count > $truncation) {
+        //Grab the last word; we need to determine if
+        //it is the end of the sentence or not
+        $last_word = strip_tags($matches[$truncation-1]);
+        $lw_count = strlen($last_word);
 
-		//The last word in our truncation has a sentence ender
-		if($last_word[$lw_count-1] == "." || $last_word[$lw_count-1] == "?" || $last_word[$lw_count-1] == "!") {
-		    for($i=$truncation;$i<$count;$i++) {
-			unset($matches[$i]);
-		    }
+        //The last word in our truncation has a sentence ender
+        if($last_word[$lw_count-1] == "." || $last_word[$lw_count-1] == "?" || $last_word[$lw_count-1] == "!") {
+            for($i=$truncation;$i<$count;$i++) {
+            unset($matches[$i]);
+            }
 
-		//The last word in our truncation doesn't have a sentence ender, find the next one
-		} else {
-		    //Check each word following the last word until
-		    //we determine a sentence's ending
-		    $ending_found = false;
-		    for($i=($truncation);$i<$count;$i++) {
-			if($ending_found != true) {
-			    $len = strlen(strip_tags($matches[$i]));
-			    if($matches[$i][$len-1] == "." || $matches[$i][$len-1] == "?" || $matches[$i][$len-1] == "!") {
-				//Test to see if the next word starts with a capital
-				if( isset($matches[$i+1][0]) && $matches[$i+1][0] == strtoupper($matches[$i+1][0])) {
-				    $ending_found = true;
-				}
-			    }
-			} else {
+        //The last word in our truncation doesn't have a sentence ender, find the next one
+        } else {
+            //Check each word following the last word until
+            //we determine a sentence's ending
+            $ending_found = false;
+            for($i=($truncation);$i<$count;$i++) {
+            if($ending_found != true) {
+                $len = strlen(strip_tags($matches[$i]));
+                if($matches[$i][$len-1] == "." || $matches[$i][$len-1] == "?" || $matches[$i][$len-1] == "!") {
+                //Test to see if the next word starts with a capital
+                if( isset($matches[$i+1][0]) && $matches[$i+1][0] == strtoupper($matches[$i+1][0])) {
+                    $ending_found = true;
+                }
+                }
+            } else {
                     unset($matches[$i]);
-			}
-		    }
-		}
-		$body = implode(' ', $matches);
-		return $body;
-	    } else {
-		return $string;
-	    }
-	}
+            }
+            }
+        }
+        $body = implode(' ', $matches);
+        return $body;
+        } else {
+        return $string;
+        }
+    }
 }
 
 class follow_us_on_widget extends WP_Widget
@@ -1321,4 +1321,4 @@ function tkno_remove_all_jp_css() {
 if ( ! is_admin() ) {
     add_filter( 'jetpack_implode_frontend_css', '__return_false' );
     add_action('wp_print_styles', 'tkno_remove_all_jp_css' );
-}
+} 
