@@ -984,9 +984,9 @@ body:not(.home) .cat-second .entry-body h2.entry-title {
 	height:auto;
 }
 .page .entry-content p,
-.page .entry-content iframe,
+.page .entry-content iframe:not([src*="facebook.com"]),
 .single .entry-content p,
-.single .entry-content iframe {
+.single .entry-content iframe:not([src*="facebook.com"]) {
 	margin:0 10% 1em;
 	width:80%;
 }
