@@ -29,11 +29,13 @@
                         'author'    => $curauth->ID,
                         'posts_per_page'    => $number_posts,
                         'paged' => get_query_var( 'paged' ),
+                        'orderby' => 'date',
+                        'order' => 'DESC',
                         );
                     
                     global $authpage_query; 
                     $authpage_query = new WP_Query( $args );
-                    $display_title = ( get_the_author_meta( 'display_title', $author->ID ) ) ? '<span>, <em>' . get_the_author_meta( 'display_title', $author->ID ) . '</em></span>' : '';
+                    $display_title = ( get_the_author_meta( 'display_title', $curauth->ID ) ) ? '<span>, <em>' . get_the_author_meta( 'display_title', $curauth->ID ) . '</em></span>' : '';
 
                     //if ( $authpage_query->have_posts() ) : $authpage_query->the_post(); ?>
 

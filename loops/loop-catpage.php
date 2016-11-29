@@ -16,6 +16,8 @@ $number_posts = 25;
         'posts_per_page' => $number_posts,
         'cat' => get_cat_id( single_cat_title("",false) ),
         'paged' => get_query_var( 'paged' ),
+        'orderby' => 'date',
+        'order' => 'DESC',
         );
     
     global $wp_query; 
