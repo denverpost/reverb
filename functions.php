@@ -109,23 +109,6 @@ add_action('admin_head', 'blog_favicon');
 function my_function_admin_bar(){ return false; }
 add_filter( 'show_admin_bar' , 'my_function_admin_bar');
 
-// Function to add featured image in RSS feeds
-function featured_image_in_rss($content)
-{
-    // Global $post variable
-    global $post;
-    // Check if the post has a featured image
-    if (has_post_thumbnail($post->ID))
-    {
-        $content = get_the_post_thumbnail($post->ID, 'full', array('style' => 'margin-bottom:10px;')) . $content;
-    }
-    return $content;
-}
-// Add the filter for RSS feeds Excerpt
-add_filter('the_excerpt_rss', 'featured_image_in_rss');
-//Add the filter for RSS feed content
-add_filter('the_content_feed', 'featured_image_in_rss');
-
 /* ----- [ Display Co-Authors In RSS ] ----- */
 function coauthors_in_rss( $the_author ) {
     if ( is_feed() && function_exists( 'coauthors' ) ) {
@@ -291,7 +274,7 @@ class follow_us_on_widget extends WP_Widget
                     <li class="followus"><a href="http://twitter.com/thknwco" title="Follow The Know on Twitter"><img src="' . get_stylesheet_directory_uri() . '/images/social-twitter.png" alt="Follow The Know on Twitter" /></a></li>
                     <li class="followus"><a href="http://facebook.com/denverentertain" title="Like The Know on Facebook"><img src="' . get_stylesheet_directory_uri() . '/images/social-facebook.png" alt="Like The Know on Facebook" /></a></li>
                     <li class="followus"><a href="http://instagram.com/thknwco" title="Follow The Know on Instagram"><img src="' . get_stylesheet_directory_uri() . '/images/social-instagram.png" alt="Follow The Know on Instagram" /></a></li>
-                    <li class="followus"><a href="http://' . get_bloginfo( 'url' ) . '/feed/" title="Follow The Know via RSS"><img src="' . get_stylesheet_directory_uri() . '/images/social-rss.png" alt="Follow The Know via RSS" /></a></li>
+                    <li class="followus"><a href="' . get_bloginfo( 'url' ) . '/feed/" title="Follow The Know via RSS"><img src="' . get_stylesheet_directory_uri() . '/images/social-rss.png" alt="Follow The Know via RSS" /></a></li>
                     <div class="clear"></div>
                 </ul>
             </div>';
