@@ -109,23 +109,6 @@ add_action('admin_head', 'blog_favicon');
 function my_function_admin_bar(){ return false; }
 add_filter( 'show_admin_bar' , 'my_function_admin_bar');
 
-// Function to add featured image in RSS feeds
-function featured_image_in_rss($content)
-{
-    // Global $post variable
-    global $post;
-    // Check if the post has a featured image
-    if (has_post_thumbnail($post->ID))
-    {
-        $content = get_the_post_thumbnail($post->ID, 'full', array('style' => 'margin-bottom:10px;')) . $content;
-    }
-    return $content;
-}
-// Add the filter for RSS feeds Excerpt
-add_filter('the_excerpt_rss', 'featured_image_in_rss');
-//Add the filter for RSS feed content
-add_filter('the_content_feed', 'featured_image_in_rss');
-
 /* ----- [ Display Co-Authors In RSS ] ----- */
 function coauthors_in_rss( $the_author ) {
     if ( is_feed() && function_exists( 'coauthors' ) ) {
