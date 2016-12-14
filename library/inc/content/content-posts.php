@@ -103,7 +103,7 @@ add_action('reactor_post_catpage', 'reactor_post_catpage_format', 1);
 function reactor_do_standard_header_titles() {
 	$show_titles = reactor_option('frontpage_show_titles', 1);
 	$link_titles = reactor_option('frontpage_link_titles', 0);
-	
+	global $post;
 	if ( is_page_template('page-templates/front-page.php') && $show_titles ) { ?>
 		<?php if ( !$link_titles ) { ?>
 		<h2 class="entry-title"><?php the_title(); ?></h2>
@@ -116,7 +116,7 @@ function reactor_do_standard_header_titles() {
 	} elseif ( !get_post_format() && !is_page_template('page-templates/front-page.php') ) {  ?>    
 		<?php if ( is_single() ) { ?>
 		<h1 class="entry-title"><?php the_title(); ?></h1>
-		<?php if ( get_the_subtitle() != '' ): ?>
+		<?php if ( get_the_subtitle( $post->ID, '', '', false ) != '' ): ?>
 			<h2 class="entry-subtitle"><?php the_subtitle(); ?></h2>
 		<?php endif; ?>
 		<?php } else { ?>
