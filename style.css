@@ -1353,6 +1353,16 @@ ul.pagination li a:hover {
     cursor: default;
 }
 /* ad widgets */
+.adElement {
+	margin:0 auto;
+	padding-bottom:1.5em;
+	text-align:center;
+	width:100%;
+}
+.adElement > div {
+	overflow:hidden;
+	margin:0 auto;	
+}
 .ad_wrap {
 	margin:0 auto;
 	padding-bottom:1.5em;

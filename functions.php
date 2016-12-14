@@ -427,11 +427,8 @@ function tkno_get_top_category_slug($return_slug=false,$cat_id=false) {
 
 function tkno_get_ad_value() {
     $category = FALSE;
-    $kv = 'heyreverb';
     $tax = '';
-    if ( is_home() || is_front_page() ) {
-        $kv = 'heyreverb';
-    } else if ( is_category() ) {
+    if ( is_category() ) {
         $id = get_query_var( 'cat' );
         $cat = get_category( (int)$id );
         $category = $cat->slug;
@@ -440,36 +437,26 @@ function tkno_get_ad_value() {
     }
     if ( $category ) {
         switch ( $category ) {
-            case 'news':
-                $kv = 'news';
-                $tax = '/News';
+            case 'drink':
+                $tax = '/Drink';
                 break;
-            case 'reviews':
-                $kv = 'reviews';
-                $tax = '/Reviews';
+            case 'food':
+                $tax = '/Eat';
                 break;
-            case 'photos':
-                $kv = 'photos';
-                $tax = '/Photos';
+            case 'music':
+                $tax = '/Hear';
                 break;
-            case 'audio':
-                $kv = 'audio';
-                $tax = '/Audio';
+            case 'things-to-do':
+                $tax = '/Play';
                 break;
-            case 'video':
-                $kv = 'video';
-                $tax = '/Video';
-                break;
-            case 'venue':
-                $kv = 'venue';
-                $tax = '/Venue';
+            case 'arts':
+                $tax = '/See';
                 break;
             default:
-                $kv = 'heyreverb';
                 $tax = '';
         }
     }
-    return array( $kv, $tax );
+    return $tax;
 }
 
 // Create a simple widget for one-click newsletter signup
@@ -684,18 +671,10 @@ class sidebar_ad_widget_top_cube extends WP_Widget
     public function widget($args, $instance)
     {
         // It's a big ad.
-        $ad_tax = tkno_get_ad_value();
         echo '
             <!-- ##ADPLACEMENT## -->
             <div id="cube1_reverb_wrap" class="widget ad_wrap">
-                <div>
-                    <script>
-                        googletag.defineSlot(\'/8013/heyreverb.com' . $ad_tax[1] . '\', [300,250], \'cube1_reverb\').setTargeting(\'pos\',[\'Cube1_RRail_ATF\']).setTargeting(\'kv\', \'' . $ad_tax[0] . '\').addService(googletag.pubads());
-                        googletag.pubads().enableSyncRendering();
-                        googletag.enableServices();
-                        googletag.display(\'cube1_reverb\');
-                    </script>
-                </div>
+                <div id="Cube1_RRail_ATF"></div>
             </div>';
     }
 }
@@ -716,18 +695,10 @@ class sidebar_ad_widget_cube extends WP_Widget
     public function widget($args, $instance)
     {
         // It's an ad.
-        $ad_tax = tkno_get_ad_value();
         echo '
             <!-- ##ADPLACEMENT## -->
             <div id="cube2_reverb_wrap" class="widget ad_wrap">
-                <div>
-                    <script>
-                    googletag.defineSlot(\'/8013/heyreverb.com' . $ad_tax[1] . '\', [300,250], \'cube2_reverb\').setTargeting(\'pos\',[\'Cube2_RRail_mid\']).setTargeting(\'kv\', \'' . $ad_tax[0] . '\').addService(googletag.pubads());
-                    googletag.pubads().enableSyncRendering();
-                    googletag.enableServices();
-                    googletag.display(\'cube2_reverb\');
-                    </script>
-                </div>
+                <div id="Cube2_RRail_mid"></div>
             </div>';
     }
 }
@@ -1305,3 +1276,11 @@ if ( ! is_admin() ) {
     add_filter( 'jetpack_implode_frontend_css', '__return_false' );
     add_action('wp_print_styles', 'tkno_remove_all_jp_css' );
 } 
+
+// Adds async attribute to GPT script
+function add_async_attribute($tag, $handle) {
+    if ( 'gads-js' !== $handle )
+        return $tag;
+    return str_replace( ' src', ' async="async" src', $tag );
+}
+add_filter('script_loader_tag', 'add_async_attribute', 10, 2);

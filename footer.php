@@ -54,5 +54,26 @@
 	})();
 </script>
 
+<script>
+	var gptadslots = [];
+	var googletag = googletag || {cmd:[]};
+</script>
+<script>
+	<?php $ad_tax = tkno_get_ad_value(); ?>
+	googletag.cmd.push(function() {
+	    if ( document.getElementById("top_leaderboard").offsetWidth >= 970 ) {
+	  		gptadslots.push(googletag.defineSlot('/8013/denverpost.com/TheKnow<?php echo $ad_tax; ?>', [[728,90],[970,250],[970,30]], 'div-gpt-ad-28954-1').setTargeting('POS', ['top_leaderboard']).addService(googletag.pubads())
+			    );
+		} else if ( document.getElementById("top_leaderboard").offsetWidth >= 728 ) {
+		  	gptadslots.push(googletag.defineSlot('/8013/denverpost.com/TheKnow<?php echo $ad_tax; ?>', [[728,90]], 'div-gpt-ad-28954-1').setTargeting('POS', ['top_leaderboard']).addService(googletag.pubads())
+			    );
+		}
+	    gptadslots.push(googletag.defineSlot('/8013/denverpost.com/TheKnow<?php echo $ad_tax; ?>', [[300,250],[300,600]], 'div-gpt-ad-28954-2').setTargeting('POS', ['Cube1_RRail_ATF']).addService(googletag.pubads())
+	    );
+	    googletag.pubads().enableSingleRequest();
+	    googletag.enableServices();
+	});
+</script>
+
 	</body>
 </html>
