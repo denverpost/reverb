@@ -71,7 +71,6 @@
 	    gptadslots.push(googletag.defineSlot('/8013/denverpost.com/TheKnow<?php echo $ad_tax[0]; ?>', [[300,250],[300,600]], '<?php echo $ad_tax[2]; ?>').setTargeting('POS', ['Cube1_RRail_ATF']).addService(googletag.pubads())
 	    );
 		gptadslots.push(googletag.defineSlot('/8013/denverpost.com/TheKnow<?php echo $ad_tax[0]; ?>', [[300,250]], '<?php echo $ad_tax[3]; ?>').setTargeting('POS', ['Cube2_RRail_mid']).addService(googletag.pubads()));
-    //Adslot 2 declaration
 		gptadslots.push(googletag.defineSlot('/8013/denverpost.com/TheKnow<?php echo $ad_tax[0]; ?>', [[300,250]], '<?php echo $ad_tax[4]; ?>').setTargeting('POS', ['Cube3_RRail_lower']).addService(googletag.pubads()));
 	    googletag.pubads().enableSingleRequest();
 	    googletag.enableServices();
