@@ -427,8 +427,10 @@ function tkno_get_top_category_slug($return_slug=false,$cat_id=false) {
 
 function tkno_get_ad_value() {
     $category = FALSE;
-    $tax = '';
-    if ( is_category() ) {
+    $tax = array();
+    if ( is_home() || is_front_page() ) {
+        $category = 'home';
+    } else if ( is_category() ) {
         $id = get_query_var( 'cat' );
         $cat = get_category( (int)$id );
         $category = $cat->slug;
@@ -438,22 +440,22 @@ function tkno_get_ad_value() {
     if ( $category ) {
         switch ( $category ) {
             case 'drink':
-                $tax = '/Drink';
+                array_push($tax,'/Drink','div-gpt-ad-28954-1','div-gpt-ad-28954-2','div-gpt-ad-68503-1','div-gpt-ad-68503-2');
                 break;
             case 'food':
-                $tax = '/Eat';
+                array_push($tax,'/Eat','div-gpt-ad-85090-1','div-gpt-ad-85090-2','div-gpt-ad-21277-1','div-gpt-ad-21277-2');
                 break;
             case 'music':
-                $tax = '/Hear';
+                array_push($tax,'/Hear','div-gpt-ad-74418-1','div-gpt-ad-74418-2','div-gpt-ad-24663-1','div-gpt-ad-24663-2');
                 break;
             case 'things-to-do':
-                $tax = '/Play';
+                array_push($tax,'/Play','div-gpt-ad-54506-1','div-gpt-ad-54506-2','div-gpt-ad-13682-1','div-gpt-ad-13682-2');
                 break;
             case 'arts':
-                $tax = '/See';
+                array_push($tax,'/See','div-gpt-ad-18004-1','div-gpt-ad-18004-2','div-gpt-ad-87189-1','div-gpt-ad-87189-2');
                 break;
             default:
-                $tax = '';
+                array_push($tax,'','div-gpt-ad-15324-1','div-gpt-ad-15324-2','div-gpt-ad-61271-1','div-gpt-ad-61271-2');
         }
     }
     return $tax;
@@ -688,7 +690,7 @@ class sidebar_ad_widget_cube extends WP_Widget
             parent::__construct(
                 'sidebar_ad_widget_cube',
                 __('Sidebar Ad - Secondary Cube', 'sidebar_ad_widget_cube'),
-                array('description' => __('Ads are a key component of the online browsing experience. Designed ad positions below the top of the right rail.', 'sidebar_ad_widget_cube'), )
+                array('description' => __('Ads are a key component of the online browsing experience. Use for ad positions below the top of the right rail.', 'sidebar_ad_widget_cube'), )
             );
     }
 
@@ -704,6 +706,30 @@ class sidebar_ad_widget_cube extends WP_Widget
 }
 function register_ad_widget_cube() { register_widget('sidebar_ad_widget_cube'); }
 add_action( 'widgets_init', 'register_ad_widget_cube' );
+
+class sidebar_ad_widget_lower_cube extends WP_Widget
+{
+    public function __construct()
+    {
+            parent::__construct(
+                'sidebar_ad_widget_lower_cube',
+                __('Sidebar Ad - Tertiary Cube', 'sidebar_ad_widget_lower_cube'),
+                array('description' => __('Ads are a key component of the online browsing experience. Use for ad positions near the bottom of the right rail.', 'sidebar_ad_widget_lower_cube'), )
+            );
+    }
+
+    public function widget($args, $instance)
+    {
+        // It's an ad.
+        echo '
+            <!-- ##ADPLACEMENT## -->
+            <div id="cube3_reverb_wrap" class="widget ad_wrap">
+                <div id="Cube3_RRail_lower"></div>
+            </div>';
+    }
+}
+function register_ad_widget_lower_cube() { register_widget('sidebar_ad_widget_lower_cube'); }
+add_action( 'widgets_init', 'register_ad_widget_lower_cube' );
 
 function tkno_add_excerpts_to_pages() {
     add_post_type_support( 'page', 'excerpt' );
