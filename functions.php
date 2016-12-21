@@ -427,9 +427,10 @@ function tkno_get_top_category_slug($return_slug=false,$cat_id=false) {
 
 function tkno_get_ad_value() {
     $category = FALSE;
-    $tax = array();
+    $kv = 'theknow';
+    $tax = '';
     if ( is_home() || is_front_page() ) {
-        $category = 'home';
+        $kv = 'theknow';
     } else if ( is_category() ) {
         $id = get_query_var( 'cat' );
         $cat = get_category( (int)$id );
@@ -440,22 +441,31 @@ function tkno_get_ad_value() {
     if ( $category ) {
         switch ( $category ) {
             case 'drink':
-                array_push($tax,'/Drink','div-gpt-ad-28954-1','div-gpt-ad-28954-2','div-gpt-ad-68503-1','div-gpt-ad-68503-2');
+                $kv = 'drink';
+                $tax = '/Drink';
                 break;
             case 'food':
-                array_push($tax,'/Eat','div-gpt-ad-85090-1','div-gpt-ad-85090-2','div-gpt-ad-21277-1','div-gpt-ad-21277-2');
+                $kv = 'food';
+                $tax = '/Food';
                 break;
             case 'music':
                 array_push($tax,'/Hear','div-gpt-ad-74418-1','div-gpt-ad-74418-2','div-gpt-ad-24663-1','div-gpt-ad-24663-2');
                 break;
+            case 'music':
+                $kv = 'hear';
+                $tax = '/Hear';
+                break;
             case 'things-to-do':
-                array_push($tax,'/Play','div-gpt-ad-54506-1','div-gpt-ad-54506-2','div-gpt-ad-13682-1','div-gpt-ad-13682-2');
+                $kv = 'play';
+                $tax = '/Play';
                 break;
             case 'arts':
-                array_push($tax,'/See','div-gpt-ad-18004-1','div-gpt-ad-18004-2','div-gpt-ad-87189-1','div-gpt-ad-87189-2');
+                $kv = 'see';
+                $tax = '/See';
                 break;
             default:
-                array_push($tax,'','div-gpt-ad-15324-1','div-gpt-ad-15324-2','div-gpt-ad-61271-1','div-gpt-ad-61271-2');
+                $kv = 'theknow';
+                $tax = '';
         }
     }
     return $tax;
@@ -676,7 +686,14 @@ class sidebar_ad_widget_top_cube extends WP_Widget
         echo '
             <!-- ##ADPLACEMENT## -->
             <div id="cube1_reverb_wrap" class="widget ad_wrap">
-                <div id="Cube1_RRail_ATF"></div>
+                <div>
+                    <script>
+                        googletag.defineSlot(\'/8013/denverpost.com/TheKnow' . $ad_tax[1] . '\', [300,250], \'cube1_reverb\').setTargeting(\'pos\',[\'Cube1_RRail_ATF\']).setTargeting(\'kv\', \'' . $ad_tax[0] . '\').addService(googletag.pubads());
+                        googletag.pubads().enableSyncRendering();
+                        googletag.enableServices();
+                        googletag.display(\'cube1_reverb\');
+                    </script>
+                </div>
             </div>';
     }
 }
@@ -700,7 +717,14 @@ class sidebar_ad_widget_cube extends WP_Widget
         echo '
             <!-- ##ADPLACEMENT## -->
             <div id="cube2_reverb_wrap" class="widget ad_wrap">
-                <div id="Cube2_RRail_mid"></div>
+                <div>
+                    <script>
+                    googletag.defineSlot(\'/8013/denverpost.com/TheKnow' . $ad_tax[1] . '\', [300,250], \'cube2_reverb\').setTargeting(\'pos\',[\'Cube2_RRail_mid\']).setTargeting(\'kv\', \'' . $ad_tax[0] . '\').addService(googletag.pubads());
+                    googletag.pubads().enableSyncRendering();
+                    googletag.enableServices();
+                    googletag.display(\'cube2_reverb\');
+                    </script>
+                </div>
             </div>';
     }
 }
