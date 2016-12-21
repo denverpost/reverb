@@ -48,14 +48,21 @@
 
         <div class="adElement clearfloat" id="adPosition1" style="clear:both;text-align:center;">
             <!-- begin DFP Premium Ad Tag -->
-            <div id='sbb_reverb'>
+            <div>
                 <script type='text/javascript'>
+                <?php $ad_tax = tkno_get_ad_value(); ?>
                 if ( document.getElementById("adPosition1").offsetWidth >= 970 ) {
                     document.write('<style type="text/css">#adPosition1 { margin:15px auto 0; }</style>');
-                    googletag.defineSlot('/8013/denverpost.com/TheKnow', [970,30], 'sbb_reverb').setTargeting('pos',['sbb']).setTargeting('kv', 'reverb').addService(googletag.pubads());
+                    googletag.defineSlot('/8013/denverpost.com/TheKnow<?php echo $ad_tax[1]; ?>', [[728,90],[970,250],[970,30]], 'top_leaderboard').setTargeting('pos',['top_leaderboard']).setTargeting('kv', '<?php echo $ad_tax[0]; ?>').addService(googletag.pubads());
                     googletag.pubads().enableSyncRendering();
                     googletag.enableServices();
-                    googletag.display('sbb_reverb');
+                    googletag.display('top_leaderboard');
+                } else if ( document.getElementById("adPosition1").offsetWidth >= 728 ) {
+                    document.write('<style type="text/css">#adPosition1 { margin:15px auto 0; }</style>');
+                    googletag.defineSlot('/8013/denverpost.com/TheKnow<?php echo $ad_tax[1]; ?>', [728,90], 'top_leaderboard').setTargeting('pos',['top_leaderboard']).setTargeting('kv', '<?php echo $ad_tax[0]; ?>').addService(googletag.pubads());
+                    googletag.pubads().enableSyncRendering();
+                    googletag.enableServices();
+                    googletag.display('top_leaderboard');
                 }
                 </script>
             </div>
