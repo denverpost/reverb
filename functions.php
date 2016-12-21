@@ -427,10 +427,10 @@ function tkno_get_top_category_slug($return_slug=false,$cat_id=false) {
 
 function tkno_get_ad_value() {
     $category = FALSE;
-    $kv = 'heyreverb';
+    $kv = 'theknow';
     $tax = '';
     if ( is_home() || is_front_page() ) {
-        $kv = 'heyreverb';
+        $kv = 'theknow';
     } else if ( is_category() ) {
         $id = get_query_var( 'cat' );
         $cat = get_category( (int)$id );
@@ -440,32 +440,32 @@ function tkno_get_ad_value() {
     }
     if ( $category ) {
         switch ( $category ) {
-            case 'news':
-                $kv = 'news';
-                $tax = '/News';
+            case 'drink':
+                $kv = 'drink';
+                $tax = '/Drink';
                 break;
-            case 'reviews':
-                $kv = 'reviews';
-                $tax = '/Reviews';
+            case 'food':
+                $kv = 'food';
+                $tax = '/Food';
                 break;
             case 'photos':
                 $kv = 'photos';
                 $tax = '/Photos';
                 break;
-            case 'audio':
-                $kv = 'audio';
-                $tax = '/Audio';
+            case 'music':
+                $kv = 'hear';
+                $tax = '/Hear';
                 break;
-            case 'video':
-                $kv = 'video';
-                $tax = '/Video';
+            case 'things-to-do':
+                $kv = 'play';
+                $tax = '/Play';
                 break;
-            case 'venue':
-                $kv = 'venue';
-                $tax = '/Venue';
+            case 'arts':
+                $kv = 'see';
+                $tax = '/See';
                 break;
             default:
-                $kv = 'heyreverb';
+                $kv = 'theknow';
                 $tax = '';
         }
     }
@@ -690,7 +690,7 @@ class sidebar_ad_widget_top_cube extends WP_Widget
             <div id="cube1_reverb_wrap" class="widget ad_wrap">
                 <div>
                     <script>
-                        googletag.defineSlot(\'/8013/heyreverb.com' . $ad_tax[1] . '\', [300,250], \'cube1_reverb\').setTargeting(\'pos\',[\'Cube1_RRail_ATF\']).setTargeting(\'kv\', \'' . $ad_tax[0] . '\').addService(googletag.pubads());
+                        googletag.defineSlot(\'/8013/denverpost.com/TheKnow' . $ad_tax[1] . '\', [300,250], \'cube1_reverb\').setTargeting(\'pos\',[\'Cube1_RRail_ATF\']).setTargeting(\'kv\', \'' . $ad_tax[0] . '\').addService(googletag.pubads());
                         googletag.pubads().enableSyncRendering();
                         googletag.enableServices();
                         googletag.display(\'cube1_reverb\');
@@ -722,7 +722,7 @@ class sidebar_ad_widget_cube extends WP_Widget
             <div id="cube2_reverb_wrap" class="widget ad_wrap">
                 <div>
                     <script>
-                    googletag.defineSlot(\'/8013/heyreverb.com' . $ad_tax[1] . '\', [300,250], \'cube2_reverb\').setTargeting(\'pos\',[\'Cube2_RRail_mid\']).setTargeting(\'kv\', \'' . $ad_tax[0] . '\').addService(googletag.pubads());
+                    googletag.defineSlot(\'/8013/denverpost.com/TheKnow' . $ad_tax[1] . '\', [300,250], \'cube2_reverb\').setTargeting(\'pos\',[\'Cube2_RRail_mid\']).setTargeting(\'kv\', \'' . $ad_tax[0] . '\').addService(googletag.pubads());
                     googletag.pubads().enableSyncRendering();
                     googletag.enableServices();
                     googletag.display(\'cube2_reverb\');
