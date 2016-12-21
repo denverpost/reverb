@@ -27,7 +27,7 @@
 
 <body <?php body_class( 'gesture' ); ?>>
 
-	<?php reactor_body_inside(); ?>
+    <?php reactor_body_inside(); ?>
 
     <div id="page" class="hfeed site"> 
     
@@ -41,7 +41,7 @@
         
         <?php reactor_header_after(); ?>
 
-        <div class="adElement clearfloat" style="clear:both;text-align:center;">
+        <div class="adElement clearfloat" id="adPosition1" style="clear:both;text-align:center;">
             <!-- begin DFP Premium Ad Tag -->
             <div id='sbb_reverb'>
                 <script type='text/javascript'>
