@@ -23,6 +23,11 @@
     var _sf_startpt=(new Date()).getTime();
 </script>
 
+<script>
+    var gptadslots = [];
+    var googletag = googletag || {cmd:[]};
+</script>
+
 </head>
 
 <body <?php body_class( 'gesture' ); ?>>

@@ -54,28 +54,5 @@
 	})();
 </script>
 
-<script>
-	var gptadslots = [];
-	var googletag = googletag || {cmd:[]};
-</script>
-<script>
-	<?php $ad_tax = tkno_get_ad_value(); ?>
-	googletag.cmd.push(function() {
-	    if ( document.getElementById("top_leaderboard").offsetWidth >= 970 ) {
-	  		gptadslots.push(googletag.defineSlot('/8013/denverpost.com/TheKnow<?php echo $ad_tax[0]; ?>', [[728,90],[970,250],[970,30]], '<?php echo $ad_tax[1]; ?>').setTargeting('POS', ['top_leaderboard']).addService(googletag.pubads())
-			    );
-		} else if ( document.getElementById("top_leaderboard").offsetWidth >= 728 ) {
-		  	gptadslots.push(googletag.defineSlot('/8013/denverpost.com/TheKnow<?php echo $ad_tax[0]; ?>', [[728,90]], '<?php echo $ad_tax[1]; ?>').setTargeting('POS', ['top_leaderboard']).addService(googletag.pubads())
-			    );
-		}
-	    gptadslots.push(googletag.defineSlot('/8013/denverpost.com/TheKnow<?php echo $ad_tax[0]; ?>', [[300,250],[300,600]], '<?php echo $ad_tax[2]; ?>').setTargeting('POS', ['Cube1_RRail_ATF']).addService(googletag.pubads())
-	    );
-		gptadslots.push(googletag.defineSlot('/8013/denverpost.com/TheKnow<?php echo $ad_tax[0]; ?>', [[300,250]], '<?php echo $ad_tax[3]; ?>').setTargeting('POS', ['Cube2_RRail_mid']).addService(googletag.pubads()));
-		gptadslots.push(googletag.defineSlot('/8013/denverpost.com/TheKnow<?php echo $ad_tax[0]; ?>', [[300,250]], '<?php echo $ad_tax[4]; ?>').setTargeting('POS', ['Cube3_RRail_lower']).addService(googletag.pubads()));
-	    googletag.pubads().enableSingleRequest();
-	    googletag.enableServices();
-	});
-</script>
-
 	</body>
 </html>
