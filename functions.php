@@ -1326,11 +1326,3 @@ if ( ! is_admin() ) {
     add_filter( 'jetpack_implode_frontend_css', '__return_false' );
     add_action('wp_print_styles', 'tkno_remove_all_jp_css' );
 } 
-
-// Adds async attribute to GPT script
-function add_async_attribute($tag, $handle) {
-    if ( 'gads-js' !== $handle )
-        return $tag;
-    return str_replace( ' src', ' async="async" src', $tag );
-}
-add_filter('script_loader_tag', 'add_async_attribute', 10, 2);
