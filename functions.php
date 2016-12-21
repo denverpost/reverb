@@ -449,9 +449,6 @@ function tkno_get_ad_value() {
                 $tax = '/Food';
                 break;
             case 'music':
-                array_push($tax,'/Hear','div-gpt-ad-74418-1','div-gpt-ad-74418-2','div-gpt-ad-24663-1','div-gpt-ad-24663-2');
-                break;
-            case 'music':
                 $kv = 'hear';
                 $tax = '/Hear';
                 break;
@@ -463,12 +460,16 @@ function tkno_get_ad_value() {
                 $kv = 'see';
                 $tax = '/See';
                 break;
+            case 'photos':
+                $kv = 'photos';
+                $tax = '/Photos';
+                break;
             default:
                 $kv = 'theknow';
                 $tax = '';
         }
     }
-    return $tax;
+    return array( $kv, $tax );
 }
 
 // Create a simple widget for one-click newsletter signup
@@ -683,6 +684,7 @@ class sidebar_ad_widget_top_cube extends WP_Widget
     public function widget($args, $instance)
     {
         // It's a big ad.
+        $ad_tax = tkno_get_ad_value();
         echo '
             <!-- ##ADPLACEMENT## -->
             <div id="cube1_reverb_wrap" class="widget ad_wrap">
@@ -714,6 +716,7 @@ class sidebar_ad_widget_cube extends WP_Widget
     public function widget($args, $instance)
     {
         // It's an ad.
+        $ad_tax = tkno_get_ad_value();
         echo '
             <!-- ##ADPLACEMENT## -->
             <div id="cube2_reverb_wrap" class="widget ad_wrap">
@@ -730,30 +733,6 @@ class sidebar_ad_widget_cube extends WP_Widget
 }
 function register_ad_widget_cube() { register_widget('sidebar_ad_widget_cube'); }
 add_action( 'widgets_init', 'register_ad_widget_cube' );
-
-class sidebar_ad_widget_lower_cube extends WP_Widget
-{
-    public function __construct()
-    {
-            parent::__construct(
-                'sidebar_ad_widget_lower_cube',
-                __('Sidebar Ad - Tertiary Cube', 'sidebar_ad_widget_lower_cube'),
-                array('description' => __('Ads are a key component of the online browsing experience. Use for ad positions near the bottom of the right rail.', 'sidebar_ad_widget_lower_cube'), )
-            );
-    }
-
-    public function widget($args, $instance)
-    {
-        // It's an ad.
-        echo '
-            <!-- ##ADPLACEMENT## -->
-            <div id="cube3_reverb_wrap" class="widget ad_wrap">
-                <div id="Cube3_RRail_lower"></div>
-            </div>';
-    }
-}
-function register_ad_widget_lower_cube() { register_widget('sidebar_ad_widget_lower_cube'); }
-add_action( 'widgets_init', 'register_ad_widget_lower_cube' );
 
 function tkno_add_excerpts_to_pages() {
     add_post_type_support( 'page', 'excerpt' );
