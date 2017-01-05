@@ -33,12 +33,21 @@ function widgetHeightAdjust() {
   boxes.height(maxHeight);
 }
 
+function frontPageMoveSidebar() {
+  var sidebarContent = $j('#sidebar');
+  $j('#sidebar').remove();
+  $j('#sidebarmobile').html(sidebarContent);
+}
+
 $j(document).ready(function() {
   $j(window).load(function() {
     //dpLogoClick();
     checkListicle();
-    if ( ! window.innerWidth < 541 ) {
+    if ( document.documentElement.clientWidth >= 1024 ) {
       widgetHeightAdjust();
+    }
+    if ( document.documentElement.clientWidth <= 1024 && document.documentElement.clientWidth >= 541 ) {
+      frontPageMoveSidebar();
     }
   });
 });

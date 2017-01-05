@@ -31,7 +31,15 @@
                     
                 <?php reactor_inner_content_after(); ?>
 
-                <?php get_sidebar('frontlower'); ?>
+                    <div class="large-12 medium-6 small-12 columns" id="frontpagelower">
+
+                        <?php get_sidebar('frontmobile'); ?>
+
+                        <?php get_sidebar('frontlower'); ?>
+
+                    </div><!-- .columns -->
+
+                    <div id="sidebarmobile"></div><!-- .columns -->
                 
                 </div><!-- .columns -->
 

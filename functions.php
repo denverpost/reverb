@@ -41,7 +41,7 @@ function reactor_child_theme_setup() {
     remove_theme_support('reactor-sidebars');
     add_theme_support(
        'reactor-sidebars',
-       array( 'primary', 'front-upper', 'front-lower', 'footer' )
+       array( 'primary', 'front-upper', 'front-mobile', 'front-lower', )
     );
     
     /* Support for layouts
@@ -690,10 +690,12 @@ class sidebar_ad_widget_top_cube extends WP_Widget
             <div id="cube1_reverb_wrap" class="widget ad_wrap">
                 <div>
                     <script>
-                        googletag.defineSlot(\'/8013/denverpost.com/TheKnow' . $ad_tax[1] . '\', [[300,250],[300,600]], \'cube1_reverb\').setTargeting(\'pos\',[\'Cube1_RRail_ATF\']).setTargeting(\'kv\', \'' . $ad_tax[0] . '\').addService(googletag.pubads());
-                        googletag.pubads().enableSyncRendering();
-                        googletag.enableServices();
-                        googletag.display(\'cube1_reverb\');
+                        if ( window.innerWidth >= 540 ) {
+                            googletag.defineSlot(\'/8013/denverpost.com/TheKnow' . $ad_tax[1] . '\', [[300,250],[300,600]], \'cube1_reverb\').setTargeting(\'pos\',[\'Cube1_RRail_ATF\']).setTargeting(\'kv\', \'' . $ad_tax[0] . '\').addService(googletag.pubads());
+                            googletag.pubads().enableSyncRendering();
+                            googletag.enableServices();
+                            googletag.display(\'cube1_reverb\');
+                        }
                     </script>
                 </div>
             </div>';
@@ -701,6 +703,40 @@ class sidebar_ad_widget_top_cube extends WP_Widget
 }
 function register_ad_widget_large_cube() { register_widget('sidebar_ad_widget_top_cube'); }
 add_action( 'widgets_init', 'register_ad_widget_large_cube' );
+
+class mobile_sidebar_ad_widget_top_cube extends WP_Widget
+{
+    public function __construct()
+    {
+            parent::__construct(
+                'mobile_sidebar_ad_widget_top_cube',
+                __('Sidebar Ad - Mobile-Only Top Cube', 'mobile_sidebar_ad_widget_top_cube'),
+                array('description' => __('Big ads are a key component of the online browsing experience. Place above first Flexible Posts Widget for mobile-only display.', 'mobile_sidebar_ad_widget_top_cube'), )
+            );
+    }
+
+    public function widget($args, $instance)
+    {
+        // It's a big ad.
+        $ad_tax = tkno_get_ad_value();
+        echo '
+            <!-- ##ADPLACEMENT## -->
+            <div id="cube1_reverb_wrap" class="widget ad_wrap">
+                <div>
+                    <script>
+                        if ( window.innerWidth < 540 ) {
+                            googletag.defineSlot(\'/8013/denverpost.com/TheKnow' . $ad_tax[1] . '\', [[300,250]], \'cube1_reverb\').setTargeting(\'pos\',[\'Cube1_RRail_ATF\']).setTargeting(\'kv\', \'' . $ad_tax[0] . '\').addService(googletag.pubads());
+                            googletag.pubads().enableSyncRendering();
+                            googletag.enableServices();
+                            googletag.display(\'cube1_reverb\');
+                        }
+                    </script>
+                </div>
+            </div>';
+    }
+}
+function register_mobile_ad_widget_large_cube() { register_widget('mobile_sidebar_ad_widget_top_cube'); }
+add_action( 'widgets_init', 'register_mobile_ad_widget_large_cube' );
 
 class sidebar_ad_widget_cube extends WP_Widget
 {

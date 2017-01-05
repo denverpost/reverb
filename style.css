@@ -614,6 +614,12 @@ article:first-child .frontpage-post .front-imgholder {
 	padding-right: 0;
 	border-right:none;
 }
+#sidebar-frontmobile div#cube1_reverb_wrap {
+	display:none;
+}
+#sidebarmobile #sidebar #sidebar-calendar > div > iframe:first-child {
+	display:none;
+}
 .widget_dpe_fp_widget h4.widget-title {
 	font-family:'Arvo',Arial,Helvetica,sans-serif;
 	display:block;
@@ -1548,6 +1554,10 @@ header.category-drink h1.category-drink.archive-title a {
 	.frontpage-image h2 {
 		width: 30%;
 	}
+	#sidebar-frontlower div.widget {
+		width:100%;
+		margin:0 0 1em;
+	}
 	ul#menu-footer-links {
 		text-align:center;
 		margin:0 auto .5em;
@@ -1575,7 +1585,6 @@ header.category-drink h1.category-drink.archive-title a {
 	div.photo-gallery .carousel-control {
 		font-size:4em;
 	}
-	body.home #sidebar { display:none; }
 }
 
 @media (max-width:768px) {
@@ -1631,9 +1640,11 @@ header.category-drink h1.category-drink.archive-title a {
 	.cat-main .catimgspace {
 		padding-bottom:35%;
 	}
-	#sidebar-frontlower div.widget {
-		width:100%;
-		margin:0 0 1em;
+	#sidebar-frontmobile div#cube1_reverb_wrap {
+		display:block;
+		margin-top:.5em;
+		padding-top:2em;
+		border-top: 1px solid #ddd;
 	}
 	ul#menu-footer-links li a {
 		font-size: 1em;
@@ -1655,6 +1666,10 @@ header.category-drink h1.category-drink.archive-title a {
 	.page h1.entry-title,
 	.single h1.entry-title {
 		font-size:1.5em;
+	}
+	.page h2.entry-subtitle,
+	.single h2.entry-subtitle {
+		font-size: 1.25em;
 	}
 	body.search h1.page-title {
 		font-size:1.05em;
@@ -1737,10 +1752,6 @@ header.category-drink h1.category-drink.archive-title a {
 	}
 	#frontpagemain article {
 		clear:both;
-	}
-	body.front-page #sidebar,
-	body.front-page #sidebar-frontpage-2 {
-		display:none;
 	}
 	#infscr-loading img {
 		width:10%;

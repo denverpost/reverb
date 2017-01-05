@@ -45,11 +45,11 @@ function reactor_register_sidebars() {
 		) );
 	}
 
-	if ( in_array( 'front-primary', $sidebars[0] ) ) {
+	if ( in_array( 'front-lower', $sidebars[0] ) ) {
 		register_sidebar( array(
-			'name'          => __('Front Page Primary', 'reactor'),
-			'id'            => 'sidebar-frontpage',
-			'description'   => 'Primary sidebar for the front page template',
+			'name'          => __('Front Page Lower', 'reactor'),
+			'id'            => 'sidebar-frontlower',
+			'description'   => 'Lower sidebar for the front page template',
 			'class'         => '',
 			'before_widget' => '<div id="%1$s" class="widget frontpage-widget %2$s">',
 			'after_widget'  => '</div>',
@@ -58,11 +58,11 @@ function reactor_register_sidebars() {
 		) );
 	}
 
-	if ( in_array( 'front-lower', $sidebars[0] ) ) {
+	if ( in_array( 'front-mobile', $sidebars[0] ) ) {
 		register_sidebar( array(
-			'name'          => __('Front Page Lower', 'reactor'),
-			'id'            => 'sidebar-frontlower',
-			'description'   => 'Lower sidebar for the front page template',
+			'name'          => __('Front Page mobile', 'reactor'),
+			'id'            => 'sidebar-frontmobile',
+			'description'   => 'Mobile-only sidebar for the front page template',
 			'class'         => '',
 			'before_widget' => '<div id="%1$s" class="widget frontpage-widget %2$s">',
 			'after_widget'  => '</div>',
