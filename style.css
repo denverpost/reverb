@@ -617,6 +617,11 @@ article:first-child .frontpage-post .front-imgholder {
 #sidebar-frontmobile div#cube1_reverb_wrap {
 	display:none;
 }
+#sidebarmobile #sidebar {
+    margin-top: .5em;
+    padding-top: 2em;
+    border-top: 1px solid #ddd;
+}
 #sidebarmobile #sidebar #sidebar-calendar > div > iframe:first-child {
 	display:none;
 }
