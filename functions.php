@@ -1148,7 +1148,7 @@ function in_article_related_shortcode(){
             'post_type'         => array('post'),
             'show_pass_post'    => false,
             'exclude'           => array(),
-            'recent'            => '6 month',
+            'recent'            => '2 month',
             'weight'            => array(
                 'tax'   => array(
                     'post_tag' => 2,
