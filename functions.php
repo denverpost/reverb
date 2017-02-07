@@ -1260,6 +1260,16 @@ function tkno_wpseo_canonical_override( $canonical ) {
 }
 add_filter( 'wpseo_canonical', 'tkno_wpseo_canonical_override' );
 
+// Use the Headline title set in WP for OpenGraph tags instead of the SEO title
+function tkno_wpseo_og_title_override( $title ) {
+    if ( is_singular() && $post = get_queried_object() ) {
+        if ( $_title = get_the_title() )
+            $title = $_title;
+    }
+
+    return $title;
+}
+add_filter( 'wpseo_opengraph_title', 'tkno_wpseo_og_title_override' );
 
 // Increase Custom Field Limit
 function tkno_customfield_limit_increase( $limit ) {
