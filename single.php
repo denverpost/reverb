@@ -16,9 +16,10 @@
     
         <div id="content" role="main">
         	<div class="row">
-                <div class="<?php reactor_columns(); ?>">
-                
+
                 <?php reactor_inner_content_before(); ?>
+                
+                <div class="<?php reactor_columns(); ?>">
                 
 					<?php // start the loop
                     while ( have_posts() ) : the_post(); ?>

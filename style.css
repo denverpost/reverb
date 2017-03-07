@@ -97,6 +97,11 @@ figcaption {
 	line-height:.8;
 	color:rgba(255,255,255,0.95);
 }
+.single .singlehero {
+	width:100%;
+	margin-bottom:1.5em;
+	display:block;
+}
 button, .button {
 	background-color:rgba(0,115,174,1.0);
 	border-color:rgba(0,115,174,0.8);
@@ -995,9 +1000,9 @@ body:not(.home) .cat-second .entry-body h2.entry-title {
 	height:auto;
 }
 .page .entry-content p,
-.page .entry-content iframe:not([src*="facebook.com"]),
+.page .entry-content iframe:not([src*="facebook.com"]):not([src*="challonge.com"]),
 .single .entry-content p,
-.single .entry-content iframe:not([src*="facebook.com"]) {
+.single .entry-content iframe:not([src*="facebook.com"]):not([src*="challonge.com"]) {
 	margin:0 10% 1em;
 	width:80%;
 }

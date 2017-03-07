@@ -12,6 +12,23 @@
 
 
 /**
+ * Big image above single posts
+ * in all formats when tumblog icons are enabled
+ * 
+ * @since 1.0.0
+ */
+function reactor_do_hero() {
+	global $post;
+	$hero_url = get_post_meta( $post->ID, 'hero_img_url', true );
+	if ( is_single() && $hero_url ) { ?>
+		<div class="large-12 columns">
+			<img src="<?php echo $hero_url; ?>" class="singlehero" />
+		</div>
+	<?php }
+}
+add_action('reactor_inner_content_before', 'reactor_do_hero', 0);
+
+/**
  * Post category overline Icons
  * in all formats when tumblog icons are enabled
  * 
