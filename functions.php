@@ -436,7 +436,8 @@ function tkno_get_ad_value() {
         $cat = get_category( (int)$id );
         $category = $cat->slug;
     } else if ( is_single() ) {
-        $category = tkno_get_top_category_slug();
+        $cats = tkno_get_top_category_slug();
+        $category = $cats->slug;
     }
     if ( $category ) {
         switch ( $category ) {
