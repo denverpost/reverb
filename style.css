@@ -1525,9 +1525,9 @@ header.category-drink h1.category-drink.archive-title a {
 }
 /* polls */
 .single .wp-polls {
-	border:1px solid #c4c4c4;
+	border:1px solid #cfcfcf;
 	border-radius:4px;
-	background:#f9f9f9;
+	background:#fafafa;
 	margin-bottom:1.75em;
 	padding-top:1em;
 }
