@@ -99,7 +99,7 @@ figcaption {
 }
 .single .singlehero {
 	width:100%;
-	margin-bottom:2em;
+	margin-bottom:3em;
 	display:block;
 }
 button, .button {
@@ -1528,7 +1528,7 @@ header.category-drink h1.category-drink.archive-title a {
 	border:1px solid #c4c4c4;
 	border-radius:4px;
 	background:#f9f9f9;
-	margin-bottom:1em;
+	margin-bottom:1.75em;
 	padding-top:1em;
 }
 .single .wp-polls-form p strong {
