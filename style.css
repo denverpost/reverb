@@ -1523,6 +1523,23 @@ header.category-drink h1.category-drink.archive-title a {
 		padding-left:.65em;
 	}
 }
+/* polls */
+.single .wp-polls {
+	border:1px solid #c4c4c4;
+	border-radius:4px;
+	background:#f9f9f9;
+	margin-bottom:1em;
+	padding-top:1em;
+}
+.single .wp-polls-form p strong {
+	font-size:1.25em;
+}
+.single .wp-polls-ans ul+p {
+	margin-bottom:.5em;
+}
+.single .wp-polls-ans p a {
+	font-size:.8em;
+}
 
 @media (min-width:1025px) {
 	.top-bar-section ul.right:not(.top-bar-menu) { width:20%; }
