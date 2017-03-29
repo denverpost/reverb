@@ -446,8 +446,8 @@ function tkno_get_ad_value() {
                 $tax = '/Drink';
                 break;
             case 'food':
-                $kv = 'food';
-                $tax = '/Food';
+                $kv = 'eat';
+                $tax = '/Eat';
                 break;
             case 'music':
                 $kv = 'hear';
