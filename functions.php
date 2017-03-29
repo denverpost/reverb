@@ -434,6 +434,9 @@ function tkno_get_ad_value() {
     } else if ( is_category() ) {
         $id = get_query_var( 'cat' );
         $cat = get_category( (int)$id );
+        if ( $cat->category_parent > 0 ) {
+            $cat = get_category( (int)$cat->category_parent );
+        }
         $category = $cat->slug;
     } else if ( is_single() ) {
         $cats = tkno_get_top_category_slug();
