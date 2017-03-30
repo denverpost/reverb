@@ -560,9 +560,9 @@ class newstip_submit_widget extends WP_Widget {
                         <input type="hidden" name="redirect" value="' . $current_url . '" />
                         <input type="hidden" name="id" value="newstip" />
                         <input type="text" name="name_first" value="Humans: Do Not Use" style="display:none;" />
-                        <p>If you would like a reply, include your email:</p>
+                        <p>Your email address, so we can reply:</p>
                         <div class="large-9 small-9 columns">
-                            <input type="text" name="email_address" value="" maxlength="50" />
+                            <input type="email" name="email_address" value="" maxlength="50" required />
                         </div>
                         <div class="large-3 small-3 columns end">
                             <input class="button prefix" type="submit" id="newstipsubmit" value="Send tip">
