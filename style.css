@@ -887,6 +887,9 @@ body.date header h2 a {
 	display:inline;
 	margin:0 .25em;
 }
+span.by-author a[rel~=author] {
+	font-weight:600;
+}
 .entry-body .entry-meta .entry-date {
 	color:#888;
 }

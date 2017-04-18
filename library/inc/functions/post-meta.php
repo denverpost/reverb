@@ -179,14 +179,14 @@ if ( !function_exists('reactor_post_meta') ) {
 				}
 			}
 			$feedauthor = $feedauthorone . $feedauthortwo;
-		} else if ( function_exists( 'get_coauthors' ) && count( get_coauthors( get_the_id() ) ) > 1 ) {
+		} else if ( function_exists( 'get_coauthors' ) && count( get_coauthors( get_the_id() ) ) >= 1 ) {
 			$coauthors = get_coauthors();
 			$author = '<span class="author">By ';
 			$i=count($coauthors);
 			$ii=0;
 			foreach( $coauthors as $coauthor ) {
 				$ii++;
-				$author .= ( $ii == $i ) ? ' and ' : ( ( $ii > 1 ) ? ', ' : '');
+				$author .= ( $ii > 1 && $ii == $i ) ? ' and ' : ( ( $ii > 1 ) ? ', ' : '');
 				if ( isset( $coauthor->type ) && $coauthor->type == 'guest-author' ) {
 					$author .= sprintf( '<strong>%1$s</strong>',
 						$coauthor->display_name
@@ -202,7 +202,7 @@ if ( !function_exists('reactor_post_meta') ) {
 			}
 			$author .= '</span>';
 		} else if ( get_the_author_meta('publication') != 'hidden'  ) {
-			$authorraw = ( !$args['show_photo'] ) ? '<span class="author">By <a class="url fn n" href="%1$s" rel="author"><strong>%2$s</strong></a>%3$s</span>' : '<h4 class="author"><a class="url fn n" href="%1$s" rel="author">%2$s</a>%4$s</h4>';
+			$authorraw = ( !$args['show_photo'] ) ? '<span class="author">By <a class="url fn n" href="%1$s" rel="author">%2$s</a>%3$s</span>' : '<h4 class="author"><a class="url fn n" href="%1$s" rel="author">%2$s</a>%4$s</h4>';
 			$display_title = ( get_the_author_meta( 'display_title' ) ) ? '<span>, <em>' . get_the_author_meta( 'display_title' ) . '</em></span>' : '';
 			$author = sprintf($authorraw,
 				esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
