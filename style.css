@@ -1732,7 +1732,7 @@ header.category-drink h1.category-drink.archive-title a {
 	.single .entry-footer .entry-meta .entry-tags {
 		margin:0;
 	}
-	.page .entry-meta-author ul.author-social-small li,,
+	.page .entry-meta-author ul.author-social-small li,
 	.single .entry-meta-author ul.author-social-small li,
 	nav.nav-single .nav-next a,
 	.entry-body .entry-meta {
@@ -1794,6 +1794,11 @@ header.category-drink h1.category-drink.archive-title a {
 	.columns.masocial .mashsb-box .mashsb-buttons .mashicon-print {
 		display:none;
 	}
+}
+@media only screen and (max-width:344px) {
+    .mashsb-buttons a {
+        width:36px!important;
+    }
 }
 @media only print { 
     a[href]:after {    content: none !important }
