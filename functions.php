@@ -1325,6 +1325,14 @@ remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
 remove_action( 'wp_print_styles', 'print_emoji_styles' );
 
 /**
+* Add theme support for Responsive Videos.
+*/
+function jetpackme_responsive_videos_setup() {
+    add_theme_support( 'jetpack-responsive-videos' );
+}
+add_action( 'after_setup_theme', 'jetpackme_responsive_videos_setup' );
+
+/**
  * deregister unused Jetpack CSS
  */ 
 function tkno_remove_all_jp_css() {
