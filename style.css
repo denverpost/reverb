@@ -1059,7 +1059,8 @@ body:not(.home) .cat-second .entry-body h2.entry-title {
 	margin:0 10% 1em!important;
 	width:80%;
 }
-.page .entry-content .jetpack-video-wrapper iframe {
+.page .entry-content .jetpack-video-wrapper span iframe,
+.single .entry-content .jetpack-video-wrapper span iframe {
 	margin:0 auto!important;
 }
 .page .entry-content blockquote,
