@@ -1003,11 +1003,11 @@ body:not(.home) .cat-second .entry-body h2.entry-title {
 	height:auto;
 }
 .page .entry-content p,
-.page .entry-content iframe:not([src*="facebook.com"]):not([src*="challonge.com"]):not([src*="engagesciences.com"]),
-.page .entry-content p iframe:not([src*="facebook.com"]):not([src*="challonge.com"]):not([src*="engagesciences.com"]),
+.page .entry-content iframe:not([src*="facebook.com"]):not([src*="challonge.com"]):not([src*="engagesciences.com"]):not([src*="youtube.com"]),
+.page .entry-content p iframe:not([src*="facebook.com"]):not([src*="challonge.com"]):not([src*="engagesciences.com"]):not([src*="youtube.com"]),
 .single .entry-content p,
-.single .entry-content iframe:not([src*="facebook.com"]):not([src*="challonge.com"]):not([src*="engagesciences.com"]),
-.single .entry-content p iframe:not([src*="facebook.com"]):not([src*="challonge.com"]):not([src*="engagesciences.com"]) {
+.single .entry-content iframe:not([src*="facebook.com"]):not([src*="challonge.com"]):not([src*="engagesciences.com"]):not([src*="youtube.com"]),
+.single .entry-content p iframe:not([src*="facebook.com"]):not([src*="challonge.com"]):not([src*="engagesciences.com"]):not([src*="youtube.com"]) {
 	margin:0 10% 1em;
 	width:80%;
 }
