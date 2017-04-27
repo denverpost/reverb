@@ -236,6 +236,7 @@ add_action('reactor_post_footer', 'tkno_post_body_content_tags', 3);
 function reactor_do_post_footer_meta() {
 	if ( is_single() && ! ( get_post_type() == 'venues' ) ) {
 		reactor_post_meta( array('show_photo' => true,'show_tag' => true) );
+		$post_meta = true;
 	} else if ( ! get_post_type() == 'venues' ) {
 		if ( is_page_template('page-templates/front-page.php') ) {
 			$post_meta = reactor_option('frontpage_post_meta', 1);

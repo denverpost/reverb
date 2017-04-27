@@ -201,7 +201,8 @@ if ( !function_exists('reactor_post_meta') ) {
 				}
 			}
 			$author .= '</span>';
-		} else if ( get_the_author_meta('publication') != 'hidden'  ) {
+		}
+		if ( get_the_author_meta('publication') != 'hidden'  ) {
 			$authorraw = ( !$args['show_photo'] ) ? '<span class="author">By <a class="url fn n" href="%1$s" rel="author">%2$s</a>%3$s</span>' : '<h4 class="author"><a class="url fn n" href="%1$s" rel="author">%2$s</a>%4$s</h4>';
 			$display_title = ( get_the_author_meta( 'display_title' ) ) ? '<span>, <em>' . get_the_author_meta( 'display_title' ) . '</em></span>' : '';
 			$author = sprintf($authorraw,
