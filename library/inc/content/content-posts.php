@@ -190,8 +190,8 @@ function reactor_do_post_footer_venue() {
 
 	if ( is_single() && ! $venue_page == '' ) { ?>
 		<div class="row">
-			<div class="large-12 medium-12 small-12 columns single_venue">
-				<h3>Venue: <a href="<?php echo get_permalink( $venue_page->ID ); ?>"><?php echo $venue_page->post_title; ?></a></h3>
+			<div class="large-12 medium-12 small-12 columns single_venue venue_link">
+				<h3>Upcoming events and more about <a href="<?php echo get_permalink( $venue_page->ID ); ?>"><?php echo $venue_page->post_title; ?></a></h3>
 			</div>
 		</div>
 	<?php }
@@ -252,13 +252,24 @@ function reactor_do_post_footer_meta() {
 		}
 	} else if ( get_post_type() == 'venues' ) {
 		global $post;
-		$link_uri = 'http://www-beta.heyreverb.com/calendar/#!/show/?search=' . rawurlencode( $post->post_title ); ?>
-		<div class="row">
-			<div class="large-12 medium-12 small-12 columns single_venue">
-				<h3>More events: <a href="<?php echo $link_uri; ?>"><?php echo $post->post_title; ?> on our calendar</a></h3>
+		$venue_calendar_id = ( get_post_meta( $post->ID, 'venue_calendar_id', true ) && get_post_meta( $post->ID, 'venue_calendar_id', true ) != '' ) ? get_post_meta( $post->ID, 'venue_calendar_id', true ) : false;
+		
+		if ( $venue_calendar_id ) { ?>
+			<div class="row">
+				<div class="large-12 medium-12 small-12 columns single_venue with_calendar">
+				<h3>Upcoming events</h3>
+					<div data-cswidget="<?php echo $venue_calendar_id; ?>"> </div>
+				</div>
 			</div>
-		</div>
-	<?php }
+		<?php } else { ?>
+			$link_uri = 'http://www-beta.heyreverb.com/calendar/#!/show/?search=' . rawurlencode( $post->post_title ); ?>
+			<div class="row">
+				<div class="large-12 medium-12 small-12 columns single_venue">
+					<h3>More events: <a href="<?php echo $link_uri; ?>"><?php echo $post->post_title; ?> on our calendar</a></h3>
+				</div>
+			</div>
+		<?php }
+		}
 }
 add_action('reactor_post_footer', 'reactor_do_post_footer_meta', 4);
 
