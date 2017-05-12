@@ -261,7 +261,7 @@ function reactor_do_post_footer_meta() {
 					<div data-cswidget="<?php echo $venue_calendar_id; ?>"> </div>
 				</div>
 			</div>
-		<?php } else { ?>
+		<?php } else {
 			$link_uri = 'http://www-beta.heyreverb.com/calendar/#!/show/?search=' . rawurlencode( $post->post_title ); ?>
 			<div class="row">
 				<div class="large-12 medium-12 small-12 columns single_venue">
