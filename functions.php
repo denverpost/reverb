@@ -395,7 +395,8 @@ function tkno_get_venue_from_slug($venue_slug) {
         );
     $query = new WP_Query( $args );
     $venues = $query->get_posts();
-    return $venues[0];
+    $venue = ( count($venues) > 0 ) ? $venues[0] : false;
+    return $venue;
 }
 
 // Get an acceptable top-level category name and ID, or slug, for classes and labels
@@ -1112,10 +1113,14 @@ add_action( 'widgets_init', 'register_popular_widget' );
 function tkno_get_primary_category() {
     
     global $post;
+
+    $primaryCat = '';
+    if ( class_exists( 'WPSEO_Primary_Term' ) ) {
     
-    $primaryCat = new WPSEO_Primary_Term( 'category', $post->ID );
-    $primaryCat = $primaryCat->get_primary_term();
-    $primaryCat = get_cat_name($primaryCat);
+        $primaryCat = new WPSEO_Primary_Term( 'category', $post->ID );
+        $primaryCat = $primaryCat->get_primary_term();
+        $primaryCat = get_cat_name($primaryCat);
+    }
 
     $categories = get_the_category( $post->ID );
     $return_cat = Array();
@@ -1125,7 +1130,7 @@ function tkno_get_primary_category() {
        $defaultCatLink = get_category_link( $category->term_id );
     }
 
-    if ( $primaryCat !== "" ) {
+    if ( $primaryCat !== '' ) {
        $cat = new WPSEO_Primary_Term('category', $post->ID);
        $cat = $cat->get_primary_term();
 
@@ -1144,15 +1149,16 @@ function tkno_get_primary_category() {
  * in_article_related_shortcode
  * @return html list inserted in content based on tag
  */
-function in_article_related_shortcode(){
+function in_article_related_shortcode( $atts=array() ){
     $related = '';
+    $template = ( $atts['wide'] == 'true') ? 'yarpp-template-inarticle-fullwidth.php' : 'yarpp-template-inarticle.php';
     if ( is_single() && function_exists( 'yarpp_related' ) ) { 
         global $post;
         $related .= yarpp_related( array( 
             'post_type'         => array('post'),
             'show_pass_post'    => false,
             'exclude'           => array(),
-            'recent'            => '2 month',
+            'recent'            => '6 month',
             'weight'            => array(
                 'tax'   => array(
                     'post_tag' => 2,
@@ -1160,7 +1166,7 @@ function in_article_related_shortcode(){
                 )
             ),
             'threshold'         => 2,
-            'template'          => 'yarpp-template-inarticle.php',
+            'template'          => $template,
             'limit'             => 5,
             'order'             => 'score DESC'
             ),
