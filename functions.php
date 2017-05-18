@@ -1151,7 +1151,7 @@ function tkno_get_primary_category() {
  */
 function in_article_related_shortcode( $atts=array() ){
     $related = '';
-    $template = ( $atts['wide'] == 'true') ? 'yarpp-template-inarticle-fullwidth.php' : 'yarpp-template-inarticle.php';
+    $template = ( isset( $atts['wide'] ) && $atts['wide'] == 'true') ? 'yarpp-template-inarticle-fullwidth.php' : 'yarpp-template-inarticle.php';
     if ( is_single() && function_exists( 'yarpp_related' ) ) { 
         global $post;
         $related .= yarpp_related( array( 
