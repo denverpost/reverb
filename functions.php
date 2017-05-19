@@ -1122,7 +1122,7 @@ function tkno_get_primary_category() {
         $primaryCat = get_cat_name($primaryCat);
     }
 
-    $categories = get_the_category( $post->ID );
+    $categories = get_the_category_list( $post->ID );
     var_dump($post->ID);
     $return_cat = Array();
 
