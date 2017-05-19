@@ -1123,6 +1123,7 @@ function tkno_get_primary_category() {
     }
 
     $categories = get_the_category( $post->ID );
+    var_dump($categories);
     $return_cat = Array();
 
     foreach( $categories as $category ) {
