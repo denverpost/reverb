@@ -196,7 +196,6 @@ if ( !function_exists('reactor_post_meta') ) {
 						$publication = ( !in_array( $coauthor->aim, array('hidden','') ) ) ? sprintf( ', <em>%s</em>', $coauthor->aim ) : '';
 					}
 				} else {
-					$publication = ( $publication == '' && !in_array( get_the_author_meta( 'publication', $coauthor->ID ), array( 'hidden','' ), true ) ) ? sprintf( ', <em>%s</em>', get_the_author_meta( 'publication', $coauthor->ID ) ) : '';
 					if ( $publication == '' ) {
 						$publication = ( !in_array( get_the_author_meta( 'publication', $coauthor->ID ), array( 'hidden','' ), true ) ) ? sprintf( ', <em>%s</em>', get_the_author_meta( 'publication', $coauthor->ID ) ) : '';
 						$do_bio = true;
