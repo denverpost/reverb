@@ -1062,6 +1062,10 @@ body:not(.home) .cat-second .entry-body h2.entry-title {
 .single .entry-content ol {
 	margin:0 15% 1em;
 }
+.single .entry-content ul,
+.single .entry-content ol {
+	padding-left:1em;
+}
 .page .entry-content h2,
 .single .entry-content h2 {
 	font-family:'Arvo',Arial,Helvetica,sans-serif;
