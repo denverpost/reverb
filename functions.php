@@ -1147,7 +1147,7 @@ function tkno_get_primary_category() {
 
 /**
  * in_article_related_shortcode
- * @return html list inserted in content based on tag
+ * @return html list inserted in content
  */
 function in_article_related_shortcode( $atts=array() ){
     $related = '';
@@ -1181,6 +1181,26 @@ function related_shortcode_button() {
     echo '<a href="javascript:void(0);" id="insert-related-shortcode" class="button">Insert Related</a>';
 }
 add_action('media_buttons', 'related_shortcode_button',15);
+
+/**
+ * Shortcode to add a widget teasing the Bucket List
+ * @return html aside inserted in content
+ */
+function in_article_bucketlist_shortcode(){
+    $bucketlist = '<aside class="article-bucketlist">';
+        $bucketlist .= '<h3>#knowCOsummer</h3>';
+        $bucketlist .= '<a href="http://theknow.denverpost.com/2017/05/22/colorado-ultimate-summer-bucket-list/144739/" rel="bookmark"><img src="http://theknow.denverpost.com/wp-content/uploads/2017/05/100things-widget.jpg" /></a>';
+        $bucketlist .= '<p><a href="http://theknow.denverpost.com/2017/05/22/colorado-ultimate-summer-bucket-list/144739/">This story features a bucket-list experience &mdash; check out our complete Colorado Summer Bucket List!</a></p>';
+        $bucketlist .= '<div class="clear"></div>';
+    $bucketlist .= '</aside>';
+    return $bucketlist;
+}
+add_shortcode('bucketlist', 'in_article_bucketlist_shortcode');
+
+function bucketlist_shortcode_button() {
+    echo '<a href="javascript:void(0);" id="insert-bucketlist-shortcode" class="button">Insert Bucket List</a>';
+}
+add_action('media_buttons', 'bucketlist_shortcode_button',15);
 
 function tkno_admin_enqueue($hook) {
     if ( 'post.php' != $hook ) {

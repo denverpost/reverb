@@ -745,7 +745,8 @@ div.cat-img {
 	border-bottom:1px solid rgba(225,225,225,0.8);
 }
 /* in-article related lists */
-.entry-content aside.article-related {
+.entry-content aside.article-related,
+.entry-content aside.article-bucketlist {
 	width:40%;
 	float:left;
 	margin:1em 1.5em 1em 0;
@@ -767,7 +768,8 @@ div.cat-img {
 	padding-top:0;
 	border-top:none;
 }
-.entry-content aside.article-related h3 {
+.entry-content aside.article-related h3,
+.entry-content aside.article-bucketlist h3 {
 	font-size:1.3em;
 	width:100%;
 	margin:0 0 .5em;
@@ -788,6 +790,24 @@ div.cat-img {
 	font-weight:300;
 	font-size:.85em;
 	line-height: 1.2;
+}
+.entry-content aside.article-bucketlist h3 {
+	text-align:center;
+	font-size: 1.5em;
+}
+.entry-content aside.article-bucketlist p {
+	font-weight: 600;
+	width:90%;
+	margin:.5em 0 0 10%;
+	font-size:1.2em;
+	line-height: 1.25;
+}
+.entry-content aside.article-bucketlist p:before {
+	content:'\25b6';
+	color:#db7d00;
+	display:inline-block;
+	margin-left:-10%;
+	padding-right:3%;
 }
 /* related posts */
 .yarpp-related {
@@ -1695,7 +1715,8 @@ article.category-drink .entry-footer .single_venue h3 {
 	.frontpage-image h2 {
 		width: 40%;
 	}
-	.entry-content aside.article-related {
+	.entry-content aside.article-related,
+	.entry-content aside.article-bucketlist {
 		width:100%;
 		margin-left:1em;
 		float:none;
@@ -1796,12 +1817,19 @@ article.category-drink .entry-footer .single_venue h3 {
 	p, .top-bar li:not(.menu-item), figcaption {
 		font-size: 1.1em;
 	}
-	.entry-content aside.article-related {
+	.entry-content aside.article-related,
+	.entry-content aside.article-bucketlist {
 		width:90%;
 		margin:1em 5%;
 	}
 	.entry-content aside.article-related h3 {
 		font-size:1.15em;
+	}
+	.entry-content aside.article-bucketlist h3 {
+		font-size: 1.2em;
+	}
+	.entry-content aside.article-bucketlist p {
+		font-size: .95em;
 	}
 	.entry-content aside.article-related ul li a {
 		font-size:.8em;
