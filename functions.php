@@ -610,7 +610,7 @@ class sidebar_tagline_widget extends WP_Widget {
         $tagline_text = $instance[ 'tagline_text' ];
         // Display a fixed tagline and The Denver Post logo
         echo '<div id="sidebar-tagline" class="widget widget_tagline">
-                <p>' . $tagline_text . ' <img src="'.get_bloginfo('stylesheet_directory').'/images/dp-logo-blk.png" /></p>
+                <p>' . $tagline_text . ' <a href="http://www.denverpost.com"><img src="'.get_bloginfo('stylesheet_directory').'/images/dp-logo-blk.png" /></a></p>
             </div>';
     }
 }
