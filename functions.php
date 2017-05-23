@@ -587,31 +587,42 @@ class sidebar_tagline_widget extends WP_Widget {
     }
 
     public function form( $instance ) {
-        //Check if limit_days exists, if its null, put "new limit_days" for use in the form
-        if ( isset( $instance[ 'tagline_text' ] ) ) {
-            $tagline_text = $instance[ 'tagline_text' ];
-        }
-        else {
-            $tagline_text = __( 'What to do, where to be and what to see, from', 'wpb_widget_domain' );
-        } ?>
+        $defaults = array( 'tagline_text' => __( 'What to do, where to be and what to see, from', 'wpb_widget_domain' ), 'is_front' => 'off', 'is_sidebar' => 'off' );
+        $instance = wp_parse_args( ( array ) $instance, $defaults ); ?>
         <p>
         <label for="<?php echo $this->get_field_id( 'tagline_text' ); ?>"><?php _e( 'Tagline text (will be followed by "The Denver Post" logo):' ); ?></label> 
-        <input class="widefat" id="<?php echo $this->get_field_id( 'tagline_text' ); ?>" name="<?php echo $this->get_field_name( 'tagline_text' ); ?>" type="text" value="<?php echo esc_attr( $tagline_text ); ?>" />
+        <input class="widefat" id="<?php echo $this->get_field_id( 'tagline_text' ); ?>" name="<?php echo $this->get_field_name( 'tagline_text' ); ?>" type="text" value="<?php echo esc_attr( $instance[ 'tagline_text' ] ); ?>" />
         </p>
+        <p>
+        <input class="checkbox" type="checkbox" <?php checked( $instance[ 'is_front' ], 'on' ); ?> id="<?php echo $this->get_field_id( 'is_front' ); ?>" name="<?php echo $this->get_field_name( 'is_front' ); ?>" /> 
+        <label for="<?php echo $this->get_field_id( 'is_front' ); ?>">Check here for the homepage tagline</label>
+        </p>
+        <p>
+        <input class="checkbox" type="checkbox" <?php checked( $instance[ 'is_sidebar' ], 'on' ); ?> id="<?php echo $this->get_field_id( 'is_sidebar' ); ?>" name="<?php echo $this->get_field_name( 'is_sidebar' ); ?>" /> 
+        <label for="<?php echo $this->get_field_id( 'is_sidebar' ); ?>">Check here for the sidebar tagline</label>
+        </p>
+
     <?php }
 
     public function update( $new_instance, $old_instance ) {
-        $instance = array();
+        $instance = $old_instance;
         $instance[ 'tagline_text' ] = ( ! empty( $new_instance[ 'tagline_text' ] ) ) ? trim( strip_tags( $new_instance[ 'tagline_text' ] ) ) : 'What to do, where to be and what to see, from';
+        $instance[ 'is_front' ] = $new_instance[ 'is_front' ];
+        $instance[ 'is_sidebar' ] = $new_instance[ 'is_sidebar' ];
         return $instance;
     }
 
     public function widget($args, $instance) {
+        extract( $args );
         $tagline_text = $instance[ 'tagline_text' ];
+        $is_front = $instance[ 'is_front' ] ? true : false;
+        $is_sidebar = $instance[ 'is_sidebar' ] ? true : false;
         // Display a fixed tagline and The Denver Post logo
-        echo '<div id="sidebar-tagline" class="widget widget_tagline">
+        if ( ( $is_front && is_front_page() ) || ( $is_sidebar && ! is_front_page() ) ) {
+            echo '<div id="sidebar-tagline" class="widget widget_tagline">
                 <p>' . $tagline_text . ' <a href="http://www.denverpost.com"><img src="'.get_bloginfo('stylesheet_directory').'/images/dp-logo-blk.png" /></a></p>
             </div>';
+        }
     }
 }
 function register_sidebar_tagline_widget() { register_widget('sidebar_tagline_widget'); }
