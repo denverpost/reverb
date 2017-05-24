@@ -945,8 +945,11 @@ function tkno_register_venue_taxonomy() {
             'show_ui' => true,
             'show_in_nav_menus' => false,
             'show_tagcloud' => false,
-            'show_admin_column' => false,
-            'rewrite' => array( 'slug' => 'venue','with_front' => false),
+            'show_admin_column' => true,
+            'rewrite' => array(
+                'slug' => 'venue',
+                'with_front' => false
+                ),
         )
     );
 }
@@ -980,8 +983,11 @@ function tkno_register_venue_page_posttype() {
         'menu_position' => 5,
         'capability_type' => 'post',
         'query_var'     => true,
-        'supports'      => array( 'title', 'editor', 'thumbnail', 'excerpt', 'page-attibutes', 'revisions', 'author', 'custom-fields', ),
-        'rewrite' => array( 'slug' => 'venues','with_front' => false),
+        'supports'      => array( 'title', 'editor', 'thumbnail', 'excerpt', 'page-attributes', 'revisions', 'author', 'custom-fields', ),
+        'rewrite' => array(
+            'slug' => 'venues',
+            'with_front' => false
+            ),
         'has_archive'   => true,
     );
     register_post_type( 'venues', $args );
@@ -1169,11 +1175,11 @@ function in_article_related_shortcode( $atts=array() ){
             'post_type'         => array('post'),
             'show_pass_post'    => false,
             'exclude'           => array(),
-            'recent'            => '2 month',
+            'recent'            => '3 month',
             'weight'            => array(
                 'tax'   => array(
                     'post_tag' => 2,
-                    'venue'   => 1
+                    'venue'   => 2
                 )
             ),
             'threshold'         => 2,
