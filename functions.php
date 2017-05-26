@@ -988,7 +988,7 @@ function tkno_register_venue_page_posttype() {
             'slug' => 'venues',
             'with_front' => false
             ),
-        'has_archive'   => true,
+        'has_archive'   => true
     );
     register_post_type( 'venues', $args );
 }
@@ -1169,23 +1169,30 @@ function tkno_get_primary_category() {
 function in_article_related_shortcode( $atts=array() ){
     $related = '';
     $template = ( isset( $atts['wide'] ) && $atts['wide'] == 'true') ? 'yarpp-template-inarticle-fullwidth.php' : 'yarpp-template-inarticle.php';
+    $require_venue = ( isset( $atts['venue'] ) && $atts['venue'] == 'true') ? true : false;
+    $month = ( isset( $atts['months'] ) && is_int( $atts['months'] ) ) ? $atts['months'] . ' month' : '2 month';
+    $sort_order = ( isset( $atts['sort'] ) && $atts['sort'] == 'date' ) ? 'date DESC' : 'score DESC';
+    $venue_require = array( 'venue' => 1 );
     if ( is_single() && function_exists( 'yarpp_related' ) ) { 
         global $post;
         $related .= yarpp_related( array( 
             'post_type'         => array('post'),
             'show_pass_post'    => false,
+            'past_only'         => false,
             'exclude'           => array(),
-            'recent'            => '3 month',
+            'recent'            => $month,
             'weight'            => array(
-                'tax'   => array(
-                    'post_tag' => 2,
-                    'venue'   => 2
+                'title'             => 1,
+                'tax'               => array(
+                    'post_tag'          => 4,
+                    'venue'             => 5
                 )
             ),
-            'threshold'         => 2,
+            'require_tax'       => ( $require_venue ) ? $venue_require : array(),
+            'threshold'         => 3,
             'template'          => $template,
             'limit'             => 5,
-            'order'             => 'score DESC'
+            'order'             => $sort_order
             ),
         $post->ID,
         false);
