@@ -49,6 +49,8 @@ div#content {
 	font-weight:600;
 	color:#fff;
 	font-size:125%;
+	display: block;
+	clear: left;
 }
 .entry-footer .single_venue h3 a:hover {
 	text-decoration:underline;
