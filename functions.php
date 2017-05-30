@@ -677,7 +677,7 @@ class tkno_calendar_widget extends WP_Widget
             }
             return $calcat;
         }
-        if ( get_post_type() != 'venues' ) {
+        if ( ! ( is_single() && get_post_type() == 'venues' ) ) {
             echo '<div id="sidebar-calendar" class="widget widget_cal">
                     <div data-cswidget="' . tkno_cal_category() . '"></div>
                 </div>';

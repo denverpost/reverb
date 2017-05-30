@@ -873,7 +873,7 @@ h1.archive-title,
 h2.archive-title {
 	margin:0 0 1em;
 }
-h1.archive-title.venue-header span,
+.post-type-archive-venues h1.archive-title.venue-header span,
 h1.archive-title a,
 h2.archive-title a {
 	font-family:'Arvo',Arial,Helvetica,sans-serif;
@@ -886,13 +886,13 @@ h2.archive-title a {
 	background-color:rgba(67,178,91,1.0);
 	padding:.25em .5em;
 }
-h1.archive-title.venue-header span,
+.post-type-archive-venues h1.archive-title.venue-header span,
 h1.archive-title.venue-header a,
 h2.archive-title.venue-header a,
 .single-venues h2.archive-title a {
 	background-color:#5a5a5a;
 }
-h1.archive-title.venue-header span {
+.post-type-archive-venues h1.archive-title.venue-header span {
 	font-size: 1.5em;
 }
 .venue-related h2.archive-title {
