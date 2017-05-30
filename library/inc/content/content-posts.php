@@ -20,7 +20,7 @@
 function reactor_do_hero() {
 	global $post;
 	$hero_url = get_post_meta( $post->ID, 'hero_img_url', true );
-	if ( is_single() && $hero_url ) { ?>
+	if ( is_single() && get_post_type() != 'venues' && $hero_url ) { ?>
 		<div class="large-12 columns">
 			<img src="<?php echo $hero_url; ?>" class="singlehero" />
 		</div>
@@ -37,7 +37,7 @@ add_action('reactor_inner_content_before', 'reactor_do_hero', 0);
 function reactor_do_overline() {
 	if ( get_post_type() == 'venues' ) { ?>
 		<header class="archive-header">
-            <h1 class="archive-title venue-header"><span><a href="/venues/">Venues</a></span></h1>
+            <h1 class="archive-title venue-header"><span><a href="<?php echo get_bloginfo( 'url' ); ?>/venues/">Venues</a></span></h1>
         </header><!-- .archive-header -->
 	<?php } else if ( is_single() ) {
 		$primary_category = tkno_get_primary_category();
@@ -314,7 +314,7 @@ add_action('reactor_post_after', 'reactor_do_nav_single', 3);
  * @since 1.0.0
  */
 function tkno_single_post_related() {
-    if ( is_single() && ! ( get_post_type() == 'venues' ) && function_exists( 'yarpp_related' ) ) { 
+    if ( is_single() && ( get_post_type() != 'venues' ) && function_exists( 'yarpp_related' ) ) { 
     	global $post; ?>
 	    <div class="related">
 		    <?php yarpp_related( array( 

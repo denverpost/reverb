@@ -439,7 +439,7 @@ function tkno_get_ad_value() {
             $cat = get_category( (int)$cat->category_parent );
         }
         $category = $cat->slug;
-    } else if ( is_single() ) {
+    } else if ( is_single() && ( get_post_type() != 'venues' ) ) {
         $cats = tkno_get_top_category_slug();
         $category = $cats->slug;
     }
@@ -677,10 +677,11 @@ class tkno_calendar_widget extends WP_Widget
             }
             return $calcat;
         }
-        echo '<div id="sidebar-calendar" class="widget widget_cal">
-                <div data-cswidget="' . tkno_cal_category() . '"></div>
-                <script type="text/javascript" async defer src="//portal.CitySpark.com/js/widget.min.js"></script>
+        if ( get_post_type() != 'venues' ) {
+            echo '<div id="sidebar-calendar" class="widget widget_cal">
+                    <div data-cswidget="' . tkno_cal_category() . '"></div>
                 </div>';
+        }
     }
 }
 function register_calendar_widget() { register_widget('tkno_calendar_widget'); }
