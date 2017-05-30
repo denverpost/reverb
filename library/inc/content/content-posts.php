@@ -35,7 +35,7 @@ add_action('reactor_inner_content_before', 'reactor_do_hero', 0);
  * @since 1.0.0
  */
 function reactor_do_overline() {
-	if ( get_post_type() == 'venues' ) { ?>
+	if ( get_post_type() == 'venues' && is_single() ) { ?>
 		<header class="archive-header">
             <h1 class="archive-title venue-header"><span><a href="<?php echo get_bloginfo( 'url' ); ?>/venues/">Venues</a></span></h1>
         </header><!-- .archive-header -->
