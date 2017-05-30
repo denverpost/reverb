@@ -39,7 +39,7 @@ function reactor_do_overline() {
 		<header class="archive-header">
             <h1 class="archive-title venue-header"><span><a href="<?php echo get_bloginfo( 'url' ); ?>/venues/">Venues</a></span></h1>
         </header><!-- .archive-header -->
-	<?php } else if ( is_single() ) {
+	<?php } else if ( is_single() && ! is_page_template( 'page-templates/calendar.php' ) ) {
 		$primary_category = tkno_get_primary_category();
 		$class_category = 'archive-title category-' . tkno_get_top_category_slug(true);
 		$class_header_category = ' category-' . tkno_get_top_category_slug( true );
