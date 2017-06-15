@@ -426,25 +426,120 @@ function tkno_get_top_category_slug($return_slug=false,$cat_id=false) {
     }
 }
 
+// Get an acceptable top-level category name and ID, or slug, for classes and labels
+function tkno_get_ad_cat_slug($cat_id=false) {
+    global $post;
+    $curr_cat = get_the_category_list( '/' , 'multiple', $post->ID );
+    $valid_cats = array('movies-and-tv','museums-and-galleries','stage','audio-video','musicnews','music-photos','reverb-features','music-reviews','family-friendly','outdoors','photos','dining-news','restaurant-reviews','bars-and-clubs','beer');
+    $curr_cat = explode( '/', $curr_cat );
+    $return_cat = array();
+    foreach ( $curr_cat as $current ) {
+        $current = sanitize_title( strtolower( $current ) );
+        if ( in_array( $current, $valid_cats ) ) {
+            $return_cat['slug'] = $current;
+            break;
+        }
+    }
+    if ( ! empty( $return_cat['slug'] ) ) { 
+        $cat_for_name = get_category_by_slug( $return_cat['slug'] );
+        $return_cat['cat_name'] = $cat_for_name->name;
+        $return_cat['term_id'] = $cat_for_name->term_id;
+        return (object) $return_cat;
+    } else if ( empty( $return_cat['slug'] ) && tkno_get_top_category_slug( $cat_id ) != false ) {
+        return tkno_get_top_category_slug( $cat_id );
+    } else {
+        return false;
+    }
+}
+
 function tkno_get_ad_value() {
     $category = FALSE;
     $kv = 'theknow';
     $tax = '';
     if ( is_home() || is_front_page() ) {
         $kv = 'theknow';
+    } else if ( is_page_template( 'page-templates/calendar.php' ) ) {
+        $category = 'calendar';
     } else if ( is_category() ) {
         $id = get_query_var( 'cat' );
         $cat = get_category( (int)$id );
-        if ( $cat->category_parent > 0 ) {
-            $cat = get_category( (int)$cat->category_parent );
-        }
         $category = $cat->slug;
     } else if ( is_single() && ( get_post_type() != 'venues' ) ) {
-        $cats = tkno_get_top_category_slug();
+        $cats = tkno_get_ad_cat_slug();
         $category = $cats->slug;
+    } else if ( get_post_type() == 'venues' ) {
+        $category = 'venues';
     }
     if ( $category ) {
         switch ( $category ) {
+            case 'calendar':
+                $kv = 'calendar';
+                $tax = '/Play/Event-calendar';
+                break;
+            case 'venues':
+                $kv = 'venues';
+                $tax = '/Venues';
+                break;
+            case 'movies-and-tv':
+                $kv = 'movies-and-tv';
+                $tax = '/See/Movies-and-tv';
+                break;
+            case 'museums-galleries':
+                $kv = 'museums-galleries';
+                $tax = '/See/Museums-and-galleries';
+                break;
+            case 'stage':
+                $kv = 'stage';
+                $tax = '/See/Stage';
+                break;
+            case 'audio-video':
+                $kv = 'audio-video';
+                $tax = '/Hear/Audio-video';
+                break;
+            case 'musicnews':
+                $kv = 'musicnews';
+                $tax = '/Hear/Music-news';
+                break;
+            case 'music-photos':
+                $kv = 'music-photos';
+                $tax = '/Hear/Music-photos';
+                break;
+            case 'reverb-features':
+                $kv = 'reverb-features';
+                $tax = '/Hear/Reverb-features';
+                break;
+            case 'music-reviews':
+                $kv = 'music-reviews';
+                $tax = '/Hear/Reviews';
+                break;
+            case 'family-friendly':
+                $kv = 'family-friendly';
+                $tax = '/Play/Family-friendly';
+                break;
+            case 'outdoors':
+                $kv = 'outdoors';
+                $tax = '/Play/Outdoors';
+                break;
+            case 'photos':
+                $kv = 'photos';
+                $tax = '/Play/Photos';
+                break;
+            case 'dining-news':
+                $kv = 'dining-news';
+                $tax = '/Eat/Dining-news';
+                break;
+            case 'restaurant-reviews':
+                $kv = 'restaurant-reviews';
+                $tax = '/Eat/Restaurant-reviews';
+                break;
+            case 'bars-and-clubs':
+                $kv = 'bars-and-clubs';
+                $tax = '/Drink/Bars-and-clubs';
+                break;
+            case 'beer':
+                $kv = 'beer';
+                $tax = '/Drink/Beer';
+                break;
             case 'drink':
                 $kv = 'drink';
                 $tax = '/Drink';
