@@ -274,17 +274,66 @@ function reactor_do_post_footer_meta() {
 add_action('reactor_post_footer', 'reactor_do_post_footer_meta', 4);
 
 /**
+ * Venue pages details 
+ * in single.php
+ * 
+ * @since 1.0.0
+ */
+function reactor_do_venue_details() {
+	if ( is_single() && get_post_type() == 'venues' ) {
+		global $post;
+		$detail_fields = array();
+		$all_fields = get_post_custom($post->id);
+		foreach ( $all_fields as $key => $value ) {
+			echo "\n".strpos($key, 'venue_details_')."\n";
+			if ( strpos($key, 'venue_details_') !== false ) {
+				$detail_fields[$key] = $value[0];
+			}
+			echo $key . " => " . $value[0] . "<br />";
+		}
+		echo "\n\n".count($detail_fields);
+		var_dump($detail_fields);
+	}
+}
+add_action('reactor_post_footer', 'reactor_do_venue_details', 5);
+
+/**
+ * Venue pages map
+ * in single.php
+ * 
+ * @since 1.0.0
+ */
+function reactor_do_venue_map() {
+	if ( is_single() && get_post_type() == 'venues' ) {
+		global $post;
+		$map_id = get_post_meta( $post->ID, 'venue_map_id', true );
+		if ( $map_id != '' ) { ?>
+			<div class="row">
+				<div class="large-12 medium-12 small-12 columns single_venue">
+					<div style="margin:0;padding:0;overflow:hidden;height:300px;width:100%;">
+						<iframe src="https://www.google.com/maps/d/embed?mid=<?php echo $map_id; ?>" style="border:none;width:100%;height:365px;margin-top:-50px;" seamless></iframe>
+						</div>
+				</div>
+			</div>
+		<?php }
+	}
+}
+add_action('reactor_post_footer', 'reactor_do_venue_map', 6);
+
+/**
  * Post footer edit 
  * in single.php
  * 
  * @since 1.0.0
  */
 function reactor_do_post_edit() {
-	if ( is_single() && ! ( get_post_type() == 'venues' ) ) {
+	if ( is_single() && get_post_type() != 'venues' ) {
 		edit_post_link( __('Edit this post', 'reactor'), '<div class="edit-link"><span>', '</span></div>');
+	} else if ( is_single() && get_post_type() == 'venues' ) {
+		edit_post_link( __('Edit this venue page', 'reactor'), '<div class="edit-link"><span>', '</span></div>');
 	}
 }
-add_action('reactor_post_footer', 'reactor_do_post_edit', 5);
+add_action('reactor_post_footer', 'reactor_do_post_edit', 7);
 
 /**
  * Single post nav 
