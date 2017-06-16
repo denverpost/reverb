@@ -76,6 +76,26 @@ div#content {
 	text-transform: uppercase;
 	letter-spacing: 2px;
 }
+.venue-details {
+	margin:0 1.25em 1em;
+	border:1px solid #ccc;
+	padding:1em 1.5em;
+}
+.venue-detail {
+	display:block;
+	font-size:92%;
+}
+.venue-detail .venue-detail-title {
+	width:40%;
+	float:left;
+	display:inline-block;
+	font-weight:bold;
+	margin-bottom:.3em;
+}
+.venue-detail .venue-detail-value {
+	width:57.5%;
+	display: inline-block;
+}
 h1, h2, h3, h4, h5, h6 {
 	font-family:'Arvo',Arial,Helvetica,sans-serif;
 	font-weight: 400;

@@ -283,16 +283,30 @@ function reactor_do_venue_details() {
 	if ( is_single() && get_post_type() == 'venues' ) {
 		global $post;
 		$detail_fields = array();
-		$all_fields = get_post_custom($post->id);
+		$all_fields = get_post_custom( $post->id );
 		foreach ( $all_fields as $key => $value ) {
-			echo "\n".strpos($key, 'venue_details_')."\n";
-			if ( strpos($key, 'venue_details_') !== false ) {
-				$detail_fields[$key] = $value[0];
+			if ( strpos( $key, 'venue_details_' ) !== false ) {
+				$newkey = str_replace('venue_details_', '', $key );
+				$detail_fields[$newkey] = $value[0];
 			}
-			echo $key . " => " . $value[0] . "<br />";
 		}
-		echo "\n\n".count($detail_fields);
-		var_dump($detail_fields);
+		if ( count( $detail_fields ) > 0 ) { ?>
+			<div class="row">
+				<div class="venue-details">
+				<?php foreach( $detail_fields as $key => $value ) { ?>
+						<div class="large-6 medium-6 small-12 columns">
+							<div class="venue-detail">
+								<div class="venue-detail-title"><?php echo ucwords( str_replace('_', ' ', $key ) ); ?></div>
+								<div class="venue-detail-value"><?php echo $value; ?></div>
+								<div class="clear"></div>
+							</div>
+							<div class="clear"></div>
+						</div>
+					<?php } ?>
+				<div class="clear"></div>
+				</div>
+			</div>
+		<?php }
 	}
 }
 add_action('reactor_post_footer', 'reactor_do_venue_details', 5);
