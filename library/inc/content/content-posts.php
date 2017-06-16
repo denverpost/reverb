@@ -327,7 +327,7 @@ add_action('reactor_post_footer', 'reactor_do_venue_map', 6);
  * @since 1.0.0
  */
 function reactor_do_post_edit() {
-	if ( is_single() && get_post_type() != 'venues' ) {
+	if ( is_single() ) {
 		edit_post_link( __('Edit this post', 'reactor'), '<div class="edit-link"><span>', '</span></div>');
 	} else if ( is_single() && get_post_type() == 'venues' ) {
 		edit_post_link( __('Edit this venue page', 'reactor'), '<div class="edit-link"><span>', '</span></div>');
