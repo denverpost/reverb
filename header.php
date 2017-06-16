@@ -53,19 +53,19 @@
                 <?php $ad_tax = tkno_get_ad_value(); ?>
                 if ( document.getElementById("adPosition1").offsetWidth >= 970 ) {
                     document.write('<style type="text/css">#adPosition1 { margin:15px auto 0; }</style>');
-                    googletag.defineSlot('/8013/denverpost.com/TheKnow<?php echo $ad_tax[1]; ?>', [[728,90],[970,250],[970,30]], 'top_leaderboard').setTargeting('pos',['top_leaderboard']).setTargeting('kv', '<?php echo $ad_tax[0]; ?>').addService(googletag.pubads());
+                    googletag.defineSlot('/8013/denverpost.com/TheKnow<?php echo $ad_tax[1]; ?>', [[728,90],[970,250],[970,30]], 'top_leaderboard').setTargeting('pos',['top_leaderboard']).setTargeting('kv', '<?php echo $ad_tax[0]; ?>')<?php echo tkno_get_ad_target_page(); ?>.addService(googletag.pubads());
                     googletag.pubads().enableSyncRendering();
                     googletag.enableServices();
                     googletag.display('top_leaderboard');
                 } else if ( document.getElementById("adPosition1").offsetWidth >= 728 ) {
                     document.write('<style type="text/css">#adPosition1 { margin:15px auto 0; }</style>');
-                    googletag.defineSlot('/8013/denverpost.com/TheKnow<?php echo $ad_tax[1]; ?>', [728,90], 'top_leaderboard').setTargeting('pos',['top_leaderboard']).setTargeting('kv', '<?php echo $ad_tax[0]; ?>').addService(googletag.pubads());
+                    googletag.defineSlot('/8013/denverpost.com/TheKnow<?php echo $ad_tax[1]; ?>', [728,90], 'top_leaderboard').setTargeting('pos',['top_leaderboard']).setTargeting('kv', '<?php echo $ad_tax[0]; ?>')<?php echo tkno_get_ad_target_page(); ?>.addService(googletag.pubads());
                     googletag.pubads().enableSyncRendering();
                     googletag.enableServices();
                     googletag.display('top_leaderboard');
                 } else {
                     document.write('<style type="text/css">#adPosition1 { margin:10px auto 0; }</style>');
-                    googletag.defineSlot('/8013/denverpost.com/TheKnow<?php echo $ad_tax[1]; ?>', [[300,50],[320,50],[320,100]], 'top_leaderboard').setTargeting('pos',['top_leaderboard']).setTargeting('kv', '<?php echo $ad_tax[0]; ?>').addService(googletag.pubads());
+                    googletag.defineSlot('/8013/denverpost.com/TheKnow<?php echo $ad_tax[1]; ?>', [[300,50],[320,50],[320,100]], 'top_leaderboard').setTargeting('pos',['top_leaderboard']).setTargeting('kv', '<?php echo $ad_tax[0]; ?>')<?php echo tkno_get_ad_target_page(); ?>.addService(googletag.pubads());
                     googletag.pubads().enableSyncRendering();
                     googletag.enableServices();
                     googletag.display('top_leaderboard');

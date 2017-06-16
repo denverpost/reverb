@@ -569,7 +569,21 @@ function tkno_get_ad_value() {
                 $tax = '';
         }
     }
+    if ( is_single() && has_tag( 'top-chef-in-colorado' ) ) {
+        $kv = 'Top-Chef-in-Colorado';
+    }
     return array( $kv, $tax );
+}
+
+// Set up a section vs. article targetting response for ad tags
+function tkno_get_ad_target_page() {
+    if ( is_single() ) {
+        return '.setTargeting("page",["article"])';
+    } else if ( is_category() || is_tag() || is_tax( 'venues' ) ) {
+        return '.setTargeting("page",["section"])';
+    } else {
+        return '';
+    }
 }
 
 // Create a simple widget for one-click newsletter signup
@@ -803,7 +817,7 @@ class sidebar_ad_widget_top_cube extends WP_Widget
                 <div>
                     <script>
                         if ( window.innerWidth > 540 ) {
-                            googletag.defineSlot(\'/8013/denverpost.com/TheKnow' . $ad_tax[1] . '\', [[300,250],[300,600]], \'cube1_reverb\').setTargeting(\'pos\',[\'Cube1_RRail_ATF\']).setTargeting(\'kv\', \'' . $ad_tax[0] . '\').addService(googletag.pubads());
+                            googletag.defineSlot(\'/8013/denverpost.com/TheKnow' . $ad_tax[1] . '\', [[300,250],[300,600]], \'cube1_reverb\').setTargeting(\'pos\',[\'Cube1_RRail_ATF\']).setTargeting(\'kv\', \'' . $ad_tax[0] . '\')' . tkno_get_ad_target_page() . '.addService(googletag.pubads());
                             googletag.pubads().enableSyncRendering();
                             googletag.enableServices();
                             googletag.display(\'cube1_reverb\');
@@ -837,7 +851,7 @@ class mobile_sidebar_ad_widget_top_cube extends WP_Widget
                 <div>
                     <script>
                         if ( window.innerWidth <= 540 ) {
-                            googletag.defineSlot(\'/8013/denverpost.com/TheKnow' . $ad_tax[1] . '\', [300,250], \'cube1_reverb\').setTargeting(\'pos\',[\'Cube1_RRail_ATF\']).setTargeting(\'kv\', \'' . $ad_tax[0] . '\').addService(googletag.pubads());
+                            googletag.defineSlot(\'/8013/denverpost.com/TheKnow' . $ad_tax[1] . '\', [300,250], \'cube1_reverb\').setTargeting(\'pos\',[\'Cube1_RRail_ATF\']).setTargeting(\'kv\', \'' . $ad_tax[0] . '\')' . tkno_get_ad_target_page() . '.addService(googletag.pubads());
                             googletag.pubads().enableSyncRendering();
                             googletag.enableServices();
                             googletag.display(\'cube1_reverb\');
@@ -870,7 +884,7 @@ class sidebar_ad_widget_cube extends WP_Widget
             <div id="cube2_reverb_wrap" class="widget ad_wrap">
                 <div>
                     <script>
-                    googletag.defineSlot(\'/8013/denverpost.com/TheKnow' . $ad_tax[1] . '\', [300,250], \'cube2_reverb\').setTargeting(\'pos\',[\'Cube2_RRail_mid\']).setTargeting(\'kv\', \'' . $ad_tax[0] . '\').addService(googletag.pubads());
+                    googletag.defineSlot(\'/8013/denverpost.com/TheKnow' . $ad_tax[1] . '\', [300,250], \'cube2_reverb\').setTargeting(\'pos\',[\'Cube2_RRail_mid\']).setTargeting(\'kv\', \'' . $ad_tax[0] . '\')' . tkno_get_ad_target_page() . '.addService(googletag.pubads());
                     googletag.pubads().enableSyncRendering();
                     googletag.enableServices();
                     googletag.display(\'cube2_reverb\');

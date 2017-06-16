@@ -280,7 +280,7 @@ add_action('reactor_post_footer', 'reactor_do_post_footer_meta', 4);
  * @since 1.0.0
  */
 function reactor_do_post_edit() {
-	if ( is_single() && ) {
+	if ( is_single() ) {
 		edit_post_link( __('Edit this post', 'reactor'), '<div class="edit-link"><span>', '</span></div>');
 	}
 }
