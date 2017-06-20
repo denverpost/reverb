@@ -1295,7 +1295,8 @@ function in_article_related_shortcode( $atts=array() ){
                 'title'             => 1,
                 'tax'               => array(
                     'post_tag'          => 4,
-                    'venue'             => 5
+                    'venue'             => 5,
+                    'category'          => 1
                 )
             ),
             'require_tax'       => ( $require_venue ) ? $venue_require : array(),
