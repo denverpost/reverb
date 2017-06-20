@@ -98,6 +98,14 @@ function reactor_child_theme_setup() {
     remove_theme_support('post-formats');       
 }
 
+// Fix for unix timestamps createing non-timezone-adjusted times in Google results
+function mj_fix_c_time_format( $date, $format, $timestamp, $gmt ) {
+    if ( 'c' == $format )
+        $date = date_i18n( DATE_ISO8601, $timestamp, $gmt );
+    return $date;
+}
+add_filter( 'date_i18n', 'mj_fix_c_time_format', 10, 4 );
+
 // add a favicon to the site
 function blog_favicon() {
     echo '<link rel="shortcut icon" type="image/x-icon" href="'.get_bloginfo('stylesheet_directory').'/favicon.ico" />' . "\n";
