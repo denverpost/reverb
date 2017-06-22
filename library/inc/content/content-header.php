@@ -65,7 +65,7 @@ if ( is_home() || is_front_page() ) {
     $temp_auth 		= get_the_author_meta('twitter', $post->post_author);
     $temp_gplus 	= get_the_author_meta('googleplus', $post->post_author);
     $categories_list = ( tkno_get_top_category_slug() ) ? tkno_get_top_category_slug() : 'none';
-    $GLOBALS['dfmcat'][0] = ( get_post_type() == 'venues' ) ? 'venues' : ( ( $categories_list != 'none' ) ? $categories_list->cat_name : $categories_list );
+    $GLOBALS['dfmcat'][0] = ( get_post_type() == 'venues' || get_post_type() == 'neighborhoods' ) ? ( ( get_post_type() == 'venues' ) ? 'venues' : 'neighborhoods' ) : ( ( $categories_list != 'none' ) ? $categories_list->cat_name : $categories_list );
     $GLOBALS['dfmby'] = get_the_author_meta('display_name', $post->post_author);
 }
 $twitter_thumb = ( ($twitter_thumbs != '') ? $twitter_thumbs[0] : get_stylesheet_directory_uri() . '/images/facebooklogo600.jpg' );

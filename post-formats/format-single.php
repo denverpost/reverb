@@ -15,6 +15,10 @@
             	<?php reactor_post_header(); ?>
             </header><!-- .entry-header -->
     
+            <?php if ( get_post_type() == 'neighborhoods' ) {
+                get_sidebar('neighborhoodupper');
+            } ?>
+
             <div class="entry-content">
                 <?php the_content(); ?>
                 <?php wp_link_pages( array('before' => '<div class="page-links">' . __('Pages:', 'reactor'), 'after' => '</div>') ); ?>

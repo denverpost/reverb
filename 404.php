@@ -28,7 +28,7 @@
         
                         <div class="entry-content">
                             <p>Well, as long as you&rsquo;re around, do you mind grabbing a broom and sweeping up some of those 💩💩💩 over there? We can only pay you in GIFs, but we&rsquo;d really appreciate it.</p>
-                            <p>While you&rsquo;re at it, <a href="http://www-beta.heyreverb.com/contact-us/">tell us how you got here</a>? Could have sworn we put a picture of Peyton Manning playing with devil sticks here...</p>
+                            <p>While you&rsquo;re at it, <a href="<?php echo get_bloginfo( 'url' ); ?>/contact-us/">tell us how you got here</a>? Could have sworn we put a picture of Peyton Manning playing with devil sticks here...</p>
                             <div class="panel">
                                 <p>When you&rsquo;re done, you can search for whatever you were looking for:</p>
                                 <?php get_search_form(); ?>

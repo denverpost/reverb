@@ -87,6 +87,31 @@ function reactor_register_sidebars() {
 		) );
 	}
 	
+	if ( in_array( 'neighborhood-upper', $sidebars[0] ) ) {	
+		register_sidebar( array( 
+			'name'          => __('Neighborhood Upper Sidebar', 'reactor'),
+			'id'            => 'sidebar-neighborhoodupper',
+			'description'   => 'Lower sidebar for the Neighborhood page template',
+			'class'         => '',
+			'before_widget' => '<div id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</div>',
+			'before_title'  => '<h4 class="widget-title">',
+			'after_title'   => '</h4>',
+		) );
+	}
+
+	if ( in_array( 'neighborhood-lower', $sidebars[0] ) ) {
+		register_sidebar( array(
+			'name'          => __('Neighborhood Page Lower', 'reactor'),
+			'id'            => 'sidebar-neighborhoodlower',
+			'description'   => 'Lower sidebar for the Neighborhood page template',
+			'class'         => '',
+			'before_widget' => '<div id="%1$s" class="widget frontpage-widget %2$s">',
+			'after_widget'  => '</div>',
+			'before_title'  => '<h4 class="widget-title">',
+			'after_title'   => '</h4>',
+		) );
+	}
 }
 
 /**

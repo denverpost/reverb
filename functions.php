@@ -41,7 +41,7 @@ function reactor_child_theme_setup() {
     remove_theme_support('reactor-sidebars');
     add_theme_support(
        'reactor-sidebars',
-       array( 'primary', 'front-upper', 'front-mobile', 'front-lower', )
+       array( 'primary', 'front-upper', 'front-mobile', 'front-lower', 'neighborhood-upper', 'neighborhood-lower' )
     );
     
     /* Support for layouts
@@ -407,6 +407,26 @@ function tkno_get_venue_from_slug($venue_slug) {
     return $venue;
 }
 
+// Get a neighborhood when the custom field matches a neighborhood taxonomy slug
+function tkno_get_neighborhood_from_slug($neighborhood_slug) {
+    $args = array(
+        'post_type'     => 'neighborhoods',
+        'meta_query'    => array(
+            array(
+                'key'   => 'neighborhood_slug',
+                'value' => $neighborhood_slug,
+                'compare' => 'LIKE',
+                'adp_disable' => true
+                )
+            ),
+        'posts_limits'    => 1
+        );
+    $query = new WP_Query( $args );
+    $neighborhoods = $query->get_posts();
+    $neighborhood = ( count($neighborhoods) > 0 ) ? $neighborhoods[0] : false;
+    return $neighborhood;
+}
+
 // Get an acceptable top-level category name and ID, or slug, for classes and labels
 function tkno_get_top_category_slug($return_slug=false,$cat_id=false) {
     global $post;
@@ -472,11 +492,13 @@ function tkno_get_ad_value() {
         $id = get_query_var( 'cat' );
         $cat = get_category( (int)$id );
         $category = $cat->slug;
-    } else if ( is_single() && ( get_post_type() != 'venues' ) ) {
+    } else if ( is_single() && get_post_type() != 'venues' && get_post_type() != 'neighborhoods' ) {
         $cats = tkno_get_ad_cat_slug();
         $category = $cats->slug;
     } else if ( get_post_type() == 'venues' ) {
         $category = 'venues';
+    } else if ( get_post_type() == 'neighborhoods' ) {
+        $category = 'neighborhoods';
     }
     if ( $category ) {
         switch ( $category ) {
@@ -487,6 +509,10 @@ function tkno_get_ad_value() {
             case 'venues':
                 $kv = 'venues';
                 $tax = '/Venues';
+                break;
+            case 'neighborhoods':
+                $kv = 'neighborhoods';
+                $tax = '/Neighborhoods';
                 break;
             case 'movies-and-tv':
                 $kv = 'movies-and-tv';
@@ -794,10 +820,12 @@ class tkno_calendar_widget extends WP_Widget
             }
             return $calcat;
         }
-        if ( ! ( is_single() && get_post_type() == 'venues' ) ) {
+        if ( ! is_post_type_archive( 'neighborhoods' ) && ! ( is_single() && ( get_post_type() == 'venues' || get_post_type() == 'neighborhoods' ) ) ) {
             echo '<div id="sidebar-calendar" class="widget widget_cal">
                     <div data-cswidget="' . tkno_cal_category() . '"></div>
                 </div>';
+        } else if ( is_post_type_archive( 'neighborhoods' ) || ( is_single() && get_post_type() == 'neighborhoods' ) ) {
+            echo '<iframe src="http://extras.denverpost.com/real-estate/search-placester.html" width="100%" height="250px" scrolling="no" style="border:none;" seamless></iframe>';
         }
     }
 }
@@ -1113,7 +1141,7 @@ function tkno_register_venue_page_posttype() {
 add_action( 'init', 'tkno_register_venue_page_posttype' );
 
 /**
- * Custom iunteraction messages for Venue Page post type
+ * Custom interaction messages for Venue Page post type
  */
 function tkno_venue_page_messages( $messages ) {
     global $post, $post_ID;
@@ -1153,6 +1181,131 @@ function tkno_venue_page_contextual_help( $contextual_help, $screen_id, $screen 
   return $contextual_help;
 }
 add_action( 'contextual_help', 'tkno_venue_page_contextual_help', 10, 3 );
+
+
+/**
+ * Add a Neighborhood taxonomy for neighborhoods (to tie into a Neighborhood post format)
+ */
+function tkno_register_neighborhood_taxonomy() {
+    $labels = array(
+        'name'                           => 'Neighborhoods',
+        'singular_name'                  => 'Neighborhood',
+        'search_items'                   => 'Search Neighborhoods',
+        'all_items'                      => 'All Neighborhoods',
+        'edit_item'                      => 'Edit Neighborhood',
+        'update_item'                    => 'Update Neighborhood',
+        'add_new_item'                   => 'Add New Neighborhood',
+        'new_item_name'                  => 'New Neighborhood Name',
+        'menu_name'                      => 'Neighborhoods',
+        'view_item'                      => 'View Neighborhoods',
+        'popular_items'                  => 'Popular Neighborhoods',
+        'separate_items_with_commas'     => 'Separate neighborhoods with commas',
+        'add_or_remove_items'            => 'Add or remove neighborhoods',
+        'choose_from_most_used'          => 'Choose from the most used neighborhoods',
+        'not_found'                      => 'No neighborhoods found'
+    );
+    register_taxonomy(
+        'neighborhood',
+        array('post'),
+        array(
+            'label' => __( 'Neighborhood' ),
+            'hierarchical' => false,
+            'labels' => $labels,
+            'public' => true,
+            'publicly_queryable' => false,
+            'show_ui' => true,
+            'show_in_nav_menus' => false,
+            'show_tagcloud' => false,
+            'show_admin_column' => true,
+            'rewrite' => array(
+                'slug' => 'neighborhood',
+                'with_front' => false
+                ),
+        )
+    );
+}
+add_action( 'init', 'tkno_register_neighborhood_taxonomy' );
+
+/**
+ * Add a Neighborhood Page post type to tie in to the taxonomy
+ */
+function tkno_register_neighborhood_page_posttype() {
+    $labels = array(
+        'name'               => _x( 'Neighborhood Pages', 'post type general name' ),
+        'singular_name'      => _x( 'Neighborhood Page', 'post type singular name' ),
+        'add_new'            => _x( 'Add New', 'neighborhood' ),
+        'add_new_item'       => __( 'Add New Neighborhood Page' ),
+        'edit_item'          => __( 'Edit Neighborhood Page' ),
+        'new_item'           => __( 'New Neighborhood Page' ),
+        'all_items'          => __( 'All Neighborhood Pages' ),
+        'view_item'          => __( 'View Neighborhood Pages' ),
+        'search_items'       => __( 'Search Neighborhood Pages' ),
+        'not_found'          => __( 'No neighborhood pages found' ),
+        'not_found_in_trash' => __( 'No neighborhood pages found in the Trash' ), 
+        'parent_item_colon'  => '',
+        'menu_name'          => 'Neighborhood Pages'
+    );
+    $args = array(
+        'labels'        => $labels,
+        'description'   => 'Neighborhood Pages feature a single neighborhood and pull in related items based on the Neighborhood taxonomy',
+        'public'        => true,
+        'publicly_queryable' => true,
+        'show_ui'       => true,
+        'menu_position' => 6,
+        'capability_type' => 'post',
+        'query_var'     => true,
+        'supports'      => array( 'title', 'editor', 'thumbnail', 'excerpt', 'page-attributes', 'revisions', 'author', 'custom-fields', ),
+        'rewrite' => array(
+            'slug' => 'neighborhoods',
+            'with_front' => false
+            ),
+        'has_archive'   => true
+    );
+    register_post_type( 'neighborhoods', $args );
+}
+add_action( 'init', 'tkno_register_neighborhood_page_posttype' );
+
+/**
+ * Custom interaction messages for Neighborhood Page post type
+ */
+function tkno_neighborhood_page_messages( $messages ) {
+    global $post, $post_ID;
+    $messages['neighborhoods'] = array(
+        0 => '', 
+        1 => sprintf( __('Neighborhood page updated. <a href="%s">View neighborhood page</a>'), esc_url( get_permalink($post_ID) ) ),
+        2 => __('Custom field updated.'),
+        3 => __('Custom field deleted.'),
+        4 => __('Neighborhood page updated.'),
+        5 => isset($_GET['revision']) ? sprintf( __('Neighborhood page restored to revision from %s'), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
+        6 => sprintf( __('Neighborhood page published. <a href="%s">View neighborhood page</a>'), esc_url( get_permalink($post_ID) ) ),
+        7 => __('Neighborhood page saved.'),
+        8 => sprintf( __('Neighborhood page submitted. <a target="_blank" href="%s">Preview neighborhood page</a>'), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) ),
+        9 => sprintf( __('Neighborhood page scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview neighborhood page</a>'), date_i18n( __( 'M j, Y @ G:i' ), strtotime( $post->post_date ) ), esc_url( get_permalink($post_ID) ) ),
+        10 => sprintf( __('Neighborhood page draft updated. <a target="_blank" href="%s">Preview neighborhood page</a>'), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) ),
+    );
+    return $messages;
+}
+add_filter( 'post_updated_messages', 'tkno_neighborhood_page_messages' );
+
+/**
+ * Contextual help for neighborhood pages
+ */
+function tkno_neighborhood_page_contextual_help( $contextual_help, $screen_id, $screen ) { 
+  if ( 'neighborhoods' == $screen->id ) {
+
+    $contextual_help = '<h2>Neighborhood pages</h2>
+    <p>Neighborhood pages show details about a particular neighborhood, and tie in recent posts assigned to that neighborhood. You can see a list of them on this page in reverse chronological order - the latest one we added is first.</p> 
+    <p>You can view/edit the details of each neighborhood page by clicking on its name, or you can perform bulk actions using the dropdown menu and selecting multiple items.</p>';
+
+  } elseif ( 'edit-neighborhood_page' == $screen->id ) {
+
+    $contextual_help = '<h2>Editing neighborhood pages</h2>
+    <p>This page allows you to view/modify neighborhood pages. Please make sure to fill out the available boxes with the appropriate details and <strong>not</strong> add these details to the neighborhood description.</p>';
+
+  }
+  return $contextual_help;
+}
+add_action( 'contextual_help', 'tkno_neighborhood_page_contextual_help', 10, 3 );
 
 // Popular widget
 class tkno_popular_widget extends WP_Widget

@@ -18,13 +18,15 @@
  * @since 1.0.0
  */
 function reactor_do_hero() {
-	global $post;
-	$hero_url = get_post_meta( $post->ID, 'hero_img_url', true );
-	if ( is_single() && get_post_type() != 'venues' && $hero_url ) { ?>
-		<div class="large-12 columns">
-			<img src="<?php echo $hero_url; ?>" class="singlehero" />
-		</div>
-	<?php }
+	if ( is_single() ) {
+		global $post;
+		$hero_url = get_post_meta( $post->ID, 'hero_img_url', true );
+		if ( is_single() && get_post_type() != 'venues' && get_post_type() != 'neighborhoods' && $hero_url ) { ?>
+			<div class="large-12 columns">
+				<img src="<?php echo $hero_url; ?>" class="singlehero" />
+			</div>
+		<?php }
+	}
 }
 add_action('reactor_inner_content_before', 'reactor_do_hero', 0);
 
@@ -35,9 +37,13 @@ add_action('reactor_inner_content_before', 'reactor_do_hero', 0);
  * @since 1.0.0
  */
 function reactor_do_overline() {
-	if ( get_post_type() == 'venues' && is_single() ) { ?>
+	if ( is_single() && get_post_type() == 'venues' ) { ?>
 		<header class="archive-header">
             <h1 class="archive-title venue-header"><span><a href="<?php echo get_bloginfo( 'url' ); ?>/venues/">Venues</a></span></h1>
+        </header><!-- .archive-header -->
+	<?php } else if ( is_single() && get_post_type() == 'neighborhoods' ) { ?>
+		<header class="archive-header">
+            <h1 class="archive-title neighborhood-header"><span><a href="<?php echo get_bloginfo( 'url' ); ?>/neighborhoods/">Neighborhoods</a></span></h1>
         </header><!-- .archive-header -->
 	<?php } else if ( is_single() && ! is_page_template( 'page-templates/calendar.php' ) ) {
 		$primary_category = tkno_get_primary_category();
@@ -152,7 +158,7 @@ add_action('reactor_post_header', 'reactor_do_standard_header_titles', 3);
  */
 function reactor_do_post_header_meta() {
 
-	if ( is_single() && ! ( get_post_type() == 'venues' ) ) {
+	if ( is_single() && get_post_type() != 'venues' && get_post_type() != 'neighborhoods' ) {
 		reactor_post_meta(array('show_cat'=>false,'show_tag'=>false,'catpage'=>true,'link_date'=>false,'social_dropdown'=>false));
 	}
 }
@@ -166,7 +172,7 @@ add_action('reactor_post_header', 'reactor_do_post_header_meta', 4);
  */
 function reactor_do_post_header_social() {
 
-	if ( is_single() && ! ( get_post_type() == 'venues' ) ) { ?>
+	if ( is_single() && get_post_type() != 'venues' && get_post_type() != 'neighborhoods' ) { ?>
 		<div class="row">
 			<div class="large-12 medium-12 small-12 columns masocial">
 				<?php echo do_shortcode('[mashshare]'); ?>
@@ -199,6 +205,28 @@ function reactor_do_post_footer_venue() {
 add_action('reactor_post_footer', 'reactor_do_post_footer_venue', 1);
 
 /**
+ * Post footer neighborhood
+ * in all formats
+ * 
+ * @since 1.0.0
+ */
+function reactor_do_post_footer_neighborhood() {
+	
+	global $post;
+	$neighborhood = wp_get_post_terms( $post->ID, 'neighborhood' );
+	$neighborhood_page = ( ! empty( $neighborhood[0] ) ) ? tkno_get_neighborhood_from_slug( $neighborhood[0]->slug ) : '';
+
+	if ( is_single() && ! $neighborhood_page == '' ) { ?>
+		<div class="row">
+			<div class="large-12 medium-12 small-12 columns single_neighborhood neighborhood_link">
+				<h3>neighborhood more about the neighborhood: <a href="<?php echo get_permalink( $neighborhood_page->ID ); ?>"><?php echo $neighborhood_page->post_title; ?></a></h3>
+			</div>
+		</div>
+	<?php }
+}
+add_action('reactor_post_footer', 'reactor_do_post_footer_neighborhood', 1);
+
+/**
  * Post footer social
  * in all formats
  * 
@@ -214,7 +242,7 @@ function reactor_do_post_footer_social() {
 		</div>
 	<?php }
 }
-add_action('reactor_post_footer', 'reactor_do_post_footer_social', 2);
+add_action('reactor_post_footer', 'reactor_do_post_footer_social', 3);
 
 /**
  * Post content after tags
@@ -225,7 +253,7 @@ function tkno_post_body_content_tags() {
 		reactor_post_meta( array( 'just_tags' => true ) );
 	}
 }
-add_action('reactor_post_footer', 'tkno_post_body_content_tags', 3);
+add_action('reactor_post_footer', 'tkno_post_body_content_tags', 4);
 
 /**
  * Post footer meta
@@ -234,10 +262,10 @@ add_action('reactor_post_footer', 'tkno_post_body_content_tags', 3);
  * @since 1.0.0
  */
 function reactor_do_post_footer_meta() {
-	if ( is_single() && get_post_type() != 'venues' ) {
+	if ( is_single() && get_post_type() != 'venues' && get_post_type() != 'neighborhoods' ) {
 		reactor_post_meta( array('show_photo' => true,'show_tag' => true) );
 		$post_meta = true;
-	} else if ( get_post_type() != 'venues' ) {
+	} else if ( get_post_type() != 'venues' && get_post_type() != 'neighborhoods' ) {
 		if ( is_page_template('page-templates/front-page.php') ) {
 			$post_meta = reactor_option('frontpage_post_meta', 1);
 		}
@@ -262,7 +290,7 @@ function reactor_do_post_footer_meta() {
 				</div>
 			</div>
 		<?php } else {
-			$link_uri = 'http://www-beta.heyreverb.com/calendar/#!/show/?search=' . rawurlencode( $post->post_title ); ?>
+			$link_uri = 'http://theknow.denverpost.com/calendar/#!/show/?search=' . rawurlencode( $post->post_title ); ?>
 			<div class="row">
 				<div class="large-12 medium-12 small-12 columns single_venue">
 					<h3>More events: <a href="<?php echo $link_uri; ?>"><?php echo $post->post_title; ?> on our calendar</a></h3>
@@ -271,7 +299,7 @@ function reactor_do_post_footer_meta() {
 		<?php }
 		}
 }
-add_action('reactor_post_footer', 'reactor_do_post_footer_meta', 4);
+add_action('reactor_post_footer', 'reactor_do_post_footer_meta', 5);
 
 /**
  * Venue pages details 
@@ -309,7 +337,7 @@ function reactor_do_venue_details() {
 		<?php }
 	}
 }
-add_action('reactor_post_footer', 'reactor_do_venue_details', 5);
+add_action('reactor_post_footer', 'reactor_do_venue_details', 6);
 
 /**
  * Venue pages map
@@ -332,7 +360,7 @@ function reactor_do_venue_map() {
 		<?php }
 	}
 }
-add_action('reactor_post_footer', 'reactor_do_venue_map', 6);
+add_action('reactor_post_footer', 'reactor_do_venue_map', 7);
 
 /**
  * Post footer edit 
@@ -344,10 +372,12 @@ function reactor_do_post_edit() {
 	if ( is_single() ) {
 		edit_post_link( __('Edit this post', 'reactor'), '<div class="edit-link"><span>', '</span></div>');
 	} else if ( is_single() && get_post_type() == 'venues' ) {
-		edit_post_link( __('Edit this venue page', 'reactor'), '<div class="edit-link"><span>', '</span></div>');
+		edit_post_link( __('Edit this Venue page', 'reactor'), '<div class="edit-link"><span>', '</span></div>');
+	} else if ( is_single() && get_post_type() == 'neighborhoods' ) {
+		edit_post_link( __('Edit this Neighborhood page', 'reactor'), '<div class="edit-link"><span>', '</span></div>');
 	}
 }
-add_action('reactor_post_footer', 'reactor_do_post_edit', 7);
+add_action('reactor_post_footer', 'reactor_do_post_edit', 8);
 
 /**
  * Single post nav 
@@ -377,7 +407,7 @@ add_action('reactor_post_after', 'reactor_do_nav_single', 3);
  * @since 1.0.0
  */
 function tkno_single_post_related() {
-    if ( is_single() && ( get_post_type() != 'venues' ) && function_exists( 'yarpp_related' ) ) { 
+    if ( is_single() && get_post_type() != 'venues' && get_post_type() != 'neighborhoods' && function_exists( 'yarpp_related' ) ) {
     	global $post; ?>
 	    <div class="related">
 		    <?php yarpp_related( array( 
@@ -387,8 +417,9 @@ function tkno_single_post_related() {
 		    	'recent'			=> '6 month',
 		    	'weight'			=> array(
 		    		'tax'	=> array(
-		    			'post_tag' => 2,
-		    			'venue'   => 1
+		    			'post_tag'		=> 2,
+		    			'venue'			=> 1,
+		    			'neighborhood'	=> 1
 		    		)
 		    	),
 		    	'threshold'			=> 2,

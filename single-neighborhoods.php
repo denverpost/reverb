@@ -1,8 +1,8 @@
 <?php
 /**
- * Template Name: Venue Pages
+ * Template Name: Neighborhood Pages
  * 
- * The template for displaying single venues
+ * The template for displaying single neighborhoods
  *
  * @package Reactor
  * @subpackage Templates
@@ -22,7 +22,8 @@
                 
                 <?php reactor_inner_content_before(); ?>
                 
-					<?php // start the loop
+					<?php global $post;
+                    // start the loop
                     while ( have_posts() ) : the_post(); ?>
                     
                     <?php reactor_post_before(); ?>
@@ -37,12 +38,14 @@
                     
                 <?php reactor_inner_content_after(); ?>
 
+                <?php get_sidebar('neighborhoodlower'); ?>
+
                 <?php global $post;
-                    $venue_slug = get_post_meta($post->ID, 'venue_slug', true);
-                    $venue_name = get_term_by( 'slug', $venue_slug, 'venue' ); ?>
+                    $neighborhood_slug = get_post_meta($post->ID, 'neighborhood_slug', true);
+                    $neighborhood_name = get_term_by( 'slug', $neighborhood_slug, 'neighborhood' ); ?>
                 
-                <div class="venue-related">
-                    <h2 class="archive-title"><a class="noclick" href="javascript:void(0);">Recent stories featuring <?php echo $venue_name->name; ?></a></h2>
+                <div class="neighborhood-related">
+                    <h2 class="archive-title"><a class="noclick" href="javascript:void(0);">Recent stories featuring <?php echo $neighborhood_name->name; ?></a></h2>
 
                     <?php
 
@@ -50,19 +53,19 @@
                             'post_type' => 'post',
                             'tax_query' => array(
                                 array(
-                                    'taxonomy' => 'venue',
+                                    'taxonomy' => 'neighborhood',
                                     'field' => 'slug',
-                                    'terms' => array( $venue_name->slug )
+                                    'terms' => array( $neighborhood_name->slug )
                                 ),
                             ),
                             'posts_per_page' => 10,
                             );
                         
-                        $venue_query = new WP_Query( $args ); ?>
+                        $neighborhood_query = new WP_Query( $args ); ?>
 
-                        <?php if ( $venue_query->have_posts() ) :
+                        <?php if ( $neighborhood_query->have_posts() ) :
                             
-                            while ( $venue_query->have_posts() ) : $venue_query->the_post(); ?>
+                            while ( $neighborhood_query->have_posts() ) : $neighborhood_query->the_post(); ?>
 
                                 <?php get_template_part('post-formats/format', 'catpage'); ?>
 

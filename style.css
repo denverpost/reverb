@@ -29,15 +29,18 @@ div#content {
 	padding-right:.65rem;
 }
 .columns.single_venue,
+.columns.single_neighborhood,
 .columns.masocial {
 	padding-left:1.25em;
 	padding-right:1.25em;
 }
-.entry-footer .single_venue {
+.entry-footer .single_venue,
+.entry-footer .single_neighborhood {
 	padding-top:.5em;
 	padding-bottom:.5em;
 }
-.entry-footer .single_venue h3 {
+.entry-footer .single_venue h3,
+.entry-footer .single_neighborhood h3 {
 	text-align:center;
 	font-size:1.4em;
 	padding:1em 2em;
@@ -45,27 +48,33 @@ div#content {
 	text-transform: uppercase;
 }
 .entry-footer .single_venue h3 a,
-.entry-footer .single_venue h3 a:visited {
+.entry-footer .single_venue h3 a:visited,
+.entry-footer .single_neighborhood h3 a,
+.entry-footer .single_neighborhood h3 a:visited {
 	font-weight:600;
 	color:#fff;
 	font-size:125%;
 	display: block;
 	clear: left;
 }
-.entry-footer .single_venue h3 a:hover {
+.entry-footer .single_venue h3 a:hover,
+.entry-footer .single_neighborhood h3 a:hover {
 	text-decoration:underline;
 }
-.single-venues .columns.masocial {
+.single-venues .columns.masocial,
+.single-neighborhoods .columns.masocial {
 	padding-bottom:1em;
 	margin-bottom:.5em;
 	border-bottom:1px solid #ddd;
 }
-.single-venues .with_calendar {
+.single-venues .with_calendar,
+.single-neighborhoods .with_calendar {
 	background-color:rgba(240,75,36,1.0);
 	padding:1em 1.5em 1.5em;
 	margin:1.5em 0;
 }
-.single-venues .with_calendar h3 {
+.single-venues .with_calendar h3,
+.single-neighborhoods .with_calendar h3 {
 	text-align: left;
 	color:#ffffff;
 	font-weight:bold;
@@ -894,6 +903,7 @@ h2.archive-title {
 	margin:0 0 1em;
 }
 .post-type-archive-venues h1.archive-title.venue-header span,
+.post-type-archive-neighborhoods h1.archive-title.neighborhood-header span,
 h1.archive-title a,
 h2.archive-title a {
 	font-family:'Arvo',Arial,Helvetica,sans-serif;
@@ -912,11 +922,19 @@ h2.archive-title.venue-header a,
 .single-venues h2.archive-title a {
 	background-color:#5a5a5a;
 }
-.post-type-archive-venues h1.archive-title.venue-header span {
+.post-type-archive-venues h1.archive-title.venue-header span,
+.post-type-archive-neighborhoods h1.archive-title.neighborhood-header span {
 	font-size: 1.5em;
 }
-.venue-related h2.archive-title {
+.venue-related h2.archive-title,
+.neighborhood-related h2.archive-title {
 	margin-bottom:1.5em;
+}
+.post-type-archive-neighborhoods h1.archive-title.neighborhood-header span,
+h1.archive-title.neighborhood-header a,
+h2.archive-title.neighborhood-header a,
+.single-neighborhoods h2.archive-title a {
+	background-color:#5d9674;
 }
 h1.archive-title a {
 	font-size: 1.5em;
@@ -1020,7 +1038,8 @@ body:not(.home) .cat-second .entry-body h2.entry-title {
 .single .entry-body {
 	border-bottom:none;
 }
-.single-venues .entry-body {
+.single-venues .entry-body,
+.single-neighborhoods .entry-body {
 	margin-bottom:0;
 }
 .single .entry-content div.ndn_embed {
@@ -1214,7 +1233,8 @@ body:not(.home) .cat-second .entry-body h2.entry-title {
 nav.nav-single {
 	margin-bottom: 1.063em;
 }
-.single-venues nav.nav-single {
+.single-venues nav.nav-single,
+.single-neighborhoods nav.nav-single {
 	display:none!important;
 }
 nav.nav-single .nav-previous {

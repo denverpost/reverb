@@ -1,6 +1,6 @@
 <?php
 /**
- * The template for displaying venue archive pages
+ * The template for displaying neighborhood archive pages
  *
  * @package Reactor
  * @subpackge Templates
@@ -21,7 +21,7 @@
                 <?php $number_posts = 25;
     
                     $args = array(
-                        'post_type' => 'venues',
+                        'post_type' => 'neighborhoods',
                         'posts_per_page' => $number_posts,
                         'paged' => get_query_var( 'paged' ),
                         );
@@ -34,7 +34,7 @@
                         <?php reactor_loop_before(); ?>
                 
                             <header class="page-header">
-                                <h1 class="archive-title venue-header"><span>Venues</span></h1>
+                                <h1 class="archive-title neighborhood-header"><span>Neighborhoods</span></h1>
                             </header>
                     
                     <?php reactor_loop_before(); ?>
