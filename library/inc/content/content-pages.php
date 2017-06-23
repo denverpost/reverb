@@ -64,6 +64,10 @@ function reactor_do_page_links() {
 		//if ( 'jquery' != $filter_type ) {
 			reactor_page_links( array('query' => 'portfolio_query', 'type' => $pagination_type) );
 		//}
+	} elseif ( is_singular( 'venues') && current_theme_supports('reactor-page-links')) {
+		reactor_page_links( array('query' => 'venue_query', 'type' => $pagination_type) );
+	} elseif ( is_singular( 'neighborhoods') && current_theme_supports('reactor-page-links') ) {
+		reactor_page_links( array('query' => 'neighborhood_query', 'type' => $pagination_type) );
 	} elseif ( current_theme_supports('reactor-page-links') ) {
 		reactor_page_links( array('type' => $pagination_type) );
 	}

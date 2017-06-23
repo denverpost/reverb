@@ -1,6 +1,6 @@
 <?php
 /**
- * Reactor Pageinate Links
+ * Reactor Paginate Links
  *
  * @package Reactor
  * @author Anthony Wilhelm (@awshout / anthonywilhelm.com)
@@ -23,7 +23,7 @@ if ( !function_exists('reactor_page_links') ) {
 		global ${$args['query']}, $wp_rewrite; $output = '';
 		
 		$the_query = ( isset( $args['query'] ) ) ? ${$args['query']} : $wp_query;
-		
+
 		$pagination_base = $wp_rewrite->pagination_base;
 		
 		/* If there's not more than one page, return nothing. */

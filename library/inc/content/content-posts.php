@@ -280,7 +280,7 @@ function reactor_do_post_footer_meta() {
 		}
 	} else if ( get_post_type() == 'venues' ) {
 		global $post;
-		$venue_calendar_id = ( get_post_meta( $post->ID, 'venue_calendar_id', true ) && get_post_meta( $post->ID, 'venue_calendar_id', true ) != '' ) ? get_post_meta( $post->ID, 'venue_calendar_id', true ) : false;
+		$venue_calendar_id = ( get_post_meta( $post->ID, '_venue_calendar_id', true ) && get_post_meta( $post->ID, '_venue_calendar_id', true ) != '' ) ? get_post_meta( $post->ID, '_venue_calendar_id', true ) : false;
 		
 		if ( $venue_calendar_id ) { ?>
 			<div class="row">
@@ -348,7 +348,7 @@ add_action('reactor_post_footer', 'reactor_do_venue_details', 6);
 function reactor_do_venue_map() {
 	if ( is_single() && get_post_type() == 'venues' ) {
 		global $post;
-		$map_id = get_post_meta( $post->ID, 'venue_map_id', true );
+		$map_id = get_post_meta( $post->ID, '_venue_map_id', true );
 		if ( $map_id != '' ) { ?>
 			<div class="row">
 				<div class="large-12 medium-12 small-12 columns single_venue">

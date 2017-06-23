@@ -38,7 +38,7 @@
                 <?php reactor_inner_content_after(); ?>
 
                 <?php global $post;
-                    $venue_slug = get_post_meta($post->ID, 'venue_slug', true);
+                    $venue_slug = get_post_meta($post->ID, '_venue_slug', true);
                     $venue_name = get_term_by( 'slug', $venue_slug, 'venue' ); ?>
                 
                 <div class="venue-related">
@@ -56,8 +56,8 @@
                                 ),
                             ),
                             'posts_per_page' => 10,
+                            'paged' => get_query_var( 'paged' )
                             );
-                        
                         $venue_query = new WP_Query( $args ); ?>
 
                         <?php if ( $venue_query->have_posts() ) :
@@ -67,6 +67,8 @@
                                 <?php get_template_part('post-formats/format', 'catpage'); ?>
 
                             <?php endwhile;
+
+                            reactor_loop_after();
                         
                         endif; ?>
 
