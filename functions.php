@@ -1685,3 +1685,110 @@ if ( ! is_admin() ) {
     add_filter( 'jetpack_implode_frontend_css', '__return_false' );
     add_action('wp_print_styles', 'tkno_remove_all_jp_css' );
 }
+
+/* Fire our meta box setup function on the post editor screen. */
+add_action( 'load-post.php', 'venue_post_meta_boxes_setup' );
+add_action( 'load-post-new.php', 'venue_post_meta_boxes_setup' );
+
+/* Meta box setup function. */
+function venue_post_meta_boxes_setup() {
+    /* Add meta boxes on the 'add_meta_boxes' hook. */
+    add_action( 'add_meta_boxes', 'venue_add_post_meta_boxes' );
+    /* Save post meta on the 'save_post' hook. */
+    add_action( 'save_post', 'venue_save_post_meta', 10, 2 );
+}
+
+/* Create one or more meta boxes to be displayed on the post editor screen. */
+function venue_add_post_meta_boxes() {
+    add_meta_box(
+        'venue_calendar_id',      // Unique ID
+        esc_html__( 'Venue Details', 'example' ),    // Title
+        'venue_post_meta_box',   // Callback function
+        'venues',         // Admin page (or post type)
+        'side',         // Context
+        'default'         // Priority
+    );
+}
+
+/* Display the post meta box. */
+function venue_post_meta_box( $post ) { ?>
+    <?php wp_nonce_field( basename( __FILE__ ), 'venue_meta_nonce' );
+    $args = array(
+        'orderby'                  => 'name',
+        'order'                    => 'ASC',
+        'hide_empty'               => 0,
+        'taxonomy'                 => 'venue'
+        );
+    $venues_list = get_terms( $args );
+    foreach( $venues_list as $venue_single ) { 
+        $venues[] =  $venue_single->name ;  
+    }
+    $venue_slug_current = get_post_meta( $post->ID, 'venue_slug', true );
+    $venue_current_object = get_term_by( 'slug', $venue_slug_current, 'venue' );
+    $venue_current = $venue_current_object->name; ?>
+    <p>
+    <label for="venue_slug"><?php _e( "Venue for related stories:", '' ); ?></label>
+    <br />
+    <select class="widefat" name="venue_slug" id="venue_slug">
+        <?php foreach ($venues as $venue) { ?>
+            <option <?php echo ($venue == $venue_current ) ? 'selected="selected"' : ''; ?>><?php echo $venue; ?></option>
+        <?php }?>
+    </select>
+    </p>
+    <p>
+    <label for="venue_calendar_id"><?php _e( "CitySpark widget ID:", '' ); ?></label>
+    <br />
+    <input class="widefat" type="text" name="venue_calendar_id" id="venue_calendar_id" value="<?php echo esc_attr( get_post_meta( $post->ID, 'venue_calendar_id', true ) ); ?>" size="30" />
+    </p>
+    <p>
+    <label for="venue_map_id"><?php _e( "Google My Maps ID:", '' ); ?></label>
+    <br />
+    <input class="widefat" type="text" name="venue_map_id" id="venue_map_id" value="<?php echo esc_attr( get_post_meta( $post->ID, 'venue_map_id', true ) ); ?>" size="30" />
+    </p>
+<?php }
+
+/* Save the meta box's post metadata. */
+function venue_save_post_meta( $post_id, $post ) {
+
+    /* Verify the nonce before proceeding. */
+    if ( !isset( $_POST['venue_meta_nonce'] ) || !wp_verify_nonce( $_POST['venue_meta_nonce'], basename( __FILE__ ) ) )
+    return $post_id;
+
+    /* Get the post type object. */
+    $post_type = get_post_type_object( $post->post_type );
+
+    /* Check if the current user has permission to edit the post. */
+    if ( !current_user_can( $post_type->cap->edit_post, $post_id ) )
+        return $post_id;
+
+    /* Get the calendar data and validate it, then save, update or delete it. */
+    $cal_new_meta_value = ( isset( $_POST['venue_calendar_id'] ) && ctype_digit( $_POST['venue_calendar_id'] ) && strlen( $_POST['venue_calendar_id'] ) == 4 ) ? $_POST['venue_calendar_id'] : '';
+    $cal_meta_key = 'venue_calendar_id';
+    $cal_meta_value = get_post_meta( $post_id, $meta_key, true );
+    if ( $cal_new_meta_value && '' == $cal_meta_value )
+        add_post_meta( $post_id, $cal_meta_key, $cal_new_meta_value, true );
+    elseif ( $cal_new_meta_value && $cal_new_meta_value != $cal_meta_value )
+        update_post_meta( $post_id, $cal_meta_key, $cal_new_meta_value );
+    elseif ( '' == $cal_new_meta_value && $cal_meta_value )
+        delete_post_meta( $post_id, $cal_meta_key, $cal_meta_value );
+
+    $slug_new_meta_value = ( isset( $_POST['venue_slug'] ) ) ? sanitize_html_class( $_POST['venue_slug'] ) : '';
+    $slug_meta_key = 'venue_slug';
+    $slug_meta_value = get_post_meta( $post_id, $cslugmeta_key, true );
+    if ( $slug_new_meta_value && '' == $slug_meta_value )
+        add_post_meta( $post_id, $slug_meta_key, $slug_new_meta_value, true );
+    elseif ( $slug_new_meta_value && $slug_new_meta_value != $slug_meta_value )
+        update_post_meta( $post_id, $slug_meta_key, $slug_new_meta_value );
+    elseif ( '' == $slug_new_meta_value && $slug_meta_value )
+        delete_post_meta( $post_id, $slug_meta_key, $slug_meta_value );
+
+    $map_new_meta_value = ( isset( $_POST['venue_map_id'] ) ) ? sanitize_text_field( $_POST['venue_map_id'] ) : '';
+    $map_meta_key = 'venue_map_id';
+    $map_meta_value = get_post_meta( $post_id, $map_meta_key, true );
+    if ( $map_new_meta_value && '' == $map_meta_value )
+        add_post_meta( $post_id, $map_meta_key, $map_new_meta_value, true );
+    elseif ( $map_new_meta_value && $map_new_meta_value != $map_meta_value )
+        update_post_meta( $post_id, $map_meta_key, $map_new_meta_value );
+    elseif ( '' == $map_new_meta_value && $map_meta_value )
+        delete_post_meta( $post_id, $map_meta_key, $map_meta_value );
+}
