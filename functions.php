@@ -1808,3 +1808,88 @@ function venue_save_post_meta( $post_id, $post ) {
     elseif ( '' == $map_new_meta_value && $map_meta_value )
         delete_post_meta( $post_id, $map_meta_key, $map_meta_value );
 }
+
+/**
+ * neighborhood_related_by_category_widget
+ * @return html list inserted in widget
+ */
+class neighborhood_related_widget extends WP_Widget {
+    public function __construct() {
+            parent::__construct(
+                'neighborhood_related_widget',
+                __('Neighborhood related', 'neighborhood_related_widget'),
+                array('description' => __('Displays stories from a selected category that relate to the given neighborhood.', 'neighborhood_related_widget'), )
+            );
+    }
+
+    public function form( $instance ) {
+        $defaults = array( 'neighorhood_category' => __( 'music' ) );
+        $instance = wp_parse_args( ( array ) $instance, $defaults ); ?>
+        <p>
+        <label for="<?php echo $this->get_field_id( 'neighorhood_category' ); ?>"><?php _e( 'Category for related articles:' ); ?></label> 
+        <select id="<?php echo $this->get_field_id( 'neighorhood_category' ); ?>" name="<?php echo $this->get_field_name( 'neighorhood_category' ); ?>" class="widefat" style="width:100%;">
+            <?php foreach( get_terms( 'category' ) as $term) { ?>
+            <option <?php selected( $instance[ 'neighorhood_category' ], $term->term_id ); ?> value="<?php echo $term->term_id; ?>"><?php echo $term->name; ?></option>
+            <?php } ?>      
+        </select>
+        </p>
+
+    <?php }
+
+    public function update( $new_instance, $old_instance ) {
+        $instance = $old_instance;
+        $instance[ 'neighorhood_category' ] = ( ! empty( $new_instance[ 'neighorhood_category' ] ) ) ? trim( strip_tags( $new_instance[ 'neighorhood_category' ] ) ) : '';
+        return $instance;
+    }
+
+    public function widget($args, $instance) {
+        global $post;
+        $nei_slug = get_post_meta( $post->ID, 'neighborhood_slug', true );
+        $nei_cat = $instance[ 'neighorhood_category' ];
+        if ( term_exists( $nei_slug, 'neighborhood' ) ) {
+            $cat = get_term_by( 'id', $nei_cat, 'category' );
+            $class_cat = tkno_get_top_category_slug( true, $cat->term_id );
+            $cat_class = get_term_by( 'slug', $class_cat, 'category' );
+            remove_all_filters('posts_orderby'); // disable Post Types Order ordering for this query
+            $query_args = array(
+                'post_type'         => 'post',
+                'tax_query'         => array(
+                    'relation'  => 'AND',
+                    array(
+                        'taxonomy'      => 'neighborhood',
+                        'field'         => 'slug',
+                        'terms'         => $nei_slug,
+                        'operator'      => 'IN'
+                        ),
+                    array(
+                        'taxonomy'      => 'category',
+                        'field'         => 'term_id',
+                        'terms'         => $cat->term_id,
+                        'operator'      => 'IN'
+                        ),
+                    ),
+                'posts_per_page'    => '3',
+                'order'             => 'DESC',
+                'orderby'           => 'date',
+                'adp_disable'       => true,
+                );
+            $nei_query = new WP_Query( $query_args );
+            if ( $nei_query->have_posts() ) { 
+                echo $args['before_widget']; ?>
+                <div class="neighborhood_widget_inner">
+                    <h4 class="widget-title category-<?php echo $class_cat; ?>"><a href="<?php echo get_category_link( $cat_class->term_id ); ?>">Nearby <?php echo $cat->name; ?></a></h4>
+                    <ul>
+                    <?php while ( $nei_query->have_posts() ) : $nei_query->the_post(); ?>
+                        <li class="clearfix"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></li>
+                    <?php endwhile; ?>
+                    </ul>
+                </div>
+                <?php echo $args['after_widget'];
+            }
+            wp_reset_query();
+        }
+    }
+}
+
+function register_neighborhood_related_widget() { register_widget('neighborhood_related_widget'); }
+add_action( 'widgets_init', 'register_neighborhood_related_widget' );

@@ -18,7 +18,9 @@
     <?php reactor_sidebar_before(); ?>
     
         <div id="sidebar-neighborhoodlower" class="sidebar" role="complementary">
+            <ul class="large-block-grid-2">
             <?php dynamic_sidebar('sidebar-neighborhoodlower'); ?>
+            </ul>
         </div><!-- #sidebar-frontpage-2 -->
     
     <?php reactor_sidebar_after(); ?>

@@ -106,8 +106,8 @@ function reactor_register_sidebars() {
 			'id'            => 'sidebar-neighborhoodlower',
 			'description'   => 'Lower sidebar for the Neighborhood page template',
 			'class'         => '',
-			'before_widget' => '<div id="%1$s" class="widget frontpage-widget %2$s">',
-			'after_widget'  => '</div>',
+			'before_widget' => '<li id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</li>',
 			'before_title'  => '<h4 class="widget-title">',
 			'after_title'   => '</h4>',
 		) );
