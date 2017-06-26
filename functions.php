@@ -1413,36 +1413,37 @@ class tkno_popular_widget extends WP_Widget
 function register_popular_widget() { register_widget('tkno_popular_widget'); }
 add_action( 'widgets_init', 'register_popular_widget' );
 
-function tkno_get_primary_category() {
+function tkno_get_primary_category( $input_id=false ) {
     
     global $post;
+
+    $primary_id = ( $input_id == false ) ? $post->ID : $input_id;
 
     $primaryCat = '';
     if ( class_exists( 'WPSEO_Primary_Term' ) ) {
     
-        $primaryCat = new WPSEO_Primary_Term( 'category', $post->ID );
+        $primaryCat = new WPSEO_Primary_Term( 'category', $primary_id );
         $primaryCat = $primaryCat->get_primary_term();
         $primaryCat = get_cat_name($primaryCat);
     }
 
-    $categories = get_the_category( $post->ID );
     $return_cat = Array();
 
-    foreach( $categories as $category ) {
-       $defaultCat = $category->name;
-       $defaultCatLink = get_category_link( $category->term_id );
-    }
-
     if ( $primaryCat !== '' ) {
-       $cat = new WPSEO_Primary_Term('category', $post->ID);
+       $cat = new WPSEO_Primary_Term('category', $primary_id);
        $cat = $cat->get_primary_term();
 
        $return_cat['name'] = get_cat_name($cat);
        $return_cat['url'] = get_category_link($cat);
 
     } else {
-       $return_cat['name'] = $defaultCat;
-       $return_cat['url'] = $defaultCatLink;
+        $categories = get_the_category( $primary_id );
+        foreach( $categories as $category ) {
+           $defaultCat = $category->name;
+           $defaultCatLink = get_category_link( $category->term_id );
+        }
+        $return_cat['name'] = $defaultCat;
+        $return_cat['url'] = $defaultCatLink;
     }
 
     return (object) $return_cat;
@@ -1818,18 +1819,28 @@ class neighborhood_related_widget extends WP_Widget {
             parent::__construct(
                 'neighborhood_related_widget',
                 __('Neighborhood related', 'neighborhood_related_widget'),
-                array('description' => __('Displays stories from a selected category that relate to the given neighborhood.', 'neighborhood_related_widget'), )
+                array('description' => __('Displays stories from a selected category or tag that also include the given neighborhood.', 'neighborhood_related_widget'), )
             );
     }
 
     public function form( $instance ) {
-        $defaults = array( 'neighorhood_category' => __( 'music' ) );
+        $defaults = array( 'neighorhood_category' => __( '' ), 'neighorhood_tag' => __( '' ) );
         $instance = wp_parse_args( ( array ) $instance, $defaults ); ?>
         <p>
         <label for="<?php echo $this->get_field_id( 'neighorhood_category' ); ?>"><?php _e( 'Category for related articles:' ); ?></label> 
         <select id="<?php echo $this->get_field_id( 'neighorhood_category' ); ?>" name="<?php echo $this->get_field_name( 'neighorhood_category' ); ?>" class="widefat" style="width:100%;">
+        <option <?php echo ( $instance[ 'neighorhood_category' ] == '' ) ? 'selected="selected" ' : ''; ?> value="">&nbsp;</option>
             <?php foreach( get_terms( 'category' ) as $term) { ?>
             <option <?php selected( $instance[ 'neighorhood_category' ], $term->term_id ); ?> value="<?php echo $term->term_id; ?>"><?php echo $term->name; ?></option>
+            <?php } ?>      
+        </select>
+        </p>
+        <p>
+        <label for="<?php echo $this->get_field_id( 'neighorhood_tag' ); ?>"><?php _e( 'Or tag (overrides category, if set):' ); ?></label> 
+        <select id="<?php echo $this->get_field_id( 'neighorhood_tag' ); ?>" name="<?php echo $this->get_field_name( 'neighorhood_tag' ); ?>" class="widefat" style="width:100%;">
+            <option <?php echo ( $instance[ 'neighorhood_tag' ] == '' ) ? 'selected="selected" ' : ''; ?> value="">&nbsp;</option>
+            <?php foreach( get_terms( 'post_tag' ) as $term) { ?>
+            <option <?php selected( $instance[ 'neighorhood_tag' ], $term->term_id ); ?> value="<?php echo $term->term_id; ?>"><?php echo $term->name; ?></option>
             <?php } ?>      
         </select>
         </p>
@@ -1839,17 +1850,18 @@ class neighborhood_related_widget extends WP_Widget {
     public function update( $new_instance, $old_instance ) {
         $instance = $old_instance;
         $instance[ 'neighorhood_category' ] = ( ! empty( $new_instance[ 'neighorhood_category' ] ) ) ? trim( strip_tags( $new_instance[ 'neighorhood_category' ] ) ) : '';
+        $instance[ 'neighorhood_tag' ] = ( ! empty( $new_instance[ 'neighorhood_tag' ] ) ) ? trim( strip_tags( $new_instance[ 'neighorhood_tag' ] ) ) : '';
         return $instance;
     }
 
     public function widget($args, $instance) {
         global $post;
         $nei_slug = get_post_meta( $post->ID, 'neighborhood_slug', true );
-        $nei_cat = $instance[ 'neighorhood_category' ];
+        $nei_cat = ( $instance[ 'neighorhood_category' ] != '' ) ? $instance[ 'neighorhood_category' ] : false;
+        $nei_tag = ( $instance[ 'neighorhood_tag' ] != '' ) ? $instance[ 'neighorhood_tag' ] : false;
         if ( term_exists( $nei_slug, 'neighborhood' ) ) {
-            $cat = get_term_by( 'id', $nei_cat, 'category' );
-            $class_cat = tkno_get_top_category_slug( true, $cat->term_id );
-            $cat_class = get_term_by( 'slug', $class_cat, 'category' );
+            $cat = ( $nei_cat != false ) ? get_term_by( 'id', $nei_cat, 'category' ) : false;
+            $tag = ( $nei_tag != false ) ? get_term_by( 'id', $nei_tag, 'post_tag' ) : false;
             remove_all_filters('posts_orderby'); // disable Post Types Order ordering for this query
             $query_args = array(
                 'post_type'         => 'post',
@@ -1862,9 +1874,9 @@ class neighborhood_related_widget extends WP_Widget {
                         'operator'      => 'IN'
                         ),
                     array(
-                        'taxonomy'      => 'category',
+                        'taxonomy'      => ( ( $tag == false ) ? 'category' : 'post_tag' ),
                         'field'         => 'term_id',
-                        'terms'         => $cat->term_id,
+                        'terms'         => ( ( $tag == false ) ? $cat->term_id : $tag->term_id ),
                         'operator'      => 'IN'
                         ),
                     ),
@@ -1875,9 +1887,13 @@ class neighborhood_related_widget extends WP_Widget {
                 );
             $nei_query = new WP_Query( $query_args );
             if ( $nei_query->have_posts() ) { 
-                echo $args['before_widget']; ?>
+                echo $args['before_widget'];
+                $primary_category_name = tkno_get_primary_category( $nei_query->posts[0]->ID );
+                $primary_category = get_term_by( 'name', $primary_category_name->name, 'category' );
+                $class_cat = ( $tag == false ) ? tkno_get_top_category_slug( true, $cat->term_id ) : $primary_category->slug;
+                $cat_class = ( $tag == false ) ? $cat : $tag; ?>
                 <div class="neighborhood_widget_inner">
-                    <h4 class="widget-title category-<?php echo $class_cat; ?>"><a href="<?php echo get_category_link( $cat_class->term_id ); ?>">Nearby <?php echo $cat->name; ?></a></h4>
+                    <h4 class="widget-title category-<?php echo $class_cat; ?>"><a href="<?php echo get_category_link( $cat_class->term_id ); ?>"><?php echo $cat_class->name; ?></a></h4>
                     <ul>
                     <?php while ( $nei_query->have_posts() ) : $nei_query->the_post(); ?>
                         <li class="clearfix"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></li>

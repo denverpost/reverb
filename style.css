@@ -777,6 +777,8 @@ div.cat-img {
 }
 #sidebar-neighborhoodlower {
 	margin-bottom:1.5em;
+	padding-bottom:1em;
+	border-bottom:1px solid rgba(225,225,225,0.8);
 }
 /* in-article related lists */
 .entry-content aside.article-related,
@@ -919,19 +921,29 @@ li.widget_neighborhood_related_widget .neighborhood_widget_inner {
 }
 .widget_neighborhood_related_widget ul li a {
 	border-bottom:1px dashed rgba(50,50,50,1);
-	color: rgba(50,50,50,1);
+	color:rgba(50,50,50,1);
 }
 .widget_neighborhood_related_widget ul li a:hover {
 	color:rgba(0,115,174,0.8);
 	border-bottom:1px dashed rgba(0,115,174,0.8);
 	text-decoration: none;
-	}
+}
+.widget_neighborhood_related_widget h4.widget-title a {
+	font-family:'Arvo',Arial,Helvetica,sans-serif;
+	font-weight: 400;
+	font-size: 1.1em;
+	line-height:1.2;
+	color:#fff;
+	letter-spacing:0;
+	text-transform: none;
+	background-color:rgba(67,178,91,1.0);
+	padding:.25em .5em;
+}
 /* category page styles */
 h1.archive-title,
 h2.archive-title {
 	margin:0 0 1em;
 }
-.widget_neighborhood_related_widget h4.widget-title a,
 .post-type-archive-venues h1.archive-title.venue-header span,
 .post-type-archive-neighborhoods h1.archive-title.neighborhood-header span,
 h1.archive-title a,
