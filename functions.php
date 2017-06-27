@@ -99,12 +99,12 @@ function reactor_child_theme_setup() {
 }
 
 // Fix for unix timestamps createing non-timezone-adjusted times in Google results
-function mj_fix_c_time_format( $date, $format, $timestamp, $gmt ) {
+function tkno_fix_c_time_format( $date, $format, $timestamp, $gmt ) {
     if ( 'c' == $format )
         $date = date_i18n( DATE_ISO8601, $timestamp, $gmt );
     return $date;
 }
-add_filter( 'date_i18n', 'mj_fix_c_time_format', 10, 4 );
+add_filter( 'date_i18n', 'tkno_fix_c_time_format', 10, 4 );
 
 // add a favicon to the site
 function blog_favicon() {
@@ -1224,7 +1224,7 @@ function tkno_register_neighborhood_taxonomy() {
         array('post'),
         array(
             'label' => __( 'Neighborhood' ),
-            'hierarchical' => false,
+            'hierarchical' => true,
             'labels' => $labels,
             'public' => true,
             'publicly_queryable' => false,
@@ -1909,3 +1909,67 @@ class neighborhood_related_widget extends WP_Widget {
 
 function register_neighborhood_related_widget() { register_widget('neighborhood_related_widget'); }
 add_action( 'widgets_init', 'register_neighborhood_related_widget' );
+
+// determine the topmost parent of a term
+function get_term_topmost_parent( $term_id, $taxonomy ){
+    // start from the current term
+    $parent = get_term_by( 'id', $term_id, $taxonomy );
+    // climb up the hierarchy until we reach a term with parent = '0'
+    while ( $parent->parent != '0' ){
+        $term_id = $parent->parent;
+        $parent = get_term_by( 'id', $term_id, $taxonomy );
+    }
+    return $parent;
+}
+
+class neighborhood_listings_widget extends WP_Widget
+{
+    public function __construct()
+    {
+            parent::__construct(
+                'neighborhood_listings_widget',
+                __('Real Estate Listings widget', 'neighborhood_listings_widget'),
+                array('description' => __('Displays a Placester listings widget in the sidebar (only works on Neighborhood pages).', 'neighborhood_listings_widget'), )
+            );
+    }
+
+    public function widget($args, $instance)
+    {
+        if ( is_post_type_archive( 'neighborhoods' ) || ( is_single() && get_post_type() == 'neighborhoods' ) ) {
+            // It's a listing search and display widget
+            global $post;
+            $locality = $neighborhood = '';
+            $neighborhood_slug = get_post_meta( $post->ID, 'neighborhood_slug', true );
+            $neighborhood_child = get_term_by( 'slug', $neighborhood_slug, 'neighborhood' );
+            $neighborhood_parent = get_term_topmost_parent( $neighborhood_child->term_id, $neighborhood_child->taxonomy );
+            if ( $neighborhood_child->slug == $neighborhood_parent->slug ) {
+                $locality = $neighborhood_child->name;
+            } else {
+                $locality = $neighborhood_parent->name;
+                $neighborhood = $neighborhood_child->name;
+            }
+            echo '
+                <script>
+                    (function(window,document,url,funcName,a,m) {
+                     window.plsWidgetPendingObj = funcName;
+                     window.plsWidgetLoadBase = url;
+                     window[funcName] = window[funcName] || [],
+                     
+                     a = document.createElement(\'script\'),
+                     m = document.getElementsByTagName(\'script\')[0];
+                     a.async = 1;
+                     a.src = \'//\' + url + \'/api/widgets/\';
+                     m.parentNode.insertBefore(a,m);
+                    })(window,document,\'realestate.denverpost.com\',\'plsWidgets\');
+                </script>
+                <div id="listing_widget"></div>
+                <script type="text/javascript">
+                     plsWidgets.push([\'ListingSearch\',
+                {"domId":"listing_widget","title":"Search Local Listings","use_search_form":"1","use_links":"","use_listings":"1","use_for_sale":"1","use_rentals":"1","use_open_house":"1","for_sale_url":"","rentals_url":"","open_house_url":"","placeholder":"Enter City, Zip, Amenity...","col_0_title":"","col_0_link_0_text":"","col_0_link_0_url":"","col_0_link_1_text":"","col_0_link_1_url":"","col_0_link_2_text":"","col_0_link_2_url":"","col_0_link_3_text":"","col_0_link_3_url":"","col_0_link_4_text":"","col_0_link_4_url":"","listings_title":"","searchParams":{"text_search":"","search_num_results":"3","min_beds":"","min_baths":"","min_price":"","max_price":"","locality":"' . $locality . '","neighborhood":"' . $neighborhood . '","zip":"","region":"","min_sqft":"","max_sqft":""}}
+                     ]);
+                </script>';
+        }
+    }
+}
+function register_neighborhood_listings_widget() { register_widget('neighborhood_listings_widget'); }
+add_action( 'widgets_init', 'register_neighborhood_listings_widget' );
