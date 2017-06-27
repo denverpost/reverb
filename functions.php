@@ -1224,7 +1224,7 @@ function tkno_register_neighborhood_taxonomy() {
         array('post'),
         array(
             'label' => __( 'Neighborhood' ),
-            'hierarchical' => false,
+            'hierarchical' => true,
             'labels' => $labels,
             'public' => true,
             'publicly_queryable' => false,
