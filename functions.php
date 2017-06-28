@@ -1824,8 +1824,12 @@ class neighborhood_related_widget extends WP_Widget {
     }
 
     public function form( $instance ) {
-        $defaults = array( 'neighorhood_category' => __( '' ), 'neighorhood_tag' => __( '' ) );
+        $defaults = array( 'neighorhood_category' => __( '' ), 'neighorhood_tag' => __( '' ), 'neighorhood_posts' => __( '3' ) );
         $instance = wp_parse_args( ( array ) $instance, $defaults ); ?>
+        <p>
+        <label for="<?php echo $this->get_field_id( 'neighorhood_posts' ); ?>"><?php _e( 'Number of posts to display:' ); ?></label> 
+        <input class="widefat" id="<?php echo $this->get_field_id( 'neighorhood_posts' ); ?>" name="<?php echo $this->get_field_name( 'neighorhood_posts' ); ?>" type="text" value="<?php echo $instance[ 'neighorhood_posts' ]; ?>" />
+        </p>
         <p>
         <label for="<?php echo $this->get_field_id( 'neighorhood_category' ); ?>"><?php _e( 'Category for related articles:' ); ?></label> 
         <select id="<?php echo $this->get_field_id( 'neighorhood_category' ); ?>" name="<?php echo $this->get_field_name( 'neighorhood_category' ); ?>" class="widefat" style="width:100%;">
@@ -1851,12 +1855,14 @@ class neighborhood_related_widget extends WP_Widget {
         $instance = $old_instance;
         $instance[ 'neighorhood_category' ] = ( ! empty( $new_instance[ 'neighorhood_category' ] ) ) ? trim( strip_tags( $new_instance[ 'neighorhood_category' ] ) ) : '';
         $instance[ 'neighorhood_tag' ] = ( ! empty( $new_instance[ 'neighorhood_tag' ] ) ) ? trim( strip_tags( $new_instance[ 'neighorhood_tag' ] ) ) : '';
+        $instance[ 'neighorhood_posts' ] = ( ! empty( $new_instance[ 'neighorhood_posts' ] ) ) ? (int)trim( strip_tags( $new_instance[ 'neighorhood_posts' ] ) ) : 3;
         return $instance;
     }
 
     public function widget($args, $instance) {
         global $post;
         $nei_slug = get_post_meta( $post->ID, 'neighborhood_slug', true );
+        $posts_numb = ( $instance[ 'neighorhood_posts' ] != '' ) ? $instance[ 'neighorhood_posts' ] : 3;
         $nei_cat = ( $instance[ 'neighorhood_category' ] != '' ) ? $instance[ 'neighorhood_category' ] : false;
         $nei_tag = ( $instance[ 'neighorhood_tag' ] != '' ) ? $instance[ 'neighorhood_tag' ] : false;
         if ( term_exists( $nei_slug, 'neighborhood' ) ) {
@@ -1880,7 +1886,7 @@ class neighborhood_related_widget extends WP_Widget {
                         'operator'      => 'IN'
                         ),
                     ),
-                'posts_per_page'    => '3',
+                'posts_per_page'    => $posts_numb,
                 'order'             => 'DESC',
                 'orderby'           => 'date',
                 'adp_disable'       => true,
