@@ -99,12 +99,12 @@ function reactor_child_theme_setup() {
 }
 
 // Fix for unix timestamps createing non-timezone-adjusted times in Google results
-function mj_fix_c_time_format( $date, $format, $timestamp, $gmt ) {
+function tkno_fix_c_time_format( $date, $format, $timestamp, $gmt ) {
     if ( 'c' == $format )
         $date = date_i18n( DATE_ISO8601, $timestamp, $gmt );
     return $date;
 }
-add_filter( 'date_i18n', 'mj_fix_c_time_format', 10, 4 );
+add_filter( 'date_i18n', 'tkno_fix_c_time_format', 10, 4 );
 
 // add a favicon to the site
 function blog_favicon() {
@@ -428,7 +428,7 @@ function tkno_get_neighborhood_from_slug($neighborhood_slug) {
         'post_type'     => 'neighborhoods',
         'meta_query'    => array(
             array(
-                'key'   => 'neighborhood_slug',
+                'key'   => '_neighborhood_slug',
                 'value' => $neighborhood_slug,
                 'compare' => 'LIKE',
                 'adp_disable' => true
@@ -1227,7 +1227,7 @@ function tkno_register_neighborhood_taxonomy() {
             'hierarchical' => true,
             'labels' => $labels,
             'public' => true,
-            'publicly_queryable' => false,
+            'publicly_queryable' => true,
             'show_ui' => true,
             'show_in_nav_menus' => false,
             'show_tagcloud' => false,
@@ -1413,36 +1413,37 @@ class tkno_popular_widget extends WP_Widget
 function register_popular_widget() { register_widget('tkno_popular_widget'); }
 add_action( 'widgets_init', 'register_popular_widget' );
 
-function tkno_get_primary_category() {
+function tkno_get_primary_category( $input_id=false ) {
     
     global $post;
+
+    $primary_id = ( $input_id == false ) ? $post->ID : $input_id;
 
     $primaryCat = '';
     if ( class_exists( 'WPSEO_Primary_Term' ) ) {
     
-        $primaryCat = new WPSEO_Primary_Term( 'category', $post->ID );
+        $primaryCat = new WPSEO_Primary_Term( 'category', $primary_id );
         $primaryCat = $primaryCat->get_primary_term();
         $primaryCat = get_cat_name($primaryCat);
     }
 
-    $categories = get_the_category( $post->ID );
     $return_cat = Array();
 
-    foreach( $categories as $category ) {
-       $defaultCat = $category->name;
-       $defaultCatLink = get_category_link( $category->term_id );
-    }
-
     if ( $primaryCat !== '' ) {
-       $cat = new WPSEO_Primary_Term('category', $post->ID);
+       $cat = new WPSEO_Primary_Term('category', $primary_id);
        $cat = $cat->get_primary_term();
 
        $return_cat['name'] = get_cat_name($cat);
        $return_cat['url'] = get_category_link($cat);
 
     } else {
-       $return_cat['name'] = $defaultCat;
-       $return_cat['url'] = $defaultCatLink;
+        $categories = get_the_category( $primary_id );
+        foreach( $categories as $category ) {
+           $defaultCat = $category->name;
+           $defaultCatLink = get_category_link( $category->term_id );
+        }
+        $return_cat['name'] = $defaultCat;
+        $return_cat['url'] = $defaultCatLink;
     }
 
     return (object) $return_cat;
@@ -1790,7 +1791,7 @@ function venue_save_post_meta( $post_id, $post ) {
 
     $slug_new_meta_value = ( isset( $_POST['_venue_slug'] ) ) ? sanitize_html_class( $_POST['_venue_slug'] ) : '';
     $slug_meta_key = '_venue_slug';
-    $slug_meta_value = get_post_meta( $post_id, $cslugmeta_key, true );
+    $slug_meta_value = get_post_meta( $post_id, $slug_meta_key, true );
     if ( $slug_new_meta_value && '' == $slug_meta_value )
         add_post_meta( $post_id, $slug_meta_key, $slug_new_meta_value, true );
     elseif ( $slug_new_meta_value && $slug_new_meta_value != $slug_meta_value )
@@ -1808,3 +1809,251 @@ function venue_save_post_meta( $post_id, $post ) {
     elseif ( '' == $map_new_meta_value && $map_meta_value )
         delete_post_meta( $post_id, $map_meta_key, $map_meta_value );
 }
+
+/* Fire our meta box setup function on the post editor screen. */
+add_action( 'load-post.php', 'neighborhoods_post_meta_boxes_setup' );
+add_action( 'load-post-new.php', 'neighborhoods_post_meta_boxes_setup' );
+
+/* Neighborhoods Meta box setup function. */
+function neighborhoods_post_meta_boxes_setup() {
+    /* Add meta boxes on the 'add_meta_boxes' hook. */
+    add_action( 'add_meta_boxes', 'neighborhoods_add_post_meta_boxes' );
+    /* Save post meta on the 'save_post' hook. */
+    add_action( 'save_post', 'neighborhoods_save_post_meta', 10, 2 );
+}
+
+/* Create one or more meta boxes to be displayed on the post editor screen. */
+function neighborhoods_add_post_meta_boxes() {
+    add_meta_box(
+        'neighborhood_details',      // Unique ID
+        esc_html__( 'Neighborhood Details', 'example' ),    // Title
+        'neighborhoods_post_meta_box',   // Callback function
+        'neighborhoods',         // Admin page (or post type)
+        'side',         // Context
+        'default'         // Priority
+    );
+}
+
+/* Display the post meta box. */
+function neighborhoods_post_meta_box( $post ) { ?>
+    <?php wp_nonce_field( basename( __FILE__ ), 'neighborhoods_meta_nonce' );
+    $args = array(
+        'orderby'                  => 'name',
+        'order'                    => 'ASC',
+        'hide_empty'               => 0,
+        'taxonomy'                 => 'neighborhood'
+        );
+    $neighborhoods_list = get_terms( $args );
+    foreach( $neighborhoods_list as $neighborhoods_single ) { 
+        $neighborhoods[] =  array(
+            'slug' => $neighborhoods_single->slug,
+            'name' => $neighborhoods_single->name
+            );
+    }
+    $neighborhoods_slug_current = get_post_meta( $post->ID, '_neighborhood_slug', true ); ?>
+    <p>
+    <label for="_neighborhood_slug"><?php _e( "Neighborhood for related stories:", '' ); ?></label>
+    <br />
+    <select class="widefat" name="_neighborhood_slug" id="_neighborhood_slug">
+        <?php foreach ($neighborhoods as $neighborhood) { ?>
+            <option value="<?php echo $neighborhood['slug']; ?>"<?php echo ($neighborhoods_slug_current == $neighborhood['slug'] ) ? ' selected="selected"' : ''; ?>><?php echo $neighborhood['name']; ?></option>
+        <?php }?>
+    </select>
+    </p>
+<?php }
+
+/* Save the neighborhoods meta box's post metadata. */
+function neighborhoods_save_post_meta( $post_id, $post ) {
+
+    /* Verify the nonce before proceeding. */
+    if ( !isset( $_POST['neighborhoods_meta_nonce'] ) || !wp_verify_nonce( $_POST['neighborhoods_meta_nonce'], basename( __FILE__ ) ) )
+    return $post_id;
+
+    /* Get the post type object. */
+    $post_type = get_post_type_object( $post->post_type );
+
+    /* Check if the current user has permission to edit the post. */
+    if ( !current_user_can( $post_type->cap->edit_post, $post_id ) )
+        return $post_id;
+
+
+    $slug_new_meta_value = ( isset( $_POST['_neighborhood_slug'] ) ) ? sanitize_html_class( $_POST['_neighborhood_slug'] ) : '';
+    $slug_meta_key = '_neighborhood_slug';
+    $slug_meta_value = get_post_meta( $post_id, $slug_meta_key, true );
+    if ( $slug_new_meta_value && '' == $slug_meta_value )
+        add_post_meta( $post_id, $slug_meta_key, $slug_new_meta_value, true );
+    elseif ( $slug_new_meta_value && $slug_new_meta_value != $slug_meta_value )
+        update_post_meta( $post_id, $slug_meta_key, $slug_new_meta_value );
+    elseif ( '' == $slug_new_meta_value && $slug_meta_value )
+        delete_post_meta( $post_id, $slug_meta_key, $slug_meta_value );
+}
+
+/**
+ * neighborhood_related_by_category_widget
+ * @return html list inserted in widget
+ */
+class neighborhood_related_widget extends WP_Widget {
+    public function __construct() {
+            parent::__construct(
+                'neighborhood_related_widget',
+                __('Neighborhood related', 'neighborhood_related_widget'),
+                array('description' => __('Displays stories from a selected category or tag that also include the given neighborhood.', 'neighborhood_related_widget'), )
+            );
+    }
+
+    public function form( $instance ) {
+        $defaults = array( 'neighorhood_category' => __( '' ), 'neighorhood_tag' => __( '' ), 'neighorhood_posts' => __( '3' ) );
+        $instance = wp_parse_args( ( array ) $instance, $defaults ); ?>
+        <p>
+        <label for="<?php echo $this->get_field_id( 'neighorhood_posts' ); ?>"><?php _e( 'Number of posts to display:' ); ?></label> 
+        <input class="widefat" id="<?php echo $this->get_field_id( 'neighorhood_posts' ); ?>" name="<?php echo $this->get_field_name( 'neighorhood_posts' ); ?>" type="text" value="<?php echo $instance[ 'neighorhood_posts' ]; ?>" />
+        </p>
+        <p>
+        <label for="<?php echo $this->get_field_id( 'neighorhood_category' ); ?>"><?php _e( 'Category for related articles:' ); ?></label> 
+        <select id="<?php echo $this->get_field_id( 'neighorhood_category' ); ?>" name="<?php echo $this->get_field_name( 'neighorhood_category' ); ?>" class="widefat" style="width:100%;">
+        <option <?php echo ( $instance[ 'neighorhood_category' ] == '' ) ? 'selected="selected" ' : ''; ?> value="">&nbsp;</option>
+            <?php foreach( get_terms( 'category' ) as $term) { ?>
+            <option <?php selected( $instance[ 'neighorhood_category' ], $term->term_id ); ?> value="<?php echo $term->term_id; ?>"><?php echo $term->name; ?></option>
+            <?php } ?>      
+        </select>
+        </p>
+        <p>
+        <label for="<?php echo $this->get_field_id( 'neighorhood_tag' ); ?>"><?php _e( 'Or tag (overrides category, if set):' ); ?></label> 
+        <select id="<?php echo $this->get_field_id( 'neighorhood_tag' ); ?>" name="<?php echo $this->get_field_name( 'neighorhood_tag' ); ?>" class="widefat" style="width:100%;">
+            <option <?php echo ( $instance[ 'neighorhood_tag' ] == '' ) ? 'selected="selected" ' : ''; ?> value="">&nbsp;</option>
+            <?php foreach( get_terms( 'post_tag' ) as $term) { ?>
+            <option <?php selected( $instance[ 'neighorhood_tag' ], $term->term_id ); ?> value="<?php echo $term->term_id; ?>"><?php echo $term->name; ?></option>
+            <?php } ?>      
+        </select>
+        </p>
+
+    <?php }
+
+    public function update( $new_instance, $old_instance ) {
+        $instance = $old_instance;
+        $instance[ 'neighorhood_category' ] = ( ! empty( $new_instance[ 'neighorhood_category' ] ) ) ? trim( strip_tags( $new_instance[ 'neighorhood_category' ] ) ) : '';
+        $instance[ 'neighorhood_tag' ] = ( ! empty( $new_instance[ 'neighorhood_tag' ] ) ) ? trim( strip_tags( $new_instance[ 'neighorhood_tag' ] ) ) : '';
+        $instance[ 'neighorhood_posts' ] = ( ! empty( $new_instance[ 'neighorhood_posts' ] ) ) ? (int)trim( strip_tags( $new_instance[ 'neighorhood_posts' ] ) ) : 3;
+        return $instance;
+    }
+
+    public function widget($args, $instance) {
+        global $post;
+        $nei_slug = get_post_meta( $post->ID, '_neighborhood_slug', true );
+        $posts_numb = ( $instance[ 'neighorhood_posts' ] != '' ) ? $instance[ 'neighorhood_posts' ] : 3;
+        $nei_cat = ( $instance[ 'neighorhood_category' ] != '' ) ? $instance[ 'neighorhood_category' ] : false;
+        $nei_tag = ( $instance[ 'neighorhood_tag' ] != '' ) ? $instance[ 'neighorhood_tag' ] : false;
+        if ( term_exists( $nei_slug, 'neighborhood' ) ) {
+            $cat = ( $nei_cat != false ) ? get_term_by( 'id', $nei_cat, 'category' ) : false;
+            $tag = ( $nei_tag != false ) ? get_term_by( 'id', $nei_tag, 'post_tag' ) : false;
+            remove_all_filters('posts_orderby'); // disable Post Types Order ordering for this query
+            $query_args = array(
+                'post_type'         => 'post',
+                'tax_query'         => array(
+                    'relation'  => 'AND',
+                    array(
+                        'taxonomy'      => 'neighborhood',
+                        'field'         => 'slug',
+                        'terms'         => $nei_slug,
+                        'operator'      => 'IN'
+                        ),
+                    array(
+                        'taxonomy'      => ( ( $tag == false ) ? 'category' : 'post_tag' ),
+                        'field'         => 'term_id',
+                        'terms'         => ( ( $tag == false ) ? $cat->term_id : $tag->term_id ),
+                        'operator'      => 'IN'
+                        ),
+                    ),
+                'posts_per_page'    => $posts_numb,
+                'order'             => 'DESC',
+                'orderby'           => 'date',
+                'adp_disable'       => true,
+                );
+            $nei_query = new WP_Query( $query_args );
+            if ( $nei_query->have_posts() ) { 
+                echo $args['before_widget'];
+                $primary_category_name = tkno_get_primary_category( $nei_query->posts[0]->ID );
+                $primary_category = get_term_by( 'name', $primary_category_name->name, 'category' );
+                $class_cat = ( $tag == false ) ? tkno_get_top_category_slug( true, $cat->term_id ) : $primary_category->slug;
+                $cat_class = ( $tag == false ) ? $cat : $tag; ?>
+                <div class="neighborhood_widget_inner">
+                    <h4 class="widget-title category-<?php echo $class_cat; ?>"><a href="<?php echo get_category_link( $cat_class->term_id ); ?>"><?php echo $cat_class->name; ?></a></h4>
+                    <ul>
+                    <?php while ( $nei_query->have_posts() ) : $nei_query->the_post(); ?>
+                        <li class="clearfix"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></li>
+                    <?php endwhile; ?>
+                    </ul>
+                </div>
+                <?php echo $args['after_widget'];
+            }
+            wp_reset_query();
+        }
+    }
+}
+
+function register_neighborhood_related_widget() { register_widget('neighborhood_related_widget'); }
+add_action( 'widgets_init', 'register_neighborhood_related_widget' );
+
+// determine the topmost parent of a term
+function get_term_topmost_parent( $term_id, $taxonomy ){
+    // start from the current term
+    $parent = get_term_by( 'id', $term_id, $taxonomy );
+    // climb up the hierarchy until we reach a term with parent = '0'
+    while ( $parent->parent != '0' ){
+        $term_id = $parent->parent;
+        $parent = get_term_by( 'id', $term_id, $taxonomy );
+    }
+    return $parent;
+}
+
+class neighborhood_listings_widget extends WP_Widget
+{
+    public function __construct()
+    {
+            parent::__construct(
+                'neighborhood_listings_widget',
+                __('Real Estate Listings widget', 'neighborhood_listings_widget'),
+                array('description' => __('Displays a Placester listings widget in the sidebar (only works on Neighborhood pages).', 'neighborhood_listings_widget'), )
+            );
+    }
+
+    public function widget($args, $instance)
+    {
+        if ( is_post_type_archive( 'neighborhoods' ) || ( is_single() && get_post_type() == 'neighborhoods' ) ) {
+            // It's a listing search and display widget
+            global $post;
+            $locality = $neighborhood = '';
+            $neighborhood_slug = get_post_meta( $post->ID, '_neighborhood_slug', true );
+            $neighborhood_child = get_term_by( 'slug', $neighborhood_slug, 'neighborhood' );
+            $neighborhood_parent = get_term_topmost_parent( $neighborhood_child->term_id, $neighborhood_child->taxonomy );
+            if ( $neighborhood_child->slug == $neighborhood_parent->slug ) {
+                $locality = $neighborhood_child->name;
+            } else {
+                $locality = $neighborhood_parent->name;
+                $neighborhood = $neighborhood_child->name;
+            }
+            echo '
+                <script>
+                    (function(window,document,url,funcName,a,m) {
+                     window.plsWidgetPendingObj = funcName;
+                     window.plsWidgetLoadBase = url;
+                     window[funcName] = window[funcName] || [],
+                     
+                     a = document.createElement(\'script\'),
+                     m = document.getElementsByTagName(\'script\')[0];
+                     a.async = 1;
+                     a.src = \'//\' + url + \'/api/widgets/\';
+                     m.parentNode.insertBefore(a,m);
+                    })(window,document,\'realestate.denverpost.com\',\'plsWidgets\');
+                </script>
+                <div id="listing_widget"></div>
+                <script type="text/javascript">
+                     plsWidgets.push([\'ListingSearch\',
+                {"domId":"listing_widget","title":"Search Local Listings","use_search_form":"1","use_links":"","use_listings":"1","use_for_sale":"1","use_rentals":"1","use_open_house":"1","for_sale_url":"","rentals_url":"","open_house_url":"","placeholder":"Enter City, Zip, Amenity...","col_0_title":"","col_0_link_0_text":"","col_0_link_0_url":"","col_0_link_1_text":"","col_0_link_1_url":"","col_0_link_2_text":"","col_0_link_2_url":"","col_0_link_3_text":"","col_0_link_3_url":"","col_0_link_4_text":"","col_0_link_4_url":"","listings_title":"","searchParams":{"text_search":"","search_num_results":"3","min_beds":"","min_baths":"","min_price":"","max_price":"","locality":"' . $locality . '","neighborhood":"' . $neighborhood . '","zip":"","region":"","min_sqft":"","max_sqft":""}}
+                     ]);
+                </script>';
+        }
+    }
+}
+function register_neighborhood_listings_widget() { register_widget('neighborhood_listings_widget'); }
+add_action( 'widgets_init', 'register_neighborhood_listings_widget' );

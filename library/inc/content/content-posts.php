@@ -234,7 +234,7 @@ add_action('reactor_post_footer', 'reactor_do_post_footer_neighborhood', 1);
  */
 function reactor_do_post_footer_social() {
 
-	if ( is_single() ) { ?>
+	if ( is_single() && get_post_type() != 'neighborhoods' ) { ?>
 		<div class="row">
 			<div class="large-12 medium-12 small-12 columns masocial">
 				<?php echo do_shortcode('[mashshare]'); ?>

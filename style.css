@@ -775,6 +775,11 @@ div.cat-img {
 	margin-bottom:.6em;
 	border-bottom:1px solid rgba(225,225,225,0.8);
 }
+#sidebar-neighborhoodlower {
+	margin-bottom:1.5em;
+	padding-bottom:1em;
+	border-bottom:1px solid rgba(225,225,225,0.8);
+}
 /* in-article related lists */
 .entry-content aside.article-related,
 .entry-content aside.article-bucketlist {
@@ -841,6 +846,11 @@ div.cat-img {
 	padding-right:3%;
 }
 /* related posts */
+li.widget_neighborhood_related_widget .neighborhood_widget_inner {
+	margin:0;
+	padding:1em;
+	border: 1px solid #ddd;	
+}
 .yarpp-related {
 	display:block;
 	width:100%;
@@ -896,6 +906,38 @@ div.cat-img {
     text-align: center;
     padding: .25em 0;
     text-transform: uppercase;
+}
+.widget_neighborhood_related_widget ul {
+	margin-left:0;
+}
+.widget_neighborhood_related_widget ul li {
+	list-style-type: none;
+	line-height: 1.6;
+	font-size:1.1em;
+	margin-bottom:.7em;
+}
+.widget_neighborhood_related_widget ul li:last-child {
+	margin-bottom: 0;
+}
+.widget_neighborhood_related_widget ul li a {
+	border-bottom:1px dashed rgba(50,50,50,1);
+	color:rgba(50,50,50,1);
+}
+.widget_neighborhood_related_widget ul li a:hover {
+	color:rgba(0,115,174,0.8);
+	border-bottom:1px dashed rgba(0,115,174,0.8);
+	text-decoration: none;
+}
+.widget_neighborhood_related_widget h4.widget-title a {
+	font-family:'Arvo',Arial,Helvetica,sans-serif;
+	font-weight: 400;
+	font-size: 1.1em;
+	line-height:1.2;
+	color:#fff;
+	letter-spacing:0;
+	text-transform: none;
+	background-color:rgba(67,178,91,1.0);
+	padding:.25em .5em;
 }
 /* category page styles */
 h1.archive-title,
@@ -1528,6 +1570,11 @@ h4.widget-title {
 	letter-spacing: .1em;
 	margin-bottom: 1em;
 }
+.widget_neighborhood_related_widget h4.widget-title {
+	font-weight: 300;
+	font-size:1em;
+	font-variant: normal;
+}
 #sidebar h4.widget-title {
 	font-family:'Arvo',Arial,Helvetica,sans-serif;
 	margin-bottom: .5em;
@@ -1571,6 +1618,7 @@ header h2 a {
 	text-align:center;
 	letter-spacing:.1em;
 }
+.widget_neighborhood_related_widget h4.widget-title a,
 h4.widget-title span.fpe-widget-title a,
 .yarpp-related .related-wrap span {
 	background-color:rgba(67,178,91,1.0);
@@ -1578,12 +1626,14 @@ h4.widget-title span.fpe-widget-title a,
 #frontpagemain article:first-child span {
 	display: none;
 }
+.widget_neighborhood_related_widget h4.widget-title.category-food a:hover,
 h4.widget-title span.fpe-widget-title a:hover,
 .yarpp-related .related-wrap span a:hover,
 #frontpagemain article h2 a:hover,
 header h2 a:hover {
 	text-decoration: underline;
 }
+.widget_neighborhood_related_widget h4.widget-title.category-arts a,
 h4.widget-title span.fpe-widget-title.category-arts a,
 .yarpp-related .category-arts span,
 #frontpagemain article.category-arts span,
@@ -1594,6 +1644,7 @@ header.category-arts h1.category-arts.archive-title a,
 article.category-arts .entry-footer .single_venue h3 {
 	background-color:rgba(78,199,228,1.0);
 }
+.widget_neighborhood_related_widget h4.widget-title.category-music a,
 h4.widget-title span.fpe-widget-title.category-music a,
 .yarpp-related .category-music span,
 #frontpagemain article.category-music span,
@@ -1604,6 +1655,7 @@ header .category-music h1.category-music.archive-title a,
 article.category-music .entry-footer .single_venue h3 {
 	background-color:rgba(240,75,36,1.0);
 }
+.widget_neighborhood_related_widget h4.widget-title.category-things-to-do a,
 h4.widget-title span.fpe-widget-title.category-things-to-do a,
 .yarpp-related .category-things-to-do span,
 #frontpagemain article.category-things-to-do span,
@@ -1614,6 +1666,7 @@ header.category-things-to-do h1.category-things-to-do.archive-title a,
 article.category-things-to-do .entry-footer .single_venue h3 {
 	background-color:rgba(132,49,166,1.0);
 }
+.widget_neighborhood_related_widget h4.widget-title.category-food a,
 h4.widget-title span.fpe-widget-title.category-food a,
 .yarpp-related .category-food span,
 #frontpagemain article.category-food span,
@@ -1624,6 +1677,7 @@ header.category-food h1.category-food.archive-title a,
 article.category-food .entry-footer .single_venue h3 {
 	background-color:rgba(200,218,66,1.0);
 }
+.widget_neighborhood_related_widget h4.widget-title.category-drink a,
 h4.widget-title span.fpe-widget-title.category-drink a,
 .yarpp-related .category-drink span,
 #frontpagemain article.category-drink span,

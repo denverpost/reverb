@@ -41,11 +41,11 @@
                 <?php get_sidebar('neighborhoodlower'); ?>
 
                 <?php global $post;
-                    $neighborhood_slug = get_post_meta($post->ID, 'neighborhood_slug', true);
+                    $neighborhood_slug = get_post_meta( $post->ID, '_neighborhood_slug', true );
                     $neighborhood_name = get_term_by( 'slug', $neighborhood_slug, 'neighborhood' ); ?>
                 
                 <div class="neighborhood-related">
-                    <h2 class="archive-title"><a class="noclick" href="javascript:void(0);">Recent stories featuring <?php echo $neighborhood_name->name; ?></a></h2>
+                    <h2 class="archive-title"><a class="noclick" href="javascript:void(0);">Recent stories from <?php echo $neighborhood_name->name; ?></a></h2>
 
                     <?php
 
