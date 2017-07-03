@@ -1909,7 +1909,7 @@ class neighborhood_related_widget extends WP_Widget {
         <input class="widefat" id="<?php echo $this->get_field_id( 'neighorhood_posts' ); ?>" name="<?php echo $this->get_field_name( 'neighorhood_posts' ); ?>" type="text" value="<?php echo $instance[ 'neighorhood_posts' ]; ?>" />
         </p>
         <p>
-        <label for="<?php echo $this->get_field_id( 'neighorhood_category' ); ?>"><?php _e( 'Category for related articles:' ); ?></label> 
+        <label for="<?php echo $this->get_field_id( 'neighorhood_category' ); ?>"><?php _e( 'Category for related articles (falls back to parent if no posts found in a child category):' ); ?></label> 
         <select id="<?php echo $this->get_field_id( 'neighorhood_category' ); ?>" name="<?php echo $this->get_field_name( 'neighorhood_category' ); ?>" class="widefat" style="width:100%;">
         <option <?php echo ( $instance[ 'neighorhood_category' ] == '' ) ? 'selected="selected" ' : ''; ?> value="">&nbsp;</option>
             <?php foreach( get_terms( 'category' ) as $term) { ?>
@@ -1946,7 +1946,7 @@ class neighborhood_related_widget extends WP_Widget {
         if ( term_exists( $nei_slug, 'neighborhood' ) ) {
             $cat = ( $nei_cat != false ) ? get_term_by( 'id', $nei_cat, 'category' ) : false;
             $tag = ( $nei_tag != false ) ? get_term_by( 'id', $nei_tag, 'post_tag' ) : false;
-            remove_all_filters('posts_orderby'); // disable Post Types Order ordering for this query
+            remove_all_filters( 'posts_orderby' ); // disable Post Types Order ordering for this query
             $query_args = array(
                 'post_type'         => 'post',
                 'tax_query'         => array(
@@ -1970,7 +1970,36 @@ class neighborhood_related_widget extends WP_Widget {
                 'adp_disable'       => true,
                 );
             $nei_query = new WP_Query( $query_args );
-            if ( $nei_query->have_posts() ) { 
+            if ( $tag == false && $nei_query->post_count == 0 && $cat->parent != 0) {
+                wp_reset_query();
+                $parent_cat = get_term_by( 'id', $cat->parent, 'category' );
+                remove_all_filters( 'posts_orderby' ); // disable Post Types Order ordering for this query
+                $parent_query_args = array(
+                    'post_type'         => 'post',
+                    'tax_query'         => array(
+                        'relation'  => 'AND',
+                        array(
+                            'taxonomy'      => 'neighborhood',
+                            'field'         => 'slug',
+                            'terms'         => $nei_slug,
+                            'operator'      => 'IN'
+                            ),
+                        array(
+                            'taxonomy'      => 'category',
+                            'field'         => 'term_id',
+                            'terms'         => $parent_cat->term_id,
+                            'operator'      => 'IN'
+                            ),
+                        ),
+                    'posts_per_page'    => $posts_numb,
+                    'order'             => 'DESC',
+                    'orderby'           => 'date',
+                    'adp_disable'       => true,
+                    );
+                $cat = $parent_cat;
+                $nei_query = new WP_Query( $parent_query_args );
+            }
+            if ( $nei_query->have_posts() ) {
                 echo $args['before_widget'];
                 $primary_category_name = tkno_get_primary_category( $nei_query->posts[0]->ID );
                 $primary_category = get_term_by( 'name', $primary_category_name->name, 'category' );
