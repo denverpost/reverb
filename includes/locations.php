@@ -1,9 +1,28 @@
 <?php
 
-/**** LOCATION POST TYPE ****/
+function tkno_locations_install() {
+    global $wpdb;
 
-// setup the location custom post type
-add_action( 'init', 'tkno_locations_register_post_type' );
+    $table_name = $wpdb->prefix . 'locations';
+    
+    $charset_collate = $wpdb->get_charset_collate();
+
+	if($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) {
+	    $sql = "CREATE TABLE $table_name (
+	        id mediumint(9) NOT NULL AUTO_INCREMENT,
+	        post_id mediumint(9) NOT NULL,
+	        lat tinytext NOT NULL,
+	        lng tinytext NOT NULL,
+	        PRIMARY KEY  (id)
+	    ) $charset_collate;";
+
+	    require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+	    dbDelta( $sql );
+	}
+}
+add_action( 'init', 'tkno_locations_install' );
+
+/**** LOCATION POST TYPE ****/
 
 // register the location post type
 function tkno_locations_register_post_type() {
@@ -45,11 +64,7 @@ function tkno_locations_register_post_type() {
         add_meta_box('location-details', 'location details', 'location_details', 'location', 'normal', 'default');
     }
 }
-//Get rid of the content editor
-add_action( 'init', 'tkno_locations_init' );
-function tkno_locations_init() {
-    remove_post_type_support( 'location', 'editor' );
-}
+add_action( 'init', 'tkno_locations_register_post_type' );
 
 /*** location METABOXES ***/
 //Render the metabox
@@ -149,6 +164,7 @@ function custom_location_column( $column, $post_id ) {
 function save_lat_lng( $post_id, $latitude, $longitude )   
 {  
     global $wpdb;  
+    $table_name = $wpdb->prefix . 'locations';
 
     // Check that we are editing the right post type  
     if ( 'location' != $_POST['post_type'] )   
@@ -157,12 +173,12 @@ function save_lat_lng( $post_id, $latitude, $longitude )
     }  
 
     // Check if we have a lat/lng stored for this property already  
-    $check_link = $wpdb->get_row("SELECT * FROM lat_lng_post WHERE post_id = '" . $post_id . "'");  
+    $check_link = $wpdb->get_row("SELECT * FROM " . $table_name . " WHERE post_id = '" . $post_id . "'");  
     if ($check_link != null)   
     {  
         // We already have a lat lng for this post. Update row  
         $wpdb->update(   
-        'lat_lng_post',   
+        $table_name,   
         array(   
             'lat' => $latitude,  
             'lng' => $longitude  
@@ -178,7 +194,7 @@ function save_lat_lng( $post_id, $latitude, $longitude )
     {  
         // We do not already have a lat lng for this post. Insert row  
         $wpdb->insert(   
-        'lat_lng_post',   
+        $table_name,   
         array(   
             'post_id' => $post_id,  
             'lat' => $latitude,  

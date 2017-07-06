@@ -75,7 +75,7 @@ function tkno_register_neighborhood_page_posttype() {
         'edit_item'          => __( 'Edit Neighborhood Page' ),
         'new_item'           => __( 'New Neighborhood Page' ),
         'all_items'          => __( 'All Neighborhood Pages' ),
-        'view_item'          => __( 'View Neighborhood Pages' ),
+        'view_item'          => __( 'View Neighborhood Page' ),
         'search_items'       => __( 'Search Neighborhood Pages' ),
         'not_found'          => __( 'No neighborhood pages found' ),
         'not_found_in_trash' => __( 'No neighborhood pages found in the Trash' ), 
