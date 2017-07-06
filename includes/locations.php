@@ -53,64 +53,72 @@ function tkno_locations_register_post_type() {
             'not_found' => 'No Locations Found',
             'not_found_in_trash' => 'No Locations Found in Trash'
         ),
-        'register_meta_box_cb' => 'add_location_metaboxes'
     );
 
     //register the post type
     register_post_type( 'location', $locations_args );
 
-    // Add the location metaboxes
-    function add_location_metaboxes() {
-        add_meta_box('location-details', 'location details', 'location_details', 'location', 'normal', 'default');
-    }
 }
 add_action( 'init', 'tkno_locations_register_post_type' );
 
+/* Fire our meta box setup function on the post editor screen. */
+add_action( 'load-post.php', 'location_post_meta_boxes_setup' );
+add_action( 'load-post-new.php', 'location_post_meta_boxes_setup' );
+
+/* Meta box setup function. */
+function location_post_meta_boxes_setup() {
+    /* Add meta boxes on the 'add_meta_boxes' hook. */
+    add_action( 'add_meta_boxes', 'location_add_post_meta_boxes' );
+    /* Save post meta on the 'save_post' hook. */
+    add_action( 'save_post', 'tkno_save_location_meta', 10, 2 );
+}
+
+/* Create one or more meta boxes to be displayed on the post editor screen. */
+function location_add_post_meta_boxes() {
+    add_meta_box(
+        'location_details',      // Unique ID
+        esc_html__( 'Location Details', 'example' ),    // Title
+        'location_post_meta_box',   // Callback function
+        array( 'venues', 'location', 'post' ),       // Admin page (or post type)
+        'normal',         // Context
+        'default'         // Priority
+    );
+}
+
 /*** location METABOXES ***/
 //Render the metabox
-function location_details() {
+function location_post_meta_box() {
     global $post;
     // Noncename needed to verify where the data originated
-    echo '<input type="hidden" name="eventmeta_noncename" id="eventmeta_noncename" value="' .
+    echo '<input type="hidden" name="location_meta_nonce" id="location_meta_nonce" value="' .
     wp_create_nonce( plugin_basename(__FILE__) ) . '" />';
     // Get the field data if it has already been entered
-    $address = get_post_meta($post->ID, 'location-street-address', true);
-    $city = get_post_meta($post->ID, 'location-city', true);
-    $state = get_post_meta($post->ID, 'location-state', true);
-    $ZIP = get_post_meta($post->ID, 'location-ZIP', true);
+    $address = get_post_meta($post->ID, '_location_street_address', true);
 
     $latitude = get_post_meta($post->ID, 'location-latitude', true);
     $longitude = get_post_meta($post->ID, 'location-longitude', true);
 
     // Echo out the fields
 
-    echo '<p><label>Street address:</label> <input type="text" name="location-street-address" value="' . $address  . '" /></p>';
-    echo '<p><label>City:</label> <input type="text" name="location-city" value="' . $city  . '" /></p>';
-    echo '<p><label>State:</label> <input type="text" name="location-state" value="' . $state . '" /></p>';
-    echo '<p><label>ZIP code:</label> <input type="text" name="location-ZIP" value="' . $ZIP  . '" /></p>';
-    echo '<p><label>Latitude (calculated):</label> <input type="text" disabled="disabled" name="location-latitude" value="' . $latitude  .'" /></p>';
-    echo '<p><label>Longitude (calculated):</label> <input type="text" disabled="disabled" name="location-longitude" value="' . $longitude  .'" /></p>';
+    echo '<p><label>Street address:</label> <input type="text" size="100" name="_location_street_address" value="' . $address  . '" /></p>';
+    echo '<p><label>Latitude (calculated):</label> <input type="text" disabled="disabled" name="location-latitude" value="' . $latitude  .'" />';
+    echo '<label style="margin-left:30px;">Longitude (calculated):</label> <input type="text" disabled="disabled" name="location-longitude" value="' . $longitude  .'" /></p>';
 }
 
 // Save the Metabox Data
 function tkno_save_location_meta($post_id, $post) {
-    // verify this came from the our screen and with proper authorization,
-    // because save_post can be triggered at other times
-    if ( !wp_verify_nonce( $_POST['eventmeta_noncename'], plugin_basename(__FILE__) )) {
-    return $post->ID;
-    }
+    /* Verify the nonce before proceeding. */
+    if ( !isset( $_POST['location_meta_nonce'] ) || !wp_verify_nonce( $_POST['location_meta_nonce'], basename( __FILE__ ) ) )
+        return $post_id;
     // Is the user allowed to edit the post or page?
     if ( !current_user_can( 'edit_post', $post->ID ))
         return $post->ID;
     // OK, we're authenticated: we need to find and save the data
     // We'll put it into an array to make it easier to loop though.
-    $location_meta['location-street-address'] = $_POST['location-street-address'];
-    $location_meta['location-city'] = $_POST['location-city'];
-    $location_meta['location-state'] = $_POST['location-state'];
-    $location_meta['location-ZIP'] = $_POST['location-ZIP'];
+    $location_meta['_location_street_address'] = $_POST['_location_street_address'];
 
     //Get Lat/Long from address
-        $address = $_POST['location-street-address']." ".$_POST['location-city']." ".$_POST['location-state']. " ".$_POST['location-ZIP'];
+        $address = $_POST['_location_street_address'];
         $prepAddr = str_replace(' ','+',$address);
         $geocode=file_get_contents('http://maps.google.com/maps/api/geocode/json?address='.$prepAddr.'&sensor=false');
         $output= json_decode($geocode);
@@ -146,10 +154,7 @@ add_action( 'manage_location_posts_custom_column' , 'custom_location_column', 10
 //Define columns to show
 function set_custom_edit_location_columns($columns) {
     unset($columns['date']);
-    $columns['location-street-address'] = __( 'Address' );
-    $columns['location-city'] = __( 'City' );
-    $columns['location-state'] = __( 'State' );
-    $columns['location-ZIP'] = __( 'ZIP code' );
+    $columns['_location_street_address'] = __( 'Address' );
     $columns['location-latitude'] = __( 'Latitude' );
     $columns['location-longitude'] = __( 'Longitude' );
     return $columns;

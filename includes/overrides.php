@@ -343,6 +343,13 @@ function tkno_wpseo_og_title_override( $title ) {
 }
 add_filter( 'wpseo_opengraph_title', 'tkno_wpseo_og_title_override' );
 
+function tkno_wpseo_hide_metaboxes(){
+    remove_meta_box('wpseo_meta', 'location', 'normal');
+    remove_meta_box('wpseo_meta', 'venues', 'normal');
+    remove_meta_box('wpseo_meta', 'neighborhoods', 'normal');
+}
+add_action( 'add_meta_boxes', 'tkno_wpseo_hide_metaboxes',11 );
+
 // Increase Custom Field Limit
 function tkno_customfield_limit_increase( $limit ) {
     $limit = 100;

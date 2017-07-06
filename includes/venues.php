@@ -210,7 +210,7 @@ function venue_save_post_meta( $post_id, $post ) {
 
     /* Verify the nonce before proceeding. */
     if ( !isset( $_POST['venue_meta_nonce'] ) || !wp_verify_nonce( $_POST['venue_meta_nonce'], basename( __FILE__ ) ) )
-    return $post_id;
+        return $post_id;
 
     /* Get the post type object. */
     $post_type = get_post_type_object( $post->post_type );
