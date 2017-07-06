@@ -781,6 +781,7 @@ div.cat-img {
 	border-bottom:1px solid rgba(225,225,225,0.8);
 }
 /* in-article related lists */
+.entry-content div.location-search,
 .entry-content aside.article-related,
 .entry-content aside.article-bucketlist {
 	width:40%;
@@ -804,6 +805,7 @@ div.cat-img {
 	padding-top:0;
 	border-top:none;
 }
+.entry-content div.location-search h3,
 .entry-content aside.article-related h3,
 .entry-content aside.article-bucketlist h3 {
 	font-size:1.3em;

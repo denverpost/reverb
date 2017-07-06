@@ -38,13 +38,15 @@ function tkno_get_ad_value() {
         $id = get_query_var( 'cat' );
         $cat = get_category( (int)$id );
         $category = $cat->slug;
-    } else if ( is_single() && get_post_type() != 'venues' && get_post_type() != 'neighborhoods' ) {
+    } else if ( is_single() && get_post_type() != 'venues' && get_post_type() != 'neighborhoods' && get_post_type() != 'location' ) {
         $cats = tkno_get_ad_cat_slug();
         $category = $cats->slug;
     } else if ( get_post_type() == 'venues' ) {
         $category = 'venues';
     } else if ( get_post_type() == 'neighborhoods' ) {
         $category = 'neighborhoods';
+    } else if ( get_post_type() == 'location' ) {
+        $category = 'location';
     }
     if ( $category ) {
         switch ( $category ) {
@@ -59,6 +61,10 @@ function tkno_get_ad_value() {
             case 'neighborhoods':
                 $kv = 'neighborhoods';
                 $tax = '/Neighborhoods';
+                break;
+            case 'location':
+                $kv = 'location';
+                $tax = '/Location';
                 break;
             case 'movies-and-tv':
                 $kv = 'movies-and-tv';

@@ -26,38 +26,39 @@ add_action( 'init', 'tkno_locations_install' );
 
 // register the location post type
 function tkno_locations_register_post_type() {
-
-    // setup the arguments for the location post type
-    $locations_args = array(
-        'public' => true,
-        'query_var' => 'location',
+	$labels = array(
+        'name'               => _x( 'Locations', 'post type general name' ),
+        'singular_name'      => _x( 'Location', 'post type singular name' ),
+        'add_new'            => _x( 'Add New', 'venue' ),
+        'add_new_item'       => __( 'Add New Location' ),
+        'edit_item'          => __( 'Edit Location' ),
+        'new_item'           => __( 'New Location' ),
+        'all_items'          => __( 'All Locations' ),
+        'view_item'          => __( 'View Location' ),
+        'search_items'       => __( 'Search Locations' ),
+        'not_found'          => __( 'No locations found' ),
+        'not_found_in_trash' => __( 'No locations found in the Trash' ), 
+        'parent_item_colon'  => '',
+        'menu_name'          => 'Locations'
+    );
+    $args = array(
+        'labels'        => $labels,
+        'description'   => 'Locations feature a single destination or geographic activity, and can pull in related items based on proximity',
+        'public'        => true,
+        'publicly_queryable' => true,
+        'exclude_from_search' => false,
+        'show_ui'       => true,
+        'menu_position' => 6,
+        'capability_type' => 'post',
+        'query_var'     => true,
+        'supports'      => array( 'title', 'editor', 'thumbnail', 'excerpt', 'page-attributes', 'revisions', 'author', 'custom-fields', ),
         'rewrite' => array(
             'slug' => 'location',
             'with_front' => false
-        ),
-        'supports' => array(
-            'title',
-            'editor',
-            'excerpt',
-            'thumbnail'
-        ),
-        'labels' => array(
-            'name' => 'Locations',
-            'singular_name' => 'Location',
-            'add_new' => 'Add New Location',
-            'add_new_item' => 'Add New Location',
-            'edit_item' => 'Edit Location',
-            'new_item' => 'New Location',
-            'view_item' => 'View Location',
-            'search_items' => 'Search Locations',
-            'not_found' => 'No Locations Found',
-            'not_found_in_trash' => 'No Locations Found in Trash'
-        ),
+            ),
+        'has_archive'   => true
     );
-
-    //register the post type
-    register_post_type( 'location', $locations_args );
-
+    register_post_type( 'location', $args );
 }
 add_action( 'init', 'tkno_locations_register_post_type' );
 
@@ -225,3 +226,96 @@ add_filter( 'query_vars', 'add_query_vars_filter' );
 /*** END QUERY VARS UPDATE ***/
 
 /**** END location POST TYPE ****/
+
+/**** LOCATION SEARCH WIDGET ****/
+
+// Creating the widget
+class tkno_location_search_widget extends WP_Widget {
+
+	function __construct() {
+		parent::__construct(
+		// Base ID of your widget
+		'tkno_location_search_widget',
+
+		// Widget name will appear in UI
+		__('Find location', ''),
+
+		// Widget description
+		array( 'description' => __( 'Displays location search form.' ), )
+		);
+	}
+
+	// Creating widget front-end
+	// This is where the action happens
+	public function widget( $args, $instance ) {
+		$title = apply_filters( 'widget_title', $instance['title'] );
+		// before and after widget arguments are defined by themes
+		echo $args['before_widget'];
+		if ( ! empty( $title ) )
+			echo $args['before_title'] . $title . $args['after_title'];
+		// This is where you run the code and display the output
+		    echo do_shortcode('[location_search]');
+		}
+
+	// Widget Backend
+	public function form( $instance ) {
+		if ( isset( $instance[ 'title' ] ) ) {
+			$title = $instance[ 'title' ];
+		} else {
+			$title = __( 'New title', '' );
+		}
+	// Widget admin form
+	?>
+	<p>
+		<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label>
+		<input id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
+	</p>
+	<?php
+	}
+
+	// Updating widget replacing old instances with new
+	public function update( $new_instance, $old_instance ) {
+		$instance = array();
+		$instance['title'] = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
+		return $instance;
+	}
+} // Class srd_find_location_widget ends here
+
+// Register and load the widget
+function tkno_location_search_widget_load() {
+    register_widget( 'tkno_location_search_widget' );
+}
+add_action( 'widgets_init', 'tkno_location_search_widget_load' );
+
+/**** END LOCATION SEARCH WIDGET ****/
+
+function location_search_form_shortcode() {
+    $form = '<div class="location-search">';
+		$form .= '<form method="get" action="' . get_stylesheet_directory_uri() . '/search-location.php">';
+			$form .= '<input type="hidden" name="locationsearch" value="Y" />';
+			$form .= '<div>';
+				$form .= '<h3>Find places to go</h3>';
+			    $form .= '<div>';
+				    $form .= '<label>Start with a ZIP code</label>';
+				    $form .= '<input type="text" pattern=".{5}" required name="user_ZIP" id="user_ZIP" value="' . get_query_var( 'user_ZIP' ) . '" />';
+			    $form .= '</div>';
+			    $form .= '<div>';
+				    $form .= '<label>Distance</label>';
+				    $form .= '<select name="user_radius" id="user_radius">';
+				        $form .= '<option' . ( get_query_var( 'user_radius' ) == 25000 ? ' selected="selected"' : '' ) . ' value="25000">Any</option>';
+				        $form .= '<option' . ( get_query_var( 'user_radius' ) == 5 ? ' selected="selected"' : '' ) . ' value="5">5 miles</option>';
+				        $form .= '<option' . ( get_query_var( 'user_radius' ) == 10 || ! get_query_var( 'user_radius' ) ? ' selected="selected"' : '' ) .' value="10">10 miles</option>';
+				        $form .= '<option' . ( get_query_var( 'user_radius' ) == 20 ? ' selected="selected"' : '' ) . ' value="20">20 miles</option>';
+				        $form .= '<option' . ( get_query_var( 'user_radius' ) == 50 ? ' selected="selected"' : '' ) . ' value="50">50 miles</option>';
+				        $form .= '<option' . ( get_query_var( 'user_radius' ) == 100 ? ' selected="selected"' : '' ) . ' value="100">100 miles</option>';
+				    $form .= '</select>';
+			    $form .= '</div>';
+			$form .= '</div>';
+			$form .= '<div>';
+			    $form .= '<input class="button" type="submit" value="Find locations" />';
+			$form .= '</div>';
+		$form .= '</form>';
+	$form .= '</div>';
+    return $form;
+}
+add_shortcode( 'location_search', 'location_search_form_shortcode' );

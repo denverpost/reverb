@@ -87,6 +87,7 @@ function tkno_register_neighborhood_page_posttype() {
         'description'   => 'Neighborhood Pages feature a single neighborhood and pull in related items based on the Neighborhood taxonomy',
         'public'        => true,
         'publicly_queryable' => true,
+        'exclude_from_search' => false,
         'show_ui'       => true,
         'menu_position' => 6,
         'capability_type' => 'post',
