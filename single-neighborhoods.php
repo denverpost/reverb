@@ -67,7 +67,7 @@
                             
                             while ( $neighborhood_query->have_posts() ) : $neighborhood_query->the_post(); ?>
 
-                                <?php get_template_part('post-formats/format', 'catpage'); ?>
+                                <?php get_template_part('post-formats/format', 'location'); ?>
 
                             <?php endwhile;
                         

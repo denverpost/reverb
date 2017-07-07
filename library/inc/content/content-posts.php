@@ -88,7 +88,6 @@ function reactor_post_frontpage_format() {
 		</h2> <?php }
 add_action('reactor_post_frontpage', 'reactor_post_frontpage_format', 1);
 
-
 /**
  * Category page main format
  * in format-standard
@@ -120,6 +119,25 @@ function reactor_post_catpage_format() {
 <?php }
 add_action('reactor_post_catpage', 'reactor_post_catpage_format', 1);
 
+/**
+ * Location page main format
+ * in format-standard
+ * 
+ * @since 1.0.0
+ */
+function reactor_post_location_format() { ?>
+	<div class="catpage-post">
+		<div class="catpage-post-inner">
+			<a href="<?php the_permalink(); ?>" rel="bookmark">
+				<h2 class="entry-title"><?php the_title(); ?></h2>
+			</a>
+			<?php 
+			reactor_post_meta( array( 'show_cat' => false, 'show_tag' => false, 'location' => true, 'show_date' => true, 'link_date' => false ) ); ?>
+		</div>
+		<div class="clear"></div>
+	</div>
+<?php }
+add_action('reactor_post_location', 'reactor_post_location_format', 1);
 
 /**
  * Post header

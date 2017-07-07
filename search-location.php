@@ -6,12 +6,12 @@
  * @subpackge Templates
  * @since 1.0.0
  */
-?>
 
- <?php
 //Check if this is a search-form submission
 $locationsearch = $_GET['locationsearch'];
 
+var_dump($locationsearch);
+/*
 //If it is a search, grab the form variables
 if($locationsearch) {
     $user_ZIP = $_GET['user_ZIP'];
@@ -157,7 +157,7 @@ if($locationsearch) {
         }
         map.fitBounds(bounds);
       </script>";
-}
+} */
 ?>
 
 

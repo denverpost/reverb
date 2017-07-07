@@ -30,6 +30,7 @@ if ( !function_exists('reactor_post_meta') ) {
 			'show_icons'  => false,
 			'show_uncategorized' => false,
 			'catpage' => false,
+			'location' => false,
 			'show_photo' => false,
 			'social_dropdown'	=> false,
 			'just_tags'	=> false,
@@ -304,8 +305,14 @@ if ( !function_exists('reactor_post_meta') ) {
 		 * 9	publication
 		 */
 		if ( $date || $categories_list || $author || $tag_list ) {
-			if ( $args['catpage'] ) {
-				$meta .= ( $author && ! $feedauthor ) ? '<span class="by-author">%4$s%9$s</span> ' : '';
+			if ( $args['location'] ) {
+				$meta = ( $date ) ? 'Added: %3$s ' : '';
+
+				if ( $meta ) {
+					$output = '<div class="entry-meta">' . $meta . '</div>';
+				}
+			} else if ( $args['catpage'] ) {
+				$meta = ( $author && ! $feedauthor ) ? '<span class="by-author">%4$s%9$s</span> ' : '';
 				$meta .= ( $feedauthor ) ? '<span class="by-author">' . $feedauthor . '%9$s</span> ' : '';
 				$meta .= ( $date && $args['show_date'] ) ? '%3$s ' : '';
 				$meta .= ( $args['social_dropdown'] ) ? '%8$s' : '';
@@ -316,7 +323,7 @@ if ( !function_exists('reactor_post_meta') ) {
 					$output = '<div class="entry-meta">' . $meta . '</div>';
 				}
 			} else if ( $args['show_icons'] ) {
-				$meta .= ( $author && $args['show_author'] ) ? '<i class="social foundicon-torso" title="Written by"></i> <span class="by-author">%4$s%9$s</span>' : '';
+				$meta = ( $author && $args['show_author'] ) ? '<i class="social foundicon-torso" title="Written by"></i> <span class="by-author">%4$s%9$s</span>' : '';
 				$meta .= ( $date && $args['show_date'] ) ? '<i class="general foundicon-calendar" title="Publish on"></i> %3$s' : '';
 				$meta .= ( $categories_list && $args['show_cat'] ) ? '<i class="general foundicon-folder" title="Posted in"></i> %1$s' : '';
 				$meta .= ( $tag_list && $args['show_tag'] ) ? '<div class="entry-tags"><i class="general foundicon-flag" title="Tagged with"></i> %2$s</div>' : '';
@@ -325,13 +332,13 @@ if ( !function_exists('reactor_post_meta') ) {
 					$output = '<div class="entry-meta icons">' . $meta . '</div>';
 				}
 			} else if ( $args['just_tags'] ) {
-				$meta .= ( $tag_list ) ? '<div class="entry-tags">Post tags: %2$s</div>' : '';
+				$meta = ( $tag_list ) ? '<div class="entry-tags">Post tags: %2$s</div>' : '';
 				
 				if ( $meta ) {
 					$output = '<div class="entry-meta icons">' . $meta . '</div>';
 				}
 			} else if ( $do_bio && $args['show_photo'] && get_the_author_meta('list_author_single') ) {
-				$meta .= ( $author_photo ) ? '%5$s' : '';
+				$meta = ( $author_photo ) ? '%5$s' : '';
 				$meta .= '<div class="large-9 medium-9 small-9 columns">';
 				$meta .= ( $author && $args['show_author'] ) ? '<div class="by-author">%4$s</div>' : '';
 				$meta .= ( $author_desc ) ? '%6$s' : '';
@@ -342,7 +349,7 @@ if ( !function_exists('reactor_post_meta') ) {
 					$output = '<div class="entry-meta-author row collapse">' . __('', 'reactor') . $meta . '</div>';
 				}
 			} else if (!$args['show_photo']) {
-				$meta .= ( $date && $args['show_date'] ) ? '%3$s ' : '';
+				$meta = ( $date && $args['show_date'] ) ? '%3$s ' : '';
 				$meta .= ( $author && $args['show_author'] ) ? __('by', 'reactor') . ' <span class="by-author">%4$s%9$s</span> ' : '';
 				$meta .= ( $categories_list && $args['show_cat'] ) ? __('in', 'reactor') . ' %1$s' : '';
 				$meta .= ( $tag_list && $args['show_tag'] ) ? '<div class="entry-tags">' . __('Tags:', 'reactor') . ' %2$s</div>' : '';

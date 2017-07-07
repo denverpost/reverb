@@ -291,7 +291,7 @@ add_action( 'widgets_init', 'tkno_location_search_widget_load' );
 
 function location_search_form_shortcode() {
     $form = '<div class="location-search">';
-		$form .= '<form method="get" action="' . get_stylesheet_directory_uri() . '/search-location.php">';
+		$form .= '<form method="get" action="' . get_site_url() . '/location/">';
 			$form .= '<input type="hidden" name="locationsearch" value="Y" />';
 			$form .= '<div>';
 				$form .= '<h3>Find places to go</h3>';
@@ -319,3 +319,39 @@ function location_search_form_shortcode() {
     return $form;
 }
 add_shortcode( 'location_search', 'location_search_form_shortcode' );
+
+/*** CALCULATE DISTANCE USING LAT/LONG, GIVEN A ZIP CODE ***/
+    function location_posts_where( $where )  
+    {  
+        global $wpdb;
+        //Get user location from ZIP
+        $geocode=file_get_contents('http://maps.google.com/maps/api/geocode/json?address='.get_query_var('user_ZIP').'&sensor=false');
+        $output= json_decode($geocode);
+        $lat = $output->results[0]->geometry->location->lat;
+        $lng = $output->results[0]->geometry->location->lng;
+
+        $radius = get_query_var('user_radius'); // (in miles)  
+
+        $table_name = $wpdb->prefix . 'locations';
+        // Append our radius calculation to the WHERE  
+        $where .= " AND $wpdb->posts.ID IN (SELECT post_id FROM " . $table_name . " WHERE
+             ( 3959 * acos( cos( radians(" . $lat . ") )
+                            * cos( radians( lat ) )
+                            * cos( radians( lng )
+                            - radians(" . $lng . ") )
+                            + sin( radians(" . $lat . ") )
+                            * sin( radians( lat ) ) ) ) <= " . $radius . ")";
+
+        // Return the updated WHERE part of the query  
+        return $where;  
+    }
+
+/*** CALCULATE DISTANCE BETWEEN TWO POINTS OF LATITUDE/LONGITUDE ***/
+function distance($lat1, $lon1, $lat2, $lon2) {
+     $theta = $lon1 - $lon2;
+     $dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) +  cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta));
+     $dist = acos($dist);
+     $dist = rad2deg($dist);
+     $miles = $dist * 60 * 1.1515;
+    return $miles;
+}

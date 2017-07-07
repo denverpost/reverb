@@ -49,6 +49,8 @@ div#content {
 }
 .entry-footer .single_venue h3 a,
 .entry-footer .single_venue h3 a:visited,
+.entry-footer .single_location h3 a,
+.entry-footer .single_location h3 a:visited,
 .entry-footer .single_neighborhood h3 a,
 .entry-footer .single_neighborhood h3 a:visited {
 	font-weight:600;
@@ -58,22 +60,26 @@ div#content {
 	clear: left;
 }
 .entry-footer .single_venue h3 a:hover,
+.entry-footer .single_location h3 a:hover,
 .entry-footer .single_neighborhood h3 a:hover {
 	text-decoration:underline;
 }
 .single-venues .columns.masocial,
+.single-location .columns.masocial,
 .single-neighborhoods .columns.masocial {
 	padding-bottom:1em;
 	margin-bottom:.5em;
 	border-bottom:1px solid #ddd;
 }
 .single-venues .with_calendar,
+.single-location .with_calendar,
 .single-neighborhoods .with_calendar {
 	background-color:rgba(240,75,36,1.0);
 	padding:1em 1.5em 1.5em;
 	margin:1.5em 0;
 }
 .single-venues .with_calendar h3,
+.single-location .with_calendar h3,
 .single-neighborhoods .with_calendar h3 {
 	text-align: left;
 	color:#ffffff;
@@ -947,6 +953,7 @@ h2.archive-title {
 	margin:0 0 1em;
 }
 .post-type-archive-venues h1.archive-title.venue-header span,
+.post-type-archive-location h1.archive-title.location-header span,
 .post-type-archive-neighborhoods h1.archive-title.neighborhood-header span,
 h1.archive-title a,
 h2.archive-title a {
@@ -967,12 +974,20 @@ h2.archive-title.venue-header a,
 	background-color:#5a5a5a;
 }
 .post-type-archive-venues h1.archive-title.venue-header span,
+.post-type-archive-location h1.archive-title.location-header span,
 .post-type-archive-neighborhoods h1.archive-title.neighborhood-header span {
 	font-size: 1.5em;
 }
 .venue-related h2.archive-title,
-.neighborhood-related h2.archive-title {
+.venue-related h2.archive-title,
+.location-related h2.archive-title {
 	margin-bottom:1.5em;
+}
+.post-type-archive-location h1.archive-title.location-header span,
+h1.archive-title.location-header a,
+h2.archive-title.location-header a,
+.single-location h2.archive-title a {
+	background-color:#b7410e;
 }
 .post-type-archive-neighborhoods h1.archive-title.neighborhood-header span,
 h1.archive-title.neighborhood-header a,
@@ -1083,6 +1098,7 @@ body:not(.home) .cat-second .entry-body h2.entry-title {
 	border-bottom:none;
 }
 .single-venues .entry-body,
+.single-location .entry-body,
 .single-neighborhoods .entry-body {
 	margin-bottom:0;
 }
@@ -1278,6 +1294,7 @@ nav.nav-single {
 	margin-bottom: 1.063em;
 }
 .single-venues nav.nav-single,
+.single-location nav.nav-single,
 .single-neighborhoods nav.nav-single {
 	display:none!important;
 }

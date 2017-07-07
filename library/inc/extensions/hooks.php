@@ -192,6 +192,16 @@ function reactor_post_catpage() {
 }
 
 /**
+ * Register hook: reactor_post_location
+ *
+ * 
+ * @since 1.0.0
+ */
+function reactor_post_location() {
+	do_action('reactor_post_location');
+}
+
+/**
  * Register hook: reactor_post_footer
  *
  * 
