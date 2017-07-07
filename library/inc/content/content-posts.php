@@ -90,7 +90,7 @@ add_action('reactor_post_frontpage', 'reactor_post_frontpage_format', 1);
 
 /**
  * Category page main format
- * in format-standard
+ * in format-catpage
  * 
  * @since 1.0.0
  */
@@ -121,7 +121,7 @@ add_action('reactor_post_catpage', 'reactor_post_catpage_format', 1);
 
 /**
  * Location page main format
- * in format-standard
+ * in format-location
  * 
  * @since 1.0.0
  */
