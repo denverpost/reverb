@@ -26,7 +26,7 @@ if($locationsearch) {
     if(!$user_ZIP) { unset($locationsearch);}
     //If it's still a search, load Google Map code and div
     if($locationsearch) {
-        $form .= '<script src="http://maps.google.com/maps/api/js?key=AIzaSyA1Eh51J16b3NHRslNzCTu1BCm44lICAl8&sensor=false" type="text/javascript"></script>';
+        $form .= '<script src="http://maps.google.com/maps/api/js?key=AIzaSyA1Eh51J16b3NHRslNzCTu1BCm44lICAl8	&sensor=false" type="text/javascript"></script>';
         $form .= '<div id="map" style="width: 100%; height: 400px; margin:20px 0;"></div>';
     }
 
