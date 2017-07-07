@@ -43,7 +43,7 @@
                             
                             <?php reactor_post_before(); ?>
 
-                            <?php get_template_part('post-formats/format', 'catpage'); ?>
+                            <?php get_template_part('post-formats/format', 'location'); ?>
 
                             <?php reactor_post_after(); ?>
 

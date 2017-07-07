@@ -185,7 +185,7 @@ if($locationsearch) {
                                     <h3>Find places to go</h3>
                                     <div class="large-4 columns">
                                         <label>Start with a ZIP code</label>
-                                        <input type="text" pattern=".{5}" required name="user_ZIP" id="user_ZIP" value="<?php echo $user_ZIP; ?>" />
+                                        <input type="text" pattern=".{5}" required name="user_ZIP" id="user_ZIP" value="<?php echo ( isset ($user_ZIP) ) ? $user_ZIP : ''; ?>" />
                                     </div>
                                     <div class="large-4 columns">
                                         <label>Distance</label>
