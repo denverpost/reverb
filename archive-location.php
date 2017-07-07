@@ -136,14 +136,14 @@ if($locationsearch) {
                 <div class="<?php reactor_columns(); ?>">
 
                 <?php
-
-                    global $wp_query;
+ 
                     if( $locationsearch ) {
+                        global $wp_query;
                         // WP_Query arguments
                         $args = array (
                             'post_type'              => 'location',
                             'post_status'            => 'published',
-                            'posts_per_page'        =>    5000,
+                            'posts_per_page'         => 5000,
                             'order'                  => 'ASC',
                             'orderby'                => 'title',
                             'meta_query'             => array(),
@@ -160,6 +160,7 @@ if($locationsearch) {
                         remove_filter( 'posts_where' , 'location_posts_where' );
 
                     } else {
+                        global $wp_query;
                         $number_posts = 25;
         
                         $args = array(
@@ -199,7 +200,7 @@ if($locationsearch) {
                                     </div>
                                     <div class="large-4 columns">
                                         <input class="button" type="submit" value="Find locations" style="margin-top:7px;" />
-                                        <button class="button warning" onClick="window.location.reload()" style="margin-top:7px;font-size:200%;padding:.25em .5em .6em;line-height:.78;">&times;</button>
+                                        <a class="button warning" href="<?php echo get_site_url(); ?>/location/" style="margin-top:7px;font-size:200%;padding:.25em .5em .6em;line-height:.78;">&times;</a>
                                     </div>
                                 </div>
                             </form>
