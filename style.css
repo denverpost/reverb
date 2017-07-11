@@ -927,10 +927,12 @@ li.widget_neighborhood_related_widget .neighborhood_widget_inner {
 .widget_neighborhood_related_widget ul li:last-child {
 	margin-bottom: 0;
 }
+.neighborhood_children_list ul.inline-list li a,
 .widget_neighborhood_related_widget ul li a {
 	border-bottom:1px dashed rgba(50,50,50,1);
 	color:rgba(50,50,50,1);
 }
+.neighborhood_children_list ul.inline-list li a:hover,
 .widget_neighborhood_related_widget ul li a:hover {
 	color:rgba(0,115,174,0.8);
 	border-bottom:1px dashed rgba(0,115,174,0.8);
@@ -951,6 +953,9 @@ li.widget_neighborhood_related_widget .neighborhood_widget_inner {
 h1.archive-title,
 h2.archive-title {
 	margin:0 0 1em;
+}
+.neighborhood-related h2.archive-title {
+	margin-bottom:2em;
 }
 .post-type-archive-venues h1.archive-title.venue-header span,
 .post-type-archive-location h1.archive-title.location-header span,
@@ -1026,6 +1031,9 @@ body.date header h2 a {
 	line-height:1.1;
 	color: #000;
 	margin:0 0 .25em;
+}
+body:not(.home) .neighborhood-related .entry-body h2.entry-title {
+	font-size:1.5em;
 }
 .entry-body p.catexcerpt {
 	font-family:'Open Sans',Arial,Helvetica,sans-serif;
@@ -1250,6 +1258,7 @@ body:not(.home) .cat-second .entry-body h2.entry-title {
 .entry-content .twitter-tweet-rendered {
 	margin:0 auto!important;
 }
+.neighborhood_children_list,
 .page .entry-meta-author,
 .single .entry-meta-author {
 	padding:1em;
@@ -1636,6 +1645,23 @@ header h2 a {
 	text-decoration: none;
 	text-align:center;
 	letter-spacing:.1em;
+}
+.neighborhood_children_list h3 {
+	font-family:'Arvo',Arial,Helvetica,sans-serif;
+	color:#fff;
+	font-size:1.4em;
+	font-weight:400;
+	text-decoration: none;
+	margin-bottom:.75em;
+}
+.neighborhood_children_list h3 span {
+	font-family:'Arvo',Arial,Helvetica,sans-serif;
+	padding:.25em .5em;
+	background-color:#5d9674;
+}
+.neighborhood_children_list ul.inline-list li {
+	padding: 0 .5em;
+	font-size:1.2em;
 }
 .widget_neighborhood_related_widget h4.widget-title a,
 h4.widget-title span.fpe-widget-title a,

@@ -459,6 +459,45 @@ function tkno_single_post_related() {
 add_action('reactor_post_after', 'tkno_single_post_related', 4);
 
 /**
+ * Single neighborhood children 
+ * in single.php
+ * 
+ * @since 1.0.0
+ */
+function tkno_single_neighborhood_children() {
+    if ( is_single() && get_post_type() == 'neighborhoods' ) {
+    	global $post;
+    	$neighborhood_slug = get_post_meta( $post->ID, '_neighborhood_slug', true );
+    	$neighborhood_obj = get_term_by( 'slug', $neighborhood_slug, 'neighborhood' );
+		$neighborhood_children = get_term_children( $neighborhood_obj->term_id, 'neighborhood' );
+		$list_neighborhoods = array();
+		foreach ( $neighborhood_children as $child_id ) {
+			$child = get_term_by( 'id', $child_id, 'neighborhood' );
+			$child_page = tkno_get_neighborhood_from_slug( $child->slug );
+			if ( $child_page != false && $child_page->ID ) {
+				$list_neighborhoods[] = array(
+					'url' => get_post_permalink( $child_page->ID ),
+					'name' => $child->name
+				);
+			}
+		}
+		if ( count( $list_neighborhoods ) > 0 ) { ?>
+			<div class="neighborhood_children_list">
+				<h3><span>Neighborhoods within <?php echo $neighborhood_obj->name; ?></span></h3>
+				<ul class="inline-list">
+					<?php foreach ( $list_neighborhoods as $neighborhood_item ) { ?>
+						<li><a href="<?php echo $neighborhood_item[ 'url' ] ?>"><?php echo $neighborhood_item[ 'name' ]; ?></a></li>
+					<?php } ?>
+					
+			</div> <?php
+		}
+		?>
+	    
+	<?php }
+}
+add_action('reactor_post_after', 'tkno_single_neighborhood_children', 5);
+
+/**
  * No posts format
  * loop else in page templates
  * 
@@ -468,4 +507,3 @@ function reactor_do_loop_else() {
 	get_template_part('post-formats/format', 'none');
 }
 add_action('reactor_loop_else', 'reactor_do_loop_else', 1);
-?>

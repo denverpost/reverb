@@ -272,44 +272,13 @@ class neighborhood_related_widget extends WP_Widget {
         return $instance;
     }
 
-    public function widget($args, $instance) {
-        global $post;
-        $nei_slug = get_post_meta( $post->ID, '_neighborhood_slug', true );
-        $posts_numb = ( $instance[ 'neighorhood_posts' ] != '' ) ? $instance[ 'neighorhood_posts' ] : 3;
-        $nei_cat = ( $instance[ 'neighorhood_category' ] != '' ) ? $instance[ 'neighorhood_category' ] : false;
-        $nei_tag = ( $instance[ 'neighorhood_tag' ] != '' ) ? $instance[ 'neighorhood_tag' ] : false;
-        if ( term_exists( $nei_slug, 'neighborhood' ) ) {
-            $cat = ( $nei_cat != false ) ? get_term_by( 'id', $nei_cat, 'category' ) : false;
-            $tag = ( $nei_tag != false ) ? get_term_by( 'id', $nei_tag, 'post_tag' ) : false;
-            remove_all_filters( 'posts_orderby' ); // disable Post Types Order ordering for this query
-            $query_args = array(
-                'post_type'         => 'post',
-                'tax_query'         => array(
-                    'relation'  => 'AND',
-                    array(
-                        'taxonomy'      => 'neighborhood',
-                        'field'         => 'slug',
-                        'terms'         => $nei_slug,
-                        'operator'      => 'IN'
-                        ),
-                    array(
-                        'taxonomy'      => ( ( $tag == false ) ? 'category' : 'post_tag' ),
-                        'field'         => 'term_id',
-                        'terms'         => ( ( $tag == false ) ? $cat->term_id : $tag->term_id ),
-                        'operator'      => 'IN'
-                        ),
-                    ),
-                'posts_per_page'    => $posts_numb,
-                'order'             => 'DESC',
-                'orderby'           => 'date',
-                'adp_disable'       => true,
-                );
-            $nei_query = new WP_Query( $query_args );
-            if ( $tag == false && $nei_query->post_count == 0 && $cat->parent != 0) {
+    public function widget( $args, $instance ) {
+        // A reusable query for multiple attempts
+        if ( ! function_exists( 'widget_query' ) ) {
+            function widget_query( $nei_slug, $nei_tax, $tax_id, $posts_numb ) {
                 wp_reset_query();
-                $parent_cat = get_term_by( 'id', $cat->parent, 'category' );
                 remove_all_filters( 'posts_orderby' ); // disable Post Types Order ordering for this query
-                $parent_query_args = array(
+                $args = array(
                     'post_type'         => 'post',
                     'tax_query'         => array(
                         'relation'  => 'AND',
@@ -320,9 +289,9 @@ class neighborhood_related_widget extends WP_Widget {
                             'operator'      => 'IN'
                             ),
                         array(
-                            'taxonomy'      => 'category',
+                            'taxonomy'      => $nei_tax,
                             'field'         => 'term_id',
-                            'terms'         => $parent_cat->term_id,
+                            'terms'         => $tax_id,
                             'operator'      => 'IN'
                             ),
                         ),
@@ -331,8 +300,36 @@ class neighborhood_related_widget extends WP_Widget {
                     'orderby'           => 'date',
                     'adp_disable'       => true,
                     );
+                $nei_query = new WP_Query( $args );
+                return $nei_query;
+            }
+        }
+
+        global $post;
+        $nei_slug = get_post_meta( $post->ID, '_neighborhood_slug', true );
+        $neighborhood = get_term_by( 'slug', $nei_slug, 'neighborhood' );
+        $posts_numb = ( $instance[ 'neighorhood_posts' ] != '' ) ? $instance[ 'neighorhood_posts' ] : 3;
+        $nei_cat = ( $instance[ 'neighorhood_category' ] != '' ) ? $instance[ 'neighorhood_category' ] : false;
+        $nei_tag = ( $instance[ 'neighorhood_tag' ] != '' ) ? $instance[ 'neighorhood_tag' ] : false;
+        if ( term_exists( $nei_slug, 'neighborhood' ) ) {
+            $cat = ( $nei_cat != false ) ? get_term_by( 'id', $nei_cat, 'category' ) : false;
+            $tag = ( $nei_tag != false ) ? get_term_by( 'id', $nei_tag, 'post_tag' ) : false;
+            $nei_tax = ( $tag == false ) ? 'category' : 'post_tag';
+            $tax_id = ( $tag == false ) ? $cat->term_id : $tag->term_id;
+            $nei_query = widget_query( $nei_slug, $nei_tax, $tax_id, $posts_numb );
+            // if no results from neighborhood with first try taxonomy, try parent neighborhood if there is one
+            if ( $nei_query->post_count == 0 && $neighborhood->parent != 0 ) {
+                $parent_nei = get_term_by( 'id', $neighborhood->parent, 'neighborhood' );
+                $nei_query = widget_query( $parent_nei->slug, $nei_tax, $tax_id, $posts_numb );
+            // or else, if there's no parent neighborhood but there is a parent category (for a category search) try it, too
+            }
+            if ( $tag == false && $nei_query->post_count == 0 && $cat->parent != 0 ) {
+                $parent_cat = get_term_by( 'id', $cat->parent, 'category' );
                 $cat = $parent_cat;
-                $nei_query = new WP_Query( $parent_query_args );
+                $nei_query = widget_query( $nei_slug, $nei_tax, $parent_cat->term_id, $posts_numb );
+                if ( $nei_query->post_count == 0 ) {
+                    $nei_query = widget_query( $parent_nei->slug, $nei_tax, $parent_cat->term_id, $posts_numb );
+                }
             }
             if ( $nei_query->have_posts() ) {
                 echo $args['before_widget'];
