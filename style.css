@@ -854,6 +854,7 @@ div.cat-img {
 	padding-right:3%;
 }
 /* related posts */
+.widget_rss_dp .rss_dp_widget_inner,
 li.widget_neighborhood_related_widget .neighborhood_widget_inner {
 	margin:0;
 	padding:1em;
@@ -915,29 +916,35 @@ li.widget_neighborhood_related_widget .neighborhood_widget_inner {
     padding: .25em 0;
     text-transform: uppercase;
 }
+.widget_rss_dp ul,
 .widget_neighborhood_related_widget ul {
 	margin-left:0;
 }
+.widget_rss_dp ul li,
 .widget_neighborhood_related_widget ul li {
 	list-style-type: none;
 	line-height: 1.6;
 	font-size:1.1em;
 	margin-bottom:.7em;
 }
+.widget_rss_dp ul li:last-child,
 .widget_neighborhood_related_widget ul li:last-child {
 	margin-bottom: 0;
 }
+.widget_rss_dp ul li a,
 .neighborhood_children_list ul.inline-list li a,
 .widget_neighborhood_related_widget ul li a {
 	border-bottom:1px dashed rgba(50,50,50,1);
 	color:rgba(50,50,50,1);
 }
+.widget_rss_dp ul li a:hover,
 .neighborhood_children_list ul.inline-list li a:hover,
 .widget_neighborhood_related_widget ul li a:hover {
 	color:rgba(0,115,174,0.8);
 	border-bottom:1px dashed rgba(0,115,174,0.8);
 	text-decoration: none;
 }
+.widget_rss_dp h4.widget-title a,
 .widget_neighborhood_related_widget h4.widget-title a {
 	font-family:'Arvo',Arial,Helvetica,sans-serif;
 	font-weight: 400;
@@ -994,6 +1001,7 @@ h2.archive-title.location-header a,
 .single-location h2.archive-title a {
 	background-color:#b7410e;
 }
+.widget_rss_dp h4.widget-title a,
 .post-type-archive-neighborhoods h1.archive-title.neighborhood-header span,
 h1.archive-title.neighborhood-header a,
 h2.archive-title.neighborhood-header a,
@@ -1034,6 +1042,9 @@ body.date header h2 a {
 }
 body:not(.home) .neighborhood-related .entry-body h2.entry-title {
 	font-size:1.5em;
+}
+body:not(.home) .neighborhood-related .entry-body .catpage-post-inner {
+	margin:0 10%;
 }
 .entry-body p.catexcerpt {
 	font-family:'Open Sans',Arial,Helvetica,sans-serif;
@@ -1598,6 +1609,7 @@ h4.widget-title {
 	letter-spacing: .1em;
 	margin-bottom: 1em;
 }
+.widget_rss_dp h4.widget-title,
 .widget_neighborhood_related_widget h4.widget-title {
 	font-weight: 300;
 	font-size:1em;
@@ -1671,7 +1683,8 @@ h4.widget-title span.fpe-widget-title a,
 #frontpagemain article:first-child span {
 	display: none;
 }
-.widget_neighborhood_related_widget h4.widget-title.category-food a:hover,
+.widget_rss_dp h4.widget-title a:hover,
+.widget_neighborhood_related_widget h4.widget-title a:hover,
 h4.widget-title span.fpe-widget-title a:hover,
 .yarpp-related .related-wrap span a:hover,
 #frontpagemain article h2 a:hover,
@@ -1785,6 +1798,9 @@ article.category-drink .entry-footer .single_venue h3 {
 		top:50%;
 		position: absolute;
 		display:block;
+	}
+	body:not(.home) .neighborhood-related .entry-body .catpage-post-inner {
+		margin:0;
 	}
 	.toggle-social a {
 		color:#555;

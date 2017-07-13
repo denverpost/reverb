@@ -115,6 +115,8 @@ require_once( __DIR__ . '/includes/locations.php');
 require_once( __DIR__ . '/includes/widgets.php');
 // Ad-related widgets, etc.
 require_once( __DIR__ . '/includes/advertising.php');
+// Expanded RSS widget for DP feed
+require_once( __DIR__ . '/includes/rss-widget.php');
 
 // Add contact methods fields to user profile
 function modify_contact_methods($profile_fields) {
