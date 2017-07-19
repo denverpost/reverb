@@ -66,8 +66,8 @@ while ($custom_posts->have_posts()) : $custom_posts->the_post();
 
     if($locationsearch) {
         //Get location of location
-        $latitude = get_post_meta($post->ID, 'location-latitude', true);
-        $longitude = get_post_meta($post->ID, 'location-longitude', true);
+        $latitude = get_post_meta($post->ID, '_location_latitude', true);
+        $longitude = get_post_meta($post->ID, '_location_longitude', true);
 
         //Add location to the Map array
         $locations .= "['<div style=\"line-height:1.35; overflow:hidden; white-space:nowrap;\"><p>$title<br/>$streetplain<br/>$city, $state</p></div>',$latitude,$longitude],";
@@ -177,12 +177,14 @@ if($locationsearch) {
                             </header>
 
                         <div class="location-search">
-                            <script src="http://maps.google.com/maps/api/js?key=AIzaSyA1Eh51J16b3NHRslNzCTu1BCm44lICAl8 &sensor=false"></script>
-                            <div id="map" style="width: 100%; height: 400px;"></div>
+                            <!-- <script src="http://maps.google.com/maps/api/js?key=AIzaSyA1Eh51J16b3NHRslNzCTu1BCm44lICAl8 &sensor=false"></script> -->
+                            <?php echo do_shortcode('[leaflet-map]'); ?>
                             <form method="get" action="<?php echo get_site_url(); ?>/location/">
                                 <input type="hidden" name="locationsearch" value="Y" />
                                 <div class="row">
-                                    <h3>Find places to go</h3>
+                                    <div class="large-12 columns">
+                                        <h2>Find places to go</h2>
+                                    </div>
                                     <div class="large-4 columns">
                                         <label>Start with a ZIP code</label>
                                         <input type="text" pattern=".{5}" required name="user_ZIP" id="user_ZIP" value="<?php echo ( isset ($user_ZIP) ) ? $user_ZIP : ''; ?>" />
@@ -215,6 +217,17 @@ if($locationsearch) {
                             <?php reactor_post_before(); ?>
 
                             <?php get_template_part('post-formats/format', 'location'); ?>
+
+                            <?php 
+                                $latitude = get_post_meta($post->ID, '_location_latitude', true);
+                                $longitude = get_post_meta($post->ID, '_location_longitude', true);
+                                $address = get_post_meta($post->ID, '_location_street_address', true);
+
+                                $medium_img_url = ( has_post_thumbnail() ) ? wp_get_attachment_image_src( get_post_thumbnail_id(), 'medium') : false;
+                                
+                                $img_div = ( $medium_img_url && strlen( $medium_img_url[0]) >= 1) ? '<div class="cat-thumbnail"><div class="cat-imgholder"></div><a href="' . get_the_permalink() . '"><div class="cat-img" style="background-image:url(\\\'' . $medium_img_url[0] . '\\\');"></div></a></div>' : '';
+
+                                echo do_shortcode('[leaflet-marker lat=' . $latitude . ' lng=' . $longitude . ']<h3><a href="' . get_the_permalink() . '">' . get_the_title() . '</a></h3><p>' . $address . '</p>' . $img_div . '[/leaflet-marker]'); ?>
 
                             <?php reactor_post_after(); ?>
 

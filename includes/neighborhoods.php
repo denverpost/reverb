@@ -43,7 +43,7 @@ function tkno_register_neighborhood_taxonomy() {
     );
     register_taxonomy(
         'neighborhood',
-        array('post'),
+        array('post','location'),
         array(
             'label' => __( 'Neighborhood' ),
             'hierarchical' => true,
@@ -195,6 +195,11 @@ function neighborhoods_post_meta_box( $post ) { ?>
         <?php }?>
     </select>
     </p>
+    <p>
+    <label for="_neighborhood_feed"><?php _e( "Feed URL for location news:", '' ); ?></label>
+    <br />
+    <input class="widefat" type="text" name="_neighborhood_feed" id="_neighborhood_feed" value="<?php echo esc_attr( get_post_meta( $post->ID, '_neighborhood_feed', true ) ); ?>" size="30" />
+    </p>
 <?php }
 
 /* Save the neighborhoods meta box's post metadata. */
@@ -221,6 +226,16 @@ function neighborhoods_save_post_meta( $post_id, $post ) {
         update_post_meta( $post_id, $slug_meta_key, $slug_new_meta_value );
     elseif ( '' == $slug_new_meta_value && $slug_meta_value )
         delete_post_meta( $post_id, $slug_meta_key, $slug_meta_value );
+
+    $feed_new_meta_value = ( isset( $_POST['_neighborhood_feed'] ) ) ? esc_url( strip_tags( $_POST['_neighborhood_feed'] ) ) : '';
+    $feed_meta_key = '_neighborhood_feed';
+    $feed_meta_value = get_post_meta( $post_id, $feed_meta_key, true );
+    if ( $feed_new_meta_value && '' == $feed_meta_value )
+        add_post_meta( $post_id, $feed_meta_key, $feed_new_meta_value, true );
+    elseif ( $feed_new_meta_value && $feed_new_meta_value != $feed_meta_value )
+        update_post_meta( $post_id, $feed_meta_key, $feed_new_meta_value );
+    elseif ( '' == $feed_new_meta_value && $feed_meta_value )
+        delete_post_meta( $post_id, $feed_meta_key, $feed_meta_value );
 }
 
 /**

@@ -71,7 +71,7 @@ function location_post_meta_boxes_setup() {
     /* Add meta boxes on the 'add_meta_boxes' hook. */
     add_action( 'add_meta_boxes', 'location_add_post_meta_boxes' );
     /* Save post meta on the 'save_post' hook. */
-    add_action( 'save_post', 'tkno_save_location_meta', 10, 2 );
+    add_action( 'save_post', 'tkno_save_location_meta', 1, 2 );
 }
 
 /* Create one or more meta boxes to be displayed on the post editor screen. */
@@ -92,28 +92,30 @@ function location_post_meta_box() {
     global $post;
     // Noncename needed to verify where the data originated
     echo '<input type="hidden" name="location_meta_nonce" id="location_meta_nonce" value="' .
-    wp_create_nonce( plugin_basename(__FILE__) ) . '" />';
+    wp_create_nonce( basename(__FILE__) ) . '" />';
     // Get the field data if it has already been entered
     $address = get_post_meta($post->ID, '_location_street_address', true);
-
-    $latitude = get_post_meta($post->ID, 'location-latitude', true);
-    $longitude = get_post_meta($post->ID, 'location-longitude', true);
+    $latitude = get_post_meta($post->ID, '_location_latitude', true);
+    $longitude = get_post_meta($post->ID, '_location_longitude', true);
 
     // Echo out the fields
 
-    echo '<p><label>Street address:</label> <input type="text" size="100" name="_location_street_address" value="' . $address  . '" /></p>';
-    echo '<p><label>Latitude (calculated):</label> <input type="text" disabled="disabled" name="location-latitude" value="' . $latitude  .'" />';
-    echo '<label style="margin-left:30px;">Longitude (calculated):</label> <input type="text" disabled="disabled" name="location-longitude" value="' . $longitude  .'" /></p>';
+    echo '<p><label>Street address:</label> <input type="text" size="100" name="_location_street_address" id="_location_street_address" value="' . $address  . '" /></p>';
+    echo '<p><label>Latitude (calculated):</label> <input type="text" disabled="disabled" name="location-latitude" id="location-latitude" value="' . $latitude  .'" />';
+    echo '<label style="margin-left:30px;">Longitude (calculated):</label> <input type="text" disabled="disabled" name="location-longitude" id="location-longitude" value="' . $longitude  .'" /></p>';
 }
 
 // Save the Metabox Data
 function tkno_save_location_meta($post_id, $post) {
     /* Verify the nonce before proceeding. */
-    if ( !isset( $_POST['location_meta_nonce'] ) || !wp_verify_nonce( $_POST['location_meta_nonce'], basename( __FILE__ ) ) )
+   if ( !wp_verify_nonce( $_POST['location_meta_nonce'], basename( __FILE__ ) ) ) {
         return $post_id;
+   }
+
     // Is the user allowed to edit the post or page?
     if ( !current_user_can( 'edit_post', $post->ID ))
-        return $post->ID;
+        return $post_id;
+
     // OK, we're authenticated: we need to find and save the data
     // We'll put it into an array to make it easier to loop though.
     $location_meta['_location_street_address'] = $_POST['_location_street_address'];
@@ -126,26 +128,25 @@ function tkno_save_location_meta($post_id, $post) {
         $latitude = $output->results[0]->geometry->location->lat;
         $longitude = $output->results[0]->geometry->location->lng;
 
-    $location_meta['location-latitude'] = $latitude;
-    $location_meta['location-longitude'] = $longitude;
+    $location_meta['_location_latitude'] = $latitude;
+    $location_meta['_location_longitude'] = $longitude;
 
     // Add values of $location_meta as custom fields
     foreach ($location_meta as $key => $value) { // Cycle through the $location_meta array!
         if( $post->post_type == 'revision' ) return; // Don't store custom data twice
         $value = implode(',', (array)$value); // If $value is an array, make it a CSV (unlikely)
-        if(get_post_meta($post->ID, $key, FALSE)) { // If the custom field already has a value
+        if( get_post_meta( $post->ID, $key, FALSE ) ) { // If the custom field already has a value
             update_post_meta($post->ID, $key, $value);
         } else { // If the custom field doesn't have a value
             add_post_meta($post->ID, $key, $value);
         }
-        if(!$value) delete_post_meta($post->ID, $key); // Delete if blank
+        if( !$value ) delete_post_meta( $post->ID, $key ); // Delete if blank
     }
 
     //Call function to save lat/long to custom table
     save_lat_lng($post->ID, $latitude, $longitude);
 
 }
-add_action('save_post', 'tkno_save_location_meta', 1, 2); // save the custom fields
 /*** END METABOXES ***/
 
 /*** DISPLAY COLUMNS ON MANAGE POSTS PAGE ***/
@@ -156,8 +157,8 @@ add_action( 'manage_location_posts_custom_column' , 'custom_location_column', 10
 function set_custom_edit_location_columns($columns) {
     unset($columns['date']);
     $columns['_location_street_address'] = __( 'Address' );
-    $columns['location-latitude'] = __( 'Latitude' );
-    $columns['location-longitude'] = __( 'Longitude' );
+    $columns['_location_latitude'] = __( 'Latitude' );
+    $columns['_location_longitude'] = __( 'Longitude' );
     return $columns;
 }
 //Show the columns

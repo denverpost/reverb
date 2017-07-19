@@ -29,6 +29,8 @@
 					<?php // get post format and display code for that format
                     if ( !get_post_format() ) : get_template_part('post-formats/format', 'single'); 
 					else : get_template_part('post-formats/format', get_post_format() ); endif; ?>
+
+                    <?php echo get_post_meta($post->ID, '_location_street_address', true); ?>
                     
                     <?php reactor_post_after(); ?>
         
