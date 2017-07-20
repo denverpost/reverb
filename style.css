@@ -1708,6 +1708,25 @@ header h2 a {
 	text-align:center;
 	letter-spacing:.1em;
 }
+h2.no_neighborhood {
+	margin: 2em 0;
+	font-size:1.5em;
+}
+.no_neighborhood_list ul.inline-list li {
+	padding: 0 .5em;
+	font-size:1.3em;
+	margin-right:2em;
+	margin-bottom:1em;
+}
+.no_neighborhood_list ul.inline-list li a {
+	border-bottom:1px dashed rgba(50,50,50,1);
+	color:rgba(50,50,50,1);
+}
+.no_neighborhood_list ul.inline-list li a:hover {
+	color:rgba(0,115,174,0.8);
+	border-bottom:1px dashed rgba(0,115,174,0.8);
+	text-decoration: none;
+}
 .neighborhood_children_list h3 {
 	font-family:'Arvo',Arial,Helvetica,sans-serif;
 	color:#fff;

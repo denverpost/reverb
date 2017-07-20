@@ -9,12 +9,12 @@
 ?>
 
 <?php
-// If there is a neighborhood page already for this neighborhood, let's redirect there instead of this boring listing
+// If there is a venue page already for this venue, let's redirect there instead of this boring listing
 
-$slug = get_term_by( 'name', single_term_title( "", false ), 'neighborhood' )->slug;
-$nei_page = tkno_get_neighborhood_from_slug( $slug );
+$slug = get_term_by( 'name', single_term_title( "", false ), 'venue' )->slug;
+$nei_page = tkno_get_venue_from_slug( $slug );
 
-if ( get_post_type( $nei_page ) == 'neighborhoods' ) {
+if ( get_post_type( $nei_page ) == 'venues' ) {
     $nei_page_url = get_permalink( $nei_page );
     header("HTTP/1.1 301 Moved Permanently"); 
     header("Location: {$nei_page_url}");
@@ -36,20 +36,20 @@ if ( get_post_type( $nei_page ) == 'neighborhoods' ) {
                 <?php reactor_inner_content_before(); ?>
                 
 				<?php if ( have_posts() ) : ?>
-                    <header class="archive-header neighborhood-header">
-                        <h1 <?php post_class('archive-title'); ?>><a href="javascript:void(0);" class="noclick">Stories near <?php echo single_term_title('', false); ?></a></h1>
+                    <header class="archive-header venue-header">
+                        <h1 <?php post_class('archive-title'); ?>><a href="javascript:void(0);" class="noclick">Stories from <?php echo single_term_title('', false); ?></a></h1>
                     </header><!-- .archive-header -->
                 <?php else: // end have_posts() check ?>
-                    <header class="archive-header neighborhood-header">
-                        <h1 <?php post_class('archive-title'); ?>><a href="javascript:void(0);" class="noclick">Stories near <?php echo single_term_title('', false); ?></a></h1>
+                    <header class="archive-header venue-header">
+                        <h1 <?php post_class('archive-title'); ?>><a href="javascript:void(0);" class="noclick">Stories from <?php echo single_term_title('', false); ?></a></h1>
                     </header><!-- .archive-header -->
                         <?php $terms = get_terms( array(
-                            'taxonomy' => 'neighborhood',
+                            'taxonomy' => 'venue',
                             'orderby' => 'count',
                             'order' => 'DESC',
                             'hide_empty' => false,
                         ) ); ?>
-                        <h2 class="no_neighborhood">No stories near here yet! Try one of these nearby neighborhoods?</h2>
+                        <h2 class="no_neighborhood">No stories from there yet! Try one of these other venues?</h2>
                         <div class="no_neighborhood_list">
                             <ul class="inline-list">
                                 <?php foreach ($terms as $term) { ?>
@@ -60,7 +60,7 @@ if ( get_post_type( $nei_page ) == 'neighborhoods' ) {
                 <?php endif; // end have_posts() check ?> 
                 
 				<?php // get the loop
-				get_template_part('loops/loop', 'neighborhood'); ?>
+				get_template_part('loops/loop', 'venue'); ?>
                 
                 <?php reactor_inner_content_after(); ?>
                 

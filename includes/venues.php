@@ -48,7 +48,7 @@ function tkno_register_venue_taxonomy() {
             'hierarchical' => false,
             'labels' => $labels,
             'public' => true,
-            'publicly_queryable' => false,
+            'publicly_queryable' => true,
             'show_ui' => true,
             'show_in_nav_menus' => false,
             'show_tagcloud' => false,

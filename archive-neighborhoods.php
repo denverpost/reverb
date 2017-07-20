@@ -18,11 +18,9 @@
         	<div class="row">
                 <div class="<?php reactor_columns(); ?>">
 
-                <?php $number_posts = 25;
-    
-                    $args = array(
+                <?php $args = array(
                         'post_type' => 'neighborhoods',
-                        'posts_per_page' => $number_posts,
+                        'posts_per_page' => 25,
                         'paged' => get_query_var( 'paged' ),
                         );
                     
