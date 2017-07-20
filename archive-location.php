@@ -194,10 +194,10 @@ if($locationsearch) {
                                         <select name="user_radius" id="user_radius">
                                             <option<?php echo ( $user_radius == 25000 ) ? ' selected="selected"' : ''; ?> value="25000">Any</option>
                                             <option<?php echo ( $user_radius == 5 ) ? ' selected="selected"' : ''; ?> value="5">5 miles</option>
-                                            <option<?php echo ( get_query_var( 'user_radius' ) == 10 || ! get_query_var( 'user_radius' ) ) ? ' selected="selected"' : ''; ?> value="10">10 miles</option>
-                                            <option<?php echo ( get_query_var( 'user_radius' ) == 20 ) ? ' selected="selected"' : ''; ?> value="20">20 miles</option>
-                                            <option<?php echo ( get_query_var( 'user_radius' ) == 50 ) ? ' selected="selected"' : ''; ?> value="50">50 miles</option>
-                                            <option<?php echo ( get_query_var( 'user_radius' ) == 100 ) ? ' selected="selected"' : ''; ?> value="100">100 miles</option>
+                                            <option<?php echo ( $user_radius == 10 || ! $user_radius ) ? ' selected="selected"' : ''; ?> value="10">10 miles</option>
+                                            <option<?php echo ( $user_radius == 20 ) ? ' selected="selected"' : ''; ?> value="20">20 miles</option>
+                                            <option<?php echo ( $user_radius == 50 ) ? ' selected="selected"' : ''; ?> value="50">50 miles</option>
+                                            <option<?php echo ( $user_radius == 100 ) ? ' selected="selected"' : ''; ?> value="100">100 miles</option>
                                         </select>
                                     </div>
                                     <div class="large-4 columns">
