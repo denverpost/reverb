@@ -96,11 +96,11 @@ add_action('reactor_post_frontpage', 'reactor_post_frontpage_format', 1);
  */
 function reactor_post_catpage_format() {
 	if ( has_post_thumbnail() ) {
-		$large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'large');
+		$medium_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'medium');
 	} ?>
-	<?php if (isset($large_image_url) && strlen($large_image_url[0]) >= 1) { ?>
+	<?php if (isset($medium_image_url) && strlen($medium_image_url[0]) >= 1) { ?>
 	<div class="catpage-post has-image">
-		<div class="catpage-image" style="background-image:url('<?php echo $large_image_url[0]; ?>');">
+		<div class="catpage-image" style="background-image:url('<?php echo $medium_image_url[0]; ?>');">
 			<div class="catimgspace"></div>
 		</div>
 	<?php } else { ?>
@@ -125,8 +125,18 @@ add_action('reactor_post_catpage', 'reactor_post_catpage_format', 1);
  * 
  * @since 1.0.0
  */
-function reactor_post_location_format() { ?>
+function reactor_post_location_format() {
+	if ( has_post_thumbnail() ) {
+		$medium_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'medium');
+	} ?>
+	<?php if (isset($medium_image_url) && strlen($medium_image_url[0]) >= 1) { ?>
+	<div class="catpage-post has-image">
+		<div class="catpage-image" style="background-image:url('<?php echo $medium_image_url[0]; ?>');">
+			<div class="catimgspace location_space"></div>
+		</div>
+	<?php } else { ?>
 	<div class="catpage-post">
+	<?php } ?>
 		<div class="catpage-post-inner">
 			<a href="<?php the_permalink(); ?>" rel="bookmark">
 				<h2 class="entry-title"><?php the_title(); ?></h2>

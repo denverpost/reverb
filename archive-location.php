@@ -211,6 +211,12 @@ if($locationsearch) {
                     <?php if ( $wp_query->have_posts() ) : ?>
 
                         <?php reactor_loop_before(); ?>
+
+                        <?php if ( isset( $user_radius ) || isset( $user_ZIP ) ) { ?>
+                            <h4 class="location-archive">Search results...</h4>
+                        <?php } else { ?>
+                            <h4 class="location-archive">Recently added locations:</h4>
+                        <?php } ?>
                         
                         <?php while ( $wp_query->have_posts() ) : $wp_query->the_post(); ?>
                             

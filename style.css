@@ -24,6 +24,10 @@ body.f-topbar-fixed {
 div#content {
 	padding-top:1.5em;
 }
+.row form .row {
+	margin-left:0;
+	margin-right:0;
+}
 .columns {
 	padding-left:.65rem;
 	padding-right:.65rem;
@@ -1009,6 +1013,13 @@ h1.archive-title,
 h2.archive-title {
 	margin:0 0 1em;
 }
+h4.location-archive {
+	font-size:1.5em;
+    border-top:6px solid #ddd;
+    border-bottom:1px solid #ddd;
+    margin:.75em 0 1.5em;
+    padding:.75em 0;
+}
 .neighborhood-related h2.archive-title {
 	margin-bottom:2em;
 }
@@ -1079,6 +1090,9 @@ h2.archive-title a:hover {
 	width:100%;
 	height: 0;
 	padding-bottom:100%;
+}
+.catimgspace.location_space {
+	padding-bottom:50%;
 }
 body:not(.home) .entry-body h2.entry-title,
 body.date header h2 a {

@@ -71,7 +71,7 @@ function location_post_meta_boxes_setup() {
     /* Add meta boxes on the 'add_meta_boxes' hook. */
     add_action( 'add_meta_boxes', 'location_add_post_meta_boxes' );
     /* Save post meta on the 'save_post' hook. */
-    add_action( 'save_post', 'tkno_save_location_meta', 1, 2 );
+    add_action( 'save_post', 'tkno_save_location_meta', 10, 2 );
 }
 
 /* Create one or more meta boxes to be displayed on the post editor screen. */
@@ -108,7 +108,7 @@ function location_post_meta_box() {
 // Save the Metabox Data
 function tkno_save_location_meta($post_id, $post) {
     /* Verify the nonce before proceeding. */
-   if ( !wp_verify_nonce( $_POST['location_meta_nonce'], basename( __FILE__ ) ) ) {
+   if ( !isset( $_POST['location_meta_nonce']) || !wp_verify_nonce( $_POST['location_meta_nonce'], basename( __FILE__ ) ) ) {
         return $post_id;
    }
 
