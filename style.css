@@ -1700,6 +1700,37 @@ h4.widget-title {
 #sidebar-followus ul li:nth-last-child(2) {
 	margin-right:0;
 }
+/* map related */
+.neighborhood-map-widget-wrapper {
+	margin: 0;
+    padding: 1em;
+    border: 1px solid #ddd;
+}
+.neighborhood-map-widget {
+	width:100%;
+	position:relative;
+}
+.neighborhood-map-widget .map-expander {
+	width:100%;
+	padding-bottom:100%;
+}
+.neighborhood-map-form {
+	margin-bottom:1em;
+	width:100%;
+	position:relative;
+}
+.neighborhood-map-form .map-expander {
+	width:100%;
+	padding-bottom: 60%
+}
+.leaflet-wordpress-map {
+	height: 100%;
+    width: 100%;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
 /* category-based colors */
 #frontpagemain article span {
 	display: block;

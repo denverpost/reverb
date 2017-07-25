@@ -34,95 +34,6 @@ if ( $locationsearch ) {
     }
 }
 
-
-//Generate table from database
-
-/*
-//Begin building results table
-$form .= '<table><thead>
-<tr><th>Name</th><th>Address</th><th>City</th><th>State</th>';
-
-if($user_ZIP) {$form .= '<th>Miles</th>';}
-$form .= '</tr></thead><tbody>';
-
-global $post;
-while ($custom_posts->have_posts()) : $custom_posts->the_post();
-    $title = get_the_title();
-    $street = get_post_meta($post->ID, 'location-street-address', true);
-    $city = get_post_meta($post->ID, 'location-city', true);
-    $state = get_post_meta($post->ID, 'location-state', true);
-
-    //If street address exists, make it a link to Google Maps
-    if($street) {
-        $streetplain = $street;
-        $mapquery = str_replace(' ','+',$titletext).'+';
-        $mapquery = str_replace('UCC','',$mapquery);
-        $mapquery .= str_replace(' ','+',$street).'+';
-        $mapquery .= str_replace('','+',$city).'+'.$state;
-        $street = '<a target="_blank" href="https://www.google.com/maps/search/'.$mapquery.'/">'.$street.'</a>';      
-    }
-
-    $form .= '<tr><td>'.$title.'</td><td>'.$street.'</td><td>'.$city.'</td><td>'.$state.'</td>';
-
-    if($locationsearch) {
-        //Get location of location
-        $latitude = get_post_meta($post->ID, '_location_latitude', true);
-        $longitude = get_post_meta($post->ID, '_location_longitude', true);
-
-        //Add location to the Map array
-        $locations .= "['<div style=\"line-height:1.35; overflow:hidden; white-space:nowrap;\"><p>$title<br/>$streetplain<br/>$city, $state</p></div>',$latitude,$longitude],";
-
-        if($user_ZIP) {
-            //Calculate distance from user ZIP
-            $distance = number_format(round(distance($lat,$lng,$latitude,$longitude),1),1);
-            $form .= "<td>$distance</td>";    
-        }
-    }
-
-    $form .= '</tr>';
-
-endwhile;
-wp_reset_postdata();
-
-$form .= '</tbody></table>';
-
-if($locationsearch) {
-    //If no user location provided, use center of Minnesota to center map
-    if(!$user_ZIP) {
-        $lat = '45.7326';
-        $lng = '-93.9196';
-    }
-    //Add Google Map init script
-    $form .= "  <script type='text/javascript'>
-        var locations = [$locations];
-
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 10,
-          center: new google.maps.LatLng($lat, $lng),
-          mapTypeId: google.maps.MapTypeId.ROADMAP
-        });
-
-        var infowindow = new google.maps.InfoWindow();
-
-        var marker, i;
-        var bounds = new google.maps.LatLngBounds();
-        for (i = 0; i < locations.length; i++) {  
-          marker = new google.maps.Marker({
-            position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-            map: map
-          });
-          bounds.extend(marker.position);
-
-          google.maps.event.addListener(marker, 'click', (function(marker, i) {
-            return function() {
-              infowindow.setContent(locations[i][0]);
-              infowindow.open(map, marker);
-            }
-          })(marker, i));
-        }
-        map.fitBounds(bounds);
-      </script>";
-} */
 ?>
 
 <?php get_header(); ?>
@@ -178,7 +89,10 @@ if($locationsearch) {
 
                         <div class="location-search">
                             <!-- <script src="http://maps.google.com/maps/api/js?key=AIzaSyA1Eh51J16b3NHRslNzCTu1BCm44lICAl8 &sensor=false"></script> -->
-                            <?php echo do_shortcode('[leaflet-map fitbounds=1]'); ?>
+                            <div class="neighborhood-map-form">
+                                <div class="map-expander"></div>
+                                <?php echo do_shortcode('[leaflet-map]'); ?>
+                            </div>
                             <form method="get" action="<?php echo get_site_url(); ?>/location/">
                                 <input type="hidden" name="locationsearch" value="Y" />
                                 <div class="row">

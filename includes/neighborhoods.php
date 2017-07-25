@@ -433,3 +433,47 @@ class neighborhood_listings_widget extends WP_Widget
 }
 function register_neighborhood_listings_widget() { register_widget('neighborhood_listings_widget'); }
 add_action( 'widgets_init', 'register_neighborhood_listings_widget' );
+
+/**
+ *
+ * Let's make a widget that can display a GeoJSON file for a given
+ * neighborhood, if it exists, and if the Leaflet Map plugin exists.
+ *
+**/
+
+
+class neighborhood_map_widget extends WP_Widget
+{
+    public function __construct()
+    {
+            parent::__construct(
+                'neighborhood_map_widget',
+                __('Neighborhood map widget', 'neighborhood_map_widget'),
+                array('description' => __('Displays a boundary map widget in the sidebar (only works on Neighborhood pages).', 'neighborhood_map_widget'), )
+            );
+    }
+
+    public function widget($args, $instance)
+    {
+        if ( class_exists( 'Leaflet_Map_Plugin' ) && ( is_post_type_archive( 'neighborhoods' ) || ( is_single() && get_post_type() == 'neighborhoods' ) ) ) {
+
+            global $post;
+            $neighborhood_slug = get_post_meta( $post->ID, '_neighborhood_slug', true );
+            $map_shape_file = get_stylesheet_directory() . '/geojson/' . $neighborhood_slug . '.json';
+            $map_shape_file_url = get_stylesheet_directory_uri() . '/geojson/' . $neighborhood_slug . '.json';
+            if ( file_exists( $map_shape_file ) ) {
+                echo $args['before_widget']; ?>
+                <div class="neighborhood-map-widget-wrapper">
+                    <div class="neighborhood-map-widget">
+                        <div class="map-expander"></div>
+                        <?php echo do_shortcode('[leaflet-map]'); ?>
+                        <?php echo do_shortcode('[leaflet-geojson src="' . $map_shape_file_url . '" fitbounds=1] '); ?>
+                    </div>
+                </div>
+            <?php echo $args['after_widget'];
+            }
+        }
+    }
+}
+function register_neighborhood_map_widget() { register_widget('neighborhood_map_widget'); }
+add_action( 'widgets_init', 'register_neighborhood_map_widget' );
