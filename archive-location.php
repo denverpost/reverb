@@ -10,7 +10,7 @@
 
 //Check if this is a search-form submission
 $locationsearch = ( isset( $_GET[ 'locationsearch' ] ) && $_GET[ 'locationsearch' ] == 'Y' ) ? true : false;
-
+$user_radius =  false;
 //If it is a search, grab the form variables
 if ( $locationsearch ) {
     $user_ZIP = $_GET[ 'user_ZIP' ];
@@ -178,7 +178,7 @@ if($locationsearch) {
 
                         <div class="location-search">
                             <!-- <script src="http://maps.google.com/maps/api/js?key=AIzaSyA1Eh51J16b3NHRslNzCTu1BCm44lICAl8 &sensor=false"></script> -->
-                            <?php echo do_shortcode('[leaflet-map]'); ?>
+                            <?php echo do_shortcode('[leaflet-map fitbounds=1]'); ?>
                             <form method="get" action="<?php echo get_site_url(); ?>/location/">
                                 <input type="hidden" name="locationsearch" value="Y" />
                                 <div class="row">
@@ -218,7 +218,8 @@ if($locationsearch) {
                             <h4 class="location-archive">Recently added locations:</h4>
                         <?php } ?>
                         
-                        <?php while ( $wp_query->have_posts() ) : $wp_query->the_post(); ?>
+                        <?php $address_list = array();
+                        while ( $wp_query->have_posts() ) : $wp_query->the_post(); ?>
                             
                             <?php reactor_post_before(); ?>
 
@@ -228,7 +229,8 @@ if($locationsearch) {
                                 $latitude = get_post_meta($post->ID, '_location_latitude', true);
                                 $longitude = get_post_meta($post->ID, '_location_longitude', true);
                                 $address = get_post_meta($post->ID, '_location_street_address', true);
-
+                                $address_list[] = $address;
+                                
                                 $medium_img_url = ( has_post_thumbnail() ) ? wp_get_attachment_image_src( get_post_thumbnail_id(), 'medium') : false;
                                 
                                 $img_div = ( $medium_img_url && strlen( $medium_img_url[0]) >= 1) ? '<div class="cat-thumbnail"><div class="cat-imgholder"></div><a href="' . get_the_permalink() . '"><div class="cat-img" style="background-image:url(\\\'' . $medium_img_url[0] . '\\\');"></div></a></div>' : '';
@@ -237,7 +239,10 @@ if($locationsearch) {
 
                             <?php reactor_post_after(); ?>
 
-                        <?php endwhile; // end of the post loop ?>
+                        <?php endwhile; // end of the post loop 
+                        $addresses = implode( ';', $address_list );
+                        echo do_shortcode( '[leaflet-line addresses="' . $addresses . '" fitbounds=true stroke=false]' );
+                        ?>
 
                     <?php elseif ( $locationsearch ): ?>
 

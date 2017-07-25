@@ -128,7 +128,10 @@ add_action('reactor_post_catpage', 'reactor_post_catpage_format', 1);
 function reactor_post_location_format() {
 	if ( has_post_thumbnail() ) {
 		$medium_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'medium');
-	} ?>
+	}
+	global $post;
+	$address = get_post_meta($post->ID, '_location_street_address', true);
+	?>
 	<?php if (isset($medium_image_url) && strlen($medium_image_url[0]) >= 1) { ?>
 	<div class="catpage-post has-image">
 		<div class="catpage-image" style="background-image:url('<?php echo $medium_image_url[0]; ?>');">
@@ -141,6 +144,7 @@ function reactor_post_location_format() {
 			<a href="<?php the_permalink(); ?>" rel="bookmark">
 				<h2 class="entry-title"><?php the_title(); ?></h2>
 			</a>
+			<h4><?php echo $address; ?></h4>
 			<?php 
 			reactor_post_meta( array( 'show_cat' => false, 'show_tag' => false, 'location' => true, 'show_date' => true, 'link_date' => false ) ); ?>
 		</div>
