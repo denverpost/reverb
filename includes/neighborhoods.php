@@ -63,6 +63,68 @@ function tkno_register_neighborhood_taxonomy() {
 }
 add_action( 'init', 'tkno_register_neighborhood_taxonomy' );
 
+/** 
+ * Adds a imagepath field to our taxonomy in create mode
+ * 
+ * @author Hendrik Schuster <contact@deviantdev.com>
+ * @param int $term the concrete term
+ */
+function add_neighborhood_fields_oncreate( $term ){
+    
+    echo '<div class="form-field term-pretty-name-wrap">';
+    echo '<label for="pretty_name_field">Pretty name</label>';
+    echo '<input id="pretty_name_field" value="" size="40" type="text" name="pretty_name_field"/>';
+    echo '<p class="description">Used to power listings widget.</p>';
+    echo '</div>';
+}
+
+/** 
+ * Adds a custom field to our taxonomy in edit mode
+ * Gets the current value from the database and renders the output
+ * 
+ * @since 1.0
+ * @author Hendrik Schuster <contact@deviantdev.com>
+ * @param int $term the concrete term
+ */
+function add_neighborhood_field_onedit( $term ){
+    $termID = $term->term_id;
+    $termMeta = get_option( "neighborhood_$termID" );    
+    $pretty_name_field = $termMeta['pretty_name_field'];
+    
+    echo '<tr class="form-field form-required term-name-wrap">';
+    echo '<th scope="row"><label for="pretty_name_field">Pretty name</label></th>';
+    echo '<td><input id="pretty_name_field" value="' . $pretty_name_field . '" size="40" type="text" name="pretty_name_field" />';
+    echo '<p class="description">Custom description.</p>';
+    echo '</tr>';
+}
+add_action( 'neighborhood_add_form_fields', 'add_neighborhood_fields_oncreate' );
+add_action( 'neighborhood_edit_form_fields', 'add_neighborhood_field_onedit' );
+
+/** 
+ * Does the saving for our extra image property field
+ * Takes the options array from the database and alters the pretty_name_field value
+ * 
+ * @since 1.0
+ * @author Hendrik Schuster <contact@deviantdev.com>
+ * @param int $termID ID of the term we are saving 
+ */
+function save_custom_neighborhood_fields( $termID ){
+
+    if ( isset( $_POST['pretty_name_field'] ) ) {
+        
+        // get options from database - if not a array create a new one
+        $termMeta = get_option( "neighborhood_$termID" );
+        if ( !is_array( $termMeta ))
+            $termMeta = array();
+        
+        // get value and save it into the database - maybe you have to sanitize your values (urls, etc...)
+        $termMeta['pretty_name_field'] = isset( $_POST['pretty_name_field'] ) ? $_POST['pretty_name_field'] : '';
+        update_option( "neighborhood_$termID", $termMeta );
+    }
+}
+add_action( 'create_neighborhood', 'save_custom_neighborhood_fields' );
+add_action( 'edited_neighborhood', 'save_custom_neighborhood_fields' );
+
 /**
  * Add a Neighborhood Page post type to tie in to the taxonomy
  */
@@ -252,27 +314,27 @@ class neighborhood_related_widget extends WP_Widget {
     }
 
     public function form( $instance ) {
-        $defaults = array( 'neighorhood_category' => __( '' ), 'neighorhood_tag' => __( '' ), 'neighorhood_posts' => __( '3' ) );
+        $defaults = array( 'neighborhood_category' => __( '' ), 'neighborhood_tag' => __( '' ), 'neighborhood_posts' => __( '3' ) );
         $instance = wp_parse_args( ( array ) $instance, $defaults ); ?>
         <p>
-        <label for="<?php echo $this->get_field_id( 'neighorhood_posts' ); ?>"><?php _e( 'Number of posts to display:' ); ?></label> 
-        <input class="widefat" id="<?php echo $this->get_field_id( 'neighorhood_posts' ); ?>" name="<?php echo $this->get_field_name( 'neighorhood_posts' ); ?>" type="text" value="<?php echo $instance[ 'neighorhood_posts' ]; ?>" />
+        <label for="<?php echo $this->get_field_id( 'neighborhood_posts' ); ?>"><?php _e( 'Number of posts to display:' ); ?></label> 
+        <input class="widefat" id="<?php echo $this->get_field_id( 'neighborhood_posts' ); ?>" name="<?php echo $this->get_field_name( 'neighborhood_posts' ); ?>" type="text" value="<?php echo $instance[ 'neighborhood_posts' ]; ?>" />
         </p>
         <p>
-        <label for="<?php echo $this->get_field_id( 'neighorhood_category' ); ?>"><?php _e( 'Category for related articles (falls back to parent if no posts found in a child category):' ); ?></label> 
-        <select id="<?php echo $this->get_field_id( 'neighorhood_category' ); ?>" name="<?php echo $this->get_field_name( 'neighorhood_category' ); ?>" class="widefat" style="width:100%;">
-        <option <?php echo ( $instance[ 'neighorhood_category' ] == '' ) ? 'selected="selected" ' : ''; ?> value="">&nbsp;</option>
+        <label for="<?php echo $this->get_field_id( 'neighborhood_category' ); ?>"><?php _e( 'Category for related articles (falls back to parent if no posts found in a child category):' ); ?></label> 
+        <select id="<?php echo $this->get_field_id( 'neighborhood_category' ); ?>" name="<?php echo $this->get_field_name( 'neighborhood_category' ); ?>" class="widefat" style="width:100%;">
+        <option <?php echo ( $instance[ 'neighborhood_category' ] == '' ) ? 'selected="selected" ' : ''; ?> value="">&nbsp;</option>
             <?php foreach( get_terms( 'category' ) as $term) { ?>
-            <option <?php selected( $instance[ 'neighorhood_category' ], $term->term_id ); ?> value="<?php echo $term->term_id; ?>"><?php echo $term->name; ?></option>
+            <option <?php selected( $instance[ 'neighborhood_category' ], $term->term_id ); ?> value="<?php echo $term->term_id; ?>"><?php echo $term->name; ?></option>
             <?php } ?>      
         </select>
         </p>
         <p>
-        <label for="<?php echo $this->get_field_id( 'neighorhood_tag' ); ?>"><?php _e( 'Or tag (overrides category, if set):' ); ?></label> 
-        <select id="<?php echo $this->get_field_id( 'neighorhood_tag' ); ?>" name="<?php echo $this->get_field_name( 'neighorhood_tag' ); ?>" class="widefat" style="width:100%;">
-            <option <?php echo ( $instance[ 'neighorhood_tag' ] == '' ) ? 'selected="selected" ' : ''; ?> value="">&nbsp;</option>
+        <label for="<?php echo $this->get_field_id( 'neighborhood_tag' ); ?>"><?php _e( 'Or tag (overrides category, if set):' ); ?></label> 
+        <select id="<?php echo $this->get_field_id( 'neighborhood_tag' ); ?>" name="<?php echo $this->get_field_name( 'neighborhood_tag' ); ?>" class="widefat" style="width:100%;">
+            <option <?php echo ( $instance[ 'neighborhood_tag' ] == '' ) ? 'selected="selected" ' : ''; ?> value="">&nbsp;</option>
             <?php foreach( get_terms( 'post_tag' ) as $term) { ?>
-            <option <?php selected( $instance[ 'neighorhood_tag' ], $term->term_id ); ?> value="<?php echo $term->term_id; ?>"><?php echo $term->name; ?></option>
+            <option <?php selected( $instance[ 'neighborhood_tag' ], $term->term_id ); ?> value="<?php echo $term->term_id; ?>"><?php echo $term->name; ?></option>
             <?php } ?>      
         </select>
         </p>
@@ -281,9 +343,9 @@ class neighborhood_related_widget extends WP_Widget {
 
     public function update( $new_instance, $old_instance ) {
         $instance = $old_instance;
-        $instance[ 'neighorhood_category' ] = ( ! empty( $new_instance[ 'neighorhood_category' ] ) ) ? trim( strip_tags( $new_instance[ 'neighorhood_category' ] ) ) : '';
-        $instance[ 'neighorhood_tag' ] = ( ! empty( $new_instance[ 'neighorhood_tag' ] ) ) ? trim( strip_tags( $new_instance[ 'neighorhood_tag' ] ) ) : '';
-        $instance[ 'neighorhood_posts' ] = ( ! empty( $new_instance[ 'neighorhood_posts' ] ) ) ? (int)trim( strip_tags( $new_instance[ 'neighorhood_posts' ] ) ) : 3;
+        $instance[ 'neighborhood_category' ] = ( ! empty( $new_instance[ 'neighborhood_category' ] ) ) ? trim( strip_tags( $new_instance[ 'neighborhood_category' ] ) ) : '';
+        $instance[ 'neighborhood_tag' ] = ( ! empty( $new_instance[ 'neighborhood_tag' ] ) ) ? trim( strip_tags( $new_instance[ 'neighborhood_tag' ] ) ) : '';
+        $instance[ 'neighborhood_posts' ] = ( ! empty( $new_instance[ 'neighborhood_posts' ] ) ) ? (int)trim( strip_tags( $new_instance[ 'neighborhood_posts' ] ) ) : 3;
         return $instance;
     }
 
@@ -323,9 +385,9 @@ class neighborhood_related_widget extends WP_Widget {
         global $post;
         $nei_slug = get_post_meta( $post->ID, '_neighborhood_slug', true );
         $neighborhood = get_term_by( 'slug', $nei_slug, 'neighborhood' );
-        $posts_numb = ( $instance[ 'neighorhood_posts' ] != '' ) ? $instance[ 'neighorhood_posts' ] : 3;
-        $nei_cat = ( $instance[ 'neighorhood_category' ] != '' ) ? $instance[ 'neighorhood_category' ] : false;
-        $nei_tag = ( $instance[ 'neighorhood_tag' ] != '' ) ? $instance[ 'neighorhood_tag' ] : false;
+        $posts_numb = ( $instance[ 'neighborhood_posts' ] != '' ) ? $instance[ 'neighborhood_posts' ] : 3;
+        $nei_cat = ( $instance[ 'neighborhood_category' ] != '' ) ? $instance[ 'neighborhood_category' ] : false;
+        $nei_tag = ( $instance[ 'neighborhood_tag' ] != '' ) ? $instance[ 'neighborhood_tag' ] : false;
         if ( term_exists( $nei_slug, 'neighborhood' ) ) {
             $cat = ( $nei_cat != false ) ? get_term_by( 'id', $nei_cat, 'category' ) : false;
             $tag = ( $nei_tag != false ) ? get_term_by( 'id', $nei_tag, 'post_tag' ) : false;
@@ -382,6 +444,55 @@ function get_term_topmost_parent( $term_id, $taxonomy ){
     return $parent;
 }
 
+class neighborhood_walkscore_widget extends WP_Widget
+{
+    public function __construct()
+    {
+            parent::__construct(
+                'neighborhood_walkscore_widget',
+                __('Real Estate Walkscore widget', 'neighborhood_walkscore_widget'),
+                array('description' => __('Displays a Walkscore widget in the lower sidebar (only works on Neighborhood pages).', 'neighborhood_walkscore_widget'), )
+            );
+    }
+
+    public function widget($args, $instance)
+    {
+        if ( is_post_type_archive( 'neighborhoods' ) || ( is_single() && get_post_type() == 'neighborhoods' ) ) {
+            // It's a listing search and display widget
+            global $post;
+            $locality = $neighborhood = '';
+            $neighborhood_slug = get_post_meta( $post->ID, '_neighborhood_slug', true );
+            $neighborhood_child = get_term_by( 'slug', $neighborhood_slug, 'neighborhood' );
+            $neighborhood_parent = get_term_topmost_parent( $neighborhood_child->term_id, $neighborhood_child->taxonomy );
+            if ( $neighborhood_child->slug == $neighborhood_parent->slug ) {
+                $locality = $neighborhood_child->name;
+            } else {
+                $locality = $neighborhood_parent->name;
+                $neighborhood = $neighborhood_child->name;
+                $neighborhood_meta = get_option( "neighborhood_$neighborhood_child->term_id" );
+                $neighborhood_pretty = $neighborhood_meta[ 'pretty_name_field' ];
+                $neighborhood = ( isset( $neighborhood_pretty ) ) ? $neighborhood_pretty : $neighborhood;
+            }
+            echo $args['before_widget']; ?>
+            <div class="neighborhood-map-widget-wrapper">
+                <script type='text/javascript'>
+                    var ws_wsid = 'gb3da441cec0347ccbb53ba059a320338';
+                    var ws_address = '<?php echo $neighborhood; ?>, <?php echo $locality; ?>, CO';
+                    var ws_format = 'square';
+                    var ws_width = '100%';
+                    var ws_height = '400';
+                    </script>
+                <style type='text/css'>#ws-walkscore-tile{position:relative;text-align:left}#ws-walkscore-tile *{float:none;}</style>
+                <div id='ws-walkscore-tile'></div>
+                <script src='http://www.walkscore.com/tile/show-walkscore-tile.php'></script>
+            </div>
+            <?php echo $args['after_widget'];
+        }
+    }
+}
+function register_neighborhood_walkscore_widget() { register_widget('neighborhood_walkscore_widget'); }
+add_action( 'widgets_init', 'register_neighborhood_walkscore_widget' );
+
 class neighborhood_listings_widget extends WP_Widget
 {
     public function __construct()
@@ -407,6 +518,9 @@ class neighborhood_listings_widget extends WP_Widget
             } else {
                 $locality = $neighborhood_parent->name;
                 $neighborhood = $neighborhood_child->name;
+                $neighborhood_meta = get_option( "neighborhood_$neighborhood_child->term_id" );
+                $neighborhood_pretty = $neighborhood_meta[ 'pretty_name_field' ];
+                $neighborhood = ( isset( $neighborhood_pretty ) ) ? $neighborhood_pretty : $neighborhood;
             }
             echo '
                 <script>
@@ -434,13 +548,13 @@ class neighborhood_listings_widget extends WP_Widget
 function register_neighborhood_listings_widget() { register_widget('neighborhood_listings_widget'); }
 add_action( 'widgets_init', 'register_neighborhood_listings_widget' );
 
+
 /**
  *
  * Let's make a widget that can display a GeoJSON file for a given
  * neighborhood, if it exists, and if the Leaflet Map plugin exists.
  *
 **/
-
 
 class neighborhood_map_widget extends WP_Widget
 {
@@ -477,3 +591,31 @@ class neighborhood_map_widget extends WP_Widget
 }
 function register_neighborhood_map_widget() { register_widget('neighborhood_map_widget'); }
 add_action( 'widgets_init', 'register_neighborhood_map_widget' );
+
+/**
+ *
+ * Let's make a widget that can display a neighborhood Great Schools widget embed
+ *
+**/
+class neighborhood_schools_widget extends WP_Widget
+{
+    public function __construct()
+    {
+            parent::__construct(
+                'neighborhood_schools_widget',
+                __('Neighborhood schools widget', 'neighborhood_schools_widget'),
+                array('description' => __('Displays a boundary map widget in the sidebar (only works on Neighborhood pages).', 'neighborhood_schools_widget'), )
+            );
+    }
+
+    public function widget($args, $instance)
+    {
+        echo $args['before_widget']; ?>
+        <div class="neighborhood-map-widget-wrapper">
+            <iframe className="greatschools" src="//www.greatschools.org/widget/map?searchQuery=&textColor=0066B8&borderColor=CCCCCC&cityName=Denver&state=CO&normalizedAddress=Denver%2C%20CO&height=320&width=320&zoom=12" width="100%" height="320" marginHeight="0" marginWidth="0" frameBorder="0" scrolling="no"></iframe><script type="text/javascript">var _gsreq = new XMLHttpRequest();var _gsid = new Date().getTime();_gsreq.open("GET", "https://www.google-analytics.com/collect?v=1&tid=UA-54676320-1&cid="+_gsid+"&t=event&ec=widget&ea=loaded&el="+window.location.hostname+"&cs=widget&cm=web&cn=widget&cm1=1&ni=1");_gsreq.send();</script>
+        </div>
+        <?php echo $args['after_widget'];
+    }
+}
+function register_neighborhood_schools_widget() { register_widget('neighborhood_schools_widget'); }
+add_action( 'widgets_init', 'register_neighborhood_schools_widget' );

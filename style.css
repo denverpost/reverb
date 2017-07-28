@@ -1700,7 +1700,7 @@ h4.widget-title {
 #sidebar-followus ul li:nth-last-child(2) {
 	margin-right:0;
 }
-/* map related */
+/* map and vendor-widget related */
 .neighborhood-map-widget-wrapper {
 	margin: 0;
     padding: 1em;
@@ -1723,6 +1723,7 @@ h4.widget-title {
 	width:100%;
 	padding-bottom: 60%
 }
+iframe.greatschools,
 .leaflet-wordpress-map {
 	height: 100%;
     width: 100%;
