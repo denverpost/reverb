@@ -202,6 +202,16 @@ function reactor_post_location() {
 }
 
 /**
+ * Register hook: reactor_post_neighborhoods
+ *
+ * 
+ * @since 1.0.0
+ */
+function reactor_post_neighborhoods() {
+	do_action('reactor_post_neighborhoods');
+}
+
+/**
  * Register hook: reactor_post_footer
  *
  * 

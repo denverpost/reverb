@@ -74,8 +74,8 @@ function reactor_post_frontpage_format() {
 	if ( has_post_thumbnail() ) {
 		$large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'large' );
 	}
-	if ( isset( $large_image_url ) && strlen( $large_image_url[0] ) >= 1 ) {
-		?><div class="frontpage-image frontpage-post" style="background-image:url('<?php echo $large_image_url[0]; ?>');">
+	if ( isset( $large_image_url ) && strlen( $large_image_url[0] ) >= 1 ) { ?>
+		<div class="frontpage-image frontpage-post" style="background-image:url('<?php echo $large_image_url[0]; ?>');">
 			<div class="front-imgholder"></div>
 			<a href="<?php the_permalink(); ?>" rel="bookmark"></a>
 		</div>
@@ -85,7 +85,8 @@ function reactor_post_frontpage_format() {
 		</span>
 		<h2 class="entry-title">
 			<a href="<?php the_permalink(); ?>" rel="bookmark""><?php the_title(); ?></a>
-		</h2> <?php }
+		</h2>
+<?php }
 add_action('reactor_post_frontpage', 'reactor_post_frontpage_format', 1);
 
 /**
@@ -152,6 +153,27 @@ function reactor_post_location_format() {
 	</div>
 <?php }
 add_action('reactor_post_location', 'reactor_post_location_format', 1);
+
+/**
+ * Neighborhoods page listing format
+ * in format-neighborhoods
+ * 
+ * @since 1.0.0
+ */
+function reactor_post_neighborhoods_format() {
+	if ( has_post_thumbnail() ) {
+		$medium_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'medium' );
+	}
+	$bg_image_url = ( isset( $medium_image_url ) && strlen( $medium_image_url[0] ) >= 1 ) ? $medium_image_url[0] : false; ?>
+	<div class="frontpage-image neighborhood_page-post"<?php echo ( $bg_image_url ) ? 'style="background-image:url(' . $bg_image_url . ');"' : ''; ?>>
+		<div class="front-imgholder"></div>
+		<a href="<?php the_permalink(); ?>" rel="bookmark"></a>
+	</div>
+	<h2 class="entry-title neighborhood_page-title">
+		<a href="<?php the_permalink(); ?>" rel="bookmark""><?php the_title(); ?></a>
+	</h2>
+<?php }
+add_action('reactor_post_neighborhoods', 'reactor_post_neighborhoods_format', 1);
 
 /**
  * Post header
@@ -489,20 +511,34 @@ function tkno_single_neighborhood_children() {
 			$child = get_term_by( 'id', $child_id, 'neighborhood' );
 			$child_page = tkno_get_neighborhood_from_slug( $child->slug );
 			if ( $child_page != false && $child_page->ID ) {
+				$child_image_url = false;
+				if ( has_post_thumbnail( $child_page->ID ) ) {
+					$child_image = wp_get_attachment_image_src( get_post_thumbnail_id(), 'medium' );
+					$child_image_url = ( isset( $child_image ) && strlen( $child_image[0] ) >= 1 ) ? $child_image[0] : false;
+				}
 				$list_neighborhoods[] = array(
 					'url' => get_post_permalink( $child_page->ID ),
-					'name' => $child->name
+					'name' => $child->name,
+					'thumb' => ( $child_image_url ? $child_image_url : '' )
 				);
 			}
 		}
 		if ( count( $list_neighborhoods ) > 0 ) { ?>
 			<div class="neighborhood_children_list">
 				<h3><span>Neighborhoods within <?php echo $neighborhood_obj->name; ?></span></h3>
-				<ul class="inline-list">
+				<ul class="large-block-grid-5 medium-block-grid-4 small-block-grid-3">
 					<?php foreach ( $list_neighborhoods as $neighborhood_item ) { ?>
-						<li><a href="<?php echo $neighborhood_item[ 'url' ] ?>"><?php echo $neighborhood_item[ 'name' ]; ?></a></li>
+						<li>
+							<div class="frontpage-image neighborhood_page-post neighborhood_page-list"<?php echo ( $neighborhood_item[ 'thumb' ] ) ? 'style="background-image:url(' . $neighborhood_item[ 'thumb' ] . ');"' : ''; ?>>
+								<div class="front-imgholder"></div>
+								<a href="<?php echo $neighborhood_item[ 'url' ]; ?>" rel="bookmark"></a>
+							</div>
+							<h2 class="entry-title neighborhood_page-title">
+								<a href="<?php echo $neighborhood_item[ 'url' ]; ?>" rel="bookmark""><?php echo $neighborhood_item[ 'name' ]; ?></a>
+							</h2>
+						</li>
 					<?php } ?>
-					
+				</ul>
 			</div> <?php
 		}
 		?>

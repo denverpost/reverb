@@ -580,6 +580,68 @@ body.error404 article.error404 h6.oopsies {
 #sidebar .widget p {
 	font-size:1em;
 }
+/* neighborhood_page-posts */
+body.post-type-archive-neighborhoods article.neighborhoods .entry-body {
+	padding-bottom:0;
+	border-bottom:0;
+	margin-bottom:0;
+}
+.neighborhood_page-post {
+	padding: 0;
+	background-color:rgba(17,17,17,0.8);
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: 50% 30%;
+	width: 100%;
+	margin:0;
+	position: relative;
+}
+body.single-neighborhoods h2.neighborhood_page-title {
+	width:100%;
+	margin:0;
+	background-color: #000;
+	padding:0 .25em .2em;
+}
+body.post-type-archive-neighborhoods article.neighborhoods .entry-body h2.neighborhood_page-title {
+	width:100%;
+	margin:0;
+	background-color: #000;
+	padding:0 .25em .2em;
+}
+.neighborhood_page-post > a {
+	height:100%;
+	width:100%;
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: -moz-linear-gradient(top, rgba(0,0,0,0.0) 0%,rgba(0,0,0,0.0) 80%,rgba(0,0,0,0.9) 100%);
+	background: -webkit-linear-gradient(top, rgba(0,0,0,0.0) 0%,rgba(0,0,0,0.0) 80%,rgba(0,0,0,0.9) 100%);
+	background: linear-gradient(to bottom, rgba(0,0,0,0.0) 0%,rgba(0,0,0,0.0) 80%,rgba(0,0,0,0.9) 100%);
+}
+body.post-type-archive-neighborhoods h2.neighborhood_page-title a {
+	font-family:'Arvo',Arial,Helvetica,sans-serif;
+	font-size: .75em;
+	line-height:1.1;
+	color:#fff;
+	text-decoration:none;
+}
+h2.neighborhood_page-title a:hover {
+	color:#4499dd;
+}
+body.single-neighborhoods h2.neighborhood_page-title a {
+	font-family:'Arvo',Arial,Helvetica,sans-serif;
+	font-size: .9em;
+	line-height:1;
+	color:#fff;
+	text-decoration:none;
+}
+.neighborhood_page-post .front-imgholder {
+	padding-bottom:35%;
+}
+body.single-neighborhoods .neighborhood_page-post .front-imgholder {
+	padding-bottom:42.5%;
+}
 /* frontpage-posts */
 body.front-page .entry-body {
 	padding-bottom:0;
