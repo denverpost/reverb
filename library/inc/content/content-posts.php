@@ -170,7 +170,7 @@ function reactor_post_neighborhoods_format() {
 		<a href="<?php the_permalink(); ?>" rel="bookmark"></a>
 	</div>
 	<h2 class="entry-title neighborhood_page-title">
-		<a href="<?php the_permalink(); ?>" rel="bookmark""><?php the_title(); ?></a>
+		<a href="<?php the_permalink(); ?>" rel="bookmark"><?php the_title(); ?></a>
 	</h2>
 <?php }
 add_action('reactor_post_neighborhoods', 'reactor_post_neighborhoods_format', 1);

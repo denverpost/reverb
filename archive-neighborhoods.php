@@ -59,7 +59,8 @@
                                 $map_shape_file_url = get_stylesheet_directory_uri() . '/geojson/' . $neighborhood_slug . '.json';
 
                                 if ( file_exists( $map_shape_file ) ) {
-                                    echo do_shortcode('[leaflet-geojson src="' . $map_shape_file_url . '" fitbounds=true] ');
+                                    $marker_text = '<h3>' . get_the_title() . '</h3><p><a href=\"' . get_the_permalink() . '\">Check out the neighborhood</a></p>';
+                                    echo do_shortcode('[leaflet-geojson src="' . $map_shape_file_url . '" fitbounds=true popup_property="' . $marker_text . '"]');
                                 }
 
                             ?>

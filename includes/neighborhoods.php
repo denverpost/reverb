@@ -619,3 +619,98 @@ class neighborhood_schools_widget extends WP_Widget
 }
 function register_neighborhood_schools_widget() { register_widget('neighborhood_schools_widget'); }
 add_action( 'widgets_init', 'register_neighborhood_schools_widget' );
+
+/**
+ *
+ * A new meta box for demographic information on neighborhood pages
+ *
+**/
+
+/* Neighborhoods Meta box setup function. */
+function neighborhood_page_demographic_metabox_setup() {
+    add_action( 'add_meta_boxes', 'neighborhood_page_demographic_add_metabox' );
+    add_action( 'save_post', 'neighborhood_page_demographic_save_post_meta', 10, 2 );
+}
+add_action( 'load-post.php', 'neighborhood_page_demographic_metabox_setup' );
+add_action( 'load-post-new.php', 'neighborhood_page_demographic_metabox_setup' );
+
+/* Create one or more meta boxes to be displayed on the post editor screen. */
+function neighborhood_page_demographic_add_metabox() {
+    add_meta_box(
+        'neighborhood_demographics',      // Unique ID
+        esc_html__( 'Neighborhood Demographics', 'example' ),    // Title
+        'neighborhood_page_demographic_metabox',   // Callback function
+        'neighborhoods',         // Admin page (or post type)
+        'side',         // Context
+        'default'         // Priority
+    );
+}
+
+/* Display the post meta box. */
+function neighborhood_page_demographic_metabox( $post ) { ?>
+    <?php wp_nonce_field( basename( __FILE__ ), 'neighborhood_demographics_meta_nonce' );
+    $args = array(
+        'orderby'                  => 'name',
+        'order'                    => 'ASC',
+        'hide_empty'               => 0,
+        'taxonomy'                 => 'neighborhood'
+        );
+    $neighborhoods_list = get_terms( $args );
+    foreach( $neighborhoods_list as $neighborhoods_single ) { 
+        $neighborhoods[] =  array(
+            'slug' => $neighborhoods_single->slug,
+            'name' => $neighborhoods_single->name
+            );
+    }
+    $neighborhoods_slug_current = get_post_meta( $post->ID, '_neighborhood_slug', true );
+
+   /* ?>
+
+    <p>
+    <label for="_neighborhood_slug"><?php _e( "Neighborhood for related stories:", '' ); ?></label>
+    <br />
+    <select class="widefat" name="_neighborhood_slug" id="_neighborhood_slug">
+        <?php foreach ($neighborhoods as $neighborhood) { ?>
+            <option value="<?php echo $neighborhood['slug']; ?>"<?php echo ($neighborhoods_slug_current == $neighborhood['slug'] ) ? ' selected="selected"' : ''; ?>><?php echo $neighborhood['name']; ?></option>
+        <?php }?>
+    </select>
+    </p> */
+
+   /* <p>
+    <label for="_neighborhood_feed"><?php _e( "Feed URL for location news:", '' ); ?></label>
+    <br />
+    <input class="widefat" type="text" name="_neighborhood_feed" id="_neighborhood_feed" value="<?php echo esc_attr( get_post_meta( $post->ID, '_neighborhood_feed', true ) ); ?>" size="30" />
+    </p> 
+
+
+<?php */
+
+}
+
+/* Save the neighborhoods meta box's post metadata. */
+function neighborhood_page_demographic_save_post_meta( $post_id, $post ) {
+
+    /* Verify the nonce before proceeding. */
+    if ( !isset( $_POST['neighborhood_demographics_meta_nonce'] ) || !wp_verify_nonce( $_POST['neighborhood_demographics_meta_nonce'], basename( __FILE__ ) ) )
+        return $post_id;
+
+    /* Get the post type object. */
+    $post_type = get_post_type_object( $post->post_type );
+
+    /* Check if the current user has permission to edit the post. */
+    if ( !current_user_can( $post_type->cap->edit_post, $post_id ) )
+        return $post_id;
+
+ /*
+    $slug_new_meta_value = ( isset( $_POST['_neighborhood_slug'] ) ) ? sanitize_html_class( $_POST['_neighborhood_slug'] ) : '';
+    $slug_meta_key = '_neighborhood_slug';
+    $slug_meta_value = get_post_meta( $post_id, $slug_meta_key, true );
+    if ( $slug_new_meta_value && '' == $slug_meta_value )
+        add_post_meta( $post_id, $slug_meta_key, $slug_new_meta_value, true );
+    elseif ( $slug_new_meta_value && $slug_new_meta_value != $slug_meta_value )
+        update_post_meta( $post_id, $slug_meta_key, $slug_new_meta_value );
+    elseif ( '' == $slug_new_meta_value && $slug_meta_value )
+        delete_post_meta( $post_id, $slug_meta_key, $slug_meta_value );
+ */
+
+}
