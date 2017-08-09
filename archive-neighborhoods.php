@@ -21,7 +21,7 @@
                 <?php $args = array(
                         'post_type' => 'neighborhoods',
                         'posts_per_page' => 25,
-                        'paged' => get_query_var( 'paged' ),
+                        'paged' => get_query_var( 'paged' )
                         );
                     
                     global $wp_query; 
@@ -44,7 +44,12 @@
                         
                         <ul class="large-block-grid-3 small-block-grid-2">
 
-                        <?php while ( $wp_query->have_posts() ) : $wp_query->the_post(); ?>
+                        <?php while ( $wp_query->have_posts() ) : $wp_query->the_post();
+
+                        $neighborhood_slug = get_post_meta( $post->ID, '_neighborhood_slug', true );
+                        $neighborhood_tax = get_term_by( 'slug', $neighborhood_slug, 'neighborhood' );
+                        if ( $neighborhood_tax->parent == 0):
+                        ?>
                             
                             <li>
 
@@ -60,7 +65,7 @@
 
                                 if ( file_exists( $map_shape_file ) ) {
                                     $marker_text = '<h3>' . get_the_title() . '</h3><p><a href=\"' . get_the_permalink() . '\">Check out the neighborhood</a></p>';
-                                    echo do_shortcode('[leaflet-geojson src="' . $map_shape_file_url . '" fitbounds=true popup_property="' . $marker_text . '"]');
+                                    echo do_shortcode('[leaflet-geojson src="' . $map_shape_file_url . '" fitbounds=true]' . $marker_text . '[/leaflet-geojson]');
                                 }
 
                             ?>
@@ -69,7 +74,9 @@
 
                             </li>
 
-                        <?php endwhile; // end of the post loop ?>
+                        <?php endif;
+
+                        endwhile; // end of the post loop ?>
 
                         </ul>
 

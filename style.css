@@ -920,7 +920,7 @@ div.cat-img {
 	padding-right:3%;
 }
 /* map style overrides */
-div.leaflet-wordpress-map {
+div.leaflet-map {
 	margin-bottom:1.5em;
 }
 .leaflet-popup-content h3 {
@@ -1024,11 +1024,13 @@ li.widget_neighborhood_related_widget .neighborhood_widget_inner {
     padding: .25em 0;
     text-transform: uppercase;
 }
+.demo_widget ul,
 .widget_rss_dp ul,
 .widget_rss_dp_loc ul,
 .widget_neighborhood_related_widget ul {
 	margin-left:0;
 }
+.demo_widget ul li,
 .widget_rss_dp ul li,
 .widget_rss_dp_loc ul li,
 .widget_neighborhood_related_widget ul li {
@@ -1037,6 +1039,7 @@ li.widget_neighborhood_related_widget .neighborhood_widget_inner {
 	font-size:1.1em;
 	margin-bottom:.7em;
 }
+.demo_widget ul li:last-child,
 .widget_rss_dp ul li:last-child,
 .widget_rss_dp_loc ul li:last-child,
 .widget_neighborhood_related_widget ul li:last-child {
@@ -1057,6 +1060,7 @@ li.widget_neighborhood_related_widget .neighborhood_widget_inner {
 	border-bottom:1px dashed rgba(0,115,174,0.8);
 	text-decoration: none;
 }
+.demo_widget h4.widget-title a,
 .widget_rss_dp h4.widget-title a,
 .widget_rss_dp_loc h4.widget-title a,
 .widget_neighborhood_related_widget h4.widget-title a {
@@ -1122,6 +1126,7 @@ h2.archive-title.location-header a,
 .single-location h2.archive-title a {
 	background-color:#b7410e;
 }
+.demo_widget h4.widget-title a,
 .widget_rss_dp h4.widget-title a,
 .widget_rss_dp_loc h4.widget-title a,
 .post-type-archive-neighborhoods h1.archive-title.neighborhood-header span,
@@ -1734,6 +1739,7 @@ h4.widget-title {
 	letter-spacing: .1em;
 	margin-bottom: 1em;
 }
+.demo_widget h4.widget-title,
 .widget_rss_dp h4.widget-title,
 .widget_rss_dp_loc h4.widget-title,
 .widget_neighborhood_related_widget h4.widget-title {
@@ -1786,7 +1792,7 @@ h4.widget-title {
 	padding-bottom: 60%
 }
 iframe.greatschools,
-.leaflet-wordpress-map {
+.leaflet-map {
 	height: 100%;
     width: 100%;
     display: block;

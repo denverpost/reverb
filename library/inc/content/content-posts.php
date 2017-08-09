@@ -517,6 +517,7 @@ function tkno_single_neighborhood_children() {
 					$child_image_url = ( isset( $child_image ) && strlen( $child_image[0] ) >= 1 ) ? $child_image[0] : false;
 				}
 				$list_neighborhoods[] = array(
+					'id' => $child_page->ID,
 					'url' => get_post_permalink( $child_page->ID ),
 					'name' => $child->name,
 					'thumb' => ( $child_image_url ? $child_image_url : '' )
@@ -526,8 +527,21 @@ function tkno_single_neighborhood_children() {
 		if ( count( $list_neighborhoods ) > 0 ) { ?>
 			<div class="neighborhood_children_list">
 				<h3><span>Neighborhoods within <?php echo $neighborhood_obj->name; ?></span></h3>
+				<div class="neighborhood-map-form">
+                    <div class="map-expander"></div>
+                    <?php echo do_shortcode('[leaflet-map zoomcontrol="1"]'); ?>
+                </div>
 				<ul class="large-block-grid-5 medium-block-grid-4 small-block-grid-3">
-					<?php foreach ( $list_neighborhoods as $neighborhood_item ) { ?>
+					<?php foreach ( $list_neighborhoods as $neighborhood_item ) {
+                        $neighborhood_map_slug = get_post_meta( $neighborhood_item[ 'id' ], '_neighborhood_slug', true );
+                        $map_shape_file = get_stylesheet_directory() . '/geojson/' . $neighborhood_map_slug . '.json';
+                        $map_shape_file_url = get_stylesheet_directory_uri() . '/geojson/' . $neighborhood_map_slug . '.json';
+
+                        if ( file_exists( $map_shape_file ) ) {
+                            $marker_text = '<h3>' . $neighborhood_item[ 'name' ] . '</h3><p><a href=\"' . $neighborhood_item[ 'url' ] . '\">Check out the neighborhood</a></p>';
+                            echo do_shortcode('[leaflet-geojson src="' . $map_shape_file_url . '" fitbounds=true]' . $marker_text . '[/leaflet-geojson]');
+                        }
+                        ?>
 						<li>
 							<div class="frontpage-image neighborhood_page-post neighborhood_page-list"<?php echo ( $neighborhood_item[ 'thumb' ] ) ? 'style="background-image:url(' . $neighborhood_item[ 'thumb' ] . ');"' : ''; ?>>
 								<div class="front-imgholder"></div>

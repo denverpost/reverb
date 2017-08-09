@@ -27,7 +27,7 @@ function tkno_get_ad_cat_slug($cat_id=false) {
 }
 
 function tkno_get_ad_value() {
-    $category = FALSE;
+    $tax_neighborhood = $category = FALSE;
     $kv = 'theknow';
     $tax = '';
     if ( is_home() || is_front_page() ) {
@@ -45,6 +45,21 @@ function tkno_get_ad_value() {
         $category = 'venues';
     } else if ( get_post_type() == 'neighborhoods' ) {
         $category = 'neighborhoods';
+        global $post;
+        $locality = $neighborhood = '';
+        $neighborhood_slug = get_post_meta( $post->ID, '_neighborhood_slug', true );
+        $neighborhood_child = get_term_by( 'slug', $neighborhood_slug, 'neighborhood' );
+        $neighborhood_parent = get_term_topmost_parent( $neighborhood_child->term_id, $neighborhood_child->taxonomy );
+        $neighborhood_child_meta = get_option( "neighborhood_$neighborhood_child->term_id" );
+        $child_text = ( $neighborhood_child_meta ) ? ucfirst( str_replace( ' ', '-', $neighborhood_child_meta[ 'pretty_name_field' ] ) ) : $neighborhood_child->name;
+        $neighborhood_parent_meta = get_option( "neighborhood_$neighborhood_parent->term_id" );
+        $neighborhood_parent_pretty = ( $neighborhood_parent_meta ) ? ucfirst( str_replace( ' ', '-', $neighborhood_parent_meta[ 'pretty_name_field' ] ) ) : $neighborhood_parent->name;
+        $parent_text = ucfirst( str_replace( ' ', '-', $neighborhood_parent_pretty ) );
+        if ( $parent_text == $child_text ) {
+            $tax_neighborhood = $parent_text;
+        } else {
+            $tax_neighborhood = $parent_text . '/' . $child_text;
+        }
     } else if ( get_post_type() == 'location' ) {
         $category = 'location';
     }
@@ -60,7 +75,7 @@ function tkno_get_ad_value() {
                 break;
             case 'neighborhoods':
                 $kv = 'neighborhoods';
-                $tax = '/Neighborhoods';
+                $tax = '/Neighborhood/' . $tax_neighborhood;
                 break;
             case 'location':
                 $kv = 'location';

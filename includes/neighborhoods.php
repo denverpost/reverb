@@ -17,6 +17,7 @@ function tkno_get_neighborhood_from_slug($neighborhood_slug) {
     $query = new WP_Query( $args );
     $neighborhoods = $query->get_posts();
     $neighborhood = ( count($neighborhoods) > 0 ) ? $neighborhoods[0] : false;
+    wp_reset_postdata();
     return $neighborhood;
 }
 
@@ -403,9 +404,9 @@ class neighborhood_related_widget extends WP_Widget {
             if ( $tag == false && $nei_query->post_count == 0 && $cat->parent != 0 ) {
                 $parent_cat = get_term_by( 'id', $cat->parent, 'category' );
                 $cat = $parent_cat;
-                $nei_query = widget_query( $nei_slug, $nei_tax, $parent_cat->term_id, $posts_numb );
+                $nei_query = widget_query( $nei_slug, $nei_tax, $cat->term_id, $posts_numb );
                 if ( $nei_query->post_count == 0 ) {
-                    $nei_query = widget_query( $parent_nei->slug, $nei_tax, $parent_cat->term_id, $posts_numb );
+                    $nei_query = widget_query( $nei_slug, $nei_tax, $parent_cat->term_id, $posts_numb );
                 }
             }
             if ( $nei_query->have_posts() ) {
@@ -548,7 +549,6 @@ class neighborhood_listings_widget extends WP_Widget
 function register_neighborhood_listings_widget() { register_widget('neighborhood_listings_widget'); }
 add_action( 'widgets_init', 'register_neighborhood_listings_widget' );
 
-
 /**
  *
  * Let's make a widget that can display a GeoJSON file for a given
@@ -569,13 +569,28 @@ class neighborhood_map_widget extends WP_Widget
 
     public function widget($args, $instance)
     {
+        $term = get_queried_object();
+
+        $children = get_terms( $term->taxonomy, array(
+        'parent'    => $term->term_id,
+        'hide_empty' => false
+        ) );
+        // print_r($children); // uncomment to examine for debugging
+        if($children) { // get_terms will return false if tax does not exist or term wasn't found.
+            // term has children
+        }
         if ( class_exists( 'Leaflet_Map_Plugin' ) && ( is_post_type_archive( 'neighborhoods' ) || ( is_single() && get_post_type() == 'neighborhoods' ) ) ) {
 
             global $post;
             $neighborhood_slug = get_post_meta( $post->ID, '_neighborhood_slug', true );
+            $neighborhood_child = get_term_by( 'slug', $neighborhood_slug, 'neighborhood' );
+            $if_children = get_terms( $neighborhood_child->taxonomy, array(
+                'parent'    => $neighborhood_child->term_id,
+                'hide_empty' => false
+                ) );
             $map_shape_file = get_stylesheet_directory() . '/geojson/' . $neighborhood_slug . '.json';
             $map_shape_file_url = get_stylesheet_directory_uri() . '/geojson/' . $neighborhood_slug . '.json';
-            if ( file_exists( $map_shape_file ) ) {
+            if ( ! $if_children && file_exists( $map_shape_file ) ) {
                 echo $args['before_widget']; ?>
                 <div class="neighborhood-map-widget-wrapper">
                     <div class="neighborhood-map-widget">
@@ -649,43 +664,31 @@ function neighborhood_page_demographic_add_metabox() {
 /* Display the post meta box. */
 function neighborhood_page_demographic_metabox( $post ) { ?>
     <?php wp_nonce_field( basename( __FILE__ ), 'neighborhood_demographics_meta_nonce' );
-    $args = array(
-        'orderby'                  => 'name',
-        'order'                    => 'ASC',
-        'hide_empty'               => 0,
-        'taxonomy'                 => 'neighborhood'
-        );
-    $neighborhoods_list = get_terms( $args );
-    foreach( $neighborhoods_list as $neighborhoods_single ) { 
-        $neighborhoods[] =  array(
-            'slug' => $neighborhoods_single->slug,
-            'name' => $neighborhoods_single->name
-            );
-    }
-    $neighborhoods_slug_current = get_post_meta( $post->ID, '_neighborhood_slug', true );
-
-   /* ?>
+    /* add each field to this form to collect them -- don't forget to add them to the array & widget below! */
+    ?>
 
     <p>
-    <label for="_neighborhood_slug"><?php _e( "Neighborhood for related stories:", '' ); ?></label>
+    <label for="_neighborhood_median_age"><?php _e( "Median age:", '' ); ?></label>
     <br />
-    <select class="widefat" name="_neighborhood_slug" id="_neighborhood_slug">
-        <?php foreach ($neighborhoods as $neighborhood) { ?>
-            <option value="<?php echo $neighborhood['slug']; ?>"<?php echo ($neighborhoods_slug_current == $neighborhood['slug'] ) ? ' selected="selected"' : ''; ?>><?php echo $neighborhood['name']; ?></option>
-        <?php }?>
-    </select>
-    </p> */
-
-   /* <p>
-    <label for="_neighborhood_feed"><?php _e( "Feed URL for location news:", '' ); ?></label>
+    <input class="widefat" type="text" name="_neighborhood_median_age" id="_neighborhood_median_age" value="<?php echo esc_attr( get_post_meta( $post->ID, '_neighborhood_median_age', true ) ); ?>" size="30" />
+    </p>
+    <p>
+    <label for="_neighborhood_rent_vs_own"><?php _e( "Rent vs. Own percentage:", '' ); ?></label>
     <br />
-    <input class="widefat" type="text" name="_neighborhood_feed" id="_neighborhood_feed" value="<?php echo esc_attr( get_post_meta( $post->ID, '_neighborhood_feed', true ) ); ?>" size="30" />
-    </p> 
+    <input class="widefat" type="text" name="_neighborhood_rent_vs_own" id="_neighborhood_rent_vs_own" value="<?php echo esc_attr( get_post_meta( $post->ID, '_neighborhood_rent_vs_own', true ) ); ?>" size="30" />
+    </p>
+    <p>
+    <label for="_neighborhood_married_vs_single"><?php _e( "Married vs. Single percentage:", '' ); ?></label>
+    <br />
+    <input class="widefat" type="text" name="_neighborhood_married_vs_single" id="_neighborhood_married_vs_single" value="<?php echo esc_attr( get_post_meta( $post->ID, '_neighborhood_married_vs_single', true ) ); ?>" size="30" />
+    </p>
+    <p>
+    <label for="_neighborhood_kids_vs_none"><?php _e( "Kids vs. No Kids percentage:", '' ); ?></label>
+    <br />
+    <input class="widefat" type="text" name="_neighborhood_kids_vs_none" id="_neighborhood_kids_vs_none" value="<?php echo esc_attr( get_post_meta( $post->ID, '_neighborhood_kids_vs_none', true ) ); ?>" size="30" />
+    </p>
 
-
-<?php */
-
-}
+<?php }
 
 /* Save the neighborhoods meta box's post metadata. */
 function neighborhood_page_demographic_save_post_meta( $post_id, $post ) {
@@ -701,16 +704,64 @@ function neighborhood_page_demographic_save_post_meta( $post_id, $post ) {
     if ( !current_user_can( $post_type->cap->edit_post, $post_id ) )
         return $post_id;
 
- /*
-    $slug_new_meta_value = ( isset( $_POST['_neighborhood_slug'] ) ) ? sanitize_html_class( $_POST['_neighborhood_slug'] ) : '';
-    $slug_meta_key = '_neighborhood_slug';
-    $slug_meta_value = get_post_meta( $post_id, $slug_meta_key, true );
-    if ( $slug_new_meta_value && '' == $slug_meta_value )
-        add_post_meta( $post_id, $slug_meta_key, $slug_new_meta_value, true );
-    elseif ( $slug_new_meta_value && $slug_new_meta_value != $slug_meta_value )
-        update_post_meta( $post_id, $slug_meta_key, $slug_new_meta_value );
-    elseif ( '' == $slug_new_meta_value && $slug_meta_value )
-        delete_post_meta( $post_id, $slug_meta_key, $slug_meta_value );
- */
-
+    /* add each field to this array to save them -- don't forget to add them to the widget below! */
+    $meta_save_fields = array('_neighborhood_median_age','_neighborhood_rent_vs_own','_neighborhood_married_vs_single','_neighborhood_kids_vs_none');
+    foreach ($meta_save_fields as $meta_save_field) {
+        $new_meta_value = ( isset( $_POST[$meta_save_field] ) ) ? sanitize_text_field( $_POST[$meta_save_field] ) : '';
+        $meta_key = $meta_save_field;
+        $meta_value = get_post_meta( $post_id, $meta_key, true );
+        if ( $new_meta_value && '' == $meta_value )
+            add_post_meta( $post_id, $meta_key, $new_meta_value, true );
+        elseif ( $new_meta_value && $new_meta_value != $meta_value )
+            update_post_meta( $post_id, $meta_key, $new_meta_value );
+        elseif ( '' == $new_meta_value && $meta_value )
+            delete_post_meta( $post_id, $meta_key, $meta_value );
+    }
 }
+
+/**
+ *
+ * A widget that displays the array of demographic information
+ * attached to a neighborhood by way of the metabox above.
+ *
+**/
+
+class neighborhood_demographics_widget extends WP_Widget
+{
+    public function __construct()
+    {
+            parent::__construct(
+                'neighborhood_demographics_widget',
+                __('Neighborhood demographics widget', 'neighborhood_demographics_widget'),
+                array('description' => __('Displays a demographic information widget in the sidebar (only works on Neighborhood pages).', 'neighborhood_demographics_widget'), )
+            );
+    }
+
+    public function widget($args, $instance)
+    {
+        if ( is_post_type_archive( 'neighborhoods' ) || ( is_single() && get_post_type() == 'neighborhoods' ) ) {
+
+            global $post;
+            $neighborhood_median_age = get_post_meta( $post->ID, '_neighborhood_median_age', true );
+            $neighborhood_rent_vs_own = get_post_meta( $post->ID, '_neighborhood_rent_vs_own', true );
+            $neighborhood_married_vs_single = get_post_meta( $post->ID, '_neighborhood_married_vs_single', true );
+            $neighborhood_kids_vs_none = get_post_meta( $post->ID, '_neighborhood_kids_vs_none', true );
+
+            if ( $neighborhood_median_age || $neighborhood_rent_vs_own || $neighborhood_married_vs_single || $neighborhood_kids_vs_none ) {
+                echo $args['before_widget']; ?>
+                <div class="neighborhood-map-widget-wrapper demo_widget">
+                    <h4 class="widget-title"><a class="noclick" href="javascript:void(0);">About the neighborhood</a></h4>
+                    <ul class="">
+                        <?php echo ( $neighborhood_median_age ) ? '<li><strong>Median age:</strong> ' . $neighborhood_median_age . '</li>' : ''; ?>
+                        <?php echo ( $neighborhood_rent_vs_own ) ? '<li><strong>Rent vs. own %:</strong> ' . $neighborhood_rent_vs_own . '</li>' : ''; ?>
+                        <?php echo ( $neighborhood_married_vs_single ) ? '<li><strong>Married vs. single %:</strong> ' . $neighborhood_married_vs_single . '</li>' : ''; ?>
+                        <?php echo ( $neighborhood_kids_vs_none ) ? '<li><strong>Kids vs no kids %:</strong> ' . $neighborhood_kids_vs_none . '</li>' : ''; ?>
+                    </ul>
+                </div>
+            <?php echo $args['after_widget'];
+            }
+        }
+    }
+}
+function register_neighborhood_demographics_widget() { register_widget('neighborhood_demographics_widget'); }
+add_action( 'widgets_init', 'register_neighborhood_demographics_widget' );

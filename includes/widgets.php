@@ -82,6 +82,7 @@ class tkno_popular_widget extends WP_Widget
                 endwhile;
                 echo '</ul>
                     </div>';
+                wp_reset_postdata();
             } else {
                 ?> <!-- Sorry, there are no Don't Miss posts at this time! --><?php
             }
