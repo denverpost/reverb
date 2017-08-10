@@ -569,16 +569,6 @@ class neighborhood_map_widget extends WP_Widget
 
     public function widget($args, $instance)
     {
-        /*$term = get_queried_object();
-
-        $children = get_terms( 'neighborhood', array(
-            'parent'    => $term->term_id,
-            'hide_empty' => false
-        ) );
-        var_dump($children);
-        if( $children ) {
-            
-        } */
         if ( class_exists( 'Leaflet_Map' ) && ( is_post_type_archive( 'neighborhoods' ) || ( is_single() && get_post_type() == 'neighborhoods' ) ) ) {
             global $post;
             $neighborhood_slug = get_post_meta( $post->ID, '_neighborhood_slug', true );
