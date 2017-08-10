@@ -90,6 +90,8 @@ $twitter_creator = ( ($temp_auth != '') && is_single() ) ? '@' . $temp_auth : '@
 echo ( ($temp_gplus != '') && is_single() ) ? '<link rel="author" href="' . $temp_gplus . '" />' : '<link rel="publisher" href="http://plus.google.com/100931264054788579031" />';
 ?>
 
+<meta property="fb:pages" content="113250288696719">
+
 <meta name="dcterms.audience" content="Global" />
 <?php echo ( (get_post_meta(get_the_ID(), 'sponsored_link', true) != '') ? '<meta name="Googlebot-News" content="noindex,follow">' : '' ); ?>
 <meta name="robots" content="follow, all" />
