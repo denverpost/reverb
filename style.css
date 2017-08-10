@@ -1173,9 +1173,6 @@ body.date header h2 a {
 body:not(.home) .neighborhood-related .entry-body h2.entry-title {
 	font-size:1.5em;
 }
-body:not(.home) .neighborhood-related .entry-body .catpage-post-inner {
-	margin:0 10%;
-}
 .entry-body p.catexcerpt {
 	font-family:'Open Sans',Arial,Helvetica,sans-serif;
 	font-weight: 300;
