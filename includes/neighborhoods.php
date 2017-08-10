@@ -569,18 +569,17 @@ class neighborhood_map_widget extends WP_Widget
 
     public function widget($args, $instance)
     {
-        $term = get_queried_object();
+        /*$term = get_queried_object();
 
-        $children = get_terms( $term->taxonomy, array(
-        'parent'    => $term->term_id,
-        'hide_empty' => false
+        $children = get_terms( 'neighborhood', array(
+            'parent'    => $term->term_id,
+            'hide_empty' => false
         ) );
-        // print_r($children); // uncomment to examine for debugging
-        if($children) { // get_terms will return false if tax does not exist or term wasn't found.
-            // term has children
-        }
-        if ( class_exists( 'Leaflet_Map_Plugin' ) && ( is_post_type_archive( 'neighborhoods' ) || ( is_single() && get_post_type() == 'neighborhoods' ) ) ) {
-
+        var_dump($children);
+        if( $children ) {
+            
+        } */
+        if ( class_exists( 'Leaflet_Map' ) && ( is_post_type_archive( 'neighborhoods' ) || ( is_single() && get_post_type() == 'neighborhoods' ) ) ) {
             global $post;
             $neighborhood_slug = get_post_meta( $post->ID, '_neighborhood_slug', true );
             $neighborhood_child = get_term_by( 'slug', $neighborhood_slug, 'neighborhood' );
@@ -590,7 +589,7 @@ class neighborhood_map_widget extends WP_Widget
                 ) );
             $map_shape_file = get_stylesheet_directory() . '/geojson/' . $neighborhood_slug . '.json';
             $map_shape_file_url = get_stylesheet_directory_uri() . '/geojson/' . $neighborhood_slug . '.json';
-            if ( ! $if_children && file_exists( $map_shape_file ) ) {
+            if ( file_exists( $map_shape_file ) && ! $if_children ) {
                 echo $args['before_widget']; ?>
                 <div class="neighborhood-map-widget-wrapper">
                     <div class="neighborhood-map-widget">
