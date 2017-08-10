@@ -95,7 +95,7 @@ function add_neighborhood_field_onedit( $term ){
     echo '<tr class="form-field form-required term-name-wrap">';
     echo '<th scope="row"><label for="pretty_name_field">Pretty name</label></th>';
     echo '<td><input id="pretty_name_field" value="' . $pretty_name_field . '" size="40" type="text" name="pretty_name_field" />';
-    echo '<p class="description">Custom description.</p>';
+    echo '<p class="description">Version of the name to use when looking for real estate listings.</p>';
     echo '</tr>';
 }
 add_action( 'neighborhood_add_form_fields', 'add_neighborhood_fields_oncreate' );
