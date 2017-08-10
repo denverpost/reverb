@@ -386,9 +386,9 @@ class neighborhood_related_widget extends WP_Widget {
         global $post;
         $nei_slug = get_post_meta( $post->ID, '_neighborhood_slug', true );
         $neighborhood = get_term_by( 'slug', $nei_slug, 'neighborhood' );
-        $posts_numb = ( $instance[ 'neighborhood_posts' ] != '' ) ? $instance[ 'neighborhood_posts' ] : 3;
-        $nei_cat = ( $instance[ 'neighborhood_category' ] != '' ) ? $instance[ 'neighborhood_category' ] : false;
-        $nei_tag = ( $instance[ 'neighborhood_tag' ] != '' ) ? $instance[ 'neighborhood_tag' ] : false;
+        $posts_numb = ( isset( $instance[ 'neighborhood_posts' ] ) && $instance[ 'neighborhood_posts' ] != '' ) ? $instance[ 'neighborhood_posts' ] : 3;
+        $nei_cat = ( isset( $instance[ 'neighborhood_category' ] ) && $instance[ 'neighborhood_category' ] != '' ) ? $instance[ 'neighborhood_category' ] : false;
+        $nei_tag = ( isset( $instance[ 'neighborhood_tag' ] ) && $instance[ 'neighborhood_tag' ] != '' ) ? $instance[ 'neighborhood_tag' ] : false;
         if ( term_exists( $nei_slug, 'neighborhood' ) ) {
             $cat = ( $nei_cat != false ) ? get_term_by( 'id', $nei_cat, 'category' ) : false;
             $tag = ( $nei_tag != false ) ? get_term_by( 'id', $nei_tag, 'post_tag' ) : false;
