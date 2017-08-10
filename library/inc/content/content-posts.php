@@ -37,7 +37,11 @@ add_action('reactor_inner_content_before', 'reactor_do_hero', 0);
  * @since 1.0.0
  */
 function reactor_do_overline() {
-	if ( is_single() && get_post_type() == 'venues' ) { ?>
+	if ( is_single() && get_post_type() == 'location' ) { ?>
+		<header class="archive-header">
+            <h1 class="archive-title venue-header"><span><a href="<?php echo get_bloginfo( 'url' ); ?>/locations/">Location</a></span></h1>
+        </header><!-- .archive-header -->
+	<?php } else if ( is_single() && get_post_type() == 'venues' ) { ?>
 		<header class="archive-header">
             <h1 class="archive-title venue-header"><span><a href="<?php echo get_bloginfo( 'url' ); ?>/venues/">Venues</a></span></h1>
         </header><!-- .archive-header -->
@@ -70,8 +74,8 @@ function reactor_post_frontpage_format() {
 	if ( has_post_thumbnail() ) {
 		$large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'large' );
 	}
-	if ( isset( $large_image_url ) && strlen( $large_image_url[0] ) >= 1 ) {
-		?><div class="frontpage-image frontpage-post" style="background-image:url('<?php echo $large_image_url[0]; ?>');">
+	if ( isset( $large_image_url ) && strlen( $large_image_url[0] ) >= 1 ) { ?>
+		<div class="frontpage-image frontpage-post" style="background-image:url('<?php echo $large_image_url[0]; ?>');">
 			<div class="front-imgholder"></div>
 			<a href="<?php the_permalink(); ?>" rel="bookmark"></a>
 		</div>
@@ -81,23 +85,23 @@ function reactor_post_frontpage_format() {
 		</span>
 		<h2 class="entry-title">
 			<a href="<?php the_permalink(); ?>" rel="bookmark""><?php the_title(); ?></a>
-		</h2> <?php }
+		</h2>
+<?php }
 add_action('reactor_post_frontpage', 'reactor_post_frontpage_format', 1);
-
 
 /**
  * Category page main format
- * in format-standard
+ * in format-catpage
  * 
  * @since 1.0.0
  */
 function reactor_post_catpage_format() {
 	if ( has_post_thumbnail() ) {
-		$large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'large');
+		$medium_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'medium');
 	} ?>
-	<?php if (isset($large_image_url) && strlen($large_image_url[0]) >= 1) { ?>
+	<?php if (isset($medium_image_url) && strlen($medium_image_url[0]) >= 1) { ?>
 	<div class="catpage-post has-image">
-		<div class="catpage-image" style="background-image:url('<?php echo $large_image_url[0]; ?>');">
+		<div class="catpage-image" style="background-image:url('<?php echo $medium_image_url[0]; ?>');">
 			<div class="catimgspace"></div>
 		</div>
 	<?php } else { ?>
@@ -116,6 +120,60 @@ function reactor_post_catpage_format() {
 <?php }
 add_action('reactor_post_catpage', 'reactor_post_catpage_format', 1);
 
+/**
+ * Location page main format
+ * in format-location
+ * 
+ * @since 1.0.0
+ */
+function reactor_post_location_format() {
+	if ( has_post_thumbnail() ) {
+		$medium_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'medium');
+	}
+	global $post;
+	$address = get_post_meta($post->ID, '_location_street_address', true);
+	?>
+	<?php if (isset($medium_image_url) && strlen($medium_image_url[0]) >= 1) { ?>
+	<div class="catpage-post has-image">
+		<div class="catpage-image" style="background-image:url('<?php echo $medium_image_url[0]; ?>');">
+			<div class="catimgspace location_space"></div>
+		</div>
+	<?php } else { ?>
+	<div class="catpage-post">
+	<?php } ?>
+		<div class="catpage-post-inner">
+			<a href="<?php the_permalink(); ?>" rel="bookmark">
+				<h2 class="entry-title"><?php the_title(); ?></h2>
+			</a>
+			<h4><?php echo $address; ?></h4>
+			<?php 
+			reactor_post_meta( array( 'show_cat' => false, 'show_tag' => false, 'location' => true, 'show_date' => true, 'link_date' => false ) ); ?>
+		</div>
+		<div class="clear"></div>
+	</div>
+<?php }
+add_action('reactor_post_location', 'reactor_post_location_format', 1);
+
+/**
+ * Neighborhoods page listing format
+ * in format-neighborhoods
+ * 
+ * @since 1.0.0
+ */
+function reactor_post_neighborhoods_format() {
+	if ( has_post_thumbnail() ) {
+		$medium_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'medium' );
+	}
+	$bg_image_url = ( isset( $medium_image_url ) && strlen( $medium_image_url[0] ) >= 1 ) ? $medium_image_url[0] : false; ?>
+	<div class="frontpage-image neighborhood_page-post"<?php echo ( $bg_image_url ) ? 'style="background-image:url(' . $bg_image_url . ');"' : ''; ?>>
+		<div class="front-imgholder"></div>
+		<a href="<?php the_permalink(); ?>" rel="bookmark"></a>
+	</div>
+	<h2 class="entry-title neighborhood_page-title">
+		<a href="<?php the_permalink(); ?>" rel="bookmark"><?php the_title(); ?></a>
+	</h2>
+<?php }
+add_action('reactor_post_neighborhoods', 'reactor_post_neighborhoods_format', 1);
 
 /**
  * Post header
@@ -158,7 +216,7 @@ add_action('reactor_post_header', 'reactor_do_standard_header_titles', 3);
  */
 function reactor_do_post_header_meta() {
 
-	if ( is_single() && get_post_type() != 'venues' && get_post_type() != 'neighborhoods' ) {
+	if ( is_single() && get_post_type() != 'venues' && get_post_type() != 'neighborhoods' && get_post_type() != 'location' ) {
 		reactor_post_meta(array('show_cat'=>false,'show_tag'=>false,'catpage'=>true,'link_date'=>false,'social_dropdown'=>false));
 	}
 }
@@ -172,7 +230,7 @@ add_action('reactor_post_header', 'reactor_do_post_header_meta', 4);
  */
 function reactor_do_post_header_social() {
 
-	if ( is_single() && get_post_type() != 'venues' && get_post_type() != 'neighborhoods' ) { ?>
+	if ( is_single() && get_post_type() != 'venues' && get_post_type() != 'neighborhoods' && get_post_type() != 'location' ) { ?>
 		<div class="row">
 			<div class="large-12 medium-12 small-12 columns masocial">
 				<?php echo do_shortcode('[mashshare]'); ?>
@@ -234,7 +292,7 @@ add_action('reactor_post_footer', 'reactor_do_post_footer_neighborhood', 1);
  */
 function reactor_do_post_footer_social() {
 
-	if ( is_single() && get_post_type() != 'neighborhoods' ) { ?>
+	if ( is_single() && get_post_type() != 'neighborhoods' && get_post_type() != 'location' ) { ?>
 		<div class="row">
 			<div class="large-12 medium-12 small-12 columns masocial">
 				<?php echo do_shortcode('[mashshare]'); ?>
@@ -262,10 +320,10 @@ add_action('reactor_post_footer', 'tkno_post_body_content_tags', 4);
  * @since 1.0.0
  */
 function reactor_do_post_footer_meta() {
-	if ( is_single() && get_post_type() != 'venues' && get_post_type() != 'neighborhoods' ) {
+	if ( is_single() && get_post_type() != 'venues' && get_post_type() != 'neighborhoods' && get_post_type() != 'location' ) {
 		reactor_post_meta( array('show_photo' => true,'show_tag' => true) );
 		$post_meta = true;
-	} else if ( get_post_type() != 'venues' && get_post_type() != 'neighborhoods' ) {
+	} else if ( get_post_type() != 'venues' && get_post_type() != 'neighborhoods' && get_post_type() != 'location' ) {
 		if ( is_page_template('page-templates/front-page.php') ) {
 			$post_meta = reactor_option('frontpage_post_meta', 1);
 		}
@@ -375,6 +433,8 @@ function reactor_do_post_edit() {
 		edit_post_link( __('Edit this Venue page', 'reactor'), '<div class="edit-link"><span>', '</span></div>');
 	} else if ( is_single() && get_post_type() == 'neighborhoods' ) {
 		edit_post_link( __('Edit this Neighborhood page', 'reactor'), '<div class="edit-link"><span>', '</span></div>');
+	} else if ( is_single() && get_post_type() == 'location' ) {
+		edit_post_link( __('Edit this Location page', 'reactor'), '<div class="edit-link"><span>', '</span></div>');
 	}
 }
 add_action('reactor_post_footer', 'reactor_do_post_edit', 8);
@@ -407,7 +467,7 @@ add_action('reactor_post_after', 'reactor_do_nav_single', 3);
  * @since 1.0.0
  */
 function tkno_single_post_related() {
-    if ( is_single() && get_post_type() != 'venues' && get_post_type() != 'neighborhoods' && function_exists( 'yarpp_related' ) ) {
+    if ( is_single() && get_post_type() != 'venues' && get_post_type() != 'neighborhoods' && get_post_type() != 'location' && function_exists( 'yarpp_related' ) ) {
     	global $post; ?>
 	    <div class="related">
 		    <?php yarpp_related( array( 
@@ -435,6 +495,73 @@ function tkno_single_post_related() {
 add_action('reactor_post_after', 'tkno_single_post_related', 4);
 
 /**
+ * Single neighborhood children 
+ * in single.php
+ * 
+ * @since 1.0.0
+ */
+function tkno_single_neighborhood_children() {
+    if ( is_single() && get_post_type() == 'neighborhoods' ) {
+    	global $post;
+    	$neighborhood_slug = get_post_meta( $post->ID, '_neighborhood_slug', true );
+    	$neighborhood_obj = get_term_by( 'slug', $neighborhood_slug, 'neighborhood' );
+		$neighborhood_children = get_term_children( $neighborhood_obj->term_id, 'neighborhood' );
+		$list_neighborhoods = array();
+		foreach ( $neighborhood_children as $child_id ) {
+			$child = get_term_by( 'id', $child_id, 'neighborhood' );
+			$child_page = tkno_get_neighborhood_from_slug( $child->slug );
+			if ( $child_page != false && $child_page->ID ) {
+				$child_image_url = false;
+				if ( has_post_thumbnail( $child_page->ID ) ) {
+					$child_image = wp_get_attachment_image_src( get_post_thumbnail_id(), 'medium' );
+					$child_image_url = ( isset( $child_image ) && strlen( $child_image[0] ) >= 1 ) ? $child_image[0] : false;
+				}
+				$list_neighborhoods[] = array(
+					'id' => $child_page->ID,
+					'url' => get_post_permalink( $child_page->ID ),
+					'name' => $child->name,
+					'thumb' => ( $child_image_url ? $child_image_url : '' )
+				);
+			}
+		}
+		if ( count( $list_neighborhoods ) > 0 ) { ?>
+			<div class="neighborhood_children_list">
+				<h3><span>Neighborhoods within <?php echo $neighborhood_obj->name; ?></span></h3>
+				<div class="neighborhood-map-form">
+                    <div class="map-expander"></div>
+                    <?php echo do_shortcode('[leaflet-map zoomcontrol="1"]'); ?>
+                </div>
+				<ul class="large-block-grid-5 medium-block-grid-4 small-block-grid-3">
+					<?php foreach ( $list_neighborhoods as $neighborhood_item ) {
+                        $neighborhood_map_slug = get_post_meta( $neighborhood_item[ 'id' ], '_neighborhood_slug', true );
+                        $map_shape_file = get_stylesheet_directory() . '/geojson/' . $neighborhood_map_slug . '.json';
+                        $map_shape_file_url = get_stylesheet_directory_uri() . '/geojson/' . $neighborhood_map_slug . '.json';
+
+                        if ( file_exists( $map_shape_file ) ) {
+                            $marker_text = '<h3>' . $neighborhood_item[ 'name' ] . '</h3><p><a href=\"' . $neighborhood_item[ 'url' ] . '\">Check out the neighborhood</a></p>';
+                            echo do_shortcode('[leaflet-geojson src="' . $map_shape_file_url . '" fitbounds=true]' . $marker_text . '[/leaflet-geojson]');
+                        }
+                        ?>
+						<li>
+							<div class="frontpage-image neighborhood_page-post neighborhood_page-list"<?php echo ( $neighborhood_item[ 'thumb' ] ) ? 'style="background-image:url(' . $neighborhood_item[ 'thumb' ] . ');"' : ''; ?>>
+								<div class="front-imgholder"></div>
+								<a href="<?php echo $neighborhood_item[ 'url' ]; ?>" rel="bookmark"></a>
+							</div>
+							<h2 class="entry-title neighborhood_page-title">
+								<a href="<?php echo $neighborhood_item[ 'url' ]; ?>" rel="bookmark""><?php echo $neighborhood_item[ 'name' ]; ?></a>
+							</h2>
+						</li>
+					<?php } ?>
+				</ul>
+			</div> <?php
+		}
+		?>
+	    
+	<?php }
+}
+add_action('reactor_post_after', 'tkno_single_neighborhood_children', 5);
+
+/**
  * No posts format
  * loop else in page templates
  * 
@@ -444,4 +571,3 @@ function reactor_do_loop_else() {
 	get_template_part('post-formats/format', 'none');
 }
 add_action('reactor_loop_else', 'reactor_do_loop_else', 1);
-?>

@@ -3,7 +3,7 @@
  * The template for displaying search results
  *
  * @package Reactor
- * @subpackge Templates
+ * @subpackage Templates
  * @since 1.0.0
  */
 ?>

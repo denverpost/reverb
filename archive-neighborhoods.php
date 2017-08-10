@@ -18,12 +18,10 @@
         	<div class="row">
                 <div class="<?php reactor_columns(); ?>">
 
-                <?php $number_posts = 25;
-    
-                    $args = array(
+                <?php $args = array(
                         'post_type' => 'neighborhoods',
-                        'posts_per_page' => $number_posts,
-                        'paged' => get_query_var( 'paged' ),
+                        'posts_per_page' => 25,
+                        'paged' => get_query_var( 'paged' )
                         );
                     
                     global $wp_query; 
@@ -38,16 +36,49 @@
                             </header>
                     
                     <?php reactor_loop_before(); ?>
+
+                        <div class="neighborhood-map-form">
+                            <div class="map-expander"></div>
+                            <?php echo do_shortcode('[leaflet-map]'); ?>
+                        </div>
                         
-                        <?php while ( $wp_query->have_posts() ) : $wp_query->the_post(); ?>
+                        <ul class="large-block-grid-3 small-block-grid-2">
+
+                        <?php while ( $wp_query->have_posts() ) : $wp_query->the_post();
+
+                        $neighborhood_slug = get_post_meta( $post->ID, '_neighborhood_slug', true );
+                        $neighborhood_tax = get_term_by( 'slug', $neighborhood_slug, 'neighborhood' );
+                        if ( $neighborhood_tax->parent == 0):
+                        ?>
                             
+                            <li>
+
                             <?php reactor_post_before(); ?>
 
-                            <?php get_template_part('post-formats/format', 'catpage'); ?>
+                            <?php get_template_part('post-formats/format', 'neighborhoods'); ?>
+
+                            <?php
+
+                                $neighborhood_slug = get_post_meta( $post->ID, '_neighborhood_slug', true );
+                                $map_shape_file = get_stylesheet_directory() . '/geojson/' . $neighborhood_slug . '.json';
+                                $map_shape_file_url = get_stylesheet_directory_uri() . '/geojson/' . $neighborhood_slug . '.json';
+
+                                if ( file_exists( $map_shape_file ) ) {
+                                    $marker_text = '<h3>' . get_the_title() . '</h3><p><a href=\"' . get_the_permalink() . '\">Check out the neighborhood</a></p>';
+                                    echo do_shortcode('[leaflet-geojson src="' . $map_shape_file_url . '" fitbounds=true]' . $marker_text . '[/leaflet-geojson]');
+                                }
+
+                            ?>
 
                             <?php reactor_post_after(); ?>
 
-                        <?php endwhile; // end of the post loop ?>
+                            </li>
+
+                        <?php endif;
+
+                        endwhile; // end of the post loop ?>
+
+                        </ul>
 
                     <?php endif; ?>
                         

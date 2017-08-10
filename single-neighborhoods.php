@@ -40,7 +40,8 @@
 
                 <?php get_sidebar('neighborhoodlower'); ?>
 
-                <?php global $post;
+                <?php wp_reset_query();
+                    global $post;
                     $neighborhood_slug = get_post_meta( $post->ID, '_neighborhood_slug', true );
                     $neighborhood_name = get_term_by( 'slug', $neighborhood_slug, 'neighborhood' ); ?>
                 
@@ -67,7 +68,7 @@
                             
                             while ( $neighborhood_query->have_posts() ) : $neighborhood_query->the_post(); ?>
 
-                                <?php get_template_part('post-formats/format', 'catpage'); ?>
+                                <?php get_template_part('post-formats/format', 'location'); ?>
 
                             <?php endwhile;
                         

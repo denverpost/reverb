@@ -24,6 +24,10 @@ body.f-topbar-fixed {
 div#content {
 	padding-top:1.5em;
 }
+.row form .row {
+	margin-left:0;
+	margin-right:0;
+}
 .columns {
 	padding-left:.65rem;
 	padding-right:.65rem;
@@ -49,6 +53,8 @@ div#content {
 }
 .entry-footer .single_venue h3 a,
 .entry-footer .single_venue h3 a:visited,
+.entry-footer .single_location h3 a,
+.entry-footer .single_location h3 a:visited,
 .entry-footer .single_neighborhood h3 a,
 .entry-footer .single_neighborhood h3 a:visited {
 	font-weight:600;
@@ -58,22 +64,26 @@ div#content {
 	clear: left;
 }
 .entry-footer .single_venue h3 a:hover,
+.entry-footer .single_location h3 a:hover,
 .entry-footer .single_neighborhood h3 a:hover {
 	text-decoration:underline;
 }
 .single-venues .columns.masocial,
+.single-location .columns.masocial,
 .single-neighborhoods .columns.masocial {
 	padding-bottom:1em;
 	margin-bottom:.5em;
 	border-bottom:1px solid #ddd;
 }
 .single-venues .with_calendar,
+.single-location .with_calendar,
 .single-neighborhoods .with_calendar {
 	background-color:rgba(240,75,36,1.0);
 	padding:1em 1.5em 1.5em;
 	margin:1.5em 0;
 }
 .single-venues .with_calendar h3,
+.single-location .with_calendar h3,
 .single-neighborhoods .with_calendar h3 {
 	text-align: left;
 	color:#ffffff;
@@ -570,6 +580,68 @@ body.error404 article.error404 h6.oopsies {
 #sidebar .widget p {
 	font-size:1em;
 }
+/* neighborhood_page-posts */
+body.post-type-archive-neighborhoods article.neighborhoods .entry-body {
+	padding-bottom:0;
+	border-bottom:0;
+	margin-bottom:0;
+}
+.neighborhood_page-post {
+	padding: 0;
+	background-color:rgba(17,17,17,0.8);
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: 50% 30%;
+	width: 100%;
+	margin:0;
+	position: relative;
+}
+body.single-neighborhoods h2.neighborhood_page-title {
+	width:100%;
+	margin:0;
+	background-color: #000;
+	padding:0 .25em .2em;
+}
+body.post-type-archive-neighborhoods article.neighborhoods .entry-body h2.neighborhood_page-title {
+	width:100%;
+	margin:0;
+	background-color: #000;
+	padding:0 .25em .2em;
+}
+.neighborhood_page-post > a {
+	height:100%;
+	width:100%;
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: -moz-linear-gradient(top, rgba(0,0,0,0.0) 0%,rgba(0,0,0,0.0) 80%,rgba(0,0,0,0.9) 100%);
+	background: -webkit-linear-gradient(top, rgba(0,0,0,0.0) 0%,rgba(0,0,0,0.0) 80%,rgba(0,0,0,0.9) 100%);
+	background: linear-gradient(to bottom, rgba(0,0,0,0.0) 0%,rgba(0,0,0,0.0) 80%,rgba(0,0,0,0.9) 100%);
+}
+body.post-type-archive-neighborhoods h2.neighborhood_page-title a {
+	font-family:'Arvo',Arial,Helvetica,sans-serif;
+	font-size: .75em;
+	line-height:1.1;
+	color:#fff;
+	text-decoration:none;
+}
+h2.neighborhood_page-title a:hover {
+	color:#4499dd;
+}
+body.single-neighborhoods h2.neighborhood_page-title a {
+	font-family:'Arvo',Arial,Helvetica,sans-serif;
+	font-size: .9em;
+	line-height:1;
+	color:#fff;
+	text-decoration:none;
+}
+.neighborhood_page-post .front-imgholder {
+	padding-bottom:35%;
+}
+body.single-neighborhoods .neighborhood_page-post .front-imgholder {
+	padding-bottom:42.5%;
+}
 /* frontpage-posts */
 body.front-page .entry-body {
 	padding-bottom:0;
@@ -781,6 +853,7 @@ div.cat-img {
 	border-bottom:1px solid rgba(225,225,225,0.8);
 }
 /* in-article related lists */
+.entry-content div.location-search,
 .entry-content aside.article-related,
 .entry-content aside.article-bucketlist {
 	width:40%;
@@ -804,6 +877,7 @@ div.cat-img {
 	padding-top:0;
 	border-top:none;
 }
+.entry-content div.location-search h3,
 .entry-content aside.article-related h3,
 .entry-content aside.article-bucketlist h3 {
 	font-size:1.3em;
@@ -845,7 +919,50 @@ div.cat-img {
 	margin-left:-10%;
 	padding-right:3%;
 }
+/* map style overrides */
+div.leaflet-map {
+	margin-bottom:1.5em;
+}
+.leaflet-popup-content h3 {
+    font-size: 1.5em;
+    line-height: 1.1;
+    color: #282828;
+    margin: 1em 0 0;
+}
+.leaflet-popup-content h3 a,
+.leaflet-popup-content h3 a:visited {
+	font-family: 'Arvo',Arial,Helvetica,sans-serif;
+	font-weight:600;
+	color: #000;
+	border-bottom:1px dashed #777;
+}
+.leaflet-popup-content  h3 a:hover {
+	text-decoration:none;
+	color: #777;
+	border-bottom:1px dashed #000;
+}
+.leaflet-popup-content div.cat-thumbnail {
+	position:relative;
+	width:100%;
+	display:block;
+	margin:.5em 0 .75em;
+}
+.leaflet-popup-content div.cat-imgholder {
+	width:100%;
+	padding-bottom: 33%;
+}
+.leaflet-popup-content div.cat-thumbnail a {
+	position: absolute;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	padding: 0;
+	display: block;
+}
 /* related posts */
+.widget_rss_dp .rss_dp_widget_inner,
+.widget_rss_dp_loc .rss_dp_loc_widget_inner,
 li.widget_neighborhood_related_widget .neighborhood_widget_inner {
 	margin:0;
 	padding:1em;
@@ -907,27 +1024,45 @@ li.widget_neighborhood_related_widget .neighborhood_widget_inner {
     padding: .25em 0;
     text-transform: uppercase;
 }
+.demo_widget ul,
+.widget_rss_dp ul,
+.widget_rss_dp_loc ul,
 .widget_neighborhood_related_widget ul {
 	margin-left:0;
 }
+.demo_widget ul li,
+.widget_rss_dp ul li,
+.widget_rss_dp_loc ul li,
 .widget_neighborhood_related_widget ul li {
 	list-style-type: none;
 	line-height: 1.6;
 	font-size:1.1em;
 	margin-bottom:.7em;
 }
+.demo_widget ul li:last-child,
+.widget_rss_dp ul li:last-child,
+.widget_rss_dp_loc ul li:last-child,
 .widget_neighborhood_related_widget ul li:last-child {
 	margin-bottom: 0;
 }
+.widget_rss_dp ul li a,
+.widget_rss_dp_loc ul li a,
+.neighborhood_children_list ul.inline-list li a,
 .widget_neighborhood_related_widget ul li a {
 	border-bottom:1px dashed rgba(50,50,50,1);
 	color:rgba(50,50,50,1);
 }
+.widget_rss_dp ul li a:hover,
+.widget_rss_dp_loc ul li a:hover,
+.neighborhood_children_list ul.inline-list li a:hover,
 .widget_neighborhood_related_widget ul li a:hover {
 	color:rgba(0,115,174,0.8);
 	border-bottom:1px dashed rgba(0,115,174,0.8);
 	text-decoration: none;
 }
+.demo_widget h4.widget-title a,
+.widget_rss_dp h4.widget-title a,
+.widget_rss_dp_loc h4.widget-title a,
 .widget_neighborhood_related_widget h4.widget-title a {
 	font-family:'Arvo',Arial,Helvetica,sans-serif;
 	font-weight: 400;
@@ -944,7 +1079,18 @@ h1.archive-title,
 h2.archive-title {
 	margin:0 0 1em;
 }
+h4.location-archive {
+	font-size:1.5em;
+    border-top:6px solid #ddd;
+    border-bottom:1px solid #ddd;
+    margin:.75em 0 1.5em;
+    padding:.75em 0;
+}
+.neighborhood-related h2.archive-title {
+	margin-bottom:2em;
+}
 .post-type-archive-venues h1.archive-title.venue-header span,
+.post-type-archive-location h1.archive-title.location-header span,
 .post-type-archive-neighborhoods h1.archive-title.neighborhood-header span,
 h1.archive-title a,
 h2.archive-title a {
@@ -965,13 +1111,24 @@ h2.archive-title.venue-header a,
 	background-color:#5a5a5a;
 }
 .post-type-archive-venues h1.archive-title.venue-header span,
+.post-type-archive-location h1.archive-title.location-header span,
 .post-type-archive-neighborhoods h1.archive-title.neighborhood-header span {
 	font-size: 1.5em;
 }
 .venue-related h2.archive-title,
-.neighborhood-related h2.archive-title {
+.venue-related h2.archive-title,
+.location-related h2.archive-title {
 	margin-bottom:1.5em;
 }
+.post-type-archive-location h1.archive-title.location-header span,
+h1.archive-title.location-header a,
+h2.archive-title.location-header a,
+.single-location h2.archive-title a {
+	background-color:#b7410e;
+}
+.demo_widget h4.widget-title a,
+.widget_rss_dp h4.widget-title a,
+.widget_rss_dp_loc h4.widget-title a,
 .post-type-archive-neighborhoods h1.archive-title.neighborhood-header span,
 h1.archive-title.neighborhood-header a,
 h2.archive-title.neighborhood-header a,
@@ -1001,6 +1158,9 @@ h2.archive-title a:hover {
 	height: 0;
 	padding-bottom:100%;
 }
+.catimgspace.location_space {
+	padding-bottom:50%;
+}
 body:not(.home) .entry-body h2.entry-title,
 body.date header h2 a {
 	font-family:'Arvo',Arial,Helvetica,sans-serif;
@@ -1009,6 +1169,12 @@ body.date header h2 a {
 	line-height:1.1;
 	color: #000;
 	margin:0 0 .25em;
+}
+body:not(.home) .neighborhood-related .entry-body h2.entry-title {
+	font-size:1.5em;
+}
+body:not(.home) .neighborhood-related .entry-body .catpage-post-inner {
+	margin:0 10%;
 }
 .entry-body p.catexcerpt {
 	font-family:'Open Sans',Arial,Helvetica,sans-serif;
@@ -1081,6 +1247,7 @@ body:not(.home) .cat-second .entry-body h2.entry-title {
 	border-bottom:none;
 }
 .single-venues .entry-body,
+.single-location .entry-body,
 .single-neighborhoods .entry-body {
 	margin-bottom:0;
 }
@@ -1232,6 +1399,7 @@ body:not(.home) .cat-second .entry-body h2.entry-title {
 .entry-content .twitter-tweet-rendered {
 	margin:0 auto!important;
 }
+.neighborhood_children_list,
 .page .entry-meta-author,
 .single .entry-meta-author {
 	padding:1em;
@@ -1276,6 +1444,7 @@ nav.nav-single {
 	margin-bottom: 1.063em;
 }
 .single-venues nav.nav-single,
+.single-location nav.nav-single,
 .single-neighborhoods nav.nav-single {
 	display:none!important;
 }
@@ -1570,6 +1739,9 @@ h4.widget-title {
 	letter-spacing: .1em;
 	margin-bottom: 1em;
 }
+.demo_widget h4.widget-title,
+.widget_rss_dp h4.widget-title,
+.widget_rss_dp_loc h4.widget-title,
 .widget_neighborhood_related_widget h4.widget-title {
 	font-weight: 300;
 	font-size:1em;
@@ -1596,6 +1768,38 @@ h4.widget-title {
 #sidebar-followus ul li:nth-last-child(2) {
 	margin-right:0;
 }
+/* map and vendor-widget related */
+.neighborhood-map-widget-wrapper {
+	margin: 0;
+    padding: 1em;
+    border: 1px solid #ddd;
+}
+.neighborhood-map-widget {
+	width:100%;
+	position:relative;
+}
+.neighborhood-map-widget .map-expander {
+	width:100%;
+	padding-bottom:100%;
+}
+.neighborhood-map-form {
+	margin-bottom:1em;
+	width:100%;
+	position:relative;
+}
+.neighborhood-map-form .map-expander {
+	width:100%;
+	padding-bottom: 60%
+}
+iframe.greatschools,
+.leaflet-map {
+	height: 100%;
+    width: 100%;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
 /* category-based colors */
 #frontpagemain article span {
 	display: block;
@@ -1618,6 +1822,42 @@ header h2 a {
 	text-align:center;
 	letter-spacing:.1em;
 }
+h2.no_neighborhood {
+	margin: 2em 0;
+	font-size:1.5em;
+}
+.no_neighborhood_list ul.inline-list li {
+	padding: 0 .5em;
+	font-size:1.3em;
+	margin-right:2em;
+	margin-bottom:1em;
+}
+.no_neighborhood_list ul.inline-list li a {
+	border-bottom:1px dashed rgba(50,50,50,1);
+	color:rgba(50,50,50,1);
+}
+.no_neighborhood_list ul.inline-list li a:hover {
+	color:rgba(0,115,174,0.8);
+	border-bottom:1px dashed rgba(0,115,174,0.8);
+	text-decoration: none;
+}
+.neighborhood_children_list h3 {
+	font-family:'Arvo',Arial,Helvetica,sans-serif;
+	color:#fff;
+	font-size:1.4em;
+	font-weight:400;
+	text-decoration: none;
+	margin-bottom:.75em;
+}
+.neighborhood_children_list h3 span {
+	font-family:'Arvo',Arial,Helvetica,sans-serif;
+	padding:.25em .5em;
+	background-color:#5d9674;
+}
+.neighborhood_children_list ul.inline-list li {
+	padding: 0 .5em;
+	font-size:1.2em;
+}
 .widget_neighborhood_related_widget h4.widget-title a,
 h4.widget-title span.fpe-widget-title a,
 .yarpp-related .related-wrap span {
@@ -1626,7 +1866,9 @@ h4.widget-title span.fpe-widget-title a,
 #frontpagemain article:first-child span {
 	display: none;
 }
-.widget_neighborhood_related_widget h4.widget-title.category-food a:hover,
+.widget_rss_dp h4.widget-title a:hover,
+.widget_rss_dp_loc h4.widget-title a:hover,
+.widget_neighborhood_related_widget h4.widget-title a:hover,
 h4.widget-title span.fpe-widget-title a:hover,
 .yarpp-related .related-wrap span a:hover,
 #frontpagemain article h2 a:hover,
@@ -1740,6 +1982,9 @@ article.category-drink .entry-footer .single_venue h3 {
 		top:50%;
 		position: absolute;
 		display:block;
+	}
+	body:not(.home) .neighborhood-related .entry-body .catpage-post-inner {
+		margin:0;
 	}
 	.toggle-social a {
 		color:#555;

@@ -57,6 +57,12 @@ if ( is_home() || is_front_page() ) {
 	$tag 			= get_term_by('slug', $tag_slug, 'post_tag');
     $twitter_url 	= get_tag_link( (int)$tag->term_id );
     $twitter_title 	= $tag->name . ' - ' . get_bloginfo( 'name' );
+} else if ( is_post_type_archive( 'venues' ) ) {
+	$GLOBALS['dfmcat'][0] = 'venues';
+} else if ( is_post_type_archive( 'neighborhoods' ) ) {
+	$GLOBALS['dfmcat'][0] = 'neighborhoods';
+} else if ( is_post_type_archive( 'location' ) ) {
+	$GLOBALS['dfmcat'][0] = 'location';
 } else if ( is_singular() ) {
     $twitter_thumbs = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'large');
     $twitter_url    = get_permalink();
@@ -65,7 +71,17 @@ if ( is_home() || is_front_page() ) {
     $temp_auth 		= get_the_author_meta('twitter', $post->post_author);
     $temp_gplus 	= get_the_author_meta('googleplus', $post->post_author);
     $categories_list = ( tkno_get_top_category_slug() ) ? tkno_get_top_category_slug() : 'none';
-    $GLOBALS['dfmcat'][0] = ( get_post_type() == 'venues' || get_post_type() == 'neighborhoods' ) ? ( ( get_post_type() == 'venues' ) ? 'venues' : 'neighborhoods' ) : ( ( $categories_list != 'none' ) ? $categories_list->cat_name : $categories_list );
+    if ( get_post_type() == 'venues' ) {
+    	$GLOBALS['dfmcat'][0] = 'venues';
+    } else if ( get_post_type() == 'neighborhoods' ) {
+    	$GLOBALS['dfmcat'][0] = 'neighborhoods';
+    } else if ( get_post_type() == 'location' ) {
+    	$GLOBALS['dfmcat'][0] = 'location';
+    } else if ( $categories_list != 'none' ) {
+    	$GLOBALS['dfmcat'][0] = $categories_list->cat_name;
+    } else {
+    	$GLOBALS['dfmcat'][0] = $categories_list;
+    }
     $GLOBALS['dfmby'] = get_the_author_meta('display_name', $post->post_author);
 }
 $twitter_thumb = ( ($twitter_thumbs != '') ? $twitter_thumbs[0] : get_stylesheet_directory_uri() . '/images/facebooklogo600.jpg' );
@@ -73,6 +89,8 @@ $twitter_user_id = ( ($temp_post != '') && is_single() ) ? $temp_post->post_auth
 $twitter_creator = ( ($temp_auth != '') && is_single() ) ? '@' . $temp_auth : '@thknwco';
 echo ( ($temp_gplus != '') && is_single() ) ? '<link rel="author" href="' . $temp_gplus . '" />' : '<link rel="publisher" href="http://plus.google.com/100931264054788579031" />';
 ?>
+
+<meta property="fb:pages" content="113250288696719">
 
 <meta name="dcterms.audience" content="Global" />
 <?php echo ( (get_post_meta(get_the_ID(), 'sponsored_link', true) != '') ? '<meta name="Googlebot-News" content="noindex,follow">' : '' ); ?>
