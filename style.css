@@ -1593,6 +1593,9 @@ body.author .author-posts .entry-body h2.entry-title {
 	background-color:rgba(0,0,0,1.0);
 	max-height:850px;
 }
+.gss-container div.cycle-slideshow {
+	max-height:850px;
+}
 .gss-container .gss-nav {
 	float:none;
     top: 0;
