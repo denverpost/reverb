@@ -641,12 +641,12 @@ add_action( 'load-post-new.php', 'neighborhood_page_demographic_metabox_setup' )
 /* Create one or more meta boxes to be displayed on the post editor screen. */
 function neighborhood_page_demographic_add_metabox() {
     add_meta_box(
-        'neighborhood_demographics',      // Unique ID
-        esc_html__( 'Neighborhood Demographics', 'example' ),    // Title
-        'neighborhood_page_demographic_metabox',   // Callback function
-        'neighborhoods',         // Admin page (or post type)
-        'side',         // Context
-        'default'         // Priority
+        'neighborhood_demographics',
+        esc_html__( 'Neighborhood Demographics', 'example' ),
+        'neighborhood_page_demographic_metabox',
+        'neighborhoods',
+        'side',
+        'default'
     );
 }
 

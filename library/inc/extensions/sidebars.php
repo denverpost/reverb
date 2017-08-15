@@ -112,6 +112,19 @@ function reactor_register_sidebars() {
 			'after_title'   => '</h4>',
 		) );
 	}
+
+	if ( in_array( 'category-sponsor', $sidebars[0] ) ) {
+		register_sidebar( array(
+			'name'          => __('Category Sponsors', 'reactor'),
+			'id'            => 'sidebar-categorysponsor',
+			'description'   => 'Category sponsorships',
+			'class'         => '',
+			'before_widget' => '',
+			'after_widget'  => '',
+			'before_title'  => '',
+			'after_title'   => '',
+		) );
+	}
 }
 
 /**

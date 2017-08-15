@@ -1078,6 +1078,7 @@ li.widget_neighborhood_related_widget .neighborhood_widget_inner {
 h1.archive-title,
 h2.archive-title {
 	margin:0 0 1em;
+	display:inline-block;
 }
 h4.location-archive {
 	font-size:1.5em;
@@ -1590,6 +1591,7 @@ body.author .author-posts .entry-body h2.entry-title {
 /* GSS slideshows */
 .gss-container {
 	background-color:rgba(0,0,0,1.0);
+	max-height:850px;
 }
 .gss-container .gss-nav {
 	float:none;
@@ -1764,6 +1766,24 @@ h4.widget-title {
 }
 #sidebar-followus ul li:nth-last-child(2) {
 	margin-right:0;
+}
+/* Category sponsor widget */
+div.sponsor_category {
+	float:right;
+}
+div.sponsor_category span {
+	font-family:'Arvo',Arial,Helvetica,sans-serif;
+	font-weight: 600;
+	color:#424242;
+	letter-spacing: .01em;
+	font-size:1.1em;
+	text-transform: uppercase;
+	margin-right: .25em;
+}
+div.sponsor_category img {
+	display: inline;
+	height: 32px;
+	margin-top:-4px;
 }
 /* map and vendor-widget related */
 .neighborhood-map-widget-wrapper {

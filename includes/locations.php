@@ -322,30 +322,30 @@ function location_search_form_shortcode() {
 add_shortcode( 'location_search', 'location_search_form_shortcode' );
 
 /*** CALCULATE DISTANCE USING LAT/LONG, GIVEN A ZIP CODE ***/
-    function location_posts_where( $where )  
-    {  
-        global $wpdb;
-        //Get user location from ZIP
-        $geocode=file_get_contents('http://maps.google.com/maps/api/geocode/json?address='.get_query_var('user_ZIP').'&sensor=false');
-        $output= json_decode($geocode);
-        $lat = $output->results[0]->geometry->location->lat;
-        $lng = $output->results[0]->geometry->location->lng;
+function location_posts_where( $where )  
+{  
+    global $wpdb;
+    //Get user location from ZIP
+    $geocode=file_get_contents('http://maps.google.com/maps/api/geocode/json?address='.get_query_var('user_ZIP').'&sensor=false');
+    $output= json_decode($geocode);
+    $lat = $output->results[0]->geometry->location->lat;
+    $lng = $output->results[0]->geometry->location->lng;
 
-        $radius = get_query_var('user_radius'); // (in miles)  
+    $radius = get_query_var('user_radius'); // (in miles)  
 
-        $table_name = $wpdb->prefix . 'locations';
-        // Append our radius calculation to the WHERE  
-        $where .= " AND $wpdb->posts.ID IN (SELECT post_id FROM " . $table_name . " WHERE
-             ( 3959 * acos( cos( radians(" . $lat . ") )
-                            * cos( radians( lat ) )
-                            * cos( radians( lng )
-                            - radians(" . $lng . ") )
-                            + sin( radians(" . $lat . ") )
-                            * sin( radians( lat ) ) ) ) <= " . $radius . ")";
+    $table_name = $wpdb->prefix . 'locations';
+    // Append our radius calculation to the WHERE  
+    $where .= " AND $wpdb->posts.ID IN (SELECT post_id FROM " . $table_name . " WHERE
+         ( 3959 * acos( cos( radians(" . $lat . ") )
+                        * cos( radians( lat ) )
+                        * cos( radians( lng )
+                        - radians(" . $lng . ") )
+                        + sin( radians(" . $lat . ") )
+                        * sin( radians( lat ) ) ) ) <= " . $radius . ")";
 
-        // Return the updated WHERE part of the query  
-        return $where;  
-    }
+    // Return the updated WHERE part of the query  
+    return $where;  
+}
 
 /*** CALCULATE DISTANCE BETWEEN TWO POINTS OF LATITUDE/LONGITUDE ***/
 function distance($lat1, $lon1, $lat2, $lon2) {

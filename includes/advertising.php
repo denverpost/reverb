@@ -286,3 +286,65 @@ class sidebar_ad_widget_cube extends WP_Widget
 }
 function register_ad_widget_cube() { register_widget('sidebar_ad_widget_cube'); }
 add_action( 'widgets_init', 'register_ad_widget_cube' );
+
+/**
+ * Section-level sponsorship widget
+ * @return html list inserted in widget
+ */
+class category_sponsor_widget extends WP_Widget {
+    public function __construct() {
+            parent::__construct(
+                'category_sponsor_widget',
+                __('Category sponsor', 'category_sponsor_widget'),
+                array('description' => __('Displays "Powered by" with a logo image linked to a sponsor\'s stie.', 'category_sponsor_widget'), )
+            );
+    }
+
+    public function form( $instance ) {
+        $defaults = array( 'sponsor_category' => __( '' ), 'sponsor_image_url' => __( '' ), 'sponsor_link_url' => __( '' ) );
+        $instance = wp_parse_args( ( array ) $instance, $defaults ); ?>
+        <p>
+        <label for="<?php echo $this->get_field_id( 'sponsor_category' ); ?>"><?php _e( 'Category to display sponsorship on:' ); ?></label> 
+        <select id="<?php echo $this->get_field_id( 'sponsor_category' ); ?>" name="<?php echo $this->get_field_name( 'sponsor_category' ); ?>" class="widefat" style="width:100%;">
+            <option <?php echo ( $instance[ 'sponsor_category' ] == '' ) ? 'selected="selected" ' : ''; ?> value="">&nbsp;</option>
+            <?php foreach( get_terms( 'category' ) as $term) { 
+                if ( $term->parent == 0 ): ?>
+                <option <?php selected( $instance[ 'sponsor_category' ], $term->term_id ); ?> value="<?php echo $term->term_id; ?>"><?php echo $term->name; ?></option>
+                <?php endif; ?>
+            <?php } ?>      
+        </select>
+        </p>
+        <p>
+        <label for="<?php echo $this->get_field_id( 'sponsor_image_url' ); ?>"><?php _e( 'URL of sponsor logo image:' ); ?></label> 
+        <input class="widefat" id="<?php echo $this->get_field_id( 'sponsor_image_url' ); ?>" name="<?php echo $this->get_field_name( 'sponsor_image_url' ); ?>" type="text" value="<?php echo $instance[ 'sponsor_image_url' ]; ?>" />
+        </p>
+        <p>
+        <label for="<?php echo $this->get_field_id( 'sponsor_link_url' ); ?>"><?php _e( 'URL to link logo to:' ); ?></label> 
+        <input class="widefat" id="<?php echo $this->get_field_id( 'sponsor_link_url' ); ?>" name="<?php echo $this->get_field_name( 'sponsor_link_url' ); ?>" type="text" value="<?php echo $instance[ 'sponsor_link_url' ]; ?>" />
+        </p>
+    <?php }
+
+    public function update( $new_instance, $old_instance ) {
+        $instance = $old_instance;
+        $instance[ 'sponsor_category' ] = ( ! empty( $new_instance[ 'sponsor_category' ] ) ) ? trim( strip_tags( $new_instance[ 'sponsor_category' ] ) ) : '';
+        $instance[ 'sponsor_image_url' ] = ( ! empty( $new_instance[ 'sponsor_image_url' ] ) ) ? trim( strip_tags( $new_instance[ 'sponsor_image_url' ] ) ) : '';
+        $instance[ 'sponsor_link_url' ] = ( ! empty( $new_instance[ 'sponsor_link_url' ] ) ) ? trim( strip_tags( $new_instance[ 'sponsor_link_url' ] ) ) : '';
+        return $instance;
+    }
+
+    public function widget( $args, $instance ) {
+        
+        $sponsor_category = ( isset( $instance[ 'sponsor_category' ] ) && $instance[ 'sponsor_category' ] != '' ) ? $instance[ 'sponsor_category' ] : false;
+        $sponsor_image_url = ( isset( $instance[ 'sponsor_image_url' ] ) && $instance[ 'sponsor_image_url' ] != '' ) ? $instance[ 'sponsor_image_url' ] : false;
+        $sponsor_link_url = ( isset( $instance[ 'sponsor_link_url' ] ) && $instance[ 'sponsor_link_url' ] != '' ) ? $instance[ 'sponsor_link_url' ] : false;
+        if ( is_category( $sponsor_category ) && $sponsor_image_url && $sponsor_link_url ) {
+            ?>
+            <div class="sponsor_category">
+                <span>Powered by</span><a href="<?php echo $sponsor_link_url; ?>"><img src="<?php echo $sponsor_image_url; ?>" /></a>
+            </div>
+            <?php
+        }
+    }
+}
+function register_category_sponsor_widget() { register_widget('category_sponsor_widget'); }
+add_action( 'widgets_init', 'register_category_sponsor_widget' );
