@@ -1591,10 +1591,9 @@ body.author .author-posts .entry-body h2.entry-title {
 /* GSS slideshows */
 .gss-container {
 	background-color:rgba(0,0,0,1.0);
-	max-height:850px;
 }
 .gss-container div.cycle-slideshow {
-	max-height:850px;
+	max-height:750px;
 }
 .gss-container .gss-nav {
 	float:none;
