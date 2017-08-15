@@ -170,7 +170,7 @@ function tkno_get_ad_value() {
                 $tax = '';
         }
     }
-    if ( is_single() && has_tag( 'top-chef-in-colorado' ) ) {
+    if ( is_single() && has_tag( 'top-chef-colorado' ) ) {
         $kv = 'Top-Chef-in-Colorado';
     }
     return array( $kv, $tax );
