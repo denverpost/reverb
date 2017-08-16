@@ -273,11 +273,10 @@ function reactor_do_post_footer_neighborhood() {
 	global $post;
 	$neighborhood = wp_get_post_terms( $post->ID, 'neighborhood' );
 	$neighborhood_page = ( ! empty( $neighborhood[0] ) ) ? tkno_get_neighborhood_from_slug( $neighborhood[0]->slug ) : '';
-
 	if ( is_single() && ! $neighborhood_page == '' ) { ?>
 		<div class="row">
 			<div class="large-12 medium-12 small-12 columns single_neighborhood neighborhood_link">
-				<h3>neighborhood more about the neighborhood: <a href="<?php echo get_permalink( $neighborhood_page->ID ); ?>"><?php echo $neighborhood_page->post_title; ?></a></h3>
+				<h3>More about the neighborhood: <a href="<?php echo get_permalink( $neighborhood_page->ID ); ?>"><?php echo $neighborhood_page->post_title; ?></a></h3>
 			</div>
 		</div>
 	<?php }

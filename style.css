@@ -1904,8 +1904,7 @@ h4.widget-title span.fpe-widget-title.category-arts a,
 header h2.category-arts a,
 header.category-arts h2.category-arts a,
 header h1.category-arts.archive-title a,
-header.category-arts h1.category-arts.archive-title a,
-article.category-arts .entry-footer .single_venue h3 {
+header.category-arts h1.category-arts.archive-title a {
 	background-color:rgba(78,199,228,1.0);
 }
 .widget_neighborhood_related_widget h4.widget-title.category-music a,
@@ -1915,8 +1914,7 @@ h4.widget-title span.fpe-widget-title.category-music a,
 header h2.category-music a,
 header.category-music h2.category-music a,
 header h1.category-music.archive-title a,
-header .category-music h1.category-music.archive-title a,
-article.category-music .entry-footer .single_venue h3 {
+header .category-music h1.category-music.archive-title a {
 	background-color:rgba(240,75,36,1.0);
 }
 .widget_neighborhood_related_widget h4.widget-title.category-things-to-do a,
@@ -1926,8 +1924,7 @@ h4.widget-title span.fpe-widget-title.category-things-to-do a,
 header h2.category-things-to-do a,
 header.category-things-to-do h2.category-things-to-do a,
 header h1.category-things-to-do.archive-title a,
-header.category-things-to-do h1.category-things-to-do.archive-title a,
-article.category-things-to-do .entry-footer .single_venue h3 {
+header.category-things-to-do h1.category-things-to-do.archive-title a {
 	background-color:rgba(132,49,166,1.0);
 }
 .widget_neighborhood_related_widget h4.widget-title.category-food a,
@@ -1937,8 +1934,7 @@ h4.widget-title span.fpe-widget-title.category-food a,
 header h2.category-food a,
 header.category-food h2.category-food a,
 header h1.category-food.archive-title a,
-header.category-food h1.category-food.archive-title a,
-article.category-food .entry-footer .single_venue h3 {
+header.category-food h1.category-food.archive-title a {
 	background-color:rgba(200,218,66,1.0);
 }
 .widget_neighborhood_related_widget h4.widget-title.category-drink a,
@@ -1948,9 +1944,14 @@ h4.widget-title span.fpe-widget-title.category-drink a,
 header h2.category-drink a,
 header.category-drink h2.category-drink a,
 header h1.category-drink.archive-title a,
-header.category-drink h1.category-drink.archive-title a,
-article.category-drink .entry-footer .single_venue h3 {
+header.category-drink h1.category-drink.archive-title a {
 	background-color:rgba(250,167,27,1.0);
+}
+.entry-footer .single_venue h3 {
+	background-color:rgba(240,75,36,1.0);
+}
+.entry-footer .single_neighborhood h3 {
+	background-color:#5d9674;	
 }
 #colophon { text-align:right; font-size:.6em; }
 .footer-links li { font-size:.9em; }
