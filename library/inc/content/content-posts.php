@@ -513,7 +513,7 @@ function tkno_single_neighborhood_children() {
 			if ( $child_page != false && $child_page->ID ) {
 				$child_image_url = false;
 				if ( has_post_thumbnail( $child_page->ID ) ) {
-					$child_image = wp_get_attachment_image_src( get_post_thumbnail_id(), 'medium' );
+					$child_image = wp_get_attachment_image_src( get_post_thumbnail_id( $child_page->ID ), 'medium' );
 					$child_image_url = ( isset( $child_image ) && strlen( $child_image[0] ) >= 1 ) ? $child_image[0] : false;
 				}
 				$list_neighborhoods[] = array(
