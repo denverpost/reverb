@@ -1860,7 +1860,7 @@ h2.no_neighborhood {
 	border-bottom:1px dashed rgba(0,115,174,0.8);
 	text-decoration: none;
 }
-.neighborhood_children_list h3 {
+.neighborhood_children_list ul h3 {
 	font-family:'Arvo',Arial,Helvetica,sans-serif;
 	color:#fff;
 	font-size:1.4em;
@@ -1868,7 +1868,7 @@ h2.no_neighborhood {
 	text-decoration: none;
 	margin-bottom:.75em;
 }
-.neighborhood_children_list h3 span {
+.neighborhood_children_list ul h3 span {
 	font-family:'Arvo',Arial,Helvetica,sans-serif;
 	padding:.25em .5em;
 	background-color:#5d9674;
