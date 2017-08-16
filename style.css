@@ -277,9 +277,12 @@ div.inner-header > div.row {
 	background:#000;
 	text-decoration:none;
 }
-.top-bar-section .dropdown li:not(.has-form):not(.active):hover>a:not(.button),
+.top-bar-section li.active .dropdown li:not(.has-form):not(.active):hover>a:not(.button),
+.top-bar-section li.active .dropdown li:not(.has-form):hover>a:not(.button),
+.top-bar-section li .dropdown li:not(.has-form):not(.active):hover>a:not(.button),
 .top-bar-section li .dropdown li:not(.has-form):hover>a:not(.button) {
 	background:#222;
+	text-decoration:underline;
 }
 .contain-to-grid .top-bar .title-area .name p a,
 .top-bar.expanded .toggle-topbar a,
@@ -320,7 +323,6 @@ div.inner-header > div.row {
 .top-bar-section li.has-dropdown > a:not(.button) {
 	text-align:center;
 	display:block;
-
 }
 .top-bar-section li.has-dropdown {
 	margin:0 .25em;
