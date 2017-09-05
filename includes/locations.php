@@ -356,3 +356,92 @@ function distance($lat1, $lon1, $lat2, $lon2) {
      $miles = $dist * 60 * 1.1515;
     return $miles;
 }
+
+/**
+ * Here's where we build a metabox, with a form in it, that searches
+ * for location post-type posts that are published. Can't limit
+ * by time or the re-usability of the location post type is
+ * compromised. The idea is to let a producer or writer create
+ * locations, and then quickly build list articles from them.
+ */
+
+/* The search function that the metabox form will use */
+function se_lookup() {
+    global $wpdb;
+    $search = like_escape($_REQUEST['q']);
+    $query = 'SELECT ID,post_title FROM ' . $wpdb->posts . '
+        WHERE post_title LIKE \'%' . $search . '%\'
+        AND post_type = \'location\'
+        AND post_status = \'publish\'
+        ORDER BY post_title ASC';
+    foreach ($wpdb->get_results($query) as $row) {
+        $post_title = $row->post_title;
+        $id = $row->ID;
+        echo $post_title . ' (' . $id . ')' . "\n";
+    }
+    die();
+}
+add_action('wp_ajax_se_lookup', 'se_lookup');
+add_action('wp_ajax_nopriv_se_lookup', 'se_lookup');
+
+function se_wp_enqueue_scripts() {
+    wp_enqueue_script('suggest');
+}
+add_action('wp_enqueue_scripts', 'se_wp_enqueue_scripts');
+
+function location_shortcode_metabox_setup() {
+    add_action( 'add_meta_boxes', 'location_shortcode_add_metabox' );
+}
+add_action( 'load-post.php', 'location_shortcode_metabox_setup' );
+add_action( 'load-post-new.php', 'location_shortcode_metabox_setup' );
+
+/* Create one or more meta boxes to be displayed on the post editor screen. */
+function location_shortcode_add_metabox() {
+    add_meta_box(
+        'location_shortcode',
+        esc_html__( 'Locations Shortcode', 'example' ),
+        'location_shortcode_metabox',
+        'post',
+        'side',
+        'default'
+    );
+}
+
+/* Display the post meta box. */
+function location_shortcode_metabox( $post ) { ?>
+    <form id="location_shortcode_search">
+        <p><label>Location name to add:</label> <input class="widefat" type="text" name="location_shortcode_search_text" id="location_shortcode_search_text" value="" /></p>
+    </form>
+    <div>
+        <ul id="selected_suggestions">
+        </ul>
+    </div>
+    <script type="text/javascript">
+        jQuery.fn.enterKey = function (fnc) {
+            return this.each(function () {
+                $(this).keypress(function (ev) {
+                    var keycode = (ev.keyCode ? ev.keyCode : ev.which);
+                    if (keycode == '13') {
+                        fnc.call(this, ev);
+                    }
+                })
+            })
+        }
+        var se_ajax_url = '<?php echo admin_url('admin-ajax.php'); ?>';
+        jQuery(document).ready(function() {
+            jQuery('#location_shortcode_search_text').suggest(se_ajax_url + '?action=se_lookup',
+                {
+                    minchars: 2,
+                    onSelect: function() {
+                        var stripped_id = this.value.match(/\(([^)]+)\)/)[1];
+                        var el_id = 'sug_' + stripped_id;
+                        if ( !jQuery('#'+el_id).length) {
+                            jQuery('#selected_suggestions').append('<li id="' + el_id + '">&bull; ' + this.value + '</li>');
+                        }
+                        jQuery('#location_shortcode_search_text').val('');
+                    }
+                });
+        });
+    </script>
+    <?php
+}
