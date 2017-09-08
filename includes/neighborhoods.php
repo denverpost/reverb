@@ -425,6 +425,7 @@ class neighborhood_related_widget extends WP_Widget {
                 </div>
                 <?php echo $args['after_widget'];
             }
+            wp_reset_postdata();
             wp_reset_query();
         }
     }

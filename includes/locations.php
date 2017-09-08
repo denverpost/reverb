@@ -87,9 +87,8 @@ function location_add_post_meta_boxes() {
 }
 
 /*** location METABOXES ***/
-//Render the metabox
-function location_post_meta_box() {
-    global $post;
+// Render the metabox
+function location_post_meta_box( $post ) {
     // Noncename needed to verify where the data originated
     echo '<input type="hidden" name="location_meta_nonce" id="location_meta_nonce" value="' .
     wp_create_nonce( basename(__FILE__) ) . '" />';
@@ -106,14 +105,14 @@ function location_post_meta_box() {
 }
 
 // Save the Metabox Data
-function tkno_save_location_meta($post_id, $post) {
+function tkno_save_location_meta( $post_id, $post ) {
     /* Verify the nonce before proceeding. */
-   if ( !isset( $_POST['location_meta_nonce']) || !wp_verify_nonce( $_POST['location_meta_nonce'], basename( __FILE__ ) ) ) {
+    if ( ! isset( $_POST['location_meta_nonce'] ) || ! wp_verify_nonce( $_POST['location_meta_nonce'], basename( __FILE__ ) ) ) {
         return $post_id;
-   }
+    }
 
     // Is the user allowed to edit the post or page?
-    if ( !current_user_can( 'edit_post', $post->ID ))
+    if ( ! current_user_can( 'edit_post', $post->ID ) )
         return $post_id;
 
     // OK, we're authenticated: we need to find and save the data
@@ -121,31 +120,36 @@ function tkno_save_location_meta($post_id, $post) {
     $location_meta['_location_street_address'] = $_POST['_location_street_address'];
 
     //Get Lat/Long from address
+    if ( $location_meta['_location_street_address'] != '' ) {
         $address = $_POST['_location_street_address'];
-        $prepAddr = str_replace(' ','+',$address);
-        $geocode=file_get_contents('http://maps.google.com/maps/api/geocode/json?address='.$prepAddr.'&sensor=false');
-        $output= json_decode($geocode);
+        $prepAddr = str_replace( ' ', '+', $address );
+        $geocode = file_get_contents( 'http://maps.google.com/maps/api/geocode/json?address=' . $prepAddr . '&sensor=false' );
+        $output = json_decode($geocode);
         $latitude = $output->results[0]->geometry->location->lat;
         $longitude = $output->results[0]->geometry->location->lng;
 
-    $location_meta['_location_latitude'] = $latitude;
-    $location_meta['_location_longitude'] = $longitude;
+        $location_meta['_location_latitude'] = $latitude;
+        $location_meta['_location_longitude'] = $longitude;
+    } else {
+        $location_meta['_location_latitude'] = '';
+        $location_meta['_location_longitude'] = '';
+    }
 
     // Add values of $location_meta as custom fields
-    foreach ($location_meta as $key => $value) { // Cycle through the $location_meta array!
-        if( $post->post_type == 'revision' ) return; // Don't store custom data twice
-        $value = implode(',', (array)$value); // If $value is an array, make it a CSV (unlikely)
-        if( get_post_meta( $post->ID, $key, FALSE ) ) { // If the custom field already has a value
-            update_post_meta($post->ID, $key, $value);
-        } else { // If the custom field doesn't have a value
-            add_post_meta($post->ID, $key, $value);
-        }
-        if( !$value ) delete_post_meta( $post->ID, $key ); // Delete if blank
+    foreach ( $location_meta as $key => $value ) {
+        $loc_shortcode_new_value = ( isset( $value ) ) ? $value : '';
+        $loc_shortcode_meta_key = $key;
+        $loc_shortcode_meta_value = get_post_meta( $post_id, $loc_shortcode_meta_key, true );
+        if ( $loc_shortcode_new_value && '' == $loc_shortcode_meta_value )
+            add_post_meta( $post_id, $loc_shortcode_meta_key, $loc_shortcode_new_value, true );
+        elseif ( $loc_shortcode_new_value && $loc_shortcode_new_value != $loc_shortcode_meta_value )
+            update_post_meta( $post_id, $loc_shortcode_meta_key, $loc_shortcode_new_value );
+        elseif ( '' == $loc_shortcode_new_value && $loc_shortcode_meta_value )
+            delete_post_meta( $post_id, $loc_shortcode_meta_key, $loc_shortcode_meta_value );
     }
 
     //Call function to save lat/long to custom table
     save_lat_lng($post->ID, $latitude, $longitude);
-
 }
 /*** END METABOXES ***/
 
@@ -391,6 +395,7 @@ add_action('wp_enqueue_scripts', 'se_wp_enqueue_scripts');
 
 function location_shortcode_metabox_setup() {
     add_action( 'add_meta_boxes', 'location_shortcode_add_metabox' );
+    add_action( 'save_post', 'location_shortcode_save_metabox', 10, 2 );
 }
 add_action( 'load-post.php', 'location_shortcode_metabox_setup' );
 add_action( 'load-post-new.php', 'location_shortcode_metabox_setup' );
@@ -408,14 +413,37 @@ function location_shortcode_add_metabox() {
 }
 
 /* Display the post meta box. */
-function location_shortcode_metabox( $post ) { ?>
+function location_shortcode_metabox( $post ) {
+    echo '<input type="hidden" name="location_shortcode_nonce" id="location_shortcode_nonce" value="' .
+    wp_create_nonce( basename(__FILE__) ) . '" />';
+    $loc_shortcode_ranked = get_post_meta( $post->ID, '_loc_shortcode_ranked', true );
+    $loc_shortcode = get_post_meta( $post->ID, '_loc_shortcode', true );
+    $loc_shortcode_ids = explode( ',', $loc_shortcode );
+    $args = array(
+        'post_type' => 'location',
+        'post__in' => $loc_shortcode_ids
+    );
+    $loc_shortcode_query = new WP_Query( $args ); ?>
     <form id="location_shortcode_search">
         <p><label>Location name to add:</label> <input class="widefat" type="text" name="location_shortcode_search_text" id="location_shortcode_search_text" value="" /></p>
+        <div>
+            <ul id="selected_suggestions">
+            <?php 
+            /* Note how this is done for the future: You can't use ->the_post()
+            in the admin unless you want to change the values in the $post object
+            that's rendering the editor page, because the global $post object
+            isn't actually set up in post.php. This is a 6-year-old-bug! */
+            if ( $loc_shortcode_query->have_posts() ) : 
+                foreach( $loc_shortcode_query->get_posts() as $loc_post ) {
+                    $loc_post_id = $loc_post->ID; ?>
+                    <li id="sug_<?php echo $loc_post_id; ?>"><button type="button" id="loc_remove-sug_<?php echo $loc_post_id; ?>" class="loc_delbutton" onclick="javascript:removeSuggestion(this);"><span class="remove-tag-icon"></span></button><?php echo $loc_post->post_title; ?> (<?php echo $loc_post_id; ?>)<input type="hidden" name="loc_shortcode[]" value="<?php echo $loc_post_id; ?>"/></li>
+                <?php }
+            endif; ?>
+            </ul>
+        </div>
+        <p><label><input type="checkbox" name="loc_shortcode_ranked" id="loc_shortcode_ranked" value="true" <?php if ( $loc_shortcode_ranked == 'true' ) echo 'checked'; ?> /> Ranked and numbered?</label></p>
+        <input type="button" class="button" onclick="javascript:insertLocationShortcode();" value="Insert shortcode" />
     </form>
-    <div>
-        <ul id="selected_suggestions">
-        </ul>
-    </div>
     <script type="text/javascript">
         jQuery.fn.enterKey = function (fnc) {
             return this.each(function () {
@@ -427,6 +455,27 @@ function location_shortcode_metabox( $post ) { ?>
                 })
             })
         }
+        function removeSuggestion(el) {
+            var elTwo = el.parentNode;
+            elTwo.parentNode.removeChild(elTwo);
+        }
+        function getLocationIDs() {
+            var idList = new Array();
+            jQuery('#selected_suggestions').children('li').each( function() {
+                idList.push( jQuery(this).attr('id').replace('sug_','') );
+            });
+            return idList.join();
+        }
+        // What actually inserts the shortcode we'll use below
+        function insertLocationShortcode() {
+            var locationRankedSrc = document.getElementById('loc_shortcode_ranked').checked;
+            var locationIdsSrc = getLocationIDs();
+            var locationRanked = (locationRankedSrc) ? ' ranked="true"' : '';
+            var locationIds = (locationIdsSrc !== '') ? ' ids="' + locationIdsSrc + '"' : false;
+            if ( locationIds !== false ) {
+                wp.media.editor.insert('[locations' + locationIds + locationRanked + ']');
+            }
+        }
         var se_ajax_url = '<?php echo admin_url('admin-ajax.php'); ?>';
         jQuery(document).ready(function() {
             jQuery('#location_shortcode_search_text').suggest(se_ajax_url + '?action=se_lookup',
@@ -436,7 +485,7 @@ function location_shortcode_metabox( $post ) { ?>
                         var stripped_id = this.value.match(/\(([^)]+)\)/)[1];
                         var el_id = 'sug_' + stripped_id;
                         if ( !jQuery('#'+el_id).length) {
-                            jQuery('#selected_suggestions').append('<li id="' + el_id + '">&bull; ' + this.value + '</li>');
+                            jQuery('#selected_suggestions').append('<li id="' + el_id + '"><button type="button" id="loc_remove-' + el_id + '" class="loc_delbutton" onclick="javascript:removeSuggestion(this);"><span class="remove-tag-icon"></span></button>' + this.value + '<input type="hidden" name="loc_shortcode[]" value="' + stripped_id + '"/></li>');
                         }
                         jQuery('#location_shortcode_search_text').val('');
                     }
@@ -445,3 +494,66 @@ function location_shortcode_metabox( $post ) { ?>
     </script>
     <?php
 }
+
+// checks for only digits between the commas; utility for validation below
+function only_ids_with_commas( $sent_value ) {
+    $values = explode( ',', $sent_value );
+    $valid = true;
+    foreach( $values as $value ) {
+        if( ! ctype_digit( $value ) ) {
+            $valid = false;
+            break;
+        }
+    }
+    return $valid;
+}
+
+// Let's save data from the metabox for the future, duh
+function location_shortcode_save_metabox( $post_id, $post ) {
+    if ( !isset( $_POST['location_shortcode_nonce'] ) || !wp_verify_nonce( $_POST['location_shortcode_nonce'], basename( __FILE__ ) ) ) {
+        return $post_id;
+    }
+    if ( !current_user_can( 'edit_post', $post->ID ) )
+        return $post_id;
+
+    $loc_shortcode = implode( ',', $_POST['loc_shortcode'] );
+
+    $loc_shortcode_new_value = ( isset( $loc_shortcode ) && only_ids_with_commas( $loc_shortcode ) ) ? $loc_shortcode : '';
+    $loc_shortcode_meta_key = '_loc_shortcode';
+    $loc_shortcode_meta_value = get_post_meta( $post_id, $loc_shortcode_meta_key, true );
+    if ( $loc_shortcode_new_value && '' == $loc_shortcode_meta_value )
+        add_post_meta( $post_id, $loc_shortcode_meta_key, $loc_shortcode_new_value, true );
+    elseif ( $loc_shortcode_new_value && $loc_shortcode_new_value != $loc_shortcode_meta_value )
+        update_post_meta( $post_id, $loc_shortcode_meta_key, $loc_shortcode_new_value );
+    elseif ( '' == $loc_shortcode_new_value && $loc_shortcode_meta_value )
+        delete_post_meta( $post_id, $loc_shortcode_meta_key, $loc_shortcode_meta_value );
+
+    $loc_shortcode_ranked = $_POST['loc_shortcode_ranked'];
+
+    $loc_shortcode_ranked_new_value = ( isset( $loc_shortcode_ranked ) && $loc_shortcode_ranked == 'true' ) ? 'true' : 'false';
+    $loc_shortcode_ranked_meta_key = '_loc_shortcode_ranked';
+    $loc_shortcode_ranked_meta_value = get_post_meta( $post_id, $loc_shortcode_ranked_meta_key, true );
+    if ( $loc_shortcode_ranked_new_value && '' == $loc_shortcode_ranked_meta_value )
+        add_post_meta( $post_id, $loc_shortcode_ranked_meta_key, $loc_shortcode_ranked_new_value, true );
+    elseif ( $loc_shortcode_ranked_new_value && $loc_shortcode_ranked_new_value != $loc_shortcode_ranked_meta_value )
+        update_post_meta( $post_id, $loc_shortcode_ranked_meta_key, $loc_shortcode_ranked_new_value );
+    elseif ( '' == $loc_shortcode_ranked_new_value && $loc_shortcode_ranked_meta_value )
+        delete_post_meta( $post_id, $loc_shortcode_ranked_meta_key, $loc_shortcode_ranked_meta_value );
+}
+
+function locations_shortcode() {
+    global $post;
+    $loc_shortcode_ranked = get_post_meta( $post->ID, '_loc_shortcode_ranked', true );
+    $loc_shortcode_ids = explode( ',', get_post_meta( $post->ID, '_loc_shortcode', true ) );
+    $locations_display = '<div class="list_locations">';
+$locations_display .= '<h1>' . implode(', ',$loc_shortcode_ids) . '</h1>';
+    foreach( $loc_shortcode_ids as $loc_post_id ) {
+        var_dump($loc_post_id);
+        $loc_post = get_post( $loc_post_id );
+        var_dump($loc_post);
+        $locations_display .= '<h2 class="entry-title"><a href="' . $loc_post->ID . '" rel="bookmark">' . $loc_post->post_title . '</a></h2>';
+    }
+    $locations_display .= '</div>';
+    return $locations_display;
+}
+add_shortcode( 'locations', 'locations_shortcode' );

@@ -206,7 +206,7 @@ add_action( 'template_redirect', function() {
 }, 0 );
 
 // Get an acceptable top-level category name and ID, or slug, for classes and labels
-function tkno_get_top_category_slug($return_slug=false,$cat_id=false) {
+function tkno_get_top_category_slug( $return_slug=false, $cat_id=false ) {
     global $post;
     $curr_cat = ( $cat_id ) ? get_category_parents( $cat_id, false, '/', true ) : get_the_category_list( '/' , 'multiple', $post->ID );
     $valid_cats = array('music','food','drink','things-to-do','arts');
@@ -304,6 +304,7 @@ function in_article_related_shortcode( $atts=array() ){
         $post->ID,
         false);
     }
+    wp_reset_postdata();
     return $related;
 }
 add_shortcode('related', 'in_article_related_shortcode');
@@ -334,6 +335,7 @@ function bucketlist_shortcode_button() {
 add_action('media_buttons', 'bucketlist_shortcode_button',15);
 
 function tkno_admin_enqueue($hook) {
+    wp_enqueue_style( 'admin_css', get_stylesheet_directory_uri() . '/admin-style.css', false, '1.0.0' );
     if ( 'post.php' != $hook ) {
         return;
     }
