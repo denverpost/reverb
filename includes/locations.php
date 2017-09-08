@@ -417,6 +417,7 @@ function location_shortcode_metabox( $post ) {
     echo '<input type="hidden" name="location_shortcode_nonce" id="location_shortcode_nonce" value="' .
     wp_create_nonce( basename(__FILE__) ) . '" />';
     $loc_shortcode_ranked = get_post_meta( $post->ID, '_loc_shortcode_ranked', true );
+    $loc_shortcode_wide = get_post_meta( $post->ID, '_loc_shortcode_wide', true );
     $loc_shortcode = get_post_meta( $post->ID, '_loc_shortcode', true );
     $loc_shortcode_ids = explode( ',', $loc_shortcode );
     $args = array(
@@ -442,6 +443,7 @@ function location_shortcode_metabox( $post ) {
             </ul>
         </div>
         <p><label><input type="checkbox" name="loc_shortcode_ranked" id="loc_shortcode_ranked" value="true" <?php if ( $loc_shortcode_ranked == 'true' ) echo 'checked'; ?> /> Ranked and numbered?</label></p>
+        <p><label><input type="checkbox" name="loc_shortcode_wide" id="loc_shortcode_wide" value="true" <?php if ( $loc_shortcode_wide == 'true' ) echo 'checked'; ?> /> Display full-width?</label></p>
         <input type="button" class="button" onclick="javascript:insertLocationShortcode();" value="Insert shortcode" />
     </form>
     <script type="text/javascript">
@@ -469,11 +471,13 @@ function location_shortcode_metabox( $post ) {
         // What actually inserts the shortcode we'll use below
         function insertLocationShortcode() {
             var locationRankedSrc = document.getElementById('loc_shortcode_ranked').checked;
+            var locationWideSrc = document.getElementById('loc_shortcode_wide').checked;
             var locationIdsSrc = getLocationIDs();
             var locationRanked = (locationRankedSrc) ? ' ranked="true"' : '';
+            var locationWide = (locationWideSrc) ? ' wide="true"' : '';
             var locationIds = (locationIdsSrc !== '') ? ' ids="' + locationIdsSrc + '"' : false;
             if ( locationIds !== false ) {
-                wp.media.editor.insert('[locations' + locationIds + locationRanked + ']');
+                wp.media.editor.insert('[locations' + locationIds + locationRanked + locationWide + ']');
             }
         }
         var se_ajax_url = '<?php echo admin_url('admin-ajax.php'); ?>';
@@ -539,6 +543,18 @@ function location_shortcode_save_metabox( $post_id, $post ) {
         update_post_meta( $post_id, $loc_shortcode_ranked_meta_key, $loc_shortcode_ranked_new_value );
     elseif ( '' == $loc_shortcode_ranked_new_value && $loc_shortcode_ranked_meta_value )
         delete_post_meta( $post_id, $loc_shortcode_ranked_meta_key, $loc_shortcode_ranked_meta_value );
+
+    $loc_shortcode_wide = $_POST['loc_shortcode_wide'];
+
+    $loc_shortcode_wide_new_value = ( isset( $loc_shortcode_wide ) && $loc_shortcode_wide == 'true' ) ? 'true' : 'false';
+    $loc_shortcode_wide_meta_key = '_loc_shortcode_wide';
+    $loc_shortcode_wide_meta_value = get_post_meta( $post_id, $loc_shortcode_wide_meta_key, true );
+    if ( $loc_shortcode_wide_new_value && '' == $loc_shortcode_wide_meta_value )
+        add_post_meta( $post_id, $loc_shortcode_wide_meta_key, $loc_shortcode_wide_new_value, true );
+    elseif ( $loc_shortcode_wide_new_value && $loc_shortcode_wide_new_value != $loc_shortcode_wide_meta_value )
+        update_post_meta( $post_id, $loc_shortcode_wide_meta_key, $loc_shortcode_wide_new_value );
+    elseif ( '' == $loc_shortcode_wide_new_value && $loc_shortcode_wide_meta_value )
+        delete_post_meta( $post_id, $loc_shortcode_wide_meta_key, $loc_shortcode_wide_meta_value );
 }
 
 function locations_shortcode() {
@@ -546,12 +562,34 @@ function locations_shortcode() {
     $loc_shortcode_ranked = get_post_meta( $post->ID, '_loc_shortcode_ranked', true );
     $loc_shortcode_ids = explode( ',', get_post_meta( $post->ID, '_loc_shortcode', true ) );
     $locations_display = '<div class="list_locations">';
-$locations_display .= '<h1>' . implode(', ',$loc_shortcode_ids) . '</h1>';
+    $loc_i = 0;
     foreach( $loc_shortcode_ids as $loc_post_id ) {
-        var_dump($loc_post_id);
+        $loc_i++;
+        $loc_rank = ( $loc_shortcode_ranked ) ? '<span class="loc-rank">' . $loc_i . '.</span>': '';
         $loc_post = get_post( $loc_post_id );
-        var_dump($loc_post);
-        $locations_display .= '<h2 class="entry-title"><a href="' . $loc_post->ID . '" rel="bookmark">' . $loc_post->post_title . '</a></h2>';
+        $post_classes = 'location-embed ' . join( ' ', get_post_class( $loc_post->ID ) );
+        if ( has_post_thumbnail( $loc_post->ID ) ) {
+            $large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id( $loc_post->ID ), 'large' );
+        }
+        $bg_image_url = ( isset( $large_image_url ) && strlen( $large_image_url[0] ) >= 1 ) ? $large_image_url[0] : false;
+        $locations_display .= '<article id="location-' . $loc_post->ID . '" class="' . $post_classes . '">';
+            $locations_display .= '<div class="entry-body">';         
+                $locations_display .= '<header class="entry-header">';
+                    $locations_display .= '<h2 class="entry-title">' . $loc_rank . '<a href="' . get_permalink( $loc_post->ID ) . '" rel="bookmark">' . $loc_post->post_title . '</a></h2>';
+                $locations_display .= '</header>';
+                $locations_display .= '<div class="entry-content">';
+                if ( $bg_image_url ) { 
+                    $locations_display .= '<div class="location-image-wrap">'; 
+                        $locations_display .= '<div class="frontpage-image" style="background-image:url(' . $bg_image_url . ')">';
+                            $locations_display .= '<div class="front-imgholder"></div>';
+                            $locations_display .= '<a href="' . get_permalink( $loc_post->ID ) . '" rel="bookmark"></a>';
+                        $locations_display .= '</div>';
+                    $locations_display .= '</div>';
+                }
+                $locations_display .= apply_filters( 'the_content', $loc_post->post_content );
+                $locations_display .= '</div>';
+            $locations_display .= '</div>';
+        $locations_display .= '</article>';
     }
     $locations_display .= '</div>';
     return $locations_display;

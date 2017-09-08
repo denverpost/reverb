@@ -1982,7 +1982,67 @@ header.category-drink h1.category-drink.archive-title a {
 .single .wp-polls-ans p a {
 	font-size:.8em;
 }
-
+/* embedded locations */
+article div.list_locations {
+	margin:2em 10%;
+}
+article div.list_locations:before,
+article div.list_locations:after {
+	content:' ';
+	display:table;
+}
+article div.list_locations article.location-embed p,
+article div.list_locations article.location-embed ul,
+article div.list_locations article.location-embed ol,
+article div.list_locations article.location-embed div,
+article div.list_locations article.location-embed iframe,
+article div.list_locations article.location-embed object,
+article div.list_locations article.location-embed h2,
+article div.list_locations article.location-embed h3,
+article div.list_locations article.location-embed h4 {
+	margin-left:0;
+	margin-right:0;
+	width:100%;
+}
+article.location-embed {
+	margin-bottom:2em;
+}
+article.location-embed h2 {
+	color:#222;
+}
+article.location-embed h2 a,
+article.location-embed h2 a:active,
+article.location-embed h2 a:visited {
+	color:#222;
+}
+article.location-embed h2 a:hover {
+	color:rgba(0,115,174,0.8);
+	text-decoration:underline;
+}
+article.location-embed span.loc-rank {
+	margin-right:.25em;
+	color:#9a9a9a;
+	font-size:130%;
+	font-weight: bold;
+}
+article.location-embed .location-image-wrap {
+	position:relative;
+	display:block;
+	width:100%;
+}
+article.location-embed .frontpage-image {
+	margin-bottom: 1em;
+	padding: 0;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: 50% 30%;
+}
+article.location-embed .front-imgholder {
+	padding-bottom:60%;
+}
+article.location-embed .entry-body {
+	padding-bottom:0;
+}
 @media (min-width:1025px) {
 	.top-bar-section ul.right:not(.top-bar-menu) { width:20%; }
 	.top-bar-section ul.top-bar-menu.left { width:60%; }
@@ -2165,6 +2225,9 @@ header.category-drink h1.category-drink.archive-title a {
 	.single .entry-content div.ndn_embed {
 		margin: 0 0 1em;
 		width:100%;
+	}
+	article div.list_locations {
+		margin:1em 0;
 	}
 	.page .entry-content iframe.twitter-tweet,
 	.single .entry-content iframe.twitter-tweet {
