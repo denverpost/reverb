@@ -1111,7 +1111,7 @@ h2.archive-title a {
 h1.archive-title.venue-header a,
 h2.archive-title.venue-header a,
 .single-venues h2.archive-title a {
-	background-color:#5a5a5a;
+	background-color:rgba(240,75,36,1.0);
 }
 .post-type-archive-venues h1.archive-title.venue-header span,
 .post-type-archive-location h1.archive-title.location-header span,
@@ -1986,20 +1986,23 @@ header.category-drink h1.category-drink.archive-title a {
 article div.list_locations {
 	margin:2em 10%;
 }
+article div.list_locations.fullbleed {
+	margin:2em 0;
+}
 article div.list_locations:before,
 article div.list_locations:after {
 	content:' ';
 	display:table;
 }
-article div.list_locations article.location-embed p,
-article div.list_locations article.location-embed ul,
-article div.list_locations article.location-embed ol,
-article div.list_locations article.location-embed div,
-article div.list_locations article.location-embed iframe,
-article div.list_locations article.location-embed object,
-article div.list_locations article.location-embed h2,
-article div.list_locations article.location-embed h3,
-article div.list_locations article.location-embed h4 {
+article div.list_locations:not(.fullbleed) article.location-embed p,
+article div.list_locations:not(.fullbleed) article.location-embed ul,
+article div.list_locations:not(.fullbleed) article.location-embed ol,
+article div.list_locations:not(.fullbleed) article.location-embed div,
+article div.list_locations:not(.fullbleed) article.location-embed iframe,
+article div.list_locations:not(.fullbleed) article.location-embed object,
+article div.list_locations:not(.fullbleed) article.location-embed h2,
+article div.list_locations:not(.fullbleed) article.location-embed h3,
+article div.list_locations:not(.fullbleed) article.location-embed h4 {
 	margin-left:0;
 	margin-right:0;
 	width:100%;

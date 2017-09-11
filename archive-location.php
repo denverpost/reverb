@@ -63,7 +63,7 @@ if ( $locationsearch ) {
                         //If distance is a factor, add the meta_query to $args
                         if( $user_ZIP ) {
                             //Add filter to compare Locations to user location and radius
-                            add_filter( 'posts_where' , 'location_posts_where' );  
+                            add_filter( 'posts_where' , 'location_posts_where' );
                         }
                         // The Query
                         $wp_query = new WP_Query( $args );

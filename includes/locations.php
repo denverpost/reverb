@@ -351,6 +351,29 @@ function location_posts_where( $where )
     return $where;  
 }
 
+/* Search filter for nearby stuff by lat/lon */
+function location_posts_near( $where )  
+{  
+    global $wpdb;
+
+    global $post;
+    $lat = get_post_meta($post->ID, '_location_latitude', true);
+    $lng = get_post_meta($post->ID, '_location_longitude', true);
+
+    $table_name = $wpdb->prefix . 'locations';
+    // Append our radius calculation to the WHERE  
+    $where .= " AND $wpdb->posts.ID IN (SELECT post_id FROM " . $table_name . " WHERE
+         ( 3959 * acos( cos( radians(" . $lat . ") )
+                        * cos( radians( lat ) )
+                        * cos( radians( lng )
+                        - radians(" . $lng . ") )
+                        + sin( radians(" . $lat . ") )
+                        * sin( radians( lat ) ) ) ) <= 2.5)"; // 2.5 = 'nearby' distance radius in miles
+
+    // Return the updated WHERE part of the query  
+    return $where;  
+}
+
 /*** CALCULATE DISTANCE BETWEEN TWO POINTS OF LATITUDE/LONGITUDE ***/
 function distance($lat1, $lon1, $lat2, $lon2) {
      $theta = $lon1 - $lon2;
@@ -560,8 +583,10 @@ function location_shortcode_save_metabox( $post_id, $post ) {
 function locations_shortcode() {
     global $post;
     $loc_shortcode_ranked = get_post_meta( $post->ID, '_loc_shortcode_ranked', true );
+    $loc_shortcode_wide = get_post_meta( $post->ID, '_loc_shortcode_wide', true );
     $loc_shortcode_ids = explode( ',', get_post_meta( $post->ID, '_loc_shortcode', true ) );
-    $locations_display = '<div class="list_locations">';
+    $loc_wide = ( $loc_shortcode_wide ) ? ' fullbleed' : '';
+    $locations_display = '<div class="list_locations' . $loc_wide . '">';
     $loc_i = 0;
     foreach( $loc_shortcode_ids as $loc_post_id ) {
         $loc_i++;
@@ -595,3 +620,29 @@ function locations_shortcode() {
     return $locations_display;
 }
 add_shortcode( 'locations', 'locations_shortcode' );
+
+/**
+ * Let's output the featured image at the top of post that
+ * are locations, but lets append it to the top of the content
+ * instead of outputting it above the headline or with metas
+ */
+function location_image_the_content( $content ) {
+    if ( is_single() && get_post_type() == 'location' ) {
+        global $post;
+        if ( has_post_thumbnail( $post->ID ) ) {
+            $large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'large' );
+            $image_meta = get_post( get_post_thumbnail_id( $post->ID ) );
+        }
+        $image_caption = ( isset( $image_meta->post_excerpt ) ) ? $image_meta->post_excerpt : '';
+        $image_url = ( isset( $large_image_url ) && strlen( $large_image_url[0] ) >= 1 ) ? $large_image_url[0] : false;
+        if ( $image_url ) { 
+            $image_code = '<figure class="figure wp-caption alignnone">'; 
+                $image_code .= '<img class="size-full" src="' . $image_url . '" alt="' . $post->post_title . '" />';
+                $image_code .= '<figcaption class="wp-caption-text">' . $image_caption . '</figcaption>';
+            $image_code .= '</figure>';
+            $content = $image_code . $content;
+        }
+    }
+    return $content;
+}
+add_filter( 'the_content', 'location_image_the_content' );

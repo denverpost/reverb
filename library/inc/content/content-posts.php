@@ -39,15 +39,15 @@ add_action('reactor_inner_content_before', 'reactor_do_hero', 0);
 function reactor_do_overline() {
 	if ( is_single() && get_post_type() == 'location' ) { ?>
 		<header class="archive-header">
-            <h1 class="archive-title venue-header"><span><a href="<?php echo get_bloginfo( 'url' ); ?>/locations/">Location</a></span></h1>
+            <h2 class="archive-title location-header"><span><a href="<?php echo get_bloginfo( 'url' ); ?>/location/">Location</a></span></h1>
         </header><!-- .archive-header -->
 	<?php } else if ( is_single() && get_post_type() == 'venues' ) { ?>
 		<header class="archive-header">
-            <h1 class="archive-title venue-header"><span><a href="<?php echo get_bloginfo( 'url' ); ?>/venues/">Venues</a></span></h1>
+            <h2 class="archive-title venue-header"><span><a href="<?php echo get_bloginfo( 'url' ); ?>/venues/">Venue</a></span></h1>
         </header><!-- .archive-header -->
 	<?php } else if ( is_single() && get_post_type() == 'neighborhoods' ) { ?>
 		<header class="archive-header">
-            <h1 class="archive-title neighborhood-header"><span><a href="<?php echo get_bloginfo( 'url' ); ?>/neighborhoods/">Neighborhoods</a></span></h1>
+            <h2 class="archive-title neighborhood-header"><span><a href="<?php echo get_bloginfo( 'url' ); ?>/neighborhoods/">Neighborhood</a></span></h1>
         </header><!-- .archive-header -->
 	<?php } else if ( is_single() && ! is_page_template( 'page-templates/calendar.php' ) ) {
 		$primary_category = tkno_get_primary_category();
@@ -197,7 +197,10 @@ function reactor_do_standard_header_titles() {
 	} elseif ( !get_post_format() && !is_page_template('page-templates/front-page.php') ) {  ?>    
 		<?php if ( is_single() ) { ?>
 		<h1 class="entry-title"><?php the_title(); ?></h1>
-		<?php if ( get_the_subtitle( $post->ID, '', '', false ) != '' ): ?>
+		<?php if ( get_post_type() == 'location' ): 
+			$location_address = get_post_meta($post->ID, '_location_street_address', true); ?>
+			<h2 class="entry-subtitle"><?php echo $location_address; ?></h2>
+		<?php elseif ( get_the_subtitle( $post->ID, '', '', false ) != '' ): ?>
 			<h2 class="entry-subtitle"><?php the_subtitle(); ?></h2>
 		<?php endif; ?>
 		<?php } else { ?>
@@ -273,7 +276,7 @@ function reactor_do_post_footer_neighborhood() {
 	global $post;
 	$neighborhood = wp_get_post_terms( $post->ID, 'neighborhood' );
 	$neighborhood_page = ( ! empty( $neighborhood[0] ) ) ? tkno_get_neighborhood_from_slug( $neighborhood[0]->slug ) : '';
-	if ( is_single() && ! $neighborhood_page == '' ) { ?>
+	if ( is_single() && get_post_type() == 'post' && ! $neighborhood_page == '' ) { ?>
 		<div class="row">
 			<div class="large-12 medium-12 small-12 columns single_neighborhood neighborhood_link">
 				<h3>More about the neighborhood: <a href="<?php echo get_permalink( $neighborhood_page->ID ); ?>"><?php echo $neighborhood_page->post_title; ?></a></h3>
