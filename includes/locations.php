@@ -442,6 +442,7 @@ function location_shortcode_metabox( $post ) {
     $loc_shortcode_ranked = get_post_meta( $post->ID, '_loc_shortcode_ranked', true );
     $loc_shortcode_wide = get_post_meta( $post->ID, '_loc_shortcode_wide', true );
     $loc_shortcode = get_post_meta( $post->ID, '_loc_shortcode', true );
+    $loc_shortcode_map = get_post_meta( $post->ID, '_loc_shortcode_map', true );
     $loc_shortcode_ids = explode( ',', $loc_shortcode );
     $args = array(
         'post_type' => 'location',
@@ -467,6 +468,12 @@ function location_shortcode_metabox( $post ) {
         </div>
         <p><label><input type="checkbox" name="loc_shortcode_ranked" id="loc_shortcode_ranked" value="true" <?php if ( $loc_shortcode_ranked == 'true' ) echo 'checked'; ?> /> Ranked and numbered?</label></p>
         <p><label><input type="checkbox" name="loc_shortcode_wide" id="loc_shortcode_wide" value="true" <?php if ( $loc_shortcode_wide == 'true' ) echo 'checked'; ?> /> Display full-width?</label></p>
+        <p><label>Mapping type: <select name="loc_shortcode_map" id="loc_shortcode_map">
+            <option value="none"<?php echo ( ! isset( $loc_shortcode_map ) || $loc_shortcode_map == 'none' ) ? ' selected="selected"' : ''; ?>>None</option>
+            <option value="above"<?php echo ( isset( $loc_shortcode_map ) && $loc_shortcode_map == 'above' ) ? ' selected="selected"' : ''; ?>>Above</option>
+            <option value="below"<?php echo ( isset( $loc_shortcode_map ) && $loc_shortcode_map == 'below' ) ? ' selected="selected"' : ''; ?>>Below</option>
+            <option value="only"<?php echo ( isset( $loc_shortcode_map ) && $loc_shortcode_map == 'only' ) ? ' selected="selected"' : ''; ?>>Only</option>
+            </select></label></p>
         <input type="button" class="button" onclick="javascript:insertLocationShortcode();" value="Insert shortcode" />
     </form>
     <script type="text/javascript">
@@ -495,12 +502,15 @@ function location_shortcode_metabox( $post ) {
         function insertLocationShortcode() {
             var locationRankedSrc = document.getElementById('loc_shortcode_ranked').checked;
             var locationWideSrc = document.getElementById('loc_shortcode_wide').checked;
+            var mapSelect = document.getElementById("loc_shortcode_map");
+            var mapSelectValue = mapSelect.options[mapSelect.selectedIndex].value;
             var locationIdsSrc = getLocationIDs();
             var locationRanked = (locationRankedSrc) ? ' ranked="true"' : '';
             var locationWide = (locationWideSrc) ? ' wide="true"' : '';
+            var mapSelected = (mapSelectValue) ? ' map="' + mapSelectValue + '"' : '';
             var locationIds = (locationIdsSrc !== '') ? ' ids="' + locationIdsSrc + '"' : false;
             if ( locationIds !== false ) {
-                wp.media.editor.insert('[locations' + locationIds + locationRanked + locationWide + ']');
+                wp.media.editor.insert('[locations' + locationIds + locationRanked + locationWide + mapSelected + ']');
             }
         }
         var se_ajax_url = '<?php echo admin_url('admin-ajax.php'); ?>';
@@ -578,45 +588,90 @@ function location_shortcode_save_metabox( $post_id, $post ) {
         update_post_meta( $post_id, $loc_shortcode_wide_meta_key, $loc_shortcode_wide_new_value );
     elseif ( '' == $loc_shortcode_wide_new_value && $loc_shortcode_wide_meta_value )
         delete_post_meta( $post_id, $loc_shortcode_wide_meta_key, $loc_shortcode_wide_meta_value );
+
+    $loc_shortcode_map = $_POST['loc_shortcode_map'];
+
+    $loc_shortcode_map_new_value = ( isset( $loc_shortcode_map ) ) ? sanitize_html_class( $loc_shortcode_map ) : 'none';
+    $loc_shortcode_map_meta_key = '_loc_shortcode_map';
+    $loc_shortcode_map_meta_value = get_post_meta( $post_id, $loc_shortcode_map_meta_key, true );
+    if ( $loc_shortcode_map_new_value && '' == $loc_shortcode_map_meta_value )
+        add_post_meta( $post_id, $loc_shortcode_map_meta_key, $loc_shortcode_map_new_value, true );
+    elseif ( $loc_shortcode_map_new_value && $loc_shortcode_map_new_value != $loc_shortcode_map_meta_value )
+        update_post_meta( $post_id, $loc_shortcode_map_meta_key, $loc_shortcode_map_new_value );
+    elseif ( '' == $loc_shortcode_map_new_value && $loc_shortcode_map_meta_value )
+        delete_post_meta( $post_id, $loc_shortcode_map_meta_key, $loc_shortcode_map_meta_value );
 }
 
-function locations_shortcode() {
+function locations_shortcode( $atts = [], $content = null, $tag = '' ) {
     global $post;
-    $loc_shortcode_ranked = get_post_meta( $post->ID, '_loc_shortcode_ranked', true );
-    $loc_shortcode_wide = get_post_meta( $post->ID, '_loc_shortcode_wide', true );
-    $loc_shortcode_ids = explode( ',', get_post_meta( $post->ID, '_loc_shortcode', true ) );
-    $loc_wide = ( $loc_shortcode_wide ) ? ' fullbleed' : '';
+    $atts = array_change_key_case( (array)$atts, CASE_LOWER );
+    // override default attributes with user attributes
+    $loc_atts = shortcode_atts([
+        'ids' => '',
+        'ranked' => 'false',
+        'wide' => 'false',
+        'map' => 'none'
+     ], $atts, $tag);
+
+    // Get all the pieces of the shortcode input
+    $loc_shortcode_ids = explode( ',', $loc_atts['ids'] );
+    $loc_add_map = ( in_array( $loc_atts['map'], array('above','below','only') ) ) ? true : false;
+    if ( $loc_add_map ) {
+        $map_div = '<div class="neighborhood-map-form">';
+            $map_div .= '<div class="map-expander"></div>';
+            $map_div .= do_shortcode('[leaflet-map zoomcontrol="1"]');
+        $map_div .= '</div>';
+    }
+    $loc_wide = ( $loc_atts['wide'] == 'true' ) ? ' fullbleed' : '';
+    // Start the output string and add the map if it's at the top or standalone and start the map data
+    $map_display = '';
     $locations_display = '<div class="list_locations' . $loc_wide . '">';
+    $locations_display .= ( $loc_atts['map'] == 'above' || $loc_atts['map'] == 'only' ) ? $map_div : '';
     $loc_i = 0;
     foreach( $loc_shortcode_ids as $loc_post_id ) {
         $loc_i++;
-        $loc_rank = ( $loc_shortcode_ranked ) ? '<span class="loc-rank">' . $loc_i . '.</span>': '';
+        // Setup individual items based on shortcode info and add post data from each
+        $loc_rank = ( $loc_atts['ranked'] == 'true' ) ? '<span class="loc-rank">' . $loc_i . '.</span>': '';
         $loc_post = get_post( $loc_post_id );
         $post_classes = 'location-embed ' . join( ' ', get_post_class( $loc_post->ID ) );
+        $address = get_post_meta( $loc_post->ID, '_location_street_address', true );
         if ( has_post_thumbnail( $loc_post->ID ) ) {
             $large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id( $loc_post->ID ), 'large' );
         }
         $bg_image_url = ( isset( $large_image_url ) && strlen( $large_image_url[0] ) >= 1 ) ? $large_image_url[0] : false;
-        $locations_display .= '<article id="location-' . $loc_post->ID . '" class="' . $post_classes . '">';
-            $locations_display .= '<div class="entry-body">';         
-                $locations_display .= '<header class="entry-header">';
-                    $locations_display .= '<h2 class="entry-title">' . $loc_rank . '<a href="' . get_permalink( $loc_post->ID ) . '" rel="bookmark">' . $loc_post->post_title . '</a></h2>';
-                $locations_display .= '</header>';
-                $locations_display .= '<div class="entry-content">';
-                if ( $bg_image_url ) { 
-                    $locations_display .= '<div class="location-image-wrap">'; 
-                        $locations_display .= '<div class="frontpage-image" style="background-image:url(' . $bg_image_url . ')">';
-                            $locations_display .= '<div class="front-imgholder"></div>';
-                            $locations_display .= '<a href="' . get_permalink( $loc_post->ID ) . '" rel="bookmark"></a>';
+        if ( $loc_atts['map'] != 'only' ) {
+            $locations_display .= '<article id="location-' . $loc_post->ID . '" class="' . $post_classes . '">';
+                $locations_display .= '<div class="entry-body">';         
+                    $locations_display .= '<header class="entry-header">';
+                        $locations_display .= '<h2 class="entry-title">' . $loc_rank . '<a href="' . get_permalink( $loc_post->ID ) . '" rel="bookmark">' . $loc_post->post_title . '</a></h2>';
+                    $locations_display .= '</header>';
+                    $locations_display .= '<h3 class="entry-subtitle">' . $address . '</h3>';
+                    $locations_display .= '<div class="entry-content">';
+                    if ( $bg_image_url ) { 
+                        $locations_display .= '<div class="location-image-wrap">'; 
+                            $locations_display .= '<div class="frontpage-image" style="background-image:url(' . $bg_image_url . ')">';
+                                $locations_display .= '<div class="front-imgholder"></div>';
+                                $locations_display .= '<a href="' . get_permalink( $loc_post->ID ) . '" rel="bookmark"></a>';
+                            $locations_display .= '</div>';
                         $locations_display .= '</div>';
+                    }
+                    $locations_display .= apply_filters( 'the_content', $loc_post->post_content );
                     $locations_display .= '</div>';
-                }
-                $locations_display .= apply_filters( 'the_content', $loc_post->post_content );
                 $locations_display .= '</div>';
-            $locations_display .= '</div>';
-        $locations_display .= '</article>';
+            $locations_display .= '</article>';
+        }
+        // Create the map elements for each item
+        if ( $loc_add_map ) {
+            $latitude = get_post_meta( $loc_post->ID, '_location_latitude', true );
+            $longitude = get_post_meta( $loc_post->ID, '_location_longitude', true );
+            $medium_img_url = ( $loc_post->ID ) ? wp_get_attachment_image_src( get_post_thumbnail_id( $loc_post->ID ), 'medium') : false;
+            $img_div = ( $medium_img_url && strlen( $medium_img_url[0] ) >= 1 ) ? '<div class="cat-thumbnail"><div class="cat-imgholder"></div><a href="' . get_permalink( $loc_post->ID ) . '"><div class="cat-img" style="background-image:url(\\\'' . $medium_img_url[0] . '\\\');"></div></a></div>' : '';
+            $map_display .= do_shortcode('[leaflet-marker zoom=11 lat=' . $latitude . ' lng=' . $longitude . ']<h3><a href="' . get_permalink( $loc_post->ID ) . '">' . $loc_post->post_title . '</a></h3><p>' . $address . '</p>' . $img_div . '[/leaflet-marker]' );
+        }
     }
+    $locations_display .= ( $loc_atts['map'] == 'below' ) ? $map_div : '';
     $locations_display .= '</div>';
+    $locations_display .= ( $loc_add_map ) ? $map_display : '';
     return $locations_display;
 }
 add_shortcode( 'locations', 'locations_shortcode' );
