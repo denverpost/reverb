@@ -22,7 +22,7 @@
             <div class="entry-content">
                 <?php the_content(); ?>
                 <?php wp_link_pages( array('before' => '<div class="page-links">' . __('Pages:', 'reactor'), 'after' => '</div>') ); ?>
-                <?php if ( get_post_type() == 'location' ) { ?>
+                <?php if ( get_post_type() == 'location' && ! has_shortcode( $post->post_content, 'locations' ) ) { ?>
                     <div class="neighborhood-map-form">
                         <div class="map-expander"></div>
                         <?php echo do_shortcode('[leaflet-map zoom=11]'); ?>

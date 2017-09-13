@@ -29,13 +29,15 @@
                         
 					<?php get_template_part('post-formats/format', 'single'); ?>
 
-                    <?php
-                    $latitude = get_post_meta($post->ID, '_location_latitude', true);
-                    $longitude = get_post_meta($post->ID, '_location_longitude', true);
-                    $address = get_post_meta($post->ID, '_location_street_address', true);
-                    $medium_img_url = ( has_post_thumbnail() ) ? wp_get_attachment_image_src( get_post_thumbnail_id(), 'medium') : false;
-                    $img_div = ( $medium_img_url && strlen( $medium_img_url[0]) >= 1) ? '<div class="cat-thumbnail"><div class="cat-imgholder"></div><a href="' . get_the_permalink() . '"><div class="cat-img" style="background-image:url(\\\'' . $medium_img_url[0] . '\\\');"></div></a></div>' : '';
-                    echo do_shortcode('[leaflet-marker zoom=11 lat=' . $latitude . ' lng=' . $longitude . ']<h3><a href="' . get_the_permalink() . '">' . get_the_title() . '</a></h3><p>' . $address . '</p>' . $img_div . '[/leaflet-marker]');
+                    <?php 
+                    if ( ! has_shortcode( $post->post_content, 'locations' ) ) {
+                        $latitude = get_post_meta($post->ID, '_location_latitude', true);
+                        $longitude = get_post_meta($post->ID, '_location_longitude', true);
+                        $address = get_post_meta($post->ID, '_location_street_address', true);
+                        $medium_img_url = ( has_post_thumbnail() ) ? wp_get_attachment_image_src( get_post_thumbnail_id(), 'medium') : false;
+                        $img_div = ( $medium_img_url && strlen( $medium_img_url[0]) >= 1) ? '<div class="cat-thumbnail"><div class="cat-imgholder"></div><a href="' . get_the_permalink() . '"><div class="cat-img" style="background-image:url(\\\'' . $medium_img_url[0] . '\\\');"></div></a></div>' : '';
+                        echo do_shortcode('[leaflet-marker zoom=11 lat=' . $latitude . ' lng=' . $longitude . ']<h3><a href="' . get_the_permalink() . '">' . get_the_title() . '</a></h3><p>' . $address . '</p>' . $img_div . '[/leaflet-marker]');
+                    }
                     ?>
 
                     <?php reactor_post_after(); ?>

@@ -604,6 +604,10 @@ function location_shortcode_save_metabox( $post_id, $post ) {
 
 function locations_shortcode( $atts = [], $content = null, $tag = '' ) {
     global $post;
+    $recursive = ( $post->post_type == 'location' ) ? true : false;
+    if ( $recursive ) {
+        remove_filter( 'the_content', 'location_image_the_content' );
+    }
     $atts = array_change_key_case( (array)$atts, CASE_LOWER );
     // override default attributes with user attributes
     $loc_atts = shortcode_atts([

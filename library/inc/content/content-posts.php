@@ -197,7 +197,7 @@ function reactor_do_standard_header_titles() {
 	} elseif ( !get_post_format() && !is_page_template('page-templates/front-page.php') ) {  ?>    
 		<?php if ( is_single() ) { ?>
 		<h1 class="entry-title"><?php the_title(); ?></h1>
-		<?php if ( get_post_type() == 'location' ): 
+		<?php if ( get_post_type() == 'location' && ! has_shortcode( $post->post_content, 'locations' ) ): 
 			$location_address = get_post_meta($post->ID, '_location_street_address', true); ?>
 			<h2 class="entry-subtitle"><?php echo $location_address; ?></h2>
 		<?php elseif ( get_the_subtitle( $post->ID, '', '', false ) != '' ): ?>
