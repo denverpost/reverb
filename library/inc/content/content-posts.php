@@ -220,7 +220,7 @@ add_action('reactor_post_header', 'reactor_do_standard_header_titles', 3);
 function reactor_do_post_header_meta() {
 
 	if ( is_single() && get_post_type() != 'venues' && get_post_type() != 'neighborhoods' && get_post_type() != 'location' ) {
-		reactor_post_meta(array('show_cat'=>false,'show_tag'=>false,'catpage'=>true,'link_date'=>false,'social_dropdown'=>false));
+		reactor_post_meta( array( 'show_cat'=>false, 'show_tag'=>false, 'catpage'=>true, 'link_date'=>false, ) );
 	}
 }
 add_action('reactor_post_header', 'reactor_do_post_header_meta', 4);
@@ -323,7 +323,9 @@ add_action('reactor_post_footer', 'tkno_post_body_content_tags', 4);
  */
 function reactor_do_post_footer_meta() {
 	if ( is_single() && get_post_type() != 'venues' && get_post_type() != 'neighborhoods' && get_post_type() != 'location' ) {
+		?> <div class="bio-wrap"> <?php
 		reactor_post_meta( array('show_photo' => true,'show_tag' => true) );
+		?> </div> <?php
 		$post_meta = true;
 	} else if ( get_post_type() != 'venues' && get_post_type() != 'neighborhoods' && get_post_type() != 'location' ) {
 		if ( is_page_template('page-templates/front-page.php') ) {

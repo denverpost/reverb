@@ -7,6 +7,23 @@
  * @since 1.0.0
  */
 
+add_action( 'pre_get_posts', function( $q ) {
+    if( $title = $q->get( '_meta_or_title' ) ) {
+        add_filter( 'get_meta_sql', function( $sql ) use ( $title ) {
+            global $wpdb;
+            // Only run once:
+            static $nr = 0; 
+            if( 0 != $nr++ ) return $sql;
+            // Modified WHERE
+            $sql['where'] = sprintf(
+                " AND ( %s OR %s ) ",
+                $wpdb->prepare( "{$wpdb->posts}.post_title like '%%%s%%'", $title),
+                mb_substr( $sql['where'], 5, mb_strlen( $sql['where'] ) )
+            );
+            return $sql;
+        });
+    }
+});
 
 //Check if this is a search-form submission
 $locationsearch = ( isset( $_GET[ 'locationsearch' ] ) && $_GET[ 'locationsearch' ] == 'Y' ) ? true : false;
@@ -15,6 +32,7 @@ $user_radius =  false;
 if ( $locationsearch ) {
     $user_ZIP = $_GET[ 'user_ZIP' ];
     $user_radius = $_GET[ 'user_radius' ];
+    $user_text = $_GET[ 'user_text' ];
 
     //Check that user ZIP code is a 5-digit number between 10001 and 99999. If not, display error message.
     if( $user_ZIP ) {
@@ -29,7 +47,7 @@ if ( $locationsearch ) {
             $lat = $output->results[0]->geometry->location->lat;
             $lng = $output->results[0]->geometry->location->lng;
         }
-    } else {
+    } elseif ( ! $user_text ) {
         $locationsearch = false;
     }
 }
@@ -59,7 +77,9 @@ if ( $locationsearch ) {
                             'orderby'                => 'title',
                             'meta_query'             => array(),
                         );
-
+                        if( $user_text ) {
+                            $args['s'] = $user_text;
+                        }
                         //If distance is a factor, add the meta_query to $args
                         if( $user_ZIP ) {
                             //Add filter to compare Locations to user location and radius
@@ -100,10 +120,14 @@ if ( $locationsearch ) {
                                         <h2>Find places to go</h2>
                                     </div>
                                     <div class="large-4 columns">
-                                        <label>Start with a ZIP code</label>
-                                        <input type="text" pattern=".{5}" required name="user_ZIP" id="user_ZIP" value="<?php echo ( isset ($user_ZIP) ) ? $user_ZIP : ''; ?>" />
+                                        <label>What are you looking for?</label>
+                                        <input type="text" name="user_text" id="user_text" value="<?php echo ( isset ($user_text) ) ? $user_text : ''; ?>" />
                                     </div>
-                                    <div class="large-4 columns">
+                                    <div class="large-2 columns">
+                                        <label>Near ZIP</label>
+                                        <input type="text" pattern=".{5}" name="user_ZIP" id="user_ZIP" value="<?php echo ( isset ($user_ZIP) ) ? $user_ZIP : ''; ?>" />
+                                    </div>
+                                    <div class="large-2 columns">
                                         <label>Distance</label>
                                         <select name="user_radius" id="user_radius">
                                             <option<?php echo ( $user_radius == 25000 ) ? ' selected="selected"' : ''; ?> value="25000">Any</option>
@@ -126,7 +150,7 @@ if ( $locationsearch ) {
 
                         <?php reactor_loop_before(); ?>
 
-                        <?php if ( isset( $user_radius ) || isset( $user_ZIP ) ) { ?>
+                        <?php if ( $locationsearch ) { ?>
                             <h4 class="location-archive">Search results...</h4>
                         <?php } else { ?>
                             <h4 class="location-archive">Recently added locations:</h4>

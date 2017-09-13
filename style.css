@@ -1399,21 +1399,27 @@ body:not(.home) .cat-second .entry-body h2.entry-title {
 .entry-content .twitter-tweet-rendered {
 	margin:0 auto!important;
 }
+.page .entry-footer .bio-wrap,
+.single .entry-footer .bio-wrap {
+	margin-top:.5em;
+	padding-top:2em;
+	border-top: 1px solid #ddd;	
+}
 .neighborhood_children_list,
 .page .entry-meta-author,
 .single .entry-meta-author {
 	padding:1em;
-	margin:2em 0 1em!important;
+	margin:0 0 1em!important;
 	border:1px solid #ddd;
 }
 .page .entry-meta-author .authorimage,
 .single .entry-meta-author .authorimage {
 	padding-right:1em;
 }
-.page .entry-meta-author h4,
-.single .entry-meta-author h4 {
+.page .entry-meta-author h4 a,
+.single .entry-meta-author h4 a {
 	font-family:'Arvo',Arial,Helvetica,sans-serif;
-	font-weight: 300;
+	font-weight: 400;
 	font-size: 1.2em;
 	line-height: 1.2;
 	margin-top: 0;
