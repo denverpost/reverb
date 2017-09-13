@@ -182,7 +182,7 @@ if ( !function_exists('reactor_post_meta') ) {
 						$bio_author->display_name
 					 );
 				}
-				$display_title = ( $bio_author_meta['display_title'] ) ? '<span>, <em>' . $bio_author_meta['display_title'] . '</em></span>' : '';
+				$display_title = ( isset( $bio_author_meta['display_title'] ) && $bio_author_meta['display_title'] != '' ) ? '<span>, <em>' . $bio_author_meta['display_title'] . '</em></span>' : '';
 				$author_name = sprintf( '<h4><a class="url fn n" href="%1$s" rel="author">%2$s</a>%3$s</h4>',
 					esc_url( get_author_posts_url( $bio_author->ID ) ),
 					$bio_author->display_name,
