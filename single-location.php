@@ -52,20 +52,22 @@
                     $venue_name = get_term_by( 'slug', $venue_slug, 'venue' ); ?>
                 
                 <div class="location-related">
-                    <h2 class="archive-title"><a class="noclick" href="javascript:void(0);">Nearby</a></h2>
 
                     <?php
 
                         $args = array(
                             'post_type' => 'location',
-                            'posts_per_page' => 5
+                            'posts_per_page' => 5,
+                            'post__not_in' => array( $post->ID )
                             );
                         add_filter( 'posts_where' , 'location_posts_near' ); 
                         $location_query = new WP_Query( $args ); ?>
 
-                        <?php if ( $location_query->have_posts() ) :
+                        <?php if ( $location_query->have_posts() ) : ?>
                             
-                            while ( $location_query->have_posts() ) : $location_query->the_post(); ?>
+                        <h2 class="archive-title"><a class="noclick" href="javascript:void(0);">Nearby</a></h2>
+                        
+                            <?php while ( $location_query->have_posts() ) : $location_query->the_post(); ?>
 
                                 <?php get_template_part('post-formats/format', 'location'); ?>
 
