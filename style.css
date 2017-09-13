@@ -1111,7 +1111,7 @@ h2.archive-title a {
 h1.archive-title.venue-header a,
 h2.archive-title.venue-header a,
 .single-venues h2.archive-title a {
-	background-color:#5a5a5a;
+	background-color:rgba(240,75,36,1.0);
 }
 .post-type-archive-venues h1.archive-title.venue-header span,
 .post-type-archive-location h1.archive-title.location-header span,
@@ -1399,21 +1399,27 @@ body:not(.home) .cat-second .entry-body h2.entry-title {
 .entry-content .twitter-tweet-rendered {
 	margin:0 auto!important;
 }
+.page .entry-footer .bio-wrap,
+.single .entry-footer .bio-wrap {
+	margin-top:.5em;
+	padding-top:2em;
+	border-top: 1px solid #ddd;	
+}
 .neighborhood_children_list,
 .page .entry-meta-author,
 .single .entry-meta-author {
 	padding:1em;
-	margin:2em 0 1em!important;
+	margin:0 0 1em!important;
 	border:1px solid #ddd;
 }
 .page .entry-meta-author .authorimage,
 .single .entry-meta-author .authorimage {
 	padding-right:1em;
 }
-.page .entry-meta-author h4,
-.single .entry-meta-author h4 {
+.page .entry-meta-author h4 a,
+.single .entry-meta-author h4 a {
 	font-family:'Arvo',Arial,Helvetica,sans-serif;
-	font-weight: 300;
+	font-weight: 400;
 	font-size: 1.2em;
 	line-height: 1.2;
 	margin-top: 0;
@@ -1564,11 +1570,11 @@ h1.author-title {
 	margin-bottom: .5em;
 }
 .author-info p, .author-info li {
-	font-size:1.3em;
+	font-size:1.2em;
 }
 div.author-posts {
-	padding-left:1em;
-	padding-right:0;
+	padding-left:1.25em;
+	padding-right:1em;
 }
 ul.author-social {
 	list-style-type: none;
@@ -1577,6 +1583,7 @@ ul.author-social {
 }
 .author-avatar {
 	padding-left:1em;
+	padding-bottom:.25em;
 }
 h2.author-posts-title {
 	font-size: 1.4em;
@@ -1588,6 +1595,10 @@ h2.author-posts-title {
 }
 body.author .author-posts .entry-body h2.entry-title {
 	font-size:1.2em;
+}
+body.author .panel {
+	background-color:#f5f5f5;
+	padding:1.25em 1em;
 }
 
 /* GSS slideshows */
@@ -1731,9 +1742,11 @@ h2.about-authors-list { font-size: 1.25em }
 h2.about-author-title { font-size: 1.1em }
 h2.about-author-title span,
 h1.author-title span,
-h4.author span { font-size:.8em; }
+h4.author span {
+	font-size:.8em;
+	color:#747474;
+}
 .about-author p { font-size: .9em }
-
 /* sidebar widget styles */
 h4.widget-title {
 	font-family:'Arvo',Arial,Helvetica,sans-serif;
@@ -1982,13 +1995,85 @@ header.category-drink h1.category-drink.archive-title a {
 .single .wp-polls-ans p a {
 	font-size:.8em;
 }
-
+/* embedded locations */
+article div.list_locations {
+	margin:2em 10%;
+}
+article div.list_locations.fullbleed {
+	margin:2em 0;
+}
+article div.list_locations:before,
+article div.list_locations:after {
+	content:' ';
+	display:table;
+}
+article div.list_locations:not(.fullbleed) article.location-embed p,
+article div.list_locations:not(.fullbleed) article.location-embed ul,
+article div.list_locations:not(.fullbleed) article.location-embed ol,
+article div.list_locations:not(.fullbleed) article.location-embed div,
+article div.list_locations:not(.fullbleed) article.location-embed iframe,
+article div.list_locations:not(.fullbleed) article.location-embed object,
+article div.list_locations:not(.fullbleed) article.location-embed h2,
+article div.list_locations:not(.fullbleed) article.location-embed h3,
+article div.list_locations:not(.fullbleed) article.location-embed h4 {
+	margin-left:0;
+	margin-right:0;
+	width:100%;
+}
+article.location-embed header.entry-header {
+	padding-bottom:.25em;
+	margin-bottom:.5em;
+}
+article.location-embed {
+	margin-bottom:2em;
+}
+article.location-embed h2 {
+	color:#222;
+}
+article.location-embed h2 a,
+article.location-embed h2 a:active,
+article.location-embed h2 a:visited {
+	color:#222;
+}
+article.location-embed h2 a:hover {
+	color:rgba(0,115,174,0.8);
+	text-decoration:underline;
+}
+article.location-embed h3.entry-subtitle {
+	color:#747474;
+	font-weight:400;
+	margin:.3em 0 1em;
+	font-size:1.2em;
+}
+article.location-embed span.loc-rank {
+	margin-right:.25em;
+	color:#9a9a9a;
+	font-size:130%;
+	font-weight: bold;
+}
+article.location-embed .location-image-wrap {
+	position:relative;
+	display:block;
+	width:100%;
+}
+article.location-embed .frontpage-image {
+	margin-bottom: 1em;
+	padding: 0;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: 50% 30%;
+}
+article.location-embed .front-imgholder {
+	padding-bottom:60%;
+}
+article.location-embed .entry-body {
+	padding-bottom:0;
+}
 @media (min-width:1025px) {
 	.top-bar-section ul.right:not(.top-bar-menu) { width:20%; }
 	.top-bar-section ul.top-bar-menu.left { width:60%; }
 	.top-bar-section ul.top-bar-menu.left > li.menu-item-has-children { width:16%; }
 }
-
 @media (max-width:1024px) {
 	.contain-to-grid .top-bar .title-area {
 		display:block;
@@ -2060,6 +2145,13 @@ header.category-drink h1.category-drink.archive-title a {
 }
 
 @media (max-width:768px) {
+	.entry-body {
+		padding-bottom:.5em;
+		margin-bottom:.75em;
+	}
+	.cat-top {
+		margin-bottom:1em!important;
+	}
 	.site-social a {
 		width:6%;
 		top:25%;
@@ -2083,6 +2175,12 @@ header.category-drink h1.category-drink.archive-title a {
 	body:not(.home) .entry-body h2.entry-title {
 		font-size:1.4em;
 	}
+	body:not(.home) .cat-main .entry-body .catpage-post h2.entry-title {
+		font-size:1.25em;
+	}
+	body:not(.home) .entry-body .catpage-post h2.entry-title {
+		font-size: 1.1em;
+	}
 	.frontpage-image h2 {
 		width: 40%;
 	}
@@ -2094,12 +2192,21 @@ header.category-drink h1.category-drink.archive-title a {
 	}
 }
 @media (max-width:540px) {
+	div.sponsor_category {
+		margin-bottom:.5em;
+		margin-top:-.7em;
+	}
+	div.sponsor_category span {
+		font-size: 1em;
+		display:block;
+		clear:right;
+	}
 	div#content { padding-top:.5em; }
 	h1.archive-title {
-		font-size:1.25em;
+		font-size:1em;
 	}
 	h2.archive-title {
-		font-size:1.1em;
+		font-size:1em;
 	}
 	#frontpagemain article {
 		width:100%;
@@ -2131,7 +2238,14 @@ header.category-drink h1.category-drink.archive-title a {
 		border-right:none;
 		padding-right:0;
 	}
-	.pagez header.entry-header,
+	.yarpp-related .related-wrap {
+		width:100%;
+		margin-right:0;
+	}
+	.yarpp-related .related-post .front-imgholder {
+		padding-bottom:40%;
+	}
+	.page header.entry-header,
 	.single header.entry-header {
 		margin-bottom:1.5em;
 		padding-bottom:.25em;
@@ -2146,6 +2260,16 @@ header.category-drink h1.category-drink.archive-title a {
 	}
 	body.search h1.page-title {
 		font-size:1.05em;
+	}
+	h4.widget-title {
+		font-size:1.25em;
+	}
+	.widget_dpe_fp_widget h4.widget-title {
+		font-size:.9em;
+	}
+	#sidebar div.widget_pop ul li a,
+	#sidebar div.widget_dontmiss ul li a {
+		font-size:.9em;
 	}
 	.page .entry-content p,
 	.page .entry-content h2,
@@ -2166,6 +2290,9 @@ header.category-drink h1.category-drink.archive-title a {
 		margin: 0 0 1em;
 		width:100%;
 	}
+	article div.list_locations {
+		margin:1em 0;
+	}
 	.page .entry-content iframe.twitter-tweet,
 	.single .entry-content iframe.twitter-tweet {
 		margin:0 5% 1em!important;
@@ -2179,7 +2306,7 @@ header.category-drink h1.category-drink.archive-title a {
 	.single .entry-meta-author ul.author-social-small li,
 	nav.nav-single .nav-next a,
 	.entry-body .entry-meta {
-		font-size: 1.1em;
+		font-size: .75em;
 	}
 	nav.nav-single .nav-next a {
 		padding-top:.1em;

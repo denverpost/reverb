@@ -9,7 +9,7 @@
 ?>
 
     <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-        <div class="entry-body">
+        <div class="entry-body location">
 
             <?php reactor_post_location(); ?>
              

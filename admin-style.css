@@ -1,0 +1,35 @@
+#selected_suggestions {
+    margin-left:20px;
+}
+#selected_suggestions li {
+    line-height:24px;
+    margin-bottom:0;
+}
+#selected_suggestions .loc_delbutton {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    border: none;
+    margin: 0 0 0 -24px;
+    padding: 0;
+    background: 0 0;
+    cursor: pointer;
+    text-indent: 0;
+}
+#selected_suggestions .loc_delbutton .remove-tag-icon:before {
+    background: 0 0;
+    content: "\f153";
+    display: block;
+    font: 400 16px/20px dashicons;
+    speak: none;
+    height: 20px;
+    text-align: center;
+    width: 20px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    margin-left: 2px;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    color: #0073aa;
+    line-height: 1.28;
+}

@@ -87,9 +87,8 @@ function location_add_post_meta_boxes() {
 }
 
 /*** location METABOXES ***/
-//Render the metabox
-function location_post_meta_box() {
-    global $post;
+// Render the metabox
+function location_post_meta_box( $post ) {
     // Noncename needed to verify where the data originated
     echo '<input type="hidden" name="location_meta_nonce" id="location_meta_nonce" value="' .
     wp_create_nonce( basename(__FILE__) ) . '" />';
@@ -106,14 +105,14 @@ function location_post_meta_box() {
 }
 
 // Save the Metabox Data
-function tkno_save_location_meta($post_id, $post) {
+function tkno_save_location_meta( $post_id, $post ) {
     /* Verify the nonce before proceeding. */
-   if ( !isset( $_POST['location_meta_nonce']) || !wp_verify_nonce( $_POST['location_meta_nonce'], basename( __FILE__ ) ) ) {
+    if ( ! isset( $_POST['location_meta_nonce'] ) || ! wp_verify_nonce( $_POST['location_meta_nonce'], basename( __FILE__ ) ) ) {
         return $post_id;
-   }
+    }
 
     // Is the user allowed to edit the post or page?
-    if ( !current_user_can( 'edit_post', $post->ID ))
+    if ( ! current_user_can( 'edit_post', $post->ID ) )
         return $post_id;
 
     // OK, we're authenticated: we need to find and save the data
@@ -121,31 +120,36 @@ function tkno_save_location_meta($post_id, $post) {
     $location_meta['_location_street_address'] = $_POST['_location_street_address'];
 
     //Get Lat/Long from address
+    if ( $location_meta['_location_street_address'] != '' ) {
         $address = $_POST['_location_street_address'];
-        $prepAddr = str_replace(' ','+',$address);
-        $geocode=file_get_contents('http://maps.google.com/maps/api/geocode/json?address='.$prepAddr.'&sensor=false');
-        $output= json_decode($geocode);
+        $prepAddr = str_replace( ' ', '+', $address );
+        $geocode = file_get_contents( 'http://maps.google.com/maps/api/geocode/json?address=' . $prepAddr . '&sensor=false' );
+        $output = json_decode($geocode);
         $latitude = $output->results[0]->geometry->location->lat;
         $longitude = $output->results[0]->geometry->location->lng;
 
-    $location_meta['_location_latitude'] = $latitude;
-    $location_meta['_location_longitude'] = $longitude;
+        $location_meta['_location_latitude'] = $latitude;
+        $location_meta['_location_longitude'] = $longitude;
+    } else {
+        $location_meta['_location_latitude'] = '';
+        $location_meta['_location_longitude'] = '';
+    }
 
     // Add values of $location_meta as custom fields
-    foreach ($location_meta as $key => $value) { // Cycle through the $location_meta array!
-        if( $post->post_type == 'revision' ) return; // Don't store custom data twice
-        $value = implode(',', (array)$value); // If $value is an array, make it a CSV (unlikely)
-        if( get_post_meta( $post->ID, $key, FALSE ) ) { // If the custom field already has a value
-            update_post_meta($post->ID, $key, $value);
-        } else { // If the custom field doesn't have a value
-            add_post_meta($post->ID, $key, $value);
-        }
-        if( !$value ) delete_post_meta( $post->ID, $key ); // Delete if blank
+    foreach ( $location_meta as $key => $value ) {
+        $loc_shortcode_new_value = ( isset( $value ) ) ? $value : '';
+        $loc_shortcode_meta_key = $key;
+        $loc_shortcode_meta_value = get_post_meta( $post_id, $loc_shortcode_meta_key, true );
+        if ( $loc_shortcode_new_value && '' == $loc_shortcode_meta_value )
+            add_post_meta( $post_id, $loc_shortcode_meta_key, $loc_shortcode_new_value, true );
+        elseif ( $loc_shortcode_new_value && $loc_shortcode_new_value != $loc_shortcode_meta_value )
+            update_post_meta( $post_id, $loc_shortcode_meta_key, $loc_shortcode_new_value );
+        elseif ( '' == $loc_shortcode_new_value && $loc_shortcode_meta_value )
+            delete_post_meta( $post_id, $loc_shortcode_meta_key, $loc_shortcode_meta_value );
     }
 
     //Call function to save lat/long to custom table
     save_lat_lng($post->ID, $latitude, $longitude);
-
 }
 /*** END METABOXES ***/
 
@@ -347,6 +351,29 @@ function location_posts_where( $where )
     return $where;  
 }
 
+/* Search filter for nearby stuff by lat/lon */
+function location_posts_near( $where )  
+{  
+    global $wpdb;
+
+    global $post;
+    $lat = get_post_meta($post->ID, '_location_latitude', true);
+    $lng = get_post_meta($post->ID, '_location_longitude', true);
+
+    $table_name = $wpdb->prefix . 'locations';
+    // Append our radius calculation to the WHERE  
+    $where .= " AND $wpdb->posts.ID IN (SELECT post_id FROM " . $table_name . " WHERE
+         ( 3959 * acos( cos( radians(" . $lat . ") )
+                        * cos( radians( lat ) )
+                        * cos( radians( lng )
+                        - radians(" . $lng . ") )
+                        + sin( radians(" . $lat . ") )
+                        * sin( radians( lat ) ) ) ) <= 2.5)"; // 2.5 = 'nearby' distance radius in miles
+
+    // Return the updated WHERE part of the query  
+    return $where;  
+}
+
 /*** CALCULATE DISTANCE BETWEEN TWO POINTS OF LATITUDE/LONGITUDE ***/
 function distance($lat1, $lon1, $lat2, $lon2) {
      $theta = $lon1 - $lon2;
@@ -356,3 +383,321 @@ function distance($lat1, $lon1, $lat2, $lon2) {
      $miles = $dist * 60 * 1.1515;
     return $miles;
 }
+
+/**
+ * Here's where we build a metabox, with a form in it, that searches
+ * for location post-type posts that are published. Can't limit
+ * by time or the re-usability of the location post type is
+ * compromised. The idea is to let a producer or writer create
+ * locations, and then quickly build list articles from them.
+ */
+
+/* The search function that the metabox form will use */
+function se_lookup() {
+    global $wpdb;
+    $search = like_escape($_REQUEST['q']);
+    $query = 'SELECT ID,post_title FROM ' . $wpdb->posts . '
+        WHERE post_title LIKE \'%' . $search . '%\'
+        AND post_type = \'location\'
+        AND post_status = \'publish\'
+        ORDER BY post_title ASC';
+    foreach ($wpdb->get_results($query) as $row) {
+        $post_title = $row->post_title;
+        $id = $row->ID;
+        echo $post_title . ' (' . $id . ')' . "\n";
+    }
+    die();
+}
+add_action('wp_ajax_se_lookup', 'se_lookup');
+add_action('wp_ajax_nopriv_se_lookup', 'se_lookup');
+
+function se_wp_enqueue_scripts() {
+    wp_enqueue_script('suggest');
+}
+add_action('wp_enqueue_scripts', 'se_wp_enqueue_scripts');
+
+function location_shortcode_metabox_setup() {
+    add_action( 'add_meta_boxes', 'location_shortcode_add_metabox' );
+    add_action( 'save_post', 'location_shortcode_save_metabox', 10, 2 );
+}
+add_action( 'load-post.php', 'location_shortcode_metabox_setup' );
+add_action( 'load-post-new.php', 'location_shortcode_metabox_setup' );
+
+/* Create one or more meta boxes to be displayed on the post editor screen. */
+function location_shortcode_add_metabox() {
+    add_meta_box(
+        'location_shortcode',
+        esc_html__( 'Locations Shortcode', 'example' ),
+        'location_shortcode_metabox',
+        'post',
+        'side',
+        'default'
+    );
+}
+
+/* Display the post meta box. */
+function location_shortcode_metabox( $post ) {
+    echo '<input type="hidden" name="location_shortcode_nonce" id="location_shortcode_nonce" value="' .
+    wp_create_nonce( basename(__FILE__) ) . '" />';
+    $loc_shortcode_ranked = get_post_meta( $post->ID, '_loc_shortcode_ranked', true );
+    $loc_shortcode_wide = get_post_meta( $post->ID, '_loc_shortcode_wide', true );
+    $loc_shortcode = get_post_meta( $post->ID, '_loc_shortcode', true );
+    $loc_shortcode_map = get_post_meta( $post->ID, '_loc_shortcode_map', true );
+    $loc_shortcode_ids = explode( ',', $loc_shortcode );
+    $args = array(
+        'post_type' => 'location',
+        'post__in' => $loc_shortcode_ids
+    );
+    $loc_shortcode_query = new WP_Query( $args ); ?>
+    <form id="location_shortcode_search">
+        <p><label>Location name to add:</label> <input class="widefat" type="text" name="location_shortcode_search_text" id="location_shortcode_search_text" value="" /></p>
+        <div>
+            <ul id="selected_suggestions">
+            <?php 
+            /* Note how this is done for the future: You can't use ->the_post()
+            in the admin unless you want to change the values in the $post object
+            that's rendering the editor page, because the global $post object
+            isn't actually set up in post.php. This is a 6-year-old-bug! */
+            if ( $loc_shortcode_query->have_posts() ) : 
+                foreach( $loc_shortcode_query->get_posts() as $loc_post ) {
+                    $loc_post_id = $loc_post->ID; ?>
+                    <li id="sug_<?php echo $loc_post_id; ?>"><button type="button" id="loc_remove-sug_<?php echo $loc_post_id; ?>" class="loc_delbutton" onclick="javascript:removeSuggestion(this);"><span class="remove-tag-icon"></span></button><?php echo $loc_post->post_title; ?> (<?php echo $loc_post_id; ?>)<input type="hidden" name="loc_shortcode[]" value="<?php echo $loc_post_id; ?>"/></li>
+                <?php }
+            endif; ?>
+            </ul>
+        </div>
+        <p><label><input type="checkbox" name="loc_shortcode_ranked" id="loc_shortcode_ranked" value="true" <?php if ( $loc_shortcode_ranked == 'true' ) echo 'checked'; ?> /> Ranked and numbered?</label></p>
+        <p><label><input type="checkbox" name="loc_shortcode_wide" id="loc_shortcode_wide" value="true" <?php if ( $loc_shortcode_wide == 'true' ) echo 'checked'; ?> /> Display full-width?</label></p>
+        <p><label>Mapping type: <select name="loc_shortcode_map" id="loc_shortcode_map">
+            <option value="none"<?php echo ( ! isset( $loc_shortcode_map ) || $loc_shortcode_map == 'none' ) ? ' selected="selected"' : ''; ?>>None</option>
+            <option value="above"<?php echo ( isset( $loc_shortcode_map ) && $loc_shortcode_map == 'above' ) ? ' selected="selected"' : ''; ?>>Above</option>
+            <option value="below"<?php echo ( isset( $loc_shortcode_map ) && $loc_shortcode_map == 'below' ) ? ' selected="selected"' : ''; ?>>Below</option>
+            <option value="only"<?php echo ( isset( $loc_shortcode_map ) && $loc_shortcode_map == 'only' ) ? ' selected="selected"' : ''; ?>>Only</option>
+            </select></label></p>
+        <input type="button" class="button" onclick="javascript:insertLocationShortcode();" value="Insert shortcode" />
+    </form>
+    <script type="text/javascript">
+        jQuery.fn.enterKey = function (fnc) {
+            return this.each(function () {
+                $(this).keypress(function (ev) {
+                    var keycode = (ev.keyCode ? ev.keyCode : ev.which);
+                    if (keycode == '13') {
+                        fnc.call(this, ev);
+                    }
+                })
+            })
+        }
+        function removeSuggestion(el) {
+            var elTwo = el.parentNode;
+            elTwo.parentNode.removeChild(elTwo);
+        }
+        function getLocationIDs() {
+            var idList = new Array();
+            jQuery('#selected_suggestions').children('li').each( function() {
+                idList.push( jQuery(this).attr('id').replace('sug_','') );
+            });
+            return idList.join();
+        }
+        // What actually inserts the shortcode we'll use below
+        function insertLocationShortcode() {
+            var locationRankedSrc = document.getElementById('loc_shortcode_ranked').checked;
+            var locationWideSrc = document.getElementById('loc_shortcode_wide').checked;
+            var mapSelect = document.getElementById("loc_shortcode_map");
+            var mapSelectValue = mapSelect.options[mapSelect.selectedIndex].value;
+            var locationIdsSrc = getLocationIDs();
+            var locationRanked = (locationRankedSrc) ? ' ranked="true"' : '';
+            var locationWide = (locationWideSrc) ? ' wide="true"' : '';
+            var mapSelected = (mapSelectValue) ? ' map="' + mapSelectValue + '"' : '';
+            var locationIds = (locationIdsSrc !== '') ? ' ids="' + locationIdsSrc + '"' : false;
+            if ( locationIds !== false ) {
+                wp.media.editor.insert('[locations' + locationIds + locationRanked + locationWide + mapSelected + ']');
+            }
+        }
+        var se_ajax_url = '<?php echo admin_url('admin-ajax.php'); ?>';
+        jQuery(document).ready(function() {
+            jQuery('#location_shortcode_search_text').suggest(se_ajax_url + '?action=se_lookup',
+                {
+                    minchars: 2,
+                    onSelect: function() {
+                        var stripped_id = this.value.match(/\(([^)]+)\)/)[1];
+                        var el_id = 'sug_' + stripped_id;
+                        if ( !jQuery('#'+el_id).length) {
+                            jQuery('#selected_suggestions').append('<li id="' + el_id + '"><button type="button" id="loc_remove-' + el_id + '" class="loc_delbutton" onclick="javascript:removeSuggestion(this);"><span class="remove-tag-icon"></span></button>' + this.value + '<input type="hidden" name="loc_shortcode[]" value="' + stripped_id + '"/></li>');
+                        }
+                        jQuery('#location_shortcode_search_text').val('');
+                    }
+                });
+        });
+    </script>
+    <?php
+}
+
+// checks for only digits between the commas; utility for validation below
+function only_ids_with_commas( $sent_value ) {
+    $values = explode( ',', $sent_value );
+    $valid = true;
+    foreach( $values as $value ) {
+        if( ! ctype_digit( $value ) ) {
+            $valid = false;
+            break;
+        }
+    }
+    return $valid;
+}
+
+// Let's save data from the metabox for the future, duh
+function location_shortcode_save_metabox( $post_id, $post ) {
+    if ( !isset( $_POST['location_shortcode_nonce'] ) || !wp_verify_nonce( $_POST['location_shortcode_nonce'], basename( __FILE__ ) ) ) {
+        return $post_id;
+    }
+    if ( !current_user_can( 'edit_post', $post->ID ) )
+        return $post_id;
+
+    $loc_shortcode = implode( ',', $_POST['loc_shortcode'] );
+
+    $loc_shortcode_new_value = ( isset( $loc_shortcode ) && only_ids_with_commas( $loc_shortcode ) ) ? $loc_shortcode : '';
+    $loc_shortcode_meta_key = '_loc_shortcode';
+    $loc_shortcode_meta_value = get_post_meta( $post_id, $loc_shortcode_meta_key, true );
+    if ( $loc_shortcode_new_value && '' == $loc_shortcode_meta_value )
+        add_post_meta( $post_id, $loc_shortcode_meta_key, $loc_shortcode_new_value, true );
+    elseif ( $loc_shortcode_new_value && $loc_shortcode_new_value != $loc_shortcode_meta_value )
+        update_post_meta( $post_id, $loc_shortcode_meta_key, $loc_shortcode_new_value );
+    elseif ( '' == $loc_shortcode_new_value && $loc_shortcode_meta_value )
+        delete_post_meta( $post_id, $loc_shortcode_meta_key, $loc_shortcode_meta_value );
+
+    $loc_shortcode_ranked = $_POST['loc_shortcode_ranked'];
+
+    $loc_shortcode_ranked_new_value = ( isset( $loc_shortcode_ranked ) && $loc_shortcode_ranked == 'true' ) ? 'true' : 'false';
+    $loc_shortcode_ranked_meta_key = '_loc_shortcode_ranked';
+    $loc_shortcode_ranked_meta_value = get_post_meta( $post_id, $loc_shortcode_ranked_meta_key, true );
+    if ( $loc_shortcode_ranked_new_value && '' == $loc_shortcode_ranked_meta_value )
+        add_post_meta( $post_id, $loc_shortcode_ranked_meta_key, $loc_shortcode_ranked_new_value, true );
+    elseif ( $loc_shortcode_ranked_new_value && $loc_shortcode_ranked_new_value != $loc_shortcode_ranked_meta_value )
+        update_post_meta( $post_id, $loc_shortcode_ranked_meta_key, $loc_shortcode_ranked_new_value );
+    elseif ( '' == $loc_shortcode_ranked_new_value && $loc_shortcode_ranked_meta_value )
+        delete_post_meta( $post_id, $loc_shortcode_ranked_meta_key, $loc_shortcode_ranked_meta_value );
+
+    $loc_shortcode_wide = $_POST['loc_shortcode_wide'];
+
+    $loc_shortcode_wide_new_value = ( isset( $loc_shortcode_wide ) && $loc_shortcode_wide == 'true' ) ? 'true' : 'false';
+    $loc_shortcode_wide_meta_key = '_loc_shortcode_wide';
+    $loc_shortcode_wide_meta_value = get_post_meta( $post_id, $loc_shortcode_wide_meta_key, true );
+    if ( $loc_shortcode_wide_new_value && '' == $loc_shortcode_wide_meta_value )
+        add_post_meta( $post_id, $loc_shortcode_wide_meta_key, $loc_shortcode_wide_new_value, true );
+    elseif ( $loc_shortcode_wide_new_value && $loc_shortcode_wide_new_value != $loc_shortcode_wide_meta_value )
+        update_post_meta( $post_id, $loc_shortcode_wide_meta_key, $loc_shortcode_wide_new_value );
+    elseif ( '' == $loc_shortcode_wide_new_value && $loc_shortcode_wide_meta_value )
+        delete_post_meta( $post_id, $loc_shortcode_wide_meta_key, $loc_shortcode_wide_meta_value );
+
+    $loc_shortcode_map = $_POST['loc_shortcode_map'];
+
+    $loc_shortcode_map_new_value = ( isset( $loc_shortcode_map ) ) ? sanitize_html_class( $loc_shortcode_map ) : 'none';
+    $loc_shortcode_map_meta_key = '_loc_shortcode_map';
+    $loc_shortcode_map_meta_value = get_post_meta( $post_id, $loc_shortcode_map_meta_key, true );
+    if ( $loc_shortcode_map_new_value && '' == $loc_shortcode_map_meta_value )
+        add_post_meta( $post_id, $loc_shortcode_map_meta_key, $loc_shortcode_map_new_value, true );
+    elseif ( $loc_shortcode_map_new_value && $loc_shortcode_map_new_value != $loc_shortcode_map_meta_value )
+        update_post_meta( $post_id, $loc_shortcode_map_meta_key, $loc_shortcode_map_new_value );
+    elseif ( '' == $loc_shortcode_map_new_value && $loc_shortcode_map_meta_value )
+        delete_post_meta( $post_id, $loc_shortcode_map_meta_key, $loc_shortcode_map_meta_value );
+}
+
+function locations_shortcode( $atts = [], $content = null, $tag = '' ) {
+    global $post;
+    $atts = array_change_key_case( (array)$atts, CASE_LOWER );
+    // override default attributes with user attributes
+    $loc_atts = shortcode_atts([
+        'ids' => '',
+        'ranked' => 'false',
+        'wide' => 'false',
+        'map' => 'none'
+     ], $atts, $tag);
+
+    // Get all the pieces of the shortcode input
+    $loc_shortcode_ids = explode( ',', $loc_atts['ids'] );
+    $loc_add_map = ( in_array( $loc_atts['map'], array('above','below','only') ) ) ? true : false;
+    if ( $loc_add_map ) {
+        $map_div = '<div class="neighborhood-map-form">';
+            $map_div .= '<div class="map-expander"></div>';
+            $map_div .= do_shortcode('[leaflet-map zoomcontrol="1"]');
+        $map_div .= '</div>';
+    }
+    $loc_wide = ( $loc_atts['wide'] == 'true' ) ? ' fullbleed' : '';
+    // Start the output string and add the map if it's at the top or standalone and start the map data
+    $map_display = '';
+    $locations_display = '<div class="list_locations' . $loc_wide . '">';
+    $locations_display .= ( $loc_atts['map'] == 'above' || $loc_atts['map'] == 'only' ) ? $map_div : '';
+    $loc_i = 0;
+    foreach( $loc_shortcode_ids as $loc_post_id ) {
+        $loc_i++;
+        // Setup individual items based on shortcode info and add post data from each
+        $loc_rank = ( $loc_atts['ranked'] == 'true' ) ? '<span class="loc-rank">' . $loc_i . '.</span>': '';
+        $loc_post = get_post( $loc_post_id );
+        $post_classes = 'location-embed ' . join( ' ', get_post_class( $loc_post->ID ) );
+        $address = get_post_meta( $loc_post->ID, '_location_street_address', true );
+        if ( has_post_thumbnail( $loc_post->ID ) ) {
+            $large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id( $loc_post->ID ), 'large' );
+        }
+        $bg_image_url = ( isset( $large_image_url ) && strlen( $large_image_url[0] ) >= 1 ) ? $large_image_url[0] : false;
+        if ( $loc_atts['map'] != 'only' ) {
+            $locations_display .= '<article id="location-' . $loc_post->ID . '" class="' . $post_classes . '">';
+                $locations_display .= '<div class="entry-body">';         
+                    $locations_display .= '<header class="entry-header">';
+                        $locations_display .= '<h2 class="entry-title">' . $loc_rank . '<a href="' . get_permalink( $loc_post->ID ) . '" rel="bookmark">' . $loc_post->post_title . '</a></h2>';
+                    $locations_display .= '</header>';
+                    $locations_display .= '<h3 class="entry-subtitle">' . $address . '</h3>';
+                    $locations_display .= '<div class="entry-content">';
+                    if ( $bg_image_url ) { 
+                        $locations_display .= '<div class="location-image-wrap">'; 
+                            $locations_display .= '<div class="frontpage-image" style="background-image:url(' . $bg_image_url . ')">';
+                                $locations_display .= '<div class="front-imgholder"></div>';
+                                $locations_display .= '<a href="' . get_permalink( $loc_post->ID ) . '" rel="bookmark"></a>';
+                            $locations_display .= '</div>';
+                        $locations_display .= '</div>';
+                    }
+                    $locations_display .= apply_filters( 'the_content', $loc_post->post_content );
+                    $locations_display .= '</div>';
+                $locations_display .= '</div>';
+            $locations_display .= '</article>';
+        }
+        // Create the map elements for each item
+        if ( $loc_add_map ) {
+            $latitude = get_post_meta( $loc_post->ID, '_location_latitude', true );
+            $longitude = get_post_meta( $loc_post->ID, '_location_longitude', true );
+            $medium_img_url = ( $loc_post->ID ) ? wp_get_attachment_image_src( get_post_thumbnail_id( $loc_post->ID ), 'medium') : false;
+            $img_div = ( $medium_img_url && strlen( $medium_img_url[0] ) >= 1 ) ? '<div class="cat-thumbnail"><div class="cat-imgholder"></div><a href="' . get_permalink( $loc_post->ID ) . '"><div class="cat-img" style="background-image:url(\\\'' . $medium_img_url[0] . '\\\');"></div></a></div>' : '';
+            $map_display .= do_shortcode('[leaflet-marker zoom=11 lat=' . $latitude . ' lng=' . $longitude . ']<h3><a href="' . get_permalink( $loc_post->ID ) . '">' . $loc_post->post_title . '</a></h3><p>' . $address . '</p>' . $img_div . '[/leaflet-marker]' );
+        }
+    }
+    $locations_display .= ( $loc_atts['map'] == 'below' ) ? $map_div : '';
+    $locations_display .= '</div>';
+    $locations_display .= ( $loc_add_map ) ? $map_display : '';
+    return $locations_display;
+}
+add_shortcode( 'locations', 'locations_shortcode' );
+
+/**
+ * Let's output the featured image at the top of post that
+ * are locations, but lets append it to the top of the content
+ * instead of outputting it above the headline or with metas
+ */
+function location_image_the_content( $content ) {
+    if ( is_single() && get_post_type() == 'location' ) {
+        global $post;
+        if ( has_post_thumbnail( $post->ID ) ) {
+            $large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'large' );
+            $image_meta = get_post( get_post_thumbnail_id( $post->ID ) );
+        }
+        $image_caption = ( isset( $image_meta->post_excerpt ) ) ? $image_meta->post_excerpt : '';
+        $image_url = ( isset( $large_image_url ) && strlen( $large_image_url[0] ) >= 1 ) ? $large_image_url[0] : false;
+        if ( $image_url ) { 
+            $image_code = '<figure class="figure wp-caption alignnone">'; 
+                $image_code .= '<img class="size-full" src="' . $image_url . '" alt="' . $post->post_title . '" />';
+                $image_code .= '<figcaption class="wp-caption-text">' . $image_caption . '</figcaption>';
+            $image_code .= '</figure>';
+            $content = $image_code . $content;
+        }
+    }
+    return $content;
+}
+add_filter( 'the_content', 'location_image_the_content' );

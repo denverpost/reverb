@@ -29,7 +29,7 @@
                         'author'    => $curauth->ID,
                         'posts_per_page'    => $number_posts,
                         'paged' => get_query_var( 'paged' ),
-                        'orderby' => 'date',
+                        'orderby' => 'publish_date',
                         'order' => 'DESC',
                         );
                     

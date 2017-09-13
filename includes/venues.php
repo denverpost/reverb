@@ -16,6 +16,7 @@ function tkno_get_venue_from_slug($venue_slug) {
     $query = new WP_Query( $args );
     $venues = $query->get_posts();
     $venue = ( count($venues) > 0 ) ? $venues[0] : false;
+    wp_reset_postdata();
     return $venue;
 }
 

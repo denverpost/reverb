@@ -22,6 +22,12 @@
             <div class="entry-content">
                 <?php the_content(); ?>
                 <?php wp_link_pages( array('before' => '<div class="page-links">' . __('Pages:', 'reactor'), 'after' => '</div>') ); ?>
+                <?php if ( get_post_type() == 'location' ) { ?>
+                    <div class="neighborhood-map-form">
+                        <div class="map-expander"></div>
+                        <?php echo do_shortcode('[leaflet-map zoom=11]'); ?>
+                    </div>
+                <?php } ?>
             </div><!-- .entry-content --> 
     
             <footer class="entry-footer">
