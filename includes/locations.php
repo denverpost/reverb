@@ -99,7 +99,7 @@ function location_post_meta_box( $post ) {
 
     // Echo out the fields
 
-    echo '<p><label>Street address:</label> <input type="text" size="100" name="_location_street_address" id="_location_street_address" value="' . $address  . '" /></p>';
+    echo '<p><label>Street address:</label> <input type="text" size="60" name="_location_street_address" id="_location_street_address" value="' . $address  . '" /></p>';
     echo '<p><label>Latitude (calculated):</label> <input type="text" disabled="disabled" name="location-latitude" id="location-latitude" value="' . $latitude  .'" />';
     echo '<label style="margin-left:30px;">Longitude (calculated):</label> <input type="text" disabled="disabled" name="location-longitude" id="location-longitude" value="' . $longitude  .'" /></p>';
 }
