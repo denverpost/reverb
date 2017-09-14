@@ -12,6 +12,23 @@
 if ( !function_exists('reactor_top_bar') ) {
 	function reactor_top_bar( $args = '' ) {
 
+		/* is it an outdoors-related page? */
+		$outdoors = false;
+		global $post;
+		$current_id = ( is_single() ) ? $post->ID : get_query_var('cat');
+		$outdoor_parent = get_category_by_slug( 'outdoors' );
+		if ( is_category() && ( $current_id == $outdoor_parent->term_id || cat_is_ancestor_of( $outdoor_parent->term_id, $current_id ) ) ) {
+			$outdoors = true;
+		} else if ( is_single() ) {
+			$categories = wp_get_post_categories( $current_id );
+			foreach ( $categories as $category ) {
+				if ( $category == $outdoor_parent->term_id || cat_is_ancestor_of( $outdoor_parent->term_id, $category ) ) {
+					$outdoors = true;
+					break;
+				}
+			}
+		}
+
 		$defaults = array(
 			'title'      => get_bloginfo('name'),
 			'title_url'  => home_url(),
@@ -27,7 +44,10 @@ if ( !function_exists('reactor_top_bar') ) {
 		$args = apply_filters( 'reactor_top_bar_args', $args );
 
 		$args['right_menu'] = ( $args['search'] ) ? 'reactor_topbar_search' : $args['right_menu'];
-		
+
+        // Here's where we override the left menu if it's an Outdoors section
+		$args['left_menu'] = ( $outdoors && $args['left_menu'] == 'reactor_top_bar_l' ) ? 'reactor_top_bar_outdoors' : $args['left_menu'];
+
 		/* call functions to create right and left menus in the top bar. defaults to the registered menus for top bar */
         $left_menu = ( ( $args['left_menu'] && is_callable( $args['left_menu'] ) ) ) ? call_user_func( $args['left_menu'], (array) $args ) : '';
         $right_menu = ( ( $args['right_menu'] && is_callable( $args['right_menu'] ) ) ) ? call_user_func( $args['right_menu'], (array) $args ) : '';
@@ -42,6 +62,7 @@ if ( !function_exists('reactor_top_bar') ) {
 		$stickyattrib = ( $args['sticky'] ) ? 'sticky_on: all;' : '';
 		
 		$page_logo = ( is_post_type_archive( 'neighborhoods' ) || ( is_single() && get_post_type() == 'neighborhoods' ) ) ? '/images/to-do-neighborhoods-logo.png' : '/images/to-do-denver-logo.png';
+		$page_logo = ( $outdoors ) ? '/images/to-do-outdoors-logo.png' : $page_logo;
 
 		// start top bar output
 		if ( has_nav_menu('top-bar-l') || has_nav_menu('top-bar-r') ) {
@@ -64,7 +85,6 @@ if ( !function_exists('reactor_top_bar') ) {
 	    }
 	}
 }
-
 
 /**
  * Function to use search form in top bar

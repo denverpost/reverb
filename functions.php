@@ -30,11 +30,11 @@ add_action('after_setup_theme', 'reactor_child_theme_setup', 11);
 function reactor_child_theme_setup() {
 
     /* Support for menus */
-    // remove_theme_support('reactor-menus');
-    // add_theme_support(
-    //  'reactor-menus',
-    //  array('top-bar-l', 'top-bar-r', 'main-menu', 'side-menu', 'footer-links')
-    // );
+    remove_theme_support('reactor-menus');
+    add_theme_support(
+        'reactor-menus',
+        array('top-bar-l', 'top-bar-outdoors', 'top-bar-r', 'main-menu', 'side-menu', 'footer-links')
+    );
     
     /* Support for sidebars
     Note: this doesn't change layout options */
