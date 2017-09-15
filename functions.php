@@ -342,3 +342,28 @@ function tkno_admin_enqueue($hook) {
     wp_enqueue_script( 'rvadmin-js', get_stylesheet_directory_uri() . '/library/js/rv-admin.js' );
 }
 add_action( 'admin_enqueue_scripts', 'tkno_admin_enqueue' );
+
+function is_location() {
+    /* is it an locations-related page? */
+    return ( is_post_type_archive( 'location' ) || ( is_single() && get_post_type() == 'location' ) ) ? true : false;
+}
+
+function is_outdoors() {
+    /* is it an outdoors-related page? */
+    $outdoors = false;
+    global $post;
+    $current_id = ( is_single() ) ? $post->ID : get_query_var('cat');
+    $outdoor_parent = get_category_by_slug( 'outdoors' );
+    if ( is_category() && ( $current_id == $outdoor_parent->term_id || cat_is_ancestor_of( $outdoor_parent->term_id, $current_id ) ) ) {
+        $outdoors = true;
+    } else if ( is_single() ) {
+        $categories = wp_get_post_categories( $current_id );
+        foreach ( $categories as $category ) {
+            if ( $category == $outdoor_parent->term_id || cat_is_ancestor_of( $outdoor_parent->term_id, $category ) ) {
+                $outdoors = true;
+                break;
+            }
+        }
+    }
+    return $outdoors;
+}

@@ -404,7 +404,7 @@ div.inner-header > div.row {
 	background-color: #000;
 	text-indent:-500px;
 }
-.top-bar-section li.has-dropdown.category-see:not(.has-form) > a:not(.button) {
+.top-bar-section li.has-dropdown-category-see:not(.has-form) > a:not(.button) {
 	border-top:.3em solid rgba(78,199,228,1.0);
 }
 .top-bar-section ul li.category-see:hover:not(.has-form)>a,
@@ -466,6 +466,66 @@ div.inner-header > div.row {
 .fixed.expanded .top-bar-section li.has-dropdown.category-drink:not(.has-form) > a:not(.button) {
 	border-top:none;
 	border-left:1em solid rgba(250,167,27,1.0);
+}
+.top-bar-section li.has-dropdown.category-spring:not(.has-form) > a:not(.button) {
+	border-top:.3em solid rgba(136,197,123,1.0);
+}
+.top-bar-section ul li.category-spring:hover:not(.has-form)>a,
+.top-bar-section li.category-spring.active:not(.has-form) > a:not(.button):hover,
+.top-bar-section li.category-spring:not(.has-form) > a:not(.button):hover {
+	border-top:.5em solid rgba(136,197,123,1.0);
+}
+.top-bar-section li.has-dropdown.category-summer:not(.has-form) > a:not(.button) {
+	border-top:.3em solid rgba(248,233,74,1.0);
+}
+.top-bar-section ul li.category-summer:hover:not(.has-form)>a,
+.top-bar-section li.category-summer.active:not(.has-form) > a:not(.button):hover,
+.top-bar-section li.category-summer:not(.has-form) > a:not(.button):hover {
+	border-top:.5em solid rgba(248,233,74,1.0);
+}
+.top-bar-section li.has-dropdown.category-fall:not(.has-form) > a:not(.button) {
+	border-top:.3em solid rgba(199,108,56,1.0);
+}
+.top-bar-section ul li.category-fall:hover:not(.has-form)>a,
+.top-bar-section li.category-fall.active:not(.has-form) > a:not(.button):hover,
+.top-bar-section li.category-fall:not(.has-form) > a:not(.button):hover {
+	border-top:.5em solid rgba(199,108,56,1.0);
+}
+.top-bar-section li.has-dropdown.category-winter:not(.has-form) > a:not(.button) {
+	border-top:.3em solid rgba(175,208,233,1.0);
+}
+.top-bar-section ul li.category-winter:hover:not(.has-form)>a,
+.top-bar-section li.category-winter.active:not(.has-form) > a:not(.button):hover,
+.top-bar-section li.category-winter:not(.has-form) > a:not(.button):hover {
+	border-top:.5em solid rgba(175,208,233,1.0);
+}
+.top-bar-section li.has-dropdown.category-trips:not(.has-form) > a:not(.button) {
+	border-top:.3em solid rgba(125, 20, 70,1.0);
+}
+.top-bar-section ul li.category-trips:hover:not(.has-form)>a,
+.top-bar-section li.category-trips.active:not(.has-form) > a:not(.button):hover,
+.top-bar-section li.category-trips:not(.has-form) > a:not(.button):hover {
+	border-top:.5em solid rgba(125, 20, 70,1.0);
+}
+.fixed.expanded .top-bar-section li.has-dropdown.category-spring:not(.has-form) > a:not(.button) {
+	border-top:none;
+	border-left:1em solid rgba(136,197,123,1.0);
+}
+.fixed.expanded .top-bar-section li.has-dropdown.category-summer:not(.has-form) > a:not(.button) {
+	border-top:none;
+	border-left:1em solid rgba(248,233,74,1.0);
+}
+.fixed.expanded .top-bar-section li.has-dropdown.category-fall:not(.has-form) > a:not(.button) {
+	border-top:none;
+	border-left:1em solid rgba(199,108,56,1.0);
+}
+.fixed.expanded .top-bar-section li.has-dropdown.category-winter:not(.has-form) > a:not(.button) {
+	border-top:none;
+	border-left:1em solid rgba(175,208,233,1.0);
+}
+.fixed.expanded .top-bar-section li.has-dropdown.category-trips:not(.has-form) > a:not(.button) {
+	border-top:none;
+	border-left:1em solid rgba(125, 20, 70,1.0);
 }
 /* page layout */
 #sidebar-frontlower {

@@ -16,7 +16,8 @@
 <!-- WordPress head -->
 <?php wp_head(); ?>
 <!-- end WordPress head -->
-<?php reactor_head(); ?>
+<?php reactor_head();
+$outdoor_class = ( is_outdoors() || is_location() ) ? ' is-outdoors' : ''; ?>
 
 <script type="text/javascript">
     //configure Chartbeat variables
@@ -30,7 +31,7 @@
 
 </head>
 
-<body <?php body_class( 'gesture' ); ?>>
+<body <?php body_class( 'gesture'.$outdoor_class ); ?>>
 
     <?php reactor_body_inside(); ?>
 

@@ -51,7 +51,7 @@ function tkno_get_ad_value() {
         $neighborhood_child = get_term_by( 'slug', $neighborhood_slug, 'neighborhood' );
         $neighborhood_parent = get_term_topmost_parent( $neighborhood_child->term_id, $neighborhood_child->taxonomy );
         $neighborhood_child_meta = get_option( "neighborhood_$neighborhood_child->term_id" );
-        $child_text = ( $neighborhood_child_meta ) ? ucfirst( str_replace( ' ', '-', $neighborhood_child_meta[ 'pretty_name_field' ] ) ) : $neighborhood_child->name;
+        $child_text = ( $neighborhood_child_meta ) ? ucfirst( str_replace( ' ', '-', $neighborhood_child_meta[ 'pretty_name_field' ] ) ) : ucfirst( str_replace( ' ', '-', $neighborhood_child->name ) );
         $neighborhood_parent_meta = get_option( "neighborhood_$neighborhood_parent->term_id" );
         $neighborhood_parent_pretty = ( $neighborhood_parent_meta ) ? ucfirst( str_replace( ' ', '-', $neighborhood_parent_meta[ 'pretty_name_field' ] ) ) : $neighborhood_parent->name;
         $parent_text = ucfirst( str_replace( ' ', '-', $neighborhood_parent_pretty ) );

@@ -12,23 +12,6 @@
 if ( !function_exists('reactor_top_bar') ) {
 	function reactor_top_bar( $args = '' ) {
 
-		/* is it an outdoors-related page? */
-		$outdoors = false;
-		global $post;
-		$current_id = ( is_single() ) ? $post->ID : get_query_var('cat');
-		$outdoor_parent = get_category_by_slug( 'outdoors' );
-		if ( is_category() && ( $current_id == $outdoor_parent->term_id || cat_is_ancestor_of( $outdoor_parent->term_id, $current_id ) ) ) {
-			$outdoors = true;
-		} else if ( is_single() ) {
-			$categories = wp_get_post_categories( $current_id );
-			foreach ( $categories as $category ) {
-				if ( $category == $outdoor_parent->term_id || cat_is_ancestor_of( $outdoor_parent->term_id, $category ) ) {
-					$outdoors = true;
-					break;
-				}
-			}
-		}
-
 		$defaults = array(
 			'title'      => get_bloginfo('name'),
 			'title_url'  => home_url(),
@@ -45,6 +28,8 @@ if ( !function_exists('reactor_top_bar') ) {
 
 		$args['right_menu'] = ( $args['search'] ) ? 'reactor_topbar_search' : $args['right_menu'];
 
+		$outdoors = ( is_outdoors() || is_location() ) ? true : false;
+		
         // Here's where we override the left menu if it's an Outdoors section
 		$args['left_menu'] = ( $outdoors && $args['left_menu'] == 'reactor_top_bar_l' ) ? 'reactor_top_bar_outdoors' : $args['left_menu'];
 
