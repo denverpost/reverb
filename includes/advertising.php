@@ -43,6 +43,8 @@ function tkno_get_ad_value() {
         $category = $cats->slug;
     } else if ( get_post_type() == 'venues' ) {
         $category = 'venues';
+    } else if ( is_post_type_archive( 'neighborhoods' ) ) {
+        $category = 'neighborhood';
     } else if ( get_post_type() == 'neighborhoods' ) {
         $category = 'neighborhoods';
         global $post;
@@ -72,6 +74,10 @@ function tkno_get_ad_value() {
             case 'venues':
                 $kv = 'venues';
                 $tax = '/Venues';
+                break;
+            case 'neighborhood':
+                $kv = 'neighborhoods';
+                $tax = '/Neighborhood';
                 break;
             case 'neighborhoods':
                 $kv = 'neighborhoods';
