@@ -163,11 +163,11 @@ if ( !function_exists('reactor_post_meta') ) {
 				$author_social = '';
 				if( $args['show_photo'] ) {
 					$author_social = sprintf('<ul class="author-social-small right inline-list">%1$s%2$s%3$s%4$s%5$s</ul>',
-			            ( $bio_author_meta['twitter'] != '' ? sprintf('<li><a href="http://twitter.com/%1$s" title="%1$s on Twitter">Twitter</a></li>', $bio_author_meta['twitter'] ) : '' ),
-			            ( $bio_author_meta['facebook'] != '' ? sprintf('<li><a href="%1$s" title="%2$%s on Facebook">Facebook</a></li>', $bio_author_meta['facebook'], $bio_author->display_name ) : '' ),
-			            ( $bio_author_meta['instagram'] != '' ? sprintf('<li><a href="http://instagram.com/%1$s" title="%1$s on Instagram">Instagram</a></li>', $bio_author_meta['instagram'] ) : '' ),
-			            ( $bio_author_meta['googleplus'] != '' ? sprintf('<li><a href="%1$s" title="%2$%s on Google Plus" rel="me">Google+</a></li>', $bio_author_meta['googleplus'], $bio_author->display_name ) : '' ),
-			            ( $bio_author_meta['email_public'] != '' ? sprintf('<li><a href="mailto:%1$s" title="Email %1$s">Email</a></li>', $bio_author_meta['email_public'] ) : '' )
+			            ( isset( $bio_author_meta['twitter'] ) && $bio_author_meta['twitter'] != '' ? sprintf('<li><a href="http://twitter.com/%1$s" title="%1$s on Twitter">Twitter</a></li>', $bio_author_meta['twitter'] ) : '' ),
+			            ( isset( $bio_author_meta['facebook'] ) && $bio_author_meta['facebook'] != '' ? sprintf('<li><a href="%1$s" title="%2$%s on Facebook">Facebook</a></li>', $bio_author_meta['facebook'], $bio_author->display_name ) : '' ),
+			            ( isset( $bio_author_meta['instagram'] ) && $bio_author_meta['instagram'] != '' ? sprintf('<li><a href="http://instagram.com/%1$s" title="%1$s on Instagram">Instagram</a></li>', $bio_author_meta['instagram'] ) : '' ),
+			            ( isset( $bio_author_meta['googleplus'] ) && $bio_author_meta['googleplus'] != '' ? sprintf('<li><a href="%1$s" title="%2$%s on Google Plus" rel="me">Google+</a></li>', $bio_author_meta['googleplus'], $bio_author->display_name ) : '' ),
+			            ( isset( $bio_author_meta['email_public'] ) && $bio_author_meta['email_public'] != '' ? sprintf('<li><a href="mailto:%1$s" title="Email %1$s">Email</a></li>', $bio_author_meta['email_public'] ) : '' )
 					);
 				}
 				$author_desc = '';

@@ -22,10 +22,10 @@
                 
 				<?php if ( have_posts() ) : 
                     $query_cat = $wp_query->get_queried_object();
-                    $class_category = 'archive-title category-' . tkno_get_top_category_slug( true, $query_cat->cat_id );
-                    $class_header_category = ' category-' . tkno_get_top_category_slug( true, $query_cat->cat_id ); ?>
+                    $class_header_category = ' category-' . tkno_get_top_category_slug( true, $query_cat->cat_id );
+                    $class_category = 'archive-title  category-' . $query_cat->slug; ?>
                     <header class="archive-header<?php echo $class_header_category; ?>">
-                        <h1 <?php post_class( $class_category ); ?>><a href="javascript:void(0);" class="noclick"><?php echo $query_cat->name; ?></a></h1>
+                        <h1 class="<?php echo $class_category; ?>""><a href="javascript:void(0);" class="noclick"><?php echo $query_cat->name; ?></a></h1>
                         <?php get_sidebar('categorysponsor'); ?>
                     </header><!-- .archive-header -->
                 <?php endif; // end have_posts() check ?> 

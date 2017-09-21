@@ -17,7 +17,8 @@
 <?php wp_head(); ?>
 <!-- end WordPress head -->
 <?php reactor_head();
-$outdoor_class = ( is_outdoors() || is_location() ) ? ' is-outdoors' : ''; ?>
+$outdoor_class = ( is_outdoors() || is_location() ) ? ' is-outdoors' : '';
+$outdoor_page_class = ( is_outdoor_home() ) ? ' outdoorhome' : ''; ?>
 
 <script type="text/javascript">
     //configure Chartbeat variables
@@ -31,7 +32,7 @@ $outdoor_class = ( is_outdoors() || is_location() ) ? ' is-outdoors' : ''; ?>
 
 </head>
 
-<body <?php body_class( 'gesture'.$outdoor_class ); ?>>
+<body <?php body_class( 'gesture' . $outdoor_class . $outdoor_page_class ); ?>>
 
     <?php reactor_body_inside(); ?>
 

@@ -404,7 +404,7 @@ div.inner-header > div.row {
 	background-color: #000;
 	text-indent:-500px;
 }
-.top-bar-section li.has-dropdown-category-see:not(.has-form) > a:not(.button) {
+.top-bar-section li.has-dropdown.category-see:not(.has-form) > a:not(.button) {
 	border-top:.3em solid rgba(78,199,228,1.0);
 }
 .top-bar-section ul li.category-see:hover:not(.has-form)>a,
@@ -468,64 +468,64 @@ div.inner-header > div.row {
 	border-left:1em solid rgba(250,167,27,1.0);
 }
 .top-bar-section li.has-dropdown.category-spring:not(.has-form) > a:not(.button) {
-	border-top:.3em solid rgba(136,197,123,1.0);
+	border-top:.3em solid rgba(127,182,121,1.0);
 }
 .top-bar-section ul li.category-spring:hover:not(.has-form)>a,
 .top-bar-section li.category-spring.active:not(.has-form) > a:not(.button):hover,
 .top-bar-section li.category-spring:not(.has-form) > a:not(.button):hover {
-	border-top:.5em solid rgba(136,197,123,1.0);
+	border-top:.5em solid rgba(127,182,121,1.0);
 }
 .top-bar-section li.has-dropdown.category-summer:not(.has-form) > a:not(.button) {
-	border-top:.3em solid rgba(248,233,74,1.0);
+	border-top:.3em solid rgba(248,213,70,1.0);
 }
 .top-bar-section ul li.category-summer:hover:not(.has-form)>a,
 .top-bar-section li.category-summer.active:not(.has-form) > a:not(.button):hover,
 .top-bar-section li.category-summer:not(.has-form) > a:not(.button):hover {
-	border-top:.5em solid rgba(248,233,74,1.0);
+	border-top:.5em solid rgba(248,213,70,1.0);
 }
 .top-bar-section li.has-dropdown.category-fall:not(.has-form) > a:not(.button) {
-	border-top:.3em solid rgba(199,108,56,1.0);
+	border-top:.3em solid rgba(215,80,40,1.0);
 }
 .top-bar-section ul li.category-fall:hover:not(.has-form)>a,
 .top-bar-section li.category-fall.active:not(.has-form) > a:not(.button):hover,
 .top-bar-section li.category-fall:not(.has-form) > a:not(.button):hover {
-	border-top:.5em solid rgba(199,108,56,1.0);
+	border-top:.5em solid rgba(215,80,40,1.0);
 }
 .top-bar-section li.has-dropdown.category-winter:not(.has-form) > a:not(.button) {
-	border-top:.3em solid rgba(175,208,233,1.0);
+	border-top:.3em solid rgba(140,178,213,1.0);
 }
 .top-bar-section ul li.category-winter:hover:not(.has-form)>a,
 .top-bar-section li.category-winter.active:not(.has-form) > a:not(.button):hover,
 .top-bar-section li.category-winter:not(.has-form) > a:not(.button):hover {
-	border-top:.5em solid rgba(175,208,233,1.0);
+	border-top:.5em solid rgba(140,178,213,1.0);
 }
 .top-bar-section li.has-dropdown.category-trips:not(.has-form) > a:not(.button) {
-	border-top:.3em solid rgba(125, 20, 70,1.0);
+	border-top:.3em solid rgba(175,50,90,1.0);
 }
 .top-bar-section ul li.category-trips:hover:not(.has-form)>a,
 .top-bar-section li.category-trips.active:not(.has-form) > a:not(.button):hover,
 .top-bar-section li.category-trips:not(.has-form) > a:not(.button):hover {
-	border-top:.5em solid rgba(125, 20, 70,1.0);
+	border-top:.5em solid rgba(175,50,90,1.0);
 }
 .fixed.expanded .top-bar-section li.has-dropdown.category-spring:not(.has-form) > a:not(.button) {
 	border-top:none;
-	border-left:1em solid rgba(136,197,123,1.0);
+	border-left:1em solid rgba(127,182,121,1.0);
 }
 .fixed.expanded .top-bar-section li.has-dropdown.category-summer:not(.has-form) > a:not(.button) {
 	border-top:none;
-	border-left:1em solid rgba(248,233,74,1.0);
+	border-left:1em solid rgba(248,213,70,1.0);
 }
 .fixed.expanded .top-bar-section li.has-dropdown.category-fall:not(.has-form) > a:not(.button) {
 	border-top:none;
-	border-left:1em solid rgba(199,108,56,1.0);
+	border-left:1em solid rgba(215,80,40,1.0);
 }
 .fixed.expanded .top-bar-section li.has-dropdown.category-winter:not(.has-form) > a:not(.button) {
 	border-top:none;
-	border-left:1em solid rgba(175,208,233,1.0);
+	border-left:1em solid rgba(140,178,213,1.0);
 }
 .fixed.expanded .top-bar-section li.has-dropdown.category-trips:not(.has-form) > a:not(.button) {
 	border-top:none;
-	border-left:1em solid rgba(125, 20, 70,1.0);
+	border-left:1em solid rgba(175,50,90,1.0);
 }
 /* page layout */
 #sidebar-frontlower {
@@ -710,7 +710,8 @@ body.front-page .entry-body {
 	margin-bottom:1.5em;
 	border:none;
 }
-#frontpagemain article {
+#frontpagemain article,
+#outdoorsmain article {
 	width:31%;
 	margin-right:3.5%;
 	display: inline-block;
@@ -720,6 +721,9 @@ body.front-page .entry-body {
 	width:100%;
 }
 #frontpagemain article:nth-child(4) {
+	margin-right:0;
+}
+#outdoorsmain .article_wrapper article:nth-child(3) {
 	margin-right:0;
 }
 .frontpage-post {
@@ -757,10 +761,12 @@ article:first-child .frontpage-post {
 	top: 0;
 	left: 0;
 }
-#frontpagemain article h2.entry-title {
+#frontpagemain article h2.entry-title,
+#outdoorsmain article h2.entry-title {
 	margin:0;
 }
-#frontpagemain article h2.entry-title > a {
+#frontpagemain article h2.entry-title > a,
+#outdoorsmain article h2.entry-title > a {
 	font-family:'Arvo',Arial,Helvetica,sans-serif;
 	padding-top:.25em;
 	font-weight:300;
@@ -788,14 +794,15 @@ article:first-child .frontpage-post {
 	font-size:2.2em;
 	color:#fff;
 }
-#frontpagemain article h2.entry-title a:hover {
+#frontpagemain article h2.entry-title a:hover,
+#outdoorsmain article h2.entry-title a:hover {
 	color:#0093ce;
 }
 .frontpage-post .front-imgholder {
 	width:100%;
 	padding-bottom:65%;
 }
-article:first-child .frontpage-post .front-imgholder {
+body:not(.outdoorhome) article:first-child .frontpage-post .front-imgholder {
 	padding-bottom:50%;
 }
 /* front page flexible posts widgets */
@@ -913,6 +920,13 @@ div.cat-img {
 	margin-bottom:1.5em;
 	padding-bottom:1em;
 	border-bottom:1px solid rgba(225,225,225,0.8);
+}
+/* Outdoor sidebar styles */
+#sidebar-outdooruppper {
+	background-color:rgba(225,225,225,0.3);
+	padding:.5em 0 0;
+	border-bottom:6px solid rgba(225,225,225,0.8);
+	margin-bottom:1em;
 }
 /* in-article related lists */
 .entry-content div.location-search,
@@ -1186,8 +1200,10 @@ h2.archive-title.venue-header a,
 .post-type-archive-location h1.archive-title.location-header span,
 h1.archive-title.location-header a,
 h2.archive-title.location-header a,
-.single-location h2.archive-title a {
-	background-color:#b7410e;
+.single-location h2.archive-title a,
+header.archive-header.category-outdoors h1.archive-title.category-outdoors a,
+header.archive-header.category-outdoors h2.archive-title.category-outdoors a {
+	background-color:rgba(140,100,75,1.0);
 }
 .demo_widget h4.widget-title a,
 .widget_rss_dp h4.widget-title a,
@@ -1224,7 +1240,7 @@ h2.archive-title a:hover {
 .catimgspace.location_space {
 	padding-bottom:50%;
 }
-body:not(.home) .entry-body h2.entry-title,
+body:not(.home):not(.outdoorhome) .entry-body h2.entry-title,
 body.date header h2 a {
 	font-family:'Arvo',Arial,Helvetica,sans-serif;
 	font-weight: 400;
@@ -1233,7 +1249,7 @@ body.date header h2 a {
 	color: #000;
 	margin:0 0 .25em;
 }
-body:not(.home) .neighborhood-related .entry-body h2.entry-title {
+body:not(.home):not(.outdoorhome) .neighborhood-related .entry-body h2.entry-title {
 	font-size:1.5em;
 }
 .entry-body p.catexcerpt {
@@ -1281,11 +1297,11 @@ span.by-author a[rel~=author] {
 .cat-main .catimgspace {
 	padding-bottom:50%;
 }
-body:not(.home) .cat-main .entry-body h2.entry-title {
+body:not(.home):not(.outdoorhome) .cat-main .entry-body h2.entry-title {
 	font-size:1.8em;
 	margin-top:.25em;
 }
-body:not(.home) .cat-second .entry-body h2.entry-title {
+body:not(.home):not(.outdoorhome) .cat-second .entry-body h2.entry-title {
 	font-size:1.25em;
 }
 .cat-main .entry-body p.catexcerpt {
@@ -1744,7 +1760,8 @@ div.photo-gallery .carousel-control:hover, div.photo-gallery .carousel-control:f
 }
 
 /* pagination */
-body.home ul.pagination { display: none; }
+body.home ul.pagination,
+body.outdoorhome ul.pagination { display: none; }
 ul.pagination li {
 	font-size:1.15em;
 	height:2.5rem;
@@ -1894,19 +1911,22 @@ iframe.greatschools,
     left: 0;
 }
 /* category-based colors */
-#frontpagemain article span {
+#frontpagemain article span,
+#outdoorsmain article span {
 	display: block;
 	width:100%;
 	text-align:center;
 	padding:.25em 0;
 	text-transform: uppercase;
 }
-#frontpagemain article span a {
+#frontpagemain article span a,
+#outdoorsmain article span a {
 	font-weight:600;
 }
 h4.widget-title span.fpe-widget-title a,
 .yarpp-related .related-wrap span a,
 #frontpagemain article span a,
+#outdoorsmain article span a,
 header h2 a {
 	font-family:'Arvo',Arial,Helvetica,sans-serif;
 	color:#fff;
@@ -1968,6 +1988,7 @@ h4.widget-title span.fpe-widget-title a,
 h4.widget-title span.fpe-widget-title a:hover,
 .yarpp-related .related-wrap span a:hover,
 #frontpagemain article h2 a:hover,
+#outdoorsmain article h2 a:hover,
 header h2 a:hover {
 	text-decoration: underline;
 }
@@ -1975,6 +1996,7 @@ header h2 a:hover {
 h4.widget-title span.fpe-widget-title.category-arts a,
 .yarpp-related .category-arts span,
 #frontpagemain article.category-arts span,
+#outdoorsmain article.category-arts span,
 header h2.category-arts a,
 header.category-arts h2.category-arts a,
 header h1.category-arts.archive-title a,
@@ -1985,6 +2007,7 @@ header.category-arts h1.category-arts.archive-title a {
 h4.widget-title span.fpe-widget-title.category-music a,
 .yarpp-related .category-music span,
 #frontpagemain article.category-music span,
+#outdoorsmain article.category-music span,
 header h2.category-music a,
 header.category-music h2.category-music a,
 header h1.category-music.archive-title a,
@@ -1995,6 +2018,7 @@ header .category-music h1.category-music.archive-title a {
 h4.widget-title span.fpe-widget-title.category-things-to-do a,
 .yarpp-related .category-things-to-do span,
 #frontpagemain article.category-things-to-do span,
+#outdoorsmain article.category-things-to-do span,
 header h2.category-things-to-do a,
 header.category-things-to-do h2.category-things-to-do a,
 header h1.category-things-to-do.archive-title a,
@@ -2005,6 +2029,7 @@ header.category-things-to-do h1.category-things-to-do.archive-title a {
 h4.widget-title span.fpe-widget-title.category-food a,
 .yarpp-related .category-food span,
 #frontpagemain article.category-food span,
+#outdoorsmain article.category-food span,
 header h2.category-food a,
 header.category-food h2.category-food a,
 header h1.category-food.archive-title a,
@@ -2015,11 +2040,67 @@ header.category-food h1.category-food.archive-title a {
 h4.widget-title span.fpe-widget-title.category-drink a,
 .yarpp-related .category-drink span,
 #frontpagemain article.category-drink span,
+#outdoorsmain article.category-drink span,
 header h2.category-drink a,
 header.category-drink h2.category-drink a,
 header h1.category-drink.archive-title a,
 header.category-drink h1.category-drink.archive-title a {
 	background-color:rgba(250,167,27,1.0);
+}
+.widget_neighborhood_related_widget h4.widget-title.category-spring a,
+h4.widget-title span.fpe-widget-title.category-spring a,
+.yarpp-related .category-spring span,
+#frontpagemain article.category-spring span,
+#outdoorsmain article.category-spring span,
+header h2.category-spring a,
+header.category-outdoors h2.category-spring a,
+header h1.category-spring.archive-title a,
+header.category-outdoors h1.category-spring.archive-title a {
+	background-color:rgba(127,182,121,1.0);
+}
+.widget_neighborhood_related_widget h4.widget-title.category-summer a,
+h4.widget-title span.fpe-widget-title.category-summer a,
+.yarpp-related .category-summer span,
+#frontpagemain article.category-summer span,
+#outdoorsmain article.category-summer span,
+header h2.category-summer a,
+header.category-outdoors h2.category-summer a,
+header h1.category-summer.archive-title a,
+header .category-outdoors h1.category-summer.archive-title a {
+	background-color:rgba(248,213,70,1.0);
+}
+.widget_neighborhood_related_widget h4.widget-title.category-fall a,
+h4.widget-title span.fpe-widget-title.category-fall a,
+.yarpp-related .category-fall span,
+#frontpagemain article.category-fall span,
+#outdoorsmain article.category-fall span,
+header h2.category-fall a,
+header.category-outdoors h2.category-fall a,
+header h1.category-fall.archive-title a,
+header.category-outdoors h1.category-fall.archive-title a {
+	background-color:rgba(215,80,40,1.0);
+}
+.widget_neighborhood_related_widget h4.widget-title.category-winter a,
+h4.widget-title span.fpe-widget-title.category-winter a,
+.yarpp-related .category-winter span,
+#frontpagemain article.category-winter span,
+#outdoorsmain article.category-winter span,
+header h2.category-winter a,
+header.category-outdoors h2.category-winter a,
+header h1.category-winter.archive-title a,
+header.category-outdoors h1.category-winter.archive-title a {
+	background-color:rgba(140,178,213,1.0);
+}
+.widget_neighborhood_related_widget h4.widget-title.category-trips a,
+h4.widget-title span.fpe-widget-title.category-trips a,
+.yarpp-related .category-trips span,
+#frontpagemain article.category-trips span,
+#outdoorsmain article.category-trips span,
+header h2.category-trips a,
+header.category-outdoors h2.category-trips a,
+header h1.category-trips.archive-title a,
+header.category-outdoors h1.category-trips.archive-title a {
+	background-color:rgba(175,50,90,1.0);
 }
 .entry-footer .single_venue h3 {
 	background-color:rgba(240,75,36,1.0);
@@ -2152,7 +2233,7 @@ article.location-embed .entry-body {
 		position: absolute;
 		display:block;
 	}
-	body:not(.home) .neighborhood-related .entry-body .catpage-post-inner {
+	body:not(.home):not(.outdoorhome) .neighborhood-related .entry-body .catpage-post-inner {
 		margin:0;
 	}
 	.toggle-social a {
@@ -2161,7 +2242,8 @@ article.location-embed .entry-body {
 		padding: 0 .25em;
 		margin-right: 0.5em;
 	}
-	#frontpagemain {
+	#frontpagemain,
+	#outdoorsmain {
 		margin-bottom:1.5em;
 	}
 	#colophon {
@@ -2231,13 +2313,13 @@ article.location-embed .entry-body {
 	body.error404 article.error404 h6.oopsies {
 		font-size:12em;
 	}
-	body:not(.home) .entry-body h2.entry-title {
+	body:not(.home):not(.outdoorhome) .entry-body h2.entry-title {
 		font-size:1.4em;
 	}
-	body:not(.home) .cat-main .entry-body .catpage-post h2.entry-title {
+	body:not(.home):not(.outdoorhome) .cat-main .entry-body .catpage-post h2.entry-title {
 		font-size:1.25em;
 	}
-	body:not(.home) .entry-body .catpage-post h2.entry-title {
+	body:not(.home):not(.outdoorhome) .entry-body .catpage-post h2.entry-title {
 		font-size: 1.1em;
 	}
 	.frontpage-image h2 {
@@ -2267,8 +2349,10 @@ article.location-embed .entry-body {
 	h2.archive-title {
 		font-size:1em;
 	}
-	#frontpagemain article {
+	#frontpagemain article,
+	#outdoorsmain article {
 		width:100%;
+		clear:both;
 	}
 	.frontpage-post h2 {
 		font-size: 1.15em;
@@ -2415,9 +2499,6 @@ article.location-embed .entry-body {
 	}
 	body.error404 article.error404 h6.oopsies {
 		font-size:10em;
-	}
-	#frontpagemain article {
-		clear:both;
 	}
 	#infscr-loading img {
 		width:10%;

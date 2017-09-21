@@ -31,6 +31,19 @@ function reactor_register_sidebars() {
 			'after_title'   => '</h4>',
 		) );
 	}
+
+	if ( in_array( 'outdoors', $sidebars[0] ) ) {
+		register_sidebar( array( 
+			'name'          => __('Outdoors Sidebar', 'reactor'),
+			'id'            => 'sidebar-outdoors',
+			'description'   => 'The primary sidebar for Outdoors pages',
+			'class'         => '',
+			'before_widget' => '<div id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</div>',
+			'before_title'  => '<h4 class="widget-title">',
+			'after_title'   => '</h4>',
+		) );
+	}
 	
 	if ( in_array( 'front-upper', $sidebars[0] ) ) {	
 		register_sidebar( array( 
@@ -105,6 +118,32 @@ function reactor_register_sidebars() {
 			'name'          => __('Neighborhood Page Lower', 'reactor'),
 			'id'            => 'sidebar-neighborhoodlower',
 			'description'   => 'Lower sidebar for the Neighborhood page template',
+			'class'         => '',
+			'before_widget' => '<li id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</li>',
+			'before_title'  => '<h4 class="widget-title">',
+			'after_title'   => '</h4>',
+		) );
+	}
+
+	if ( in_array( 'outdoor-upper', $sidebars[0] ) ) {
+		register_sidebar( array(
+			'name'          => __('Outdoors Page Upper', 'reactor'),
+			'id'            => 'sidebar-outdoorupper',
+			'description'   => 'Top-of-page sidebar for the Outdoors template',
+			'class'         => '',
+			'before_widget' => '',
+			'after_widget'  => '',
+			'before_title'  => '<h4 class="widget-title">',
+			'after_title'   => '</h4>',
+		) );
+	}
+
+	if ( in_array( 'outdoor-middle', $sidebars[0] ) ) {
+		register_sidebar( array(
+			'name'          => __('Outdoors Page Middle', 'reactor'),
+			'id'            => 'sidebar-outdoormiddle',
+			'description'   => 'Mid-page sidebar for the Outdoors template',
 			'class'         => '',
 			'before_widget' => '<li id="%1$s" class="widget %2$s">',
 			'after_widget'  => '</li>',

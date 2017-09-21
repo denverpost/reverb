@@ -41,7 +41,7 @@ function reactor_child_theme_setup() {
     remove_theme_support('reactor-sidebars');
     add_theme_support(
        'reactor-sidebars',
-       array( 'primary', 'front-upper', 'front-mobile', 'front-lower', 'neighborhood-upper', 'neighborhood-lower','category-sponsor' )
+       array( 'primary', 'outdoors', 'front-upper', 'front-mobile', 'front-lower', 'neighborhood-upper', 'neighborhood-lower', 'outdoor-upper', 'outdoor-middle', 'category-sponsor' )
     );
     
     /* Support for layouts
@@ -209,7 +209,7 @@ add_action( 'template_redirect', function() {
 function tkno_get_top_category_slug( $return_slug=false, $cat_id=false ) {
     global $post;
     $curr_cat = ( $cat_id ) ? get_category_parents( $cat_id, false, '/', true ) : get_the_category_list( '/' , 'multiple', $post->ID );
-    $valid_cats = array('music','food','drink','things-to-do','arts');
+    $valid_cats = ( is_outdoors() ) ? array( 'spring', 'summer', 'fall', 'winter', 'trips', 'outdoors' ) : array( 'music', 'food', 'drink', 'things-to-do', 'arts' );
     $curr_cat = explode( '/', $curr_cat );
     $return_cat = array();
     foreach ( $curr_cat as $current ) {
@@ -359,7 +359,7 @@ function is_outdoors() {
     } else if ( is_single() ) {
         $categories = wp_get_post_categories( $current_id );
         foreach ( $categories as $category ) {
-            if ( $category == $outdoor_parent->term_id || cat_is_ancestor_of( $outdoor_parent->term_id, $category ) ) {
+            if ( $category == $outdoor_parent->term_id ) {
                 $outdoors = true;
                 break;
             }
@@ -367,3 +367,41 @@ function is_outdoors() {
     }
     return $outdoors;
 }
+
+// Is this Outdoors, or one of the "parent" children of Outdoors
+function is_outdoor_home() {
+    if ( is_outdoors() && is_category() ) {
+        $cat = get_queried_object();
+        $children = get_terms( $cat->taxonomy, array(
+            'parent'    => $cat->term_id,
+            'hide_empty' => false
+        ) );
+        if ( 0 == $cat->category_parent ) {
+            return true;
+        } elseif ( $children ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+add_filter( 'category_template', 'outdoors_category_templates' );
+
+
+// Different templates for Outdoors and its subcategories
+function outdoors_category_templates( $template ) {
+    if ( is_outdoors() ) {
+        $cat = get_queried_object();
+        $children = get_terms( $cat->taxonomy, array(
+            'parent'    => $cat->term_id,
+            'hide_empty' => false
+        ) );
+        if ( 0 == $cat->category_parent ) {
+            $template = locate_template( 'category-outdoors.php' );
+        } elseif ( $children ) {
+            $template = locate_template( 'category-outdoorchild.php' );
+        }
+    }
+    return $template;
+}
+add_filter( 'category_template', 'outdoors_category_templates' );

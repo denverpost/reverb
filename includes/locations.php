@@ -254,13 +254,9 @@ class tkno_location_search_widget extends WP_Widget {
 	// This is where the action happens
 	public function widget( $args, $instance ) {
 		$title = apply_filters( 'widget_title', $instance['title'] );
-		// before and after widget arguments are defined by themes
-		echo $args['before_widget'];
-		if ( ! empty( $title ) )
-			echo $args['before_title'] . $title . $args['after_title'];
 		// This is where you run the code and display the output
-		    echo do_shortcode('[location_search]');
-		}
+	    echo do_shortcode('[location_search title="' . $title . '"]');
+    }
 
 	// Widget Backend
 	public function form( $instance ) {
@@ -294,33 +290,46 @@ add_action( 'widgets_init', 'tkno_location_search_widget_load' );
 
 /**** END LOCATION SEARCH WIDGET ****/
 
-function location_search_form_shortcode() {
-    $form = '<div class="location-search">';
-		$form .= '<form method="get" action="' . get_site_url() . '/location/">';
-			$form .= '<input type="hidden" name="locationsearch" value="Y" />';
-			$form .= '<div>';
-				$form .= '<h3>Find places to go</h3>';
-			    $form .= '<div>';
-				    $form .= '<label>Start with a ZIP code</label>';
-				    $form .= '<input type="text" pattern=".{5}" required name="user_ZIP" id="user_ZIP" value="' . get_query_var( 'user_ZIP' ) . '" />';
-			    $form .= '</div>';
-			    $form .= '<div>';
-				    $form .= '<label>Distance</label>';
-				    $form .= '<select name="user_radius" id="user_radius">';
-				        $form .= '<option' . ( get_query_var( 'user_radius' ) == 25000 ? ' selected="selected"' : '' ) . ' value="25000">Any</option>';
-				        $form .= '<option' . ( get_query_var( 'user_radius' ) == 5 ? ' selected="selected"' : '' ) . ' value="5">5 miles</option>';
-				        $form .= '<option' . ( get_query_var( 'user_radius' ) == 10 || ! get_query_var( 'user_radius' ) ? ' selected="selected"' : '' ) .' value="10">10 miles</option>';
-				        $form .= '<option' . ( get_query_var( 'user_radius' ) == 20 ? ' selected="selected"' : '' ) . ' value="20">20 miles</option>';
-				        $form .= '<option' . ( get_query_var( 'user_radius' ) == 50 ? ' selected="selected"' : '' ) . ' value="50">50 miles</option>';
-				        $form .= '<option' . ( get_query_var( 'user_radius' ) == 100 ? ' selected="selected"' : '' ) . ' value="100">100 miles</option>';
-				    $form .= '</select>';
-			    $form .= '</div>';
-			$form .= '</div>';
-			$form .= '<div>';
-			    $form .= '<input class="button" type="submit" value="Find locations" />';
-			$form .= '</div>';
-		$form .= '</form>';
-	$form .= '</div>';
+function location_search_form_shortcode( $atts = [], $content = null, $tag = '' ) {
+    $atts = array_change_key_case( (array)$atts, CASE_LOWER );
+    // override default attributes with user attributes
+    $loc_atts = shortcode_atts([
+        'title' => 'Find places to go'
+     ], $atts, $tag);
+    $user_text = ( null !== get_query_var( 'user_text' ) ) ? get_query_var( 'user_text' ) : '';
+    $user_ZIP = ( null !== get_query_var( 'user_ZIP' ) ) ? get_query_var( 'user_ZIP' ) : '';
+    $user_radius = ( null !== get_query_var( 'user_radius' ) ) ? get_query_var( 'user_radius' ) : '';
+    $form = '<form method="get" action="' . get_site_url() . '/location/">';
+        $form .= '<input type="hidden" name="locationsearch" value="Y" />';
+        $form .= '<div class="row">';
+            $form .= '<div class="large-12 columns">';
+                $form .= '<h2>' . $loc_atts['title'] . '</h2>';
+            $form .= '</div>';
+            $form .= '<div class="large-4 columns">';
+                $form .= '<label>What are you looking for?</label>';
+                $form .= '<input type="text" name="user_text" id="user_text" value="' . $user_text . '" />';
+            $form .= '</div>';
+            $form .= '<div class="large-2 columns">';
+                $form .= '<label>Near ZIP</label>';
+                $form .= '<input type="text" pattern=".{5}" name="user_ZIP" id="user_ZIP" value="' . $user_ZIP . '" />';
+            $form .= '</div>';
+            $form .= '<div class="large-2 columns">';
+                $form .= '<label>Distance</label>';
+                $form .= '<select name="user_radius" id="user_radius">';
+                    $form .= '<option' . ( $user_radius == 25000 ? ' selected="selected"' : '' ) . ' value="25000">Any</option>';
+                    $form .= '<option' . ( $user_radius == 5 ? ' selected="selected"' : '' ) . ' value="5">5 miles</option>';
+                    $form .= '<option' . ( ! $user_radius || $user_radius == 10 ? ' selected="selected"' : '' ) . ' value="10">10 miles</option>';
+                    $form .= '<option' . ( $user_radius == 20 ? ' selected="selected"' : '' ) . ' value="20">20 miles</option>';
+                    $form .= '<option' . ( $user_radius == 50 ? ' selected="selected"' : '' ) . ' value="50">50 miles</option>';
+                    $form .= '<option' . ( $user_radius == 100 ? ' selected="selected"' : '' ) . ' value="100">100 miles</option>';
+                $form .= '</select>';
+            $form .= '</div>';
+            $form .= '<div class="large-4 columns">';
+                $form .= '<input class="button" type="submit" value="Find locations" style="margin-top:7px;" />';
+                $form .= '<a class="button warning" href="<?php echo get_site_url(); ?>/location/" style="margin-top:7px;font-size:200%;padding:.25em .5em .6em;line-height:.78;">&times;</a>';
+            $form .= '</div>';
+        $form .= '</div>';
+    $form .= '</form>';
     return $form;
 }
 add_shortcode( 'location_search', 'location_search_form_shortcode' );

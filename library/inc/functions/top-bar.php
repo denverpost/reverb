@@ -48,6 +48,7 @@ if ( !function_exists('reactor_top_bar') ) {
 		
 		$page_logo = ( is_post_type_archive( 'neighborhoods' ) || ( is_single() && get_post_type() == 'neighborhoods' ) ) ? '/images/to-do-neighborhoods-logo.png' : '/images/to-do-denver-logo.png';
 		$page_logo = ( $outdoors ) ? '/images/to-do-outdoors-logo.png' : $page_logo;
+		$title_link_url = ( $outdoors ) ? get_category_link( get_cat_ID( 'Outdoors' ) ) : $args['title_url'];
 
 		// start top bar output
 		if ( has_nav_menu('top-bar-l') || has_nav_menu('top-bar-r') ) {
@@ -55,7 +56,7 @@ if ( !function_exists('reactor_top_bar') ) {
 				$output .= '<nav class="top-bar" data-topbar data-options="is_hover:true; scrolltop:false; custom_back_text:true; back_text:&laquo; Back; mobile_show_parent_link: true;' . $stickyattrib . '">';
 					$output .= '<ul class="title-area">';
 						$output .= '<li class="name">';
-							$output .= '<p><a href="' . $args['title_url'] .'"><img src="' . get_stylesheet_directory_uri() . $page_logo .'" alt="' . get_bloginfo('name') . ' logo" /></a></p>';
+							$output .= '<p><a href="' . $title_link_url .'"><img src="' . get_stylesheet_directory_uri() . $page_logo .'" alt="' . get_bloginfo('name') . ' logo" /></a></p>';
 						$output .= '</li>';
 						$output .= '<li class="toggle-topbar menu-icon"><a href="#"><span>' . $args['menu_name'] . '</span></a></li>';
 					$output .= '</ul>';
