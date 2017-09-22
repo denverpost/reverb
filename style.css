@@ -1690,6 +1690,9 @@ body.author .panel {
 .gss-container div.cycle-slideshow {
 	max-height:750px;
 }
+.gss-container .gss-info {
+    overflow:visible;	
+}
 .gss-container .gss-nav {
 	float:none;
     top: 0;
@@ -1702,16 +1705,18 @@ body.author .panel {
 .gss-container .gss-nav .gss-prev {
     position: absolute;
 	width:20%;
-	height:100%;
+	height:300%;
 	margin:0;
 	border:none;
+	font-size:0;
+	color:rgba(0,0,0,0.0);
 	background-color:rgba(0,0,0,0.0);
 	left:0;
 	right:20%;
-	top:0;
+	bottom:0;
 	opacity: 30%;
 	background-image: url('./images/nextButton2.svg');
-	background-position: 95% 5%;
+	background-position: 95% 95%;
 	background-repeat: no-repeat;
 	background-size:50%;
 	-webkit-transform: rotate(180deg);
@@ -1723,22 +1728,28 @@ body.author .panel {
 .gss-container .gss-nav .gss-next {
     position: absolute;
 	width:20%;
-	height:100%;
+	height:300%;
 	margin:0;
 	border:none;
+	font-size:0;
+	color:rgba(0,0,0,0.0);
 	background-color:rgba(0,0,0,0.0);
 	left:80%;
 	right:0;
-	top:0;
+	bottom:0;
 	opacity: 30%;
 	background-image: url('./images/nextButton2.svg');
-	background-position: 95% 95%;
+	background-position: 95% 5%;
 	background-repeat: no-repeat;
 	background-size:50%; 
 }
 .gss-container .gss-nav .gss-next:hover,
 .gss-container .gss-nav .gss-prev:hover {
 	opacity: 70%;
+}
+.gss-container .gss-pager {
+	display:none;
+	height:0;
 }
 /* photo galleries */
 div.photo-gallery {
