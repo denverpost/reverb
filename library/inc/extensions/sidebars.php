@@ -145,8 +145,8 @@ function reactor_register_sidebars() {
 			'id'            => 'sidebar-outdoormiddle',
 			'description'   => 'Mid-page sidebar for the Outdoors template',
 			'class'         => '',
-			'before_widget' => '<li id="%1$s" class="widget %2$s">',
-			'after_widget'  => '</li>',
+			'before_widget' => '<div id="%1$s" class="widget outdoors-widget %2$s">',
+			'after_widget'  => '</div>',
 			'before_title'  => '<h4 class="widget-title">',
 			'after_title'   => '</h4>',
 		) );

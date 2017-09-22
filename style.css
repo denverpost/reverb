@@ -492,12 +492,12 @@ div.inner-header > div.row {
 	border-top:.5em solid rgba(215,80,40,1.0);
 }
 .top-bar-section li.has-dropdown.category-winter:not(.has-form) > a:not(.button) {
-	border-top:.3em solid rgba(140,178,213,1.0);
+	border-top:.3em solid rgba(120,158,213,1.0);
 }
 .top-bar-section ul li.category-winter:hover:not(.has-form)>a,
 .top-bar-section li.category-winter.active:not(.has-form) > a:not(.button):hover,
 .top-bar-section li.category-winter:not(.has-form) > a:not(.button):hover {
-	border-top:.5em solid rgba(140,178,213,1.0);
+	border-top:.5em solid rgba(120,158,213,1.0);
 }
 .top-bar-section li.has-dropdown.category-trips:not(.has-form) > a:not(.button) {
 	border-top:.3em solid rgba(175,50,90,1.0);
@@ -521,14 +521,15 @@ div.inner-header > div.row {
 }
 .fixed.expanded .top-bar-section li.has-dropdown.category-winter:not(.has-form) > a:not(.button) {
 	border-top:none;
-	border-left:1em solid rgba(140,178,213,1.0);
+	border-left:1em solid rgba(120,158,213,1.0);
 }
 .fixed.expanded .top-bar-section li.has-dropdown.category-trips:not(.has-form) > a:not(.button) {
 	border-top:none;
 	border-left:1em solid rgba(175,50,90,1.0);
 }
 /* page layout */
-#sidebar-frontlower {
+#sidebar-frontlower,
+#sidebar-outdoormiddle {
 	margin-top:.5em;
 	padding-top:2em;
 	border-top: 1px solid #ddd;
@@ -705,7 +706,8 @@ body.single-neighborhoods .neighborhood_page-post .front-imgholder {
 	padding-bottom:42.5%;
 }
 /* frontpage-posts */
-body.front-page .entry-body {
+body.front-page .entry-body,
+body.is-outdoors .entry-body {
 	padding-bottom:0;
 	margin-bottom:1.5em;
 	border:none;
@@ -806,18 +808,21 @@ body:not(.outdoorhome) article:first-child .frontpage-post .front-imgholder {
 	padding-bottom:50%;
 }
 /* front page flexible posts widgets */
-#sidebar-frontlower div.widget {
+#sidebar-frontlower div.widget,
+#sidebar-outdoormiddle div.widget {
 	width:48%;
 	margin:0 4% 1.5em 0;
 	display:inline-block;
 	float:left;
 }
-#sidebar-frontlower div.widget:nth-child(2n+2) {
+#sidebar-frontlower div.widget:nth-child(2n+2),
+#sidebar-outdoormiddle div.widget:nth-child(2n+2) {
 	margin-right:0;
 	padding-right: 0;
 	border-right:none;
 }
-#sidebar-frontmobile div#cube1_reverb_wrap {
+#sidebar-frontmobile div#cube1_reverb_wrap,
+#sidebar-outdoormiddle div#cube1_reverb_wrap {
 	display:none;
 }
 #sidebarmobile #sidebar {
@@ -907,10 +912,12 @@ div.cat-img {
 	background-repeat: no-repeat;
 	background-position: 50% 30%;
 }
-#sidebar-frontlower ul.dpe-flexible-posts {
+#sidebar-frontlower ul.dpe-flexible-posts,
+#sidebar-outdoormiddle ul.dpe-flexible-posts {
 	margin:.5em 0 0;
 }
-#sidebar-frontlower ul.dpe-flexible-posts li {
+#sidebar-frontlower ul.dpe-flexible-posts li,
+#sidebar-outdoormiddle ul.dpe-flexible-posts li {
 	list-style: none inside;
 	padding-bottom:.6em;
 	margin-bottom:.6em;
@@ -1979,6 +1986,11 @@ h4.widget-title span.fpe-widget-title a,
 .yarpp-related .related-wrap span {
 	background-color:rgba(67,178,91,1.0);
 }
+.is-outdoors .widget_neighborhood_related_widget h4.widget-title a,
+.is-outdoors h4.widget-title span.fpe-widget-title a,
+.is-outdoors .yarpp-related .related-wrap span {
+	background-color:rgba(140,100,75,1.0);
+}
 #frontpagemain article:first-child span {
 	display: none;
 }
@@ -2089,7 +2101,7 @@ header h2.category-winter a,
 header.category-outdoors h2.category-winter a,
 header h1.category-winter.archive-title a,
 header.category-outdoors h1.category-winter.archive-title a {
-	background-color:rgba(140,178,213,1.0);
+	background-color:rgba(120,158,213,1.0);
 }
 .widget_neighborhood_related_widget h4.widget-title.category-trips a,
 h4.widget-title span.fpe-widget-title.category-trips a,
@@ -2252,7 +2264,8 @@ article.location-embed .entry-body {
 	.frontpage-image h2 {
 		width: 30%;
 	}
-	#sidebar-frontlower div.widget {
+	#sidebar-frontlower div.widget,
+	#sidebar-outdoormiddle div.widget {
 		width:100%;
 		margin:0 0 1em;
 	}
