@@ -1616,13 +1616,14 @@ body.author .panel {
     right: 0;
     position: absolute;
     width: 100%;
-    height:100%;
+    height:120px;
     margin:0;
+    transform: translateY(-120px) 
 }
 .gss-container .gss-nav .gss-prev {
     position: absolute;
 	width:20%;
-	height:300%;
+	height:100%;
 	margin:0;
 	border:none;
 	font-size:0;
@@ -1633,7 +1634,7 @@ body.author .panel {
 	bottom:0;
 	opacity: 30%;
 	background-image: url('./images/nextButton2.svg');
-	background-position: 95% 95%;
+	background-position: 90% 50%;
 	background-repeat: no-repeat;
 	background-size:50%;
 	-webkit-transform: rotate(180deg);
@@ -1645,7 +1646,7 @@ body.author .panel {
 .gss-container .gss-nav .gss-next {
     position: absolute;
 	width:20%;
-	height:300%;
+	height:100%;
 	margin:0;
 	border:none;
 	font-size:0;
@@ -1656,7 +1657,7 @@ body.author .panel {
 	bottom:0;
 	opacity: 30%;
 	background-image: url('./images/nextButton2.svg');
-	background-position: 95% 5%;
+	background-position: 90% 50%;
 	background-repeat: no-repeat;
 	background-size:50%; 
 }

@@ -73,7 +73,7 @@ if ( !function_exists('reactor_post_meta') ) {
 			esc_url( get_month_link( get_the_time('Y'), get_the_time('m') ) ),
 			esc_attr( sprintf( __('View all posts from %s %s', 'reactor'), get_the_time('M'), get_the_time('Y') ) ),
 			esc_attr( get_the_date('c') ),
-			esc_html( get_the_date() )
+			esc_html( get_the_date('M j, Y, g:i a') )
 		 );
 		
 		if (!function_exists('authorTitleCase')) {
