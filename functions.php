@@ -387,7 +387,6 @@ function is_outdoor_home() {
 }
 add_filter( 'category_template', 'outdoors_category_templates' );
 
-
 // Different templates for Outdoors and its subcategories
 function outdoors_category_templates( $template ) {
     if ( is_outdoors() ) {

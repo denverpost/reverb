@@ -8,7 +8,7 @@ function tkno_get_neighborhood_from_slug($neighborhood_slug) {
             array(
                 'key'   => '_neighborhood_slug',
                 'value' => $neighborhood_slug,
-                'compare' => 'LIKE',
+                'compare' => '=',
                 'adp_disable' => true
                 )
             ),
