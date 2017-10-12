@@ -68,6 +68,7 @@ add_action('reactor_post_before', 'reactor_do_overline', 1);
  * @since 1.0.0
  */
 function reactor_post_frontpage_format() {
+	global $post;
 
 	$primary_category = tkno_get_primary_category();
 
@@ -564,6 +565,106 @@ function tkno_single_neighborhood_children() {
 	<?php }
 }
 add_action('reactor_post_after', 'tkno_single_neighborhood_children', 5);
+
+/**
+ * Outdoors child section auto-generated widgets
+ * in single.php
+ * 
+ * @since 1.0.0
+ */
+function outdoor_children_widgets() {
+	// A helper function cribbed from flexible-posts-widget/widget.php
+	if ( ! function_exists('tkno_get_acceptable_parent') ) {
+		function tkno_get_acceptable_parent($catquery) {
+			$cat_parents = get_category_parents( $catquery->term_id, false, '/' );
+			$valid_cats = ( is_outdoors() ) ? array( 'spring', 'summer', 'fall', 'winter', 'trips' ) : array( 'music', 'food', 'drink', 'things-to-do', 'arts' );
+			$cat_parents = explode( '/', $cat_parents );
+			foreach ( $cat_parents as $current ) {
+				$current = sanitize_title_with_dashes( $current );
+				if ( in_array( $current, $valid_cats ) ) {
+				    return $current;
+				}
+			}
+		}
+	}
+
+	// is it one of the outdoors semi-parents, or a child?
+    if ( is_outdoors() && is_outdoor_home() ) { 
+    	$cat = get_queried_object();
+        $children = get_terms( $cat->taxonomy, array(
+            'parent'    => $cat->term_id,
+            'hide_empty' => false
+        ) );
+        // go through the children and get the most recent post for each, making an array of cat IDs
+        $children_order = array();
+        $i=0;
+        foreach ( $children as $child ) {
+        	$args = array( 
+				'post_type'           => 'post',
+				'cat'                 => $child->term_id,
+				'posts_per_page'      => 1
+				);
+	        $child_query = new WP_Query( $args );
+	        while ($child_query->have_posts()) {
+	        	$child_query->the_post();
+	        	$children_order[get_the_time('U')] = $child->term_id;
+				wp_reset_query();
+	        }
+	        // maximum of four most recent children
+	        if (++$i == 4) break;
+        }
+        // put the IDs in reverse chron
+        krsort( $children_order );
+        // Now it's time to emulate the fpe_widget output with the 5 most recent stories from each of those children
+        $no_duplicates = array();
+        foreach ( $children_order as $child_cat_id ) {
+        	$args = array( 
+				'post_type'           => 'post',
+				'cat'                 => $child_cat_id,
+				'posts_per_page'      => 5,
+				'post__not_in'		  => $no_duplicates
+				);
+	        $out_child_posts = new WP_Query( $args );
+			if( $out_child_posts->have_posts() ) {
+				$didthumb = false;
+				$catquery = get_term_by( 'id', $child_cat_id, 'category' );
+				$cat_parent = tkno_get_acceptable_parent($catquery);
+				$cat_display = ( ! empty( $title ) ) ? $title : $catquery->name;
+				?>
+				<div id="outdoors_widget_<?php echo $child_cat_id; ?>" class="widget outdoors-widget widget_dpe_fp_widget">
+					<h4 class="widget-title">
+						<span class="fpe-widget-title category-<?php echo $catquery->slug;?> category-<?php echo $cat_parent; ?>">
+							<a href="<?php echo get_category_link( intval( $catquery->term_id ) ); ?>"><?php echo $cat_display; ?></a>
+						</span>
+					</h4>
+					<ul class="dpe-flexible-posts">
+					<?php while( $out_child_posts->have_posts() ) : $out_child_posts->the_post(); $do_not_duplicate[] = get_the_ID(); ?>
+						<li id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+								<?php
+									if( !$didthumb ) {
+										// If the post has a feature image, show it
+										if( has_post_thumbnail() ) { 
+											$medium_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'medium'); ?>
+											<div class="cat-thumbnail">
+												<div class="cat-imgholder"></div>
+												<a href="<?php the_permalink(); ?>" rel="bookmark" title="<?php the_title_attribute(); ?>">
+													<div class="cat-img" style="background-image:url('<?php echo $medium_image_url[0]; ?>');"></div>
+												</a>
+											</div>
+									<?php } ?>
+								<?php $didthumb = true;
+								} ?>
+								<h4 class="title"><a href="<?php the_permalink(); ?>" rel="bookmark" class="title-link" title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a></h4>
+						</li>
+					<?php endwhile; ?>
+					</ul>
+				<?php } ?>	
+			</div> 
+		<?php wp_reset_query();
+		}
+	}
+}
+add_action('tkno_outdoor_children_below', 'outdoor_children_widgets', 1);
 
 /**
  * No posts format

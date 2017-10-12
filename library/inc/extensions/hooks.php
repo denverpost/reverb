@@ -212,6 +212,16 @@ function reactor_post_neighborhoods() {
 }
 
 /**
+ * Register hook: reactor_post_neighborhoods
+ *
+ * 
+ * @since 1.0.0
+ */
+function tkno_outdoor_children_below() {
+	do_action('tkno_outdoor_children_below');
+}
+
+/**
  * Register hook: reactor_post_footer
  *
  * 

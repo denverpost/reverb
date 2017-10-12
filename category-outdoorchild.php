@@ -39,9 +39,9 @@
                         
                     <?php reactor_inner_content_after(); ?>
 
-                    <div class="large-12 medium-6 small-12" id="outdoor-middle">
+                    <div class="large-12 medium-6 small-12" id="sidebar-outdoormiddle">
 
-                        <?php get_sidebar('outdoormiddle'); ?>
+                        <?php tkno_outdoor_children_below(); ?>
 
                     </div><!-- .columns -->
 

@@ -11,8 +11,7 @@
         $args = array( 
 			'post_type'           => 'post',
 			'cat'                 => $current_cat,
-			'posts_per_page'      => 3,
-			'offset'			  => 1
+			'posts_per_page'      => 1
 			);
         $outdoorpage_query = new WP_Query( $args ); ?>
 
