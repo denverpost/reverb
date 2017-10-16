@@ -24,7 +24,16 @@
             	
                 <?php reactor_post_before(); ?>
                     
-                    <?php get_template_part('post-formats/format', 'frontpage'); // Frontpage format for each post ?>
+                    <?php get_template_part('post-formats/format', 'frontpage'); // Frontpage format for each post 
+                    $address = get_post_meta( $post->ID, '_location_street_address', true );
+                    $latitude = get_post_meta( $post->ID, '_location_latitude', true );
+                    $longitude = get_post_meta( $post->ID, '_location_longitude', true );
+                    if ( $address && $latitude && $longitude ) {
+                        $medium_img_url = ( $post->ID ) ? wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'medium') : false;
+                        $img_div = ( $medium_img_url && strlen( $medium_img_url[0] ) >= 1 ) ? '<div class="cat-thumbnail"><div class="cat-imgholder"></div><a href="' . get_permalink( $post->ID ) . '"><div class="cat-img" style="background-image:url(\\\'' . $medium_img_url[0] . '\\\');"></div></a></div>' : '';
+                        $map_display .= do_shortcode('[leaflet-marker zoom=11 lat=' . $latitude . ' lng=' . $longitude . ']<h3><a href="' . get_permalink( $post->ID ) . '">' . $post->post_title . '</a></h3><p>' . $address . '</p>' . $img_div . '[/leaflet-marker]' );
+                    }
+                    ?>
                 
                 <?php reactor_post_after(); ?>
 

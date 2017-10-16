@@ -27,18 +27,26 @@ function tkno_get_ad_cat_slug($cat_id=false) {
 }
 
 function tkno_get_ad_value() {
-    $tax_neighborhood = $category = FALSE;
+    $tax_neighborhood = $category = $outdoorcat = $outdoorkv = FALSE;
     $kv = 'theknow';
     $tax = '';
     if ( is_home() || is_front_page() ) {
         $kv = 'theknow';
     } else if ( is_page_template( 'page-templates/calendar.php' ) ) {
         $category = 'calendar';
-    } else if ( is_category() ) {
+    } else if ( is_outdoors() ) {
+        $id = get_query_var( 'cat' );
+        $cat = get_category( (int)$id );
+        $childcat = $cat->slug;
+        $cats = tkno_get_ad_cat_slug();
+        $category = $cats->slug;
+        $outdoorcat = ( $childcat == $category ) ? '/Outdoors' : '/Outdoors/' . ucfirst( $childcat );
+        $outdoorkv = $childcat;
+    } else if ( is_category() && ! is_outdoors() ) {
         $id = get_query_var( 'cat' );
         $cat = get_category( (int)$id );
         $category = $cat->slug;
-    } else if ( is_single() && get_post_type() != 'venues' && get_post_type() != 'neighborhoods' && get_post_type() != 'location' ) {
+    } else if ( is_single() && ! is_outdoors() && get_post_type() != 'venues' && get_post_type() != 'neighborhoods' && get_post_type() != 'location' ) {
         $cats = tkno_get_ad_cat_slug();
         $category = $cats->slug;
     } else if ( get_post_type() == 'venues' ) {
@@ -124,8 +132,8 @@ function tkno_get_ad_value() {
                 $tax = '/Play/Family-friendly';
                 break;
             case 'outdoors':
-                $kv = 'outdoors';
-                $tax = '/Play/Outdoors';
+                $kv = $outdoorkv;
+                $tax = $outdoorcat;
                 break;
             case 'photos':
                 $kv = 'photos';

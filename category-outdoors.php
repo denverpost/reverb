@@ -19,8 +19,22 @@
 
                 <div class="large-8 medium-12 small-12 columns" id="outdoorsmain">
 
+                    <?php
+                    $query_cat = $wp_query->get_queried_object();
+                    $class_header_category = ' category-' . tkno_get_top_category_slug( true, $query_cat->cat_id );
+                    $class_category = 'archive-title  category-' . $query_cat->slug; ?>
+                    <header class="archive-header<?php echo $class_header_category; ?>">
+                        <h1 class="<?php echo $class_category; ?>""><a href="javascript:void(0);" class="noclick"><?php echo $query_cat->name; ?></a></h1>
+                        <?php get_sidebar('categorysponsor'); ?>
+                    </header><!-- .archive-header -->
+
                     <div class="article_wrapper_top">
                         <?php get_template_part('loops/loop', 'outdoortop'); ?>
+                    </div>
+
+                    <div class="neighborhood-map-form">
+                        <div class="map-expander"></div>
+                        <?php do_shortcode( '[leaflet-map zoomcontrol="1"]' ); ?>
                     </div>
 
                     <div class="large-12 medium-6 small-12" id="outdoor-upper">
