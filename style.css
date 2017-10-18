@@ -2662,7 +2662,8 @@ article.location-embed .entry-body {
 }
 .snowwidget-tagline-icon {
 	color: #04bacf;
-	font-size: 21px;
+	font-size: 25px;
+	line-height:1;
 	font-weight: 700;
 	margin-right: 8px;
 	vertical-align: bottom;
@@ -2670,7 +2671,8 @@ article.location-embed .entry-body {
 .snowwidget-tagline-label {
 	color: #053a82;
 	font-weight: 700;
-	line-height: 1.4;
+	line-height: 1;
+	vertical-align:30%;
 }
 .snowwidget-pane-container {
 	height: 250px;
@@ -2705,6 +2707,7 @@ article.location-embed .entry-body {
 	color: white;
 }
 .snowwidget-pane-data {
+	font-size:.8em;
 	color: #053a82;
 }
 .snowwidget-pane-newsnow-data {
@@ -2778,4 +2781,40 @@ article.location-embed .entry-body {
 	background-color: #E3E8F2;
 	height: 80px;
 	width: 100%;
+}
+.icon-weather-snow:before {
+    content: "\2744";
+    font-style:normal;
+    font-weight:bold;
+}
+a:hover .icon-weather-snow:before {
+    text-decoration: none;
+    border:none;
+}
+.snowwidget-pane-list-label {
+    background: #01acd8;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 4px 0 4px 8px;
+}
+.snowwidget-pane-container ul {
+	margin:0;
+}
+.snowwidget-pane-container ul li {
+	font-size:1em;
+}
+.snowwidget-pane-forecast-data {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    text-align: center;
+    padding: 8px 10px;
+}
+.snowwidget-pane-forecast-data-item:first-child {
+    font-weight: 400;
+}
+.snowwidget-pane-forecast-data-item {
+    width: 33.33333%;
+    font-weight: 700;
 }
