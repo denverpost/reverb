@@ -32,10 +32,7 @@
                         <?php get_template_part('loops/loop', 'outdoortop'); ?>
                     </div>
 
-                    <div class="neighborhood-map-form">
-                        <div class="map-expander"></div>
-                        <?php do_shortcode( '[leaflet-map zoomcontrol="1"]' ); ?>
-                    </div>
+                    <?php get_template_part('loops/', 'outdoor-map'); ?>
 
                     <div class="large-12 medium-6 small-12" id="outdoor-upper">
 

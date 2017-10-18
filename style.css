@@ -1972,6 +1972,9 @@ div.sponsor_category img {
 	width:100%;
 	padding-bottom: 60%
 }
+.is-outdoors .neighborhood-map-form .map-expander {
+	padding-bottom: 30%
+}
 iframe.greatschools,
 .leaflet-map {
 	height: 100%;
@@ -2628,4 +2631,151 @@ article.location-embed .entry-body {
     .f-topbar-fixed {    padding-top: 0!important }
     article + nav {    display: none }
     p, article li { font-size: .9em; line-height:1.3; }
+}
+/* Snow Widget stuff */
+#snowReportLogo {
+	float: left;
+}
+.snowwidget-container {
+	width: 300px;
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 12px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	outline: 1px #999 solid;
+}
+.snowwidget-headline {
+	font-size: 13px;
+	clear: both;
+}
+.snowwidget-headline-label {
+	background: #01acd8;
+	color: white;
+	font-size: 12px;
+	font-weight: 700;
+	padding: 4px 0 4px 25px;
+}
+.snowwidget-tagline {
+	padding: 2px 0 8px 15px;
+	margin: 4px;
+	border-bottom: 1px dotted gray;
+}
+.snowwidget-tagline-icon {
+	color: #04bacf;
+	font-size: 21px;
+	font-weight: 700;
+	margin-right: 8px;
+	vertical-align: bottom;
+}
+.snowwidget-tagline-label {
+	color: #053a82;
+	font-weight: 700;
+	line-height: 1.4;
+}
+.snowwidget-pane-container {
+	height: 250px;
+	border-right: #01acd8 3px solid;
+	border-left: #01acd8 3px solid;
+	border-top: #01acd8 3px solid;
+}
+.snowwidget-pane {
+	display: none;
+	height: 100%;
+}
+.snowwidget-pane:first-child {
+	display: block;
+}
+.snowwidget-pane-list {
+	height: 100%;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+.snowwidget-pane-forecast .snowwidget-pane-list {
+	height: 215px;
+	line-height: 1.2;
+}
+.snowwidget-pane-list-label {
+	background: #01acd8;
+	color: white;
+	font-size: 12px;
+	font-weight: 700;
+	padding: 4px 0;
+}
+.snowwidget-pane-list-label a:hover {
+	color: white;
+}
+.snowwidget-pane-data {
+	color: #053a82;
+}
+.snowwidget-pane-newsnow-data {
+	padding: 5px 0 5px 35px;
+}
+.snowwidget-pane-forecast-data {
+	display: flex;
+	text-align: center;
+	padding: 8px 10px;
+}
+.snowwidget-pane-forecast-data-item {
+	width: 33.33333%;
+	font-weight: 700;
+}
+.snowwidget-pane-forecast-data-item:first-child {
+	font-weight: 400;
+}
+.snowwidget-pane-data-icon {
+	font-weight: 700;
+	font-size: 14px;
+	float: left;
+	line-height: 1.4;
+}
+.snowwidget-pane-data-text {
+	line-height: 1.4;
+	display: inline-block;
+	margin-left: 10px;
+}
+.snowwidget-pane-tweet {
+	background: #F0F8FF;
+	margin: 5px;
+	display: flex;
+}
+.snowwidget-pane-twitter-avatar {
+	min-width: 48px;
+	height: 48px;
+	display: block;
+}
+.snowwidget-pane-tweet-text {
+	margin: 4px 10px 5px 20px;
+}
+.snowwidget-tabs {
+	height: 35px;
+	display: flex;
+}
+.snowwidget-tabs-btn {
+	flex-grow: 1;
+	height: 100%;
+	background-color: #60b0d7;
+	color: white;
+	cursor: pointer;
+	font-weight: 700;
+	padding: 0 5px;
+}
+.snowwidget-tabs-btn:hover, .snowwidget-tabs-btn.is-active {
+	background-color: #3d7097;
+}
+.snowwidget-tab-icon,\n.snowwidget-tab-text {
+	float: left;
+}
+.snowwidget-tab-icon {
+	font-size: 22px;
+	line-height: 1.5;
+	padding: 0 5px;
+}
+.snowwidget-tab-text {
+	line-height: 2.8;
+	float: left;
+}
+.snowwidget-footer {
+	background-color: #E3E8F2;
+	height: 80px;
+	width: 100%;
 }
