@@ -45,7 +45,9 @@ if ( ! function_exists( 'smart_trim' ) ) {
     function smart_trim($instring, $truncation) {
         //remove shortcodes (and thereby images and embeds)
         $instring = strip_shortcodes( $instring );
-        //a little regex kills datelines
+        //a little regex kills scripts
+        $instring = preg_replace('#<script(.*?)>(.*?)</script>#is', '', $instring);
+        //a little more regex kills datelines
         $instring = preg_replace("/\A((([A-Z ]+)\\,\s?([a-zA-Z ]+)\\.?)|[A-Z]+)\s?(&#8211;|&#8212;?)\s?/u", "", $instring);
         //replace closing paragraph tags with a space to avoid collisions after punctuation
         $instring = str_replace("</p>", " ", $instring);
