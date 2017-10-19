@@ -32,8 +32,6 @@
                         <?php get_template_part('loops/loop', 'outdoortop'); ?>
                     </div>
 
-                    <?php get_template_part('loops/', 'outdoor-map'); ?>
-
                     <div class="large-12 medium-6 small-12" id="outdoor-upper">
 
                         <?php get_sidebar('outdoorupper'); ?>

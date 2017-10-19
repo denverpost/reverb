@@ -639,7 +639,7 @@ function locations_shortcode( $atts = [], $content = null, $tag = '' ) {
     // Start the output string and add the map if it's at the top or standalone and start the map data
     $map_display = '';
     $locations_display = '<div class="list_locations' . $loc_wide . '">';
-    $locations_display .= ( $loc_atts['map'] == 'above' || $loc_atts['map'] == 'only' ) ? $map_div : '';
+    $locations_display .= ( $loc_atts['map'] == 'above' || $loc_atts['map'] == 'only' && ! is_feed() ) ? $map_div : '';
     $loc_i = 0;
     foreach( $loc_shortcode_ids as $loc_post_id ) {
         $loc_i++;
@@ -653,28 +653,26 @@ function locations_shortcode( $atts = [], $content = null, $tag = '' ) {
         }
         $bg_image_url = ( isset( $large_image_url ) && strlen( $large_image_url[0] ) >= 1 ) ? $large_image_url[0] : false;
         if ( $loc_atts['map'] != 'only' ) {
-            $locations_display .= '<article id="location-' . $loc_post->ID . '" class="' . $post_classes . '">';
-                $locations_display .= '<div class="entry-body">';         
-                    $locations_display .= '<header class="entry-header">';
-                        $locations_display .= '<h2 class="entry-title">' . $loc_rank . '<a href="' . get_permalink( $loc_post->ID ) . '" rel="bookmark">' . $loc_post->post_title . '</a></h2>';
-                    $locations_display .= '</header>';
-                    $locations_display .= '<h3 class="entry-subtitle">' . $address . '</h3>';
-                    $locations_display .= '<div class="entry-content">';
-                    if ( $bg_image_url ) { 
-                        $locations_display .= '<div class="location-image-wrap">'; 
-                            $locations_display .= '<div class="frontpage-image" style="background-image:url(' . $bg_image_url . ')">';
-                                $locations_display .= '<div class="front-imgholder"></div>';
-                                $locations_display .= '<a href="' . get_permalink( $loc_post->ID ) . '" rel="bookmark"></a>';
-                            $locations_display .= '</div>';
-                        $locations_display .= '</div>';
-                    }
-                    $locations_display .= apply_filters( 'the_content', $loc_post->post_content );
-                    $locations_display .= '</div>';
-                $locations_display .= '</div>';
-            $locations_display .= '</article>';
+            $locations_display_img = ( $bg_image_url && ! is_feed() ) ? sprintf('<div class="location-image-wrap"><div class="frontpage-image" style="background-image:url(%1$s)"><div class="front-imgholder"></div><a href="%2$s" rel="bookmark"></a></div></div>',
+                    $bg_image_url,
+                    get_permalink( $loc_post->ID )
+                    ) : '';
+
+            $locations_display_string = ( is_feed() ) ? '<h2>%3$s<a href="%4$s" rel="bookmark">%5$s</a></h2><h3>%6$s</h3>%7$s %8$s' : '<article id="location-%1$s" class="%2$s"><div class="entry-body"><header class="entry-header"><h2 class="entry-title">%3$s<a href="%4$s" rel="bookmark">%5$s</a></h2></header><h3 class="entry-subtitle">%6$s</h3><div class="entry-content">%7$s %8$s</div></div></article>';
+
+            $locations_display .= sprintf( $locations_display_string,
+                $loc_post->ID,
+                $post_classes,
+                $loc_rank,
+                get_permalink( $loc_post->ID ),
+                $loc_post->post_title,
+                $address,
+                $locations_display_img,
+                apply_filters( 'the_content', $loc_post->post_content )
+                );
         }
         // Create the map elements for each item
-        if ( $loc_add_map ) {
+        if ( $loc_add_map && ! is_feed() ) {
             $latitude = get_post_meta( $loc_post->ID, '_location_latitude', true );
             $longitude = get_post_meta( $loc_post->ID, '_location_longitude', true );
             $medium_img_url = ( $loc_post->ID ) ? wp_get_attachment_image_src( get_post_thumbnail_id( $loc_post->ID ), 'medium') : false;
@@ -682,7 +680,7 @@ function locations_shortcode( $atts = [], $content = null, $tag = '' ) {
             $map_display .= do_shortcode('[leaflet-marker zoom=11 lat=' . $latitude . ' lng=' . $longitude . ']<h3><a href="' . get_permalink( $loc_post->ID ) . '">' . $loc_post->post_title . '</a></h3><p>' . $address . '</p>' . $img_div . '[/leaflet-marker]' );
         }
     }
-    $locations_display .= ( $loc_atts['map'] == 'below' ) ? $map_div : '';
+    $locations_display .= ( $loc_atts['map'] == 'below' && ! is_feed() ) ? $map_div : '';
     $locations_display .= '</div>';
     $locations_display .= ( $loc_add_map ) ? $map_display : '';
     return $locations_display;
