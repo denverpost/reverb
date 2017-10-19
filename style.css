@@ -1680,6 +1680,7 @@ nav.nav-single .nav-next a:after {
 .single .entry-content ul.bucketcheck {
 	list-style-type: none;
 	padding-left:0;
+	margin:1em 1em 1em 3em;
 }
 .single .entry-content ul.bucketcheck li {
 	line-height:1.3;
