@@ -39,15 +39,15 @@ add_action('reactor_inner_content_before', 'reactor_do_hero', 0);
 function reactor_do_overline() {
 	if ( is_single() && get_post_type() == 'location' ) { ?>
 		<header class="archive-header">
-            <h2 class="archive-title location-header"><span><a href="<?php echo get_bloginfo( 'url' ); ?>/location/">Location</a></span></h1>
+            <h2 class="archive-title location-header"><span><a href="<?php echo get_bloginfo( 'url' ); ?>/location/">Location</a></span></h2>
         </header><!-- .archive-header -->
 	<?php } else if ( is_single() && get_post_type() == 'venues' ) { ?>
 		<header class="archive-header">
-            <h2 class="archive-title venue-header"><span><a href="<?php echo get_bloginfo( 'url' ); ?>/venues/">Venue</a></span></h1>
+            <h2 class="archive-title venue-header"><span><a href="<?php echo get_bloginfo( 'url' ); ?>/venues/">Venue</a></span></h2>
         </header><!-- .archive-header -->
 	<?php } else if ( is_single() && get_post_type() == 'neighborhoods' ) { ?>
 		<header class="archive-header">
-            <h2 class="archive-title neighborhood-header"><span><a href="<?php echo get_bloginfo( 'url' ); ?>/neighborhoods/">Neighborhood</a></span></h1>
+            <h2 class="archive-title neighborhood-header"><span><a href="<?php echo get_bloginfo( 'url' ); ?>/neighborhoods/">Neighborhood</a></span></h2>
         </header><!-- .archive-header -->
 	<?php } else if ( is_single() && ! is_page_template( 'page-templates/calendar.php' ) ) {
 		$primary_category = tkno_get_primary_category();

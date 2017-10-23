@@ -1,5 +1,30 @@
 <?php
 
+/**
+ * Let's hide some of the default WP widgets that we'll never actually use.
+ *
+ * After: OMG that's so much better.
+ */
+function unregister_default_widgets() {
+    unregister_widget('WP_Widget_Media_Audio');
+    unregister_widget('WP_Widget_Media_Image');
+    unregister_widget('WP_Widget_Media_Video');
+    unregister_widget('WP_Widget_Pages');
+    unregister_widget('WP_Widget_Calendar');
+    unregister_widget('WP_Widget_Archives');
+    unregister_widget('WP_Widget_Links');
+    unregister_widget('WP_Widget_Meta');
+    unregister_widget('WP_Widget_Search');
+    unregister_widget('WP_Widget_Categories');
+    unregister_widget('WP_Widget_Recent_Posts');
+    unregister_widget('WP_Widget_Recent_Comments');
+    unregister_widget('WP_Widget_RSS');
+    unregister_widget('WP_Widget_Tag_Cloud');
+    unregister_widget('WP_Nav_Menu_Widget');
+    unregister_widget('Twenty_Eleven_Ephemera_Widget');
+}
+add_action('widgets_init', 'unregister_default_widgets', 11);
+
 // Popular widget
 class tkno_popular_widget extends WP_Widget
 {
@@ -336,27 +361,49 @@ class follow_us_on_widget extends WP_Widget
 function register_follow_us_on_widget() { register_widget('follow_us_on_widget'); }
 add_action( 'widgets_init', 'register_follow_us_on_widget' );
 
-/**
- * Let's hide some of the default WP widgets that we'll never actually use.
- *
- * After: OMG that's so much better.
- */
-function unregister_default_widgets() {
-    unregister_widget('WP_Widget_Media_Audio');
-    unregister_widget('WP_Widget_Media_Image');
-    unregister_widget('WP_Widget_Media_Video');
-    unregister_widget('WP_Widget_Pages');
-    unregister_widget('WP_Widget_Calendar');
-    unregister_widget('WP_Widget_Archives');
-    unregister_widget('WP_Widget_Links');
-    unregister_widget('WP_Widget_Meta');
-    unregister_widget('WP_Widget_Search');
-    unregister_widget('WP_Widget_Categories');
-    unregister_widget('WP_Widget_Recent_Posts');
-    unregister_widget('WP_Widget_Recent_Comments');
-    unregister_widget('WP_Widget_RSS');
-    unregister_widget('WP_Widget_Tag_Cloud');
-    unregister_widget('WP_Nav_Menu_Widget');
-    unregister_widget('Twenty_Eleven_Ephemera_Widget');
+// Create a simple widget for one-click newsletter signup
+class more_from_widget extends WP_Widget {
+    public function __construct() {
+            parent::__construct(
+                'more_from_widget',
+                __('More from The Know', 'more_from_widget'),
+                array('description' => __('Vertical cross-promotion synergy realized.', 'more_from_widget'), )
+            );
+    }
+
+    public function widget($args, $instance) {
+        echo $args['before_widget'];
+        echo $args['before_title'] . 'More from The Know' . $args['after_title'];
+        if ( ! is_outdoors() || ! is_location() ) {
+            // On non-Outdoors pages, pimp Outdoors
+            ?>
+            <header class="archive-header category-outdoors">
+                <h2 class="archive-title category-outdoors">
+                    <span><a href="<?php echo get_bloginfo( 'url' ); ?>/outdoors/">Outdoors</a></span>
+                </h2>
+            </header>
+        <?php }
+        if ( ! is_post_type_archive( 'neighborhoods' ) && ! ( is_single() && get_post_type() == 'neighborhoods' ) ) {
+            // On non-Neighborhoods pages, pimp Neighborhoods
+            ?>
+            <header class="archive-header">
+                <h2 class="archive-title neighborhood-header">
+                    <span><a href="<?php echo get_bloginfo( 'url' ); ?>/neighborhoods/">Neighborhoods</a></span>
+                </h2>
+            </header><!-- .archive-header -->
+        <?php }
+        if ( is_outdoors() || is_location() || is_post_type_archive( 'neighborhoods' ) && ( is_single() && get_post_type() == 'neighborhoods' )) {
+            // Anywhere else, pimp something else
+            ?>
+            <header class="archive-header category-things-to-do">
+                <h2 class="archive-title category-things-to-do">
+                    <span><a href="<?php echo get_bloginfo( 'url' ); ?>">Things To Do</a></span>
+                </h2>
+            </header>
+        <?php }
+
+        echo $args['after_widget'];
+    }
 }
-add_action('widgets_init', 'unregister_default_widgets', 11);
+function register_more_from_widget() { register_widget('more_from_widget'); }
+add_action( 'widgets_init', 'register_more_from_widget' );
