@@ -38,7 +38,11 @@
                 
                 </div><!-- .columns -->
                 
-                <?php get_sidebar(); ?>
+                <?php if ( is_outdoors() ) { 
+                    get_sidebar('outdoors');
+                } else {
+                    get_sidebar();  
+                } ?>
                 
             </div><!-- .row -->
         </div><!-- #content -->

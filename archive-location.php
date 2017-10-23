@@ -7,6 +7,26 @@
  * @since 1.0.0
  */
 
+
+function location_search_join( $join ) {
+    global $wpdb;
+    return $join .=' LEFT JOIN '.$wpdb->postmeta. ' ON '. $wpdb->posts . '.ID = ' . $wpdb->postmeta . '.post_id ';
+}
+add_filter('posts_join', 'location_search_join' );
+function location_search_where( $where ) {
+    global $pagenow, $wpdb;
+
+    return preg_replace(
+            "/\(\s*".$wpdb->posts.".post_title\s+LIKE\s*(\'[^\']+\')\s*\)/",
+            "(".$wpdb->posts.".post_title LIKE $1) OR (".$wpdb->postmeta.".meta_value LIKE $1)", $where );
+}
+add_filter( 'posts_where', 'location_search_where' );
+function location_search_distinct( $where ) {
+    global $wpdb;
+    return "DISTINCT";
+}
+add_filter( 'posts_distinct', 'location_search_distinct' );
+
 add_action( 'pre_get_posts', function( $q ) {
     if( $title = $q->get( '_meta_or_title' ) ) {
         add_filter( 'get_meta_sql', function( $sql ) use ( $title ) {
@@ -30,9 +50,9 @@ $locationsearch = ( isset( $_GET[ 'locationsearch' ] ) && $_GET[ 'locationsearch
 $user_radius =  false;
 //If it is a search, grab the form variables
 if ( $locationsearch ) {
-    $user_ZIP = $_GET[ 'user_ZIP' ];
-    $user_radius = $_GET[ 'user_radius' ];
-    $user_text = $_GET[ 'user_text' ];
+    $user_ZIP = ( isset( $_GET[ 'user_ZIP' ] ) ) ? $_GET[ 'user_ZIP' ] : FALSE;
+    $user_radius = ( isset( $_GET[ 'user_radius' ] ) ) ? $_GET[ 'user_radius' ] : FALSE;
+    $user_text = ( isset( $_GET[ 'user_text' ] ) ) ? $_GET[ 'user_text' ] : FALSE;
 
     //Check that user ZIP code is a 5-digit number between 10001 and 99999. If not, display error message.
     if( $user_ZIP ) {
@@ -194,7 +214,7 @@ if ( $locationsearch ) {
                 
                 </div><!-- .columns -->
                 
-                <?php get_sidebar(); ?>
+                <?php get_sidebar('outdoors'); ?>
                 
             </div><!-- .row -->
         </div><!-- #content -->

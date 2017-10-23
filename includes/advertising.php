@@ -35,13 +35,19 @@ function tkno_get_ad_value() {
     } else if ( is_page_template( 'page-templates/calendar.php' ) ) {
         $category = 'calendar';
     } else if ( is_outdoors() ) {
-        $id = get_query_var( 'cat' );
-        $cat = get_category( (int)$id );
-        $childcat = $cat->slug;
-        $cats = tkno_get_ad_cat_slug();
-        $category = $cats->slug;
-        $outdoorcat = ( $childcat == $category ) ? '/Outdoors' : '/Outdoors/' . ucfirst( $childcat );
-        $outdoorkv = $childcat;
+        if ( is_category() ) {
+            $id = get_query_var( 'cat' );
+            $cat = get_category( (int)$id );
+            $childcat = $cat->slug;
+            $cats = tkno_get_ad_cat_slug();
+            $category = $cats->slug;
+            $outdoorcat = ( $childcat == $category ) ? '/Outdoors' : '/Outdoors/' . ucfirst( $childcat );
+            $outdoorkv = $childcat;
+        } else {
+            $cats = tkno_get_ad_cat_slug();
+            $outdoorcat = ( $cats->slug == 'outdoors' ) ? '/Outdoors' : '/Outdoors/' . ucfirst( $cats->slug );
+            $category = $outdoorkv = $cats->slug;
+        }
     } else if ( is_category() && ! is_outdoors() ) {
         $id = get_query_var( 'cat' );
         $cat = get_category( (int)$id );

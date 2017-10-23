@@ -712,3 +712,92 @@ function location_image_the_content( $content ) {
     return $content;
 }
 add_filter( 'the_content', 'location_image_the_content' );
+
+/**
+ * A fuller sidebar widget with a map like on the Outdoors main
+ * page, and a mini search form, too. Since it's really only 
+ * for article pages, let's just do it on is_single() only.
+ * That means it has no options!
+ */
+class tkno_location_recent_widget extends WP_Widget {
+
+    function __construct() {
+        parent::__construct(
+        // Base ID of your widget
+        'tkno_location_recent_widget',
+
+        // Widget name will appear in UI
+        __('Recent locations Map', ''),
+
+        // Widget description
+        array( 'description' => __( 'Displays map of recent locations and mini search form. Display on article pages only.' ), )
+        );
+    }
+
+    // Creating widget front-end
+    // This is where the action happens
+    public function widget( $args, $instance ) {
+        // This is where you run the code and display the output
+        if ( is_single() ) {
+            wp_reset_postdata();
+
+            function shuffle_from_recent( $posts, $query ) {
+                if( $pick = $query->get( '_location_posts_where' ) ) {
+                    shuffle( $posts );
+                    $posts = array_slice( $posts, 0, (int) $pick );
+                }
+                return $posts;
+            }
+            add_filter( 'the_posts', 'shuffle_from_recent', 10, 2 );
+            $query_args = array( 
+                'post_type'           => 'location',
+                'order_by'            => 'post_date',
+                'posts_per_page'      => 20,
+                '_location_posts_where' => 5
+                );
+            $outdoormap_recent_query = new WP_Query( $query_args );
+            if ( $outdoormap_recent_query->have_posts() ) :
+            echo $args['before_widget']; ?>
+            <h4 class="widget-title">Recently featured places</h4>
+            <div class="neighborhood-map-form">
+                <div class="map-expander"></div>
+                <?php echo do_shortcode( '[leaflet-map zoomcontrol="0"]' );        
+
+                $map_display = '';
+                while ( $outdoormap_recent_query->have_posts() ) : $outdoormap_recent_query->the_post();
+                    $address = get_post_meta( get_the_ID(), '_location_street_address', true );
+                    $latitude = get_post_meta( get_the_ID(), '_location_latitude', true );
+                    $longitude = get_post_meta( get_the_ID(), '_location_longitude', true );
+                    if ( $address && $latitude && $longitude ) {
+                        $map_display .= do_shortcode('[leaflet-marker zoom=11 lat=' . $latitude . ' lng=' . $longitude . ']<h3><a href="' . get_permalink() . '">' . get_the_title() . '</a></h3><p>' . $address . '</p>[/leaflet-marker]' );
+                    }
+                endwhile; // end of the loop
+                remove_filter( 'the_posts' , '_location_posts_where' );
+                echo $map_display;
+                wp_reset_postdata(); ?>
+            </div>
+            <form class="recent_loc" method="get" action="<?php echo get_site_url(); ?>/location/">
+                <input type="hidden" name="locationsearch" value="Y" />
+                <div class="row collapse">
+                    <div class="large-12 columns">
+                        <h2>What are you looking for?</h2>
+                    </div>
+                    <div class="large-8 columns">
+                        <input type="text" name="user_text" id="user_text" value="" />
+                    </div>
+                    <div class="large-4 columns">
+                        <input class="button" type="submit" value="Search" />
+                    </div>
+                </div>
+            </form>
+            <?php echo $args['after_widget'];
+            endif; // end have_posts() check ?>
+        <?php }
+    }
+} // Class srd_find_location_widget ends here
+
+// Register and load the widget
+function tkno_location_recent_widget_load() {
+    register_widget( 'tkno_location_recent_widget' );
+}
+add_action( 'widgets_init', 'tkno_location_recent_widget_load' );

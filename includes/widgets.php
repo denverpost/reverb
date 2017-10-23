@@ -263,6 +263,8 @@ class tkno_calendar_widget extends WP_Widget
             $calcat = '8354';
             if ( is_home() || is_front_page() ) {
                 $calcat = '8354';
+            } else if ( is_outdoors() ) {
+                $calcat = '8811';
             } else if ( is_category() ) {
                 $id = get_query_var( 'cat' );
                 $cat = get_category( (int)$id );
@@ -333,3 +335,28 @@ class follow_us_on_widget extends WP_Widget
 }
 function register_follow_us_on_widget() { register_widget('follow_us_on_widget'); }
 add_action( 'widgets_init', 'register_follow_us_on_widget' );
+
+/**
+ * Let's hide some of the default WP widgets that we'll never actually use.
+ *
+ * After: OMG that's so much better.
+ */
+function unregister_default_widgets() {
+    unregister_widget('WP_Widget_Media_Audio');
+    unregister_widget('WP_Widget_Media_Image');
+    unregister_widget('WP_Widget_Media_Video');
+    unregister_widget('WP_Widget_Pages');
+    unregister_widget('WP_Widget_Calendar');
+    unregister_widget('WP_Widget_Archives');
+    unregister_widget('WP_Widget_Links');
+    unregister_widget('WP_Widget_Meta');
+    unregister_widget('WP_Widget_Search');
+    unregister_widget('WP_Widget_Categories');
+    unregister_widget('WP_Widget_Recent_Posts');
+    unregister_widget('WP_Widget_Recent_Comments');
+    unregister_widget('WP_Widget_RSS');
+    unregister_widget('WP_Widget_Tag_Cloud');
+    unregister_widget('WP_Nav_Menu_Widget');
+    unregister_widget('Twenty_Eleven_Ephemera_Widget');
+}
+add_action('widgets_init', 'unregister_default_widgets', 11);

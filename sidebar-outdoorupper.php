@@ -30,7 +30,9 @@
     $outdoormap_query = new WP_Query( $args );
     if ( $outdoormap_query->have_posts() ) : ?>
 
-    <div class="neighborhood-map-form">
+
+    <h2 class="location-recent">Recently featured places to go</h2>
+    <div class="neighborhood-map-form" style="margin-bottom:0;">
         <div class="map-expander"></div>
         <?php echo do_shortcode( '[leaflet-map zoomcontrol="1"]' );        
 
@@ -49,7 +51,37 @@
         echo $map_display;
         wp_reset_postdata(); ?>
 
-        </div>
+    </div>
+    <div class="location-search-wrap">
+        <form method="get" action="<?php echo get_site_url(); ?>/location/">
+            <input type="hidden" name="locationsearch" value="Y" />
+            <div class="row">
+                <div class="large-4 columns">
+                    <label>What are you looking for?</label>
+                    <input type="text" name="user_text" id="user_text" value="" />
+                </div>
+                <div class="large-2 columns">
+                    <label>Near ZIP</label>
+                    <input type="text" pattern=".{5}" name="user_ZIP" id="user_ZIP" value="" />
+                </div>
+                <div class="large-2 columns">
+                    <label>Distance</label>
+                    <select name="user_radius" id="user_radius">
+                        <option value="25000">Any</option>
+                        <option value="5">5 miles</option>
+                        <option selected="selected" value="10">10 miles</option>
+                        <option value="20">20 miles</option>
+                        <option value="50">50 miles</option>
+                        <option value="100">100 miles</option>
+                    </select>
+                </div>
+                <div class="large-4 columns">
+                    <input class="button" type="submit" value="Find locations" style="margin-top:7px;height:52px;" />
+                    <a class="button warning" href="<?php echo get_site_url(); ?>/location/" style="margin-top:7px;font-size:200%;padding:.36em .5em .55em;line-height:.5;height:53px;">&times;</a>
+                </div>
+            </div>
+        </form>
+    </div>
 
     <?php endif; // end have_posts() check
 

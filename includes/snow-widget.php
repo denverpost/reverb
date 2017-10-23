@@ -43,138 +43,140 @@ class DP_Snow_Widget extends WP_Widget {
 		?>
 		<script type="text/javascript"
 				src="<?php echo get_stylesheet_directory_uri() . '/snow-widget/snowwidget.min.js'; ?>"></script>
-		<div class="snowwidget-container">
-			<div id="snowwidget-header">
-				<a href="http://www.coloradoski.com/snow-report?utm_source=Colorado%20Ski%20Country%20USA's%20logo%20in%20the%20Snow%20Report&utm_medium=Snow%20Report&utm_campaign=Snow%20Report">
-					<img id="snowReportLogo" alt="" src="<?php echo get_stylesheet_directory_uri() . '/snow-widget/snowreport_logo.png'; ?>"/>
-				</a>
-				<div id="div-gpt-ad-dp_snow_widget">
-					<script>
-						googletag.cmd.push(function() {
-							googletag.defineSlot('/8013/denverpost.com', [110,90],'div-gpt-ad-dp_snow_widget').setTargeting('kv',['dp_snow_widget']).addService(googletag.pubads());
-							googletag.enableServices();
-							googletag.display('div-gpt-ad-dp_snow_widget');
-						});
-					</script>
-				</div>
-			</div> <!-- END .snow-widget-logo-wrap -->
-
-			<div class="snowwidget-headline">
-				<a href="http://www.coloradoski.com/snow-report?utm_source=Colorado%20Ski%20Country%20USA's%20name%20in%20the%20Snow%20Report&utm_medium=Snow%20Report&utm_campaign=Snow%20Report">
-					<div class="snowwidget-headline-label snowwidget-section-label">Colorado Ski Country USA</div>
-					<div class="snowwidget-tagline">
-						<i class="snowwidget-tagline-icon icon-weather-snow"></i>
-						<span class="snowwidget-tagline-label">A Mountain for everyone.</span>
+		<div class="snowwidget-wrapper">
+			<div class="snowwidget-container">
+				<div id="snowwidget-header">
+					<a href="http://www.coloradoski.com/snow-report?utm_source=Colorado%20Ski%20Country%20USA's%20logo%20in%20the%20Snow%20Report&utm_medium=Snow%20Report&utm_campaign=Snow%20Report">
+						<img id="snowReportLogo" alt="" src="<?php echo get_stylesheet_directory_uri() . '/snow-widget/snowreport_logo.png'; ?>"/>
+					</a>
+					<div id="div-gpt-ad-dp_snow_widget">
+						<script>
+							googletag.cmd.push(function() {
+								googletag.defineSlot('/8013/denverpost.com', [110,90],'div-gpt-ad-dp_snow_widget').setTargeting('kv',['dp_snow_widget']).addService(googletag.pubads());
+								googletag.enableServices();
+								googletag.display('div-gpt-ad-dp_snow_widget');
+							});
+						</script>
 					</div>
-				</a>
-			</div>
+				</div> <!-- END .snow-widget-logo-wrap -->
 
-			<div class="snowwidget-pane-container">
-				<div class="snowwidget-pane snowwidget-pane-newsnow">
-					<?php $new_snow_list = $this->get_remote_forecast( 'snocountry_report' ); ?>
-					<?php if ( false !== $new_snow_list && ! empty( $new_snow_list['snocountry']['items'] ) ): ?>
-						<ul class="snowwidget-pane-list snowwidget-pane-newsnow">
-							<?php uasort( $new_snow_list['snocountry']['items'], function( $a, $b ) {
-								return strcasecmp( $a['resortName'], $b['resortName'] );
-							} ); ?>
-							<?php foreach ( $new_snow_list['snocountry']['items'] as $item ): ?>
-								<?php
-								$default_text = 'N/A';
-								$resort_name  = ( ! empty( $item['resortName'] ) ) ? $item['resortName'] : $default_text;
-								$resort_link  = ( ! empty( $item['webSiteLink'] ) ) ? $item['webSiteLink'] : $default_text;
-								$new_snow     = ( ! empty( $item['newSnowMin'] ) ) ? $item['newSnowMin'] : $default_text;
-								$snow_base    = ( ! empty( $item['avgBaseDepthMin'] ) ) ? $item['avgBaseDepthMin'] : $default_text;
-								$lifts_open   = ( ! empty( $item['openDownHillLifts'] ) ) ? $item['openDownHillLifts'] : '0';
-								?>
-								<li class="snowwidget-pane-list-item">
-									<h2 class="snowwidget-pane-list-label">
-										<a href="<?php echo esc_url( $resort_link ); ?>"><?php echo esc_html( $resort_name ); ?></a>
-									</h2>
-									<div class="snowwidget-pane-data snowwidget-pane-newsnow-data">
-										<i class="snowwidget-pane-data-icon icon-weather-snow"></i>
-										<p class="snowwidget-pane-data-text">
-											<?php echo sprintf( 'New (24 hr): %s" | Base: %s"', esc_html( $new_snow ), esc_html( $snow_base ) ); ?>
-											<br>
-											<?php echo sprintf( 'Open: %s', esc_html( $lifts_open ) ); ?>
-										</p>
-									</div>
-								</li>
-							<?php endforeach; ?>
-						</ul>
-					<?php endif; ?>
+				<div class="snowwidget-headline">
+					<a href="http://www.coloradoski.com/snow-report?utm_source=Colorado%20Ski%20Country%20USA's%20name%20in%20the%20Snow%20Report&utm_medium=Snow%20Report&utm_campaign=Snow%20Report">
+						<div class="snowwidget-headline-label snowwidget-section-label">Colorado Ski Country USA</div>
+						<div class="snowwidget-tagline">
+							<i class="snowwidget-tagline-icon icon-weather-snow"></i>
+							<span class="snowwidget-tagline-label">A Mountain for everyone.</span>
+						</div>
+					</a>
 				</div>
-				<div class="snowwidget-pane snowwidget-pane-forecast">
-					<div id="openSnowImg" class="openSnowImg">
-						<a href="http://opensnow.com" target="_blank">
-							<img alt="" src="<?php echo get_stylesheet_directory_uri(). '/snow-widget/opensnow.png'; ?>"/>
-						</a>
+
+				<div class="snowwidget-pane-container">
+					<div class="snowwidget-pane snowwidget-pane-newsnow">
+						<?php $new_snow_list = $this->get_remote_forecast( 'snocountry_report' ); ?>
+						<?php if ( false !== $new_snow_list && ! empty( $new_snow_list['snocountry']['items'] ) ): ?>
+							<ul class="snowwidget-pane-list snowwidget-pane-newsnow">
+								<?php uasort( $new_snow_list['snocountry']['items'], function( $a, $b ) {
+									return strcasecmp( $a['resortName'], $b['resortName'] );
+								} ); ?>
+								<?php foreach ( $new_snow_list['snocountry']['items'] as $item ): ?>
+									<?php
+									$default_text = 'N/A';
+									$resort_name  = ( ! empty( $item['resortName'] ) ) ? $item['resortName'] : $default_text;
+									$resort_link  = ( ! empty( $item['webSiteLink'] ) ) ? $item['webSiteLink'] : $default_text;
+									$new_snow     = ( ! empty( $item['newSnowMin'] ) ) ? $item['newSnowMin'] : $default_text;
+									$snow_base    = ( ! empty( $item['avgBaseDepthMin'] ) ) ? $item['avgBaseDepthMin'] : $default_text;
+									$lifts_open   = ( ! empty( $item['openDownHillLifts'] ) ) ? $item['openDownHillLifts'] : '0';
+									?>
+									<li class="snowwidget-pane-list-item">
+										<h2 class="snowwidget-pane-list-label">
+											<a href="<?php echo esc_url( $resort_link ); ?>"><?php echo esc_html( $resort_name ); ?></a>
+										</h2>
+										<div class="snowwidget-pane-data snowwidget-pane-newsnow-data">
+											<i class="snowwidget-pane-data-icon icon-weather-snow"></i>
+											<p class="snowwidget-pane-data-text">
+												<?php echo sprintf( 'New (24 hr): %s" | Base: %s"', esc_html( $new_snow ), esc_html( $snow_base ) ); ?>
+												<br>
+												<?php echo sprintf( 'Open: %s', esc_html( $lifts_open ) ); ?>
+											</p>
+										</div>
+									</li>
+								<?php endforeach; ?>
+							</ul>
+						<?php endif; ?>
 					</div>
-					<?php $forecasts = $this->get_remote_forecast( 'snow_forecast' ); ?>
-					<?php if ( false !== $forecasts && ! empty( $forecasts['locations']['location'] ) ): ?>
-						<ul class="snowwidget-pane-list snowwidget-pane-forecast">
-							<?php foreach ( $forecasts['locations']['location'] as $forecast ): ?>
-								<?php
-								$forecast_name    = ( ! empty( $forecast['meta']['name'] ) ) ? $forecast['meta']['name'] : '';
-								$future_forecasts = ( ! empty( $forecast['forecast']['period'] ) ) ? $forecast['forecast']['period'] : array();
-								?>
-								<li class="snowwidget-pane-list-item">
-									<h2 class="snowwidget-pane-list-label"><?php echo esc_html( $forecast_name ); ?></h2>
-									<?php if ( ! empty( $future_forecasts ) ): ?>
-										<?php foreach ( $future_forecasts as $future_forecast ): ?>
-											<?php
-											$day_of_week   = ( ! empty( $future_forecast['dow'] ) ) ? substr( $future_forecast['dow'], 0, 3 ) : '';
-											$forecast_date = ( ! empty( $future_forecast['date'] ) ) ? substr( $future_forecast['date'], 5, 10 ) : '';
-											$day_snow      = ( ! empty( $future_forecast['day']['snow'] ) ) ? $future_forecast['day']['snow'] : '0';
-											$night_snow    = ( ! empty( $future_forecast['night']['snow'] ) ) ? $future_forecast['night']['snow'] : '0';
-											?>
-											<div class="snowwidget-pane-data snowwidget-pane-forecast-data">
-												<div
-													class="snowwidget-pane-data-item snowwidget-pane-forecast-data-item">
-													<div><?php echo esc_html( $day_of_week ); ?></div>
-													<div><?php echo esc_html( $forecast_date ); ?></div>
+					<div class="snowwidget-pane snowwidget-pane-forecast">
+						<div id="openSnowImg" class="openSnowImg">
+							<a href="http://opensnow.com" target="_blank">
+								<img alt="" src="<?php echo get_stylesheet_directory_uri(). '/snow-widget/opensnow.png'; ?>"/>
+							</a>
+						</div>
+						<?php $forecasts = $this->get_remote_forecast( 'snow_forecast' ); ?>
+						<?php if ( false !== $forecasts && ! empty( $forecasts['locations']['location'] ) ): ?>
+							<ul class="snowwidget-pane-list snowwidget-pane-forecast">
+								<?php foreach ( $forecasts['locations']['location'] as $forecast ): ?>
+									<?php
+									$forecast_name    = ( ! empty( $forecast['meta']['name'] ) ) ? $forecast['meta']['name'] : '';
+									$future_forecasts = ( ! empty( $forecast['forecast']['period'] ) ) ? $forecast['forecast']['period'] : array();
+									?>
+									<li class="snowwidget-pane-list-item">
+										<h2 class="snowwidget-pane-list-label"><?php echo esc_html( $forecast_name ); ?></h2>
+										<?php if ( ! empty( $future_forecasts ) ): ?>
+											<?php foreach ( $future_forecasts as $future_forecast ): ?>
+												<?php
+												$day_of_week   = ( ! empty( $future_forecast['dow'] ) ) ? substr( $future_forecast['dow'], 0, 3 ) : '';
+												$forecast_date = ( ! empty( $future_forecast['date'] ) ) ? substr( $future_forecast['date'], 5, 10 ) : '';
+												$day_snow      = ( ! empty( $future_forecast['day']['snow'] ) ) ? $future_forecast['day']['snow'] : '0';
+												$night_snow    = ( ! empty( $future_forecast['night']['snow'] ) ) ? $future_forecast['night']['snow'] : '0';
+												?>
+												<div class="snowwidget-pane-data snowwidget-pane-forecast-data">
+													<div
+														class="snowwidget-pane-data-item snowwidget-pane-forecast-data-item">
+														<div><?php echo esc_html( $day_of_week ); ?></div>
+														<div><?php echo esc_html( $forecast_date ); ?></div>
+													</div>
+													<div
+														class="snowwidget-pane-data-item snowwidget-pane-forecast-data-item">
+														<div>Day</div>
+														<div><?php echo esc_html( $day_snow ); ?>"</div>
+													</div>
+													<div
+														class="snowwidget-pane-data-item snowwidget-pane-forecast-data-item">
+														<div>Night</div>
+														<div><?php echo esc_html( $night_snow ); ?>"</div>
+													</div>
 												</div>
-												<div
-													class="snowwidget-pane-data-item snowwidget-pane-forecast-data-item">
-													<div>Day</div>
-													<div><?php echo esc_html( $day_snow ); ?>"</div>
-												</div>
-												<div
-													class="snowwidget-pane-data-item snowwidget-pane-forecast-data-item">
-													<div>Night</div>
-													<div><?php echo esc_html( $night_snow ); ?>"</div>
-												</div>
-											</div>
-										<?php endforeach; ?>
-									<?php endif; ?>
-								</li>
-							<?php endforeach; ?>
-						</ul>
-					<?php endif; ?>
-				</div>
-			</div> <!-- END .snowwidget-panes -->
+											<?php endforeach; ?>
+										<?php endif; ?>
+									</li>
+								<?php endforeach; ?>
+							</ul>
+						<?php endif; ?>
+					</div>
+				</div> <!-- END .snowwidget-panes -->
 
-			<div class="snowwidget-tabs">
-				<div class="snowwidget-tabs-btn snowwidget-tabs-btn-newsnow is-active"
-					 data-pane="snowwidget-pane-newsnow">
-					<i class="snowwidget-tab-icon icon-weather-snow"></i>
-					<span class="snowwidget-tab-text">New Snow</span>
-				</div>
-				<div class="snowwidget-tabs-btn snowwidget-tabs-btn-forecast" data-pane="snowwidget-pane-forecast">
-					<i class="snowwidget-tab-icon icon-thermometer"></i>
-					<span class="snowwidget-tab-text">Forecast</span>
-				</div>
-			</div> <!-- END .snowwidget-tabs -->
+				<div class="snowwidget-tabs">
+					<div class="snowwidget-tabs-btn snowwidget-tabs-btn-newsnow is-active"
+						 data-pane="snowwidget-pane-newsnow">
+						<i class="snowwidget-tab-icon icon-weather-snow"></i>
+						<span class="snowwidget-tab-text">New Snow</span>
+					</div>
+					<div class="snowwidget-tabs-btn snowwidget-tabs-btn-forecast" data-pane="snowwidget-pane-forecast">
+						<i class="snowwidget-tab-icon icon-thermometer"></i>
+						<span class="snowwidget-tab-text">Forecast</span>
+					</div>
+				</div> <!-- END .snowwidget-tabs -->
 
-			<div class="snowwidget-footer">
-				<div id="div-gpt-ad-dp_snow_widget_bottom">
-					<script>
-						googletag.cmd.push(function()
-							{ googletag.defineSlot('/8013/denverpost.com', [300,80],'div-gpt-ad-dp_snow_widget_bottom').setTargeting('kv',['dp_snow_widget']).addService(googletag.pubads()); googletag.enableServices(); googletag.display('div-gpt-ad-dp_snow_widget_bottom'); }
-						);
-					</script>
-				</div>
-			</div> <!-- END .snowwidget-footer -->
-		</div> <!-- END .snowwidget-container -->
+				<div class="snowwidget-footer">
+					<div id="div-gpt-ad-dp_snow_widget_bottom">
+						<script>
+							googletag.cmd.push(function()
+								{ googletag.defineSlot('/8013/denverpost.com', [300,80],'div-gpt-ad-dp_snow_widget_bottom').setTargeting('kv',['dp_snow_widget']).addService(googletag.pubads()); googletag.enableServices(); googletag.display('div-gpt-ad-dp_snow_widget_bottom'); }
+							);
+						</script>
+					</div>
+				</div> <!-- END .snowwidget-footer -->
+			</div> <!-- END .snowwidget-container -->
+		</div> <!-- END .snowwidget-wrapper -->
 		<?php
 	}
 
