@@ -851,6 +851,17 @@ function location_imgoverride_metabox( $post ) {
         <p><label>Address override text:</label> <input class="widefat" type="text" name="loc_address_override" id="loc_address_override" value="<?php echo $loc_address_override; ?>" /></p>
         <p><label>Map icon: <select name="loc_map_icon" id="loc_map_icon">
             <option value="none"<?php echo ( ! isset( $loc_map_icon ) || $loc_map_icon == 'none' ) ? ' selected="selected"' : ''; ?>>Default</option>
+            <option value="boating"<?php echo ( isset( $loc_map_icon ) && $loc_map_icon == 'boating' ) ? ' selected="selected"' : ''; ?>>Boating</option>
+            <option value="camping"<?php echo ( isset( $loc_map_icon ) && $loc_map_icon == 'camping' ) ? ' selected="selected"' : ''; ?>>Camping</option>
+            <option value="climbing"<?php echo ( isset( $loc_map_icon ) && $loc_map_icon == 'climbing' ) ? ' selected="selected"' : ''; ?>>Climbing</option>
+            <option value="cycling"<?php echo ( isset( $loc_map_icon ) && $loc_map_icon == 'cycling' ) ? ' selected="selected"' : ''; ?>>Cycling</option>
+            <option value="dangling"<?php echo ( isset( $loc_map_icon ) && $loc_map_icon == 'dangling' ) ? ' selected="selected"' : ''; ?>>Dangling</option>
+            <option value="drinking"<?php echo ( isset( $loc_map_icon ) && $loc_map_icon == 'drinking' ) ? ' selected="selected"' : ''; ?>>Drinking</option>
+            <option value="hiking"<?php echo ( isset( $loc_map_icon ) && $loc_map_icon == 'hiking' ) ? ' selected="selected"' : ''; ?>>Hiking</option>
+            <option value="offroading"<?php echo ( isset( $loc_map_icon ) && $loc_map_icon == 'offroading' ) ? ' selected="selected"' : ''; ?>>Off-Roading</option>
+            <option value="picnic"<?php echo ( isset( $loc_map_icon ) && $loc_map_icon == 'picnic' ) ? ' selected="selected"' : ''; ?>>Picnic</option>
+            <option value="skiing"<?php echo ( isset( $loc_map_icon ) && $loc_map_icon == 'skiing' ) ? ' selected="selected"' : ''; ?>>Skiing</option>
+            <option value="snowboarding"<?php echo ( isset( $loc_map_icon ) && $loc_map_icon == 'snowboarding' ) ? ' selected="selected"' : ''; ?>>Snowboarding</option>
             <option value="wildlife"<?php echo ( isset( $loc_map_icon ) && $loc_map_icon == 'wildlife' ) ? ' selected="selected"' : ''; ?>>Wildlife</option>
             </select></label></p>
     </form>
