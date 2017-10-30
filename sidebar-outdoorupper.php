@@ -44,7 +44,9 @@
             if ( $address && $latitude && $longitude ) {
                 $medium_img_url = ( $post->ID ) ? wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'medium') : false;
                 $img_div = ( $medium_img_url && strlen( $medium_img_url[0] ) >= 1 ) ? '<div class="cat-thumbnail"><div class="cat-imgholder"></div><a href="' . get_permalink( $post->ID ) . '"><div class="cat-img" style="background-image:url(\\\'' . $medium_img_url[0] . '\\\');"></div></a></div>' : '';
-                $map_display .= do_shortcode('[leaflet-marker zoom=11 lat=' . $latitude . ' lng=' . $longitude . ']<h3><a href="' . get_permalink( $post->ID ) . '">' . $post->post_title . '</a></h3><p>' . $address . '</p>' . $img_div . '[/leaflet-marker]' );
+                $loc_map_icon = get_post_meta( $post->ID, '_loc_map_icon', true );
+                $marker_icon = ( isset( $loc_map_icon ) ) ? get_marker_icon($loc_map_icon) : '';
+                $map_display .= do_shortcode('[leaflet-marker zoom=11 lat=' . $latitude . ' lng=' . $longitude . $marker_icon . ']<h3><a href="' . get_permalink( $post->ID ) . '">' . addslashes( $post->post_title ) . '</a></h3><p>' . $address . '</p>' . $img_div . '[/leaflet-marker]' );
             }
         endwhile; // end of the loop
         remove_filter( 'the_posts' , '_location_posts_where' );

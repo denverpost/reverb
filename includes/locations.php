@@ -62,17 +62,13 @@ function tkno_locations_register_post_type() {
 }
 add_action( 'init', 'tkno_locations_register_post_type' );
 
-/* Fire our meta box setup function on the post editor screen. */
-add_action( 'load-post.php', 'location_post_meta_boxes_setup' );
-add_action( 'load-post-new.php', 'location_post_meta_boxes_setup' );
-
 /* Meta box setup function. */
 function location_post_meta_boxes_setup() {
-    /* Add meta boxes on the 'add_meta_boxes' hook. */
     add_action( 'add_meta_boxes', 'location_add_post_meta_boxes' );
-    /* Save post meta on the 'save_post' hook. */
     add_action( 'save_post', 'tkno_save_location_meta', 10, 2 );
 }
+add_action( 'load-post.php', 'location_post_meta_boxes_setup' );
+add_action( 'load-post-new.php', 'location_post_meta_boxes_setup' );
 
 /* Create one or more meta boxes to be displayed on the post editor screen. */
 function location_add_post_meta_boxes() {
@@ -121,8 +117,8 @@ function tkno_save_location_meta( $post_id, $post ) {
 
     // If the input string is already lat/long, let's just save it as is
     if ( preg_match('/([0-9.-]+).+?([0-9.-]+)/', $location_meta['_location_street_address'], $matches) ) {
-        $location_meta['_location_latitude'] = (float)$matches[1];
-        $location_meta['_location_longitude'] = (float)$matches[2];
+        $location_meta['_location_latitude'] = $latitude = (float)$matches[1];
+        $location_meta['_location_longitude'] = $longitude = (float)$matches[2];
     } else if ( $location_meta['_location_street_address'] != '' ) {
         // Get Lat/Long from address
         $address = $_POST['_location_street_address'];
@@ -619,7 +615,7 @@ function locations_shortcode( $atts = [], $content = null, $tag = '' ) {
     $recursive = ( $post->post_type == 'location' ) ? true : false;
     if ( $recursive ) {
         remove_filter( 'the_content', 'location_image_the_content' );
-    }
+    } 
     $atts = array_change_key_case( (array)$atts, CASE_LOWER );
     // override default attributes with user attributes
     $loc_atts = shortcode_atts([
@@ -647,19 +643,27 @@ function locations_shortcode( $atts = [], $content = null, $tag = '' ) {
     foreach( $loc_shortcode_ids as $loc_post_id ) {
         $loc_i++;
         // Setup individual items based on shortcode info and add post data from each
+        $image_url = $locations_display_img = false;
         $loc_rank = ( $loc_atts['ranked'] == 'true' ) ? '<span class="loc-rank">' . $loc_i . '.</span>': '';
         $loc_post = get_post( $loc_post_id );
         $post_classes = 'location-embed ' . join( ' ', get_post_class( $loc_post->ID ) );
-        $address = get_post_meta( $loc_post->ID, '_location_street_address', true );
-        if ( has_post_thumbnail( $loc_post->ID ) ) {
+        $loc_imgoverride = get_post_meta( $loc_post->ID, '_loc_imgoverride', true );
+        $loc_address_override = get_post_meta( $loc_post->ID, '_loc_address_override', true );
+        $address = ( isset( $loc_address_override ) && strlen( $loc_address_override ) >= 1 ) ? $loc_address_override : get_post_meta( $loc_post->ID, '_location_street_address', true );
+        if ( $loc_imgoverride != 'true' && has_post_thumbnail( $loc_post->ID ) ) {
             $large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id( $loc_post->ID ), 'large' );
+            $image_meta = get_post( get_post_thumbnail_id( $loc_post->ID ) );
         }
-        $bg_image_url = ( isset( $large_image_url ) && strlen( $large_image_url[0] ) >= 1 ) ? $large_image_url[0] : false;
+        $image_caption = ( isset( $image_meta->post_excerpt ) ) ? $image_meta->post_excerpt : '';
+        $image_url = ( isset( $large_image_url ) && strlen( $large_image_url[0] ) >= 1 ) ? $large_image_url[0] : false;
         if ( $loc_atts['map'] != 'only' ) {
-            $locations_display_img = ( $bg_image_url && ! is_feed() ) ? sprintf('<div class="location-image-wrap"><div class="frontpage-image" style="background-image:url(%1$s)"><div class="front-imgholder"></div><a href="%2$s" rel="bookmark"></a></div></div>',
-                    $bg_image_url,
-                    get_permalink( $loc_post->ID )
-                    ) : '';
+            $image_url = ( isset( $large_image_url ) && strlen( $large_image_url[0] ) >= 1 ) ? $large_image_url[0] : false;
+            if ( $image_url ) { 
+                $locations_display_img = '<figure class="figure wp-caption alignnone">'; 
+                    $locations_display_img .= '<img class="size-full" src="' . $image_url . '" alt="' . $loc_post->post_title . '" />';
+                    $locations_display_img .= '<figcaption class="wp-caption-text">' . $image_caption . '</figcaption>';
+                $locations_display_img .= '</figure>';
+            }
 
             $locations_display_string = ( is_feed() ) ? '<h2>%3$s<a href="%4$s" rel="bookmark">%5$s</a></h2><h3>%6$s</h3>%7$s %8$s' : '<article id="location-%1$s" class="%2$s"><div class="entry-body"><header class="entry-header"><h2 class="entry-title">%3$s<a href="%4$s" rel="bookmark">%5$s</a></h2></header><h3 class="entry-subtitle">%6$s</h3><div class="entry-content">%7$s %8$s</div></div></article>';
 
@@ -680,7 +684,9 @@ function locations_shortcode( $atts = [], $content = null, $tag = '' ) {
             $longitude = get_post_meta( $loc_post->ID, '_location_longitude', true );
             $medium_img_url = ( $loc_post->ID ) ? wp_get_attachment_image_src( get_post_thumbnail_id( $loc_post->ID ), 'medium') : false;
             $img_div = ( $medium_img_url && strlen( $medium_img_url[0] ) >= 1 ) ? '<div class="cat-thumbnail"><div class="cat-imgholder"></div><a href="' . get_permalink( $loc_post->ID ) . '"><div class="cat-img" style="background-image:url(\\\'' . $medium_img_url[0] . '\\\');"></div></a></div>' : '';
-            $map_display .= do_shortcode('[leaflet-marker zoom=11 lat=' . $latitude . ' lng=' . $longitude . ']<h3><a href="' . get_permalink( $loc_post->ID ) . '">' . $loc_post->post_title . '</a></h3><p>' . $address . '</p>' . $img_div . '[/leaflet-marker]' );
+            $loc_map_icon = get_post_meta( $loc_post->ID, '_loc_map_icon', true );
+            $marker_icon = ( isset( $loc_map_icon ) ) ? get_marker_icon($loc_map_icon) : '';
+            $map_display .= do_shortcode('[leaflet-marker zoom=11 lat=' . $latitude . ' lng=' . $longitude . $marker_icon . ']<h3><a href="' . get_permalink( $loc_post->ID ) . '">' . addslashes( $loc_post->post_title ) . '</a></h3><p>' . $address . '</p>' . $img_div . '[/leaflet-marker]' );
         }
     }
     $locations_display .= ( $loc_atts['map'] == 'below' && ! is_feed() ) ? $map_div : '';
@@ -698,7 +704,8 @@ add_shortcode( 'locations', 'locations_shortcode' );
 function location_image_the_content( $content ) {
     if ( is_single() && get_post_type() == 'location' ) {
         global $post;
-        if ( has_post_thumbnail( $post->ID ) ) {
+        $loc_imgoverride = get_post_meta( $post->ID, '_loc_imgoverride', true );
+        if ( $loc_imgoverride != 'true' && has_post_thumbnail( $post->ID ) ) {
             $large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'large' );
             $image_meta = get_post( get_post_thumbnail_id( $post->ID ) );
         }
@@ -771,8 +778,10 @@ class tkno_location_recent_widget extends WP_Widget {
                     $address = get_post_meta( get_the_ID(), '_location_street_address', true );
                     $latitude = get_post_meta( get_the_ID(), '_location_latitude', true );
                     $longitude = get_post_meta( get_the_ID(), '_location_longitude', true );
+                    $loc_map_icon = get_post_meta( get_the_ID(), '_loc_map_icon', true );
+                    $marker_icon = ( isset( $loc_map_icon ) ) ? get_marker_icon($loc_map_icon) : '';
                     if ( $address && $latitude && $longitude ) {
-                        $map_display .= do_shortcode('[leaflet-marker zoom=11 lat=' . $latitude . ' lng=' . $longitude . ']<h3><a href="' . get_permalink() . '">' . get_the_title() . '</a></h3><p>' . $address . '</p>[/leaflet-marker]' );
+                        $map_display .= do_shortcode('[leaflet-marker zoom=11 lat=' . $latitude . ' lng=' . $longitude . $marker_icon . ']<h3><a href="' . get_permalink() . '">' . addslashes( get_the_title() ) . '</a></h3><p>' . $address . '</p>[/leaflet-marker]' );
                     }
                 endwhile; // end of the loop
                 remove_filter( 'the_posts' , '_location_posts_where' );
@@ -804,3 +813,100 @@ function tkno_location_recent_widget_load() {
     register_widget( 'tkno_location_recent_widget' );
 }
 add_action( 'widgets_init', 'tkno_location_recent_widget_load' );
+
+/**
+ * We need a way to override the automatic display of featured images
+ * in case we used a slideshow or displayed the/an image differently
+ * for whatever reason
+ */
+function location_imgoverride_metabox_setup() {
+    add_action( 'add_meta_boxes', 'location_imgoverride_add_metabox' );
+    add_action( 'save_post', 'location_imgoverride_save_metabox', 10, 2 );
+}
+add_action( 'load-post.php', 'location_imgoverride_metabox_setup' );
+add_action( 'load-post-new.php', 'location_imgoverride_metabox_setup' );
+
+/* Create one or more meta boxes to be displayed on the post editor screen. */
+function location_imgoverride_add_metabox() {
+    add_meta_box(
+        'location_imgoverride',
+        esc_html__( 'Location Options', 'example' ),
+        'location_imgoverride_metabox',
+        'location',
+        'side',
+        'default'
+    );
+}
+
+/* Display the post meta box. */
+function location_imgoverride_metabox( $post ) {
+    echo '<input type="hidden" name="location_imgoverride_nonce" id="location_imgoverride_nonce" value="' .
+    wp_create_nonce( basename(__FILE__) ) . '" />';
+    $loc_imgoverride = get_post_meta( $post->ID, '_loc_imgoverride', true );
+    $loc_address_override = get_post_meta( $post->ID, '_loc_address_override', true );
+    $loc_map_icon = get_post_meta( $post->ID, '_loc_map_icon', true );
+    ?>
+    <form id="location_imgoverride_options">
+        <p><label><input type="checkbox" name="loc_imgoverride" id="loc_imgoverride" value="true" <?php if ( $loc_imgoverride == 'true' ) echo 'checked'; ?> /> Hide featured image on output?</label></p>
+        <p><label>Address override text:</label> <input class="widefat" type="text" name="loc_address_override" id="loc_address_override" value="<?php echo $loc_address_override; ?>" /></p>
+        <p><label>Map icon: <select name="loc_map_icon" id="loc_map_icon">
+            <option value="none"<?php echo ( ! isset( $loc_map_icon ) || $loc_map_icon == 'none' ) ? ' selected="selected"' : ''; ?>>Default</option>
+            <option value="wildlife"<?php echo ( isset( $loc_map_icon ) && $loc_map_icon == 'wildlife' ) ? ' selected="selected"' : ''; ?>>Wildlife</option>
+            </select></label></p>
+    </form>
+    <?php
+}
+
+// Let's save data from the metabox for the future, duh
+function location_imgoverride_save_metabox( $post_id, $post ) {
+    if ( !isset( $_POST['location_imgoverride_nonce'] ) || !wp_verify_nonce( $_POST['location_imgoverride_nonce'], basename( __FILE__ ) ) ) {
+        return $post_id;
+    }
+    if ( !current_user_can( 'edit_post', $post->ID ) )
+        return $post_id;
+
+    $loc_imgoverride = $_POST['loc_imgoverride'];
+
+    $loc_imgoverride_new_value = ( isset( $loc_imgoverride ) && $loc_imgoverride == 'true' ) ? 'true' : '';
+    $loc_imgoverride_meta_key = '_loc_imgoverride';
+    $loc_imgoverride_meta_value = get_post_meta( $post_id, $loc_imgoverride_meta_key, true );
+    if ( $loc_imgoverride_new_value && '' == $loc_imgoverride_meta_value )
+        add_post_meta( $post_id, $loc_imgoverride_meta_key, $loc_imgoverride_new_value, true );
+    elseif ( $loc_imgoverride_new_value && $loc_imgoverride_new_value != $loc_imgoverride_meta_value )
+        update_post_meta( $post_id, $loc_imgoverride_meta_key, $loc_imgoverride_new_value );
+    elseif ( '' == $loc_imgoverride_new_value && $loc_imgoverride_meta_value )
+        delete_post_meta( $post_id, $loc_imgoverride_meta_key, $loc_imgoverride_meta_value );
+
+    $loc_address_override = $_POST['loc_address_override'];
+
+    $loc_address_override_new_value = ( isset( $loc_address_override ) ) ? sanitize_html_class( $loc_address_override ) : 'none';
+    $loc_address_override_meta_key = '_loc_address_override';
+    $loc_address_override_meta_value = get_post_meta( $post_id, $loc_address_override_meta_key, true );
+    if ( $loc_address_override_new_value && '' == $loc_address_override_meta_value )
+        add_post_meta( $post_id, $loc_address_override_meta_key, $loc_address_override_new_value, true );
+    elseif ( $loc_address_override_new_value && $loc_address_override_new_value != $loc_address_override_meta_value )
+        update_post_meta( $post_id, $loc_address_override_meta_key, $loc_address_override_new_value );
+    elseif ( '' == $loc_address_override_new_value && $loc_address_override_meta_value )
+        delete_post_meta( $post_id, $loc_address_override_meta_key, $loc_address_override_meta_value );
+
+    $loc_map_icon = $_POST['_loc_map_icon'];
+
+    $loc_map_icon_new_value = ( isset( $loc_map_icon ) ) ? sanitize_html_class( $loc_map_icon ) : 'none';
+    $loc_map_icon_meta_key = 'loc_map_icon';
+    $loc_map_icon_meta_value = get_post_meta( $post_id, $loc_map_icon_meta_key, true );
+    if ( $loc_map_icon_new_value && '' == $loc_map_icon_meta_value )
+        add_post_meta( $post_id, $loc_map_icon_meta_key, $loc_map_icon_new_value, true );
+    elseif ( $loc_map_icon_new_value && $loc_map_icon_new_value != $loc_map_icon_meta_value )
+        update_post_meta( $post_id, $loc_map_icon_meta_key, $loc_map_icon_new_value );
+    elseif ( '' == $loc_map_icon_new_value && $loc_map_icon_meta_value )
+        delete_post_meta( $post_id, $loc_map_icon_meta_key, $loc_map_icon_meta_value );
+}
+
+/**
+ * A function for looking up the special icon, if set,
+ * and returning the text to add to the leaflet-marker
+ * shortcode for the special icon
+ */
+function get_marker_icon( $selection ) {
+    return ( $selection == '' || $selection == 'none' ) ? '' : ' iconUrl="' . get_stylesheet_directory_uri() . '/map-icons/icon-' . $selection . '.png" iconSize="32,32" iconAnchor="1,31"';
+}

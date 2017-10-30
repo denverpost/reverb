@@ -193,7 +193,10 @@ if ( $locationsearch ) {
                                 
                                 $img_div = ( $medium_img_url && strlen( $medium_img_url[0]) >= 1) ? '<div class="cat-thumbnail"><div class="cat-imgholder"></div><a href="' . get_the_permalink() . '"><div class="cat-img" style="background-image:url(\\\'' . $medium_img_url[0] . '\\\');"></div></a></div>' : '';
 
-                                echo do_shortcode('[leaflet-marker lat=' . $latitude . ' lng=' . $longitude . ']<h3><a href="' . get_the_permalink() . '">' . get_the_title() . '</a></h3><p>' . $address . '</p>' . $img_div . '[/leaflet-marker]'); ?>
+                                $loc_map_icon = get_post_meta( $post->ID, '_loc_map_icon', true );
+                                $marker_icon = ( isset( $loc_map_icon ) ) ? get_marker_icon($loc_map_icon) : '';
+
+                                echo do_shortcode('[leaflet-marker lat=' . $latitude . ' lng=' . $longitude . $marker_icon . ']<h3><a href="' . get_the_permalink() . '">' . addslashes( get_the_title() ) . '</a></h3><p>' . $address . '</p>' . $img_div . '[/leaflet-marker]'); ?>
 
                             <?php reactor_post_after(); ?>
 

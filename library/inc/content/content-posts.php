@@ -97,7 +97,9 @@ add_action('reactor_post_frontpage', 'reactor_post_frontpage_format', 1);
  * @since 1.0.0
  */
 function reactor_post_catpage_format() {
-	if ( has_post_thumbnail() ) {
+	global $post;
+	$loc_imgoverride = get_post_meta( $post->ID, '_loc_imgoverride', true );
+	if ( $loc_imgoverride != 'true' && has_post_thumbnail() ) {
 		$large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'large');
 	} ?>
 	<?php if (isset($large_image_url) && strlen($large_image_url[0]) >= 1) { ?>
@@ -128,11 +130,13 @@ add_action('reactor_post_catpage', 'reactor_post_catpage_format', 1);
  * @since 1.0.0
  */
 function reactor_post_location_format() {
-	if ( has_post_thumbnail() ) {
+	global $post;
+	$loc_imgoverride = get_post_meta( $post->ID, '_loc_imgoverride', true );
+    $loc_address_override = get_post_meta( $post->ID, '_loc_address_override', true );
+	if ( $loc_imgoverride != 'true' && has_post_thumbnail() ) {
 		$medium_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'medium');
 	}
-	global $post;
-	$address = get_post_meta($post->ID, '_location_street_address', true);
+	$address = ( isset( $loc_address_override ) && strlen( $loc_address_override ) >= 1 ) ? $loc_address_override : get_post_meta( $loc_post->ID, '_location_street_address', true );
 	?>
 	<?php if (isset($medium_image_url) && strlen($medium_image_url[0]) >= 1) { ?>
 	<div class="catpage-post has-image">
@@ -198,8 +202,9 @@ function reactor_do_standard_header_titles() {
 	} elseif ( !get_post_format() && !is_page_template('page-templates/front-page.php') ) {  ?>    
 		<?php if ( is_single() ) { ?>
 		<h1 class="entry-title"><?php the_title(); ?></h1>
-		<?php if ( get_post_type() == 'location' && ! has_shortcode( $post->post_content, 'locations' ) ): 
-			$location_address = get_post_meta($post->ID, '_location_street_address', true); ?>
+		<?php if ( get_post_type() == 'location' && ! has_shortcode( $post->post_content, 'locations' ) ):
+		    $loc_address_override = get_post_meta( $post->ID, '_loc_address_override', true ); 
+			$location_address = ( isset( $loc_address_override ) && strlen( $loc_address_override ) >= 1 ) ? $loc_address_override : get_post_meta( $post->ID, '_location_street_address', true ); ?>
 			<h2 class="entry-subtitle"><?php echo $location_address; ?></h2>
 		<?php elseif ( get_the_subtitle( $post->ID, '', '', false ) != '' ): ?>
 			<h2 class="entry-subtitle"><?php the_subtitle(); ?></h2>
