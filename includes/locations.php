@@ -119,15 +119,18 @@ function tkno_save_location_meta( $post_id, $post ) {
     // We'll put it into an array to make it easier to loop though.
     $location_meta['_location_street_address'] = $_POST['_location_street_address'];
 
-    //Get Lat/Long from address
-    if ( $location_meta['_location_street_address'] != '' ) {
+    // If the input string is already lat/long, let's just save it as is
+    if ( preg_match('/([0-9.-]+).+?([0-9.-]+)/', $location_meta['_location_street_address'], $matches) ) {
+        $location_meta['_location_latitude'] = (float)$matches[1];
+        $location_meta['_location_longitude'] = (float)$matches[2];
+    } else if ( $location_meta['_location_street_address'] != '' ) {
+        // Get Lat/Long from address
         $address = $_POST['_location_street_address'];
         $prepAddr = str_replace( ' ', '+', $address );
         $geocode = file_get_contents( 'http://maps.google.com/maps/api/geocode/json?address=' . $prepAddr . '&sensor=false' );
         $output = json_decode($geocode);
         $latitude = $output->results[0]->geometry->location->lat;
         $longitude = $output->results[0]->geometry->location->lng;
-
         $location_meta['_location_latitude'] = $latitude;
         $location_meta['_location_longitude'] = $longitude;
     } else {

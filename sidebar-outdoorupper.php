@@ -31,7 +31,7 @@
     if ( $outdoormap_query->have_posts() ) : ?>
 
 
-    <h2 class="location-recent">Recently featured places to go</h2>
+    <h2 class="location-recent">Some recent places we've loved (and you might, too)</h2>
     <div class="neighborhood-map-form" style="margin-bottom:0;">
         <div class="map-expander"></div>
         <?php echo do_shortcode( '[leaflet-map zoomcontrol="1"]' );        

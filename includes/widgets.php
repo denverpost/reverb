@@ -374,34 +374,110 @@ class more_from_widget extends WP_Widget {
     public function widget($args, $instance) {
         echo $args['before_widget'];
         echo $args['before_title'] . 'More from The Know' . $args['after_title'];
-        if ( ! is_outdoors() || ! is_location() ) {
+        ?> <div class="widget_morefrom"> <?php
+        $dupe = false;
+        if ( ! is_outdoors() && ! is_location() ) {
             // On non-Outdoors pages, pimp Outdoors
+            $outdoor_parent = get_category_by_slug( 'outdoors' );
+            $out_args = array(
+                'post_type'         => 'post',
+                'cat'               => $outdoor_parent->term_id,
+                'posts_per_page'    => 1
+            );
+            $out_query = new WP_Query( $out_args );
             ?>
-            <header class="archive-header category-outdoors">
-                <h2 class="archive-title category-outdoors">
-                    <span><a href="<?php echo get_bloginfo( 'url' ); ?>/outdoors/">Outdoors</a></span>
-                </h2>
-            </header>
+            <?php while ( $out_query->have_posts() ) : $out_query->the_post();
+                $dupe = get_the_ID();
+                if ( has_post_thumbnail() ) {
+                    $medium_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'medium' );
+                }
+                $bg_image_url = ( isset( $medium_image_url ) && strlen( $medium_image_url[0] ) >= 1 ) ? $medium_image_url[0] : false; ?>
+                <div class="morefrom_item">
+                    <div class="frontpage-image neighborhood_page-post"<?php echo ( $bg_image_url ) ? 'style="background-image:url(' . $bg_image_url . ');"' : ''; ?>>
+                        <div class="front-imgholder"></div>
+                        <a href="<?php the_permalink(); ?>" rel="bookmark"></a>
+                        <header class="archive-header category-outdoors">
+                            <h2 class="archive-title category-outdoors">
+                                <span><a href="<?php echo get_bloginfo( 'url' ); ?>/outdoors/">Outdoors</a></span>
+                            </h2>
+                        </header>
+                    </div>
+                    <h2 class="entry-title neighborhood_page-title">
+                        <a href="<?php the_permalink(); ?>" rel="bookmark"><?php the_title(); ?></a>
+                    </h2>
+                </div>
+            <?php endwhile;
+            wp_reset_postdata();
+            ?>
+            </ul>
         <?php }
         if ( ! is_post_type_archive( 'neighborhoods' ) && ! ( is_single() && get_post_type() == 'neighborhoods' ) ) {
             // On non-Neighborhoods pages, pimp Neighborhoods
+            $nei_args = array(
+                'post_type'         => 'neighborhoods', 
+                'orderby'           => 'rand', 
+                'posts_per_page'    => 1
+            );
+            $nei_query = new WP_Query( $nei_args );
             ?>
-            <header class="archive-header">
-                <h2 class="archive-title neighborhood-header">
-                    <span><a href="<?php echo get_bloginfo( 'url' ); ?>/neighborhoods/">Neighborhoods</a></span>
-                </h2>
-            </header><!-- .archive-header -->
+            <?php while ( $nei_query->have_posts() ) : $nei_query->the_post();
+                if ( has_post_thumbnail() ) {
+                    $medium_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'medium' );
+                }
+                $bg_image_url = ( isset( $medium_image_url ) && strlen( $medium_image_url[0] ) >= 1 ) ? $medium_image_url[0] : false; ?>
+                <div class="morefrom_item">
+                    <div class="frontpage-image neighborhood_page-post"<?php echo ( $bg_image_url ) ? 'style="background-image:url(' . $bg_image_url . ');"' : ''; ?>>
+                        <div class="front-imgholder"></div>
+                        <a href="<?php the_permalink(); ?>" rel="bookmark"></a>
+                        <header class="archive-header">
+                            <h2 class="archive-title neighborhood-header">
+                                <span><a href="<?php echo get_bloginfo( 'url' ); ?>/neighborhoods/">Neighborhoods</a></span>
+                            </h2>
+                        </header>
+                    </div>
+                    <h2 class="entry-title neighborhood_page-title">
+                        <a href="<?php the_permalink(); ?>" rel="bookmark">Get to know <?php the_title(); ?></a>
+                    </h2>
+                </div>
+            <?php endwhile;
+            wp_reset_postdata();
+            ?>
         <?php }
-        if ( is_outdoors() || is_location() || is_post_type_archive( 'neighborhoods' ) && ( is_single() && get_post_type() == 'neighborhoods' )) {
+        if ( is_outdoors() || is_location() || is_post_type_archive( 'neighborhoods' ) || ( is_single() && get_post_type() == 'neighborhoods' )) {
             // Anywhere else, pimp something else
+            $all_args = array(
+                'posts_per_page' => 1,
+                'orderby'        => 'date',
+                'order'          => 'DESC',
+                'post_not_in'    => array( $dupe )
+            );
+            $all_query = new WP_Query( $all_args );
             ?>
-            <header class="archive-header category-things-to-do">
-                <h2 class="archive-title category-things-to-do">
-                    <span><a href="<?php echo get_bloginfo( 'url' ); ?>">Things To Do</a></span>
-                </h2>
-            </header>
+            <?php while ( $all_query->have_posts() ) : $all_query->the_post();
+                if ( has_post_thumbnail() ) {
+                    $medium_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'medium' );
+                }
+                $bg_image_url = ( isset( $medium_image_url ) && strlen( $medium_image_url[0] ) >= 1 ) ? $medium_image_url[0] : false; ?>
+                <div class="morefrom_item">
+                    <div class="frontpage-image neighborhood_page-post"<?php echo ( $bg_image_url ) ? 'style="background-image:url(' . $bg_image_url . ');"' : ''; ?>>
+                        <div class="front-imgholder"></div>
+                        <a href="<?php the_permalink(); ?>" rel="bookmark"></a>
+                        <header class="archive-header category-things-to-do">
+                            <h2 class="archive-title category-things-to-do">
+                                <span><a href="<?php echo get_bloginfo( 'url' ); ?>">Things To Do</a></span>
+                            </h2>
+                        </header>
+                    </div>
+                    <h2 class="entry-title neighborhood_page-title">
+                        <a href="<?php the_permalink(); ?>" rel="bookmark"><?php the_title(); ?></a>
+                    </h2>
+                </div>
+            <?php endwhile;
+            wp_reset_postdata();
+            ?>
+            </ul>
         <?php }
-
+        ?> </div> <?php
         echo $args['after_widget'];
     }
 }

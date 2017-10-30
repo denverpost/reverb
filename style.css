@@ -696,13 +696,7 @@ body.post-type-archive-neighborhoods article.neighborhoods .entry-body {
 	margin:0;
 	position: relative;
 }
-body.single-neighborhoods h2.neighborhood_page-title {
-	width:100%;
-	margin:0;
-	background-color: #000;
-	padding:0 .25em .2em;
-}
-body.post-type-archive-neighborhoods article.neighborhoods .entry-body h2.neighborhood_page-title {
+h2.neighborhood_page-title {
 	width:100%;
 	margin:0;
 	background-color: #000;
@@ -719,7 +713,7 @@ body.post-type-archive-neighborhoods article.neighborhoods .entry-body h2.neighb
 	background: -webkit-linear-gradient(top, rgba(0,0,0,0.0) 0%,rgba(0,0,0,0.0) 80%,rgba(0,0,0,0.9) 100%);
 	background: linear-gradient(to bottom, rgba(0,0,0,0.0) 0%,rgba(0,0,0,0.0) 80%,rgba(0,0,0,0.9) 100%);
 }
-body.post-type-archive-neighborhoods h2.neighborhood_page-title a {
+h2.neighborhood_page-title a {
 	font-family:'Arvo',Arial,Helvetica,sans-serif;
 	font-size: .75em;
 	line-height:1.1;
@@ -729,7 +723,7 @@ body.post-type-archive-neighborhoods h2.neighborhood_page-title a {
 h2.neighborhood_page-title a:hover {
 	color:#4499dd;
 }
-body.single-neighborhoods h2.neighborhood_page-title a {
+h2.neighborhood_page-title a {
 	font-family:'Arvo',Arial,Helvetica,sans-serif;
 	font-size: .9em;
 	line-height:1;
@@ -741,6 +735,36 @@ body.single-neighborhoods h2.neighborhood_page-title a {
 }
 body.single-neighborhoods .neighborhood_page-post .front-imgholder {
 	padding-bottom:42.5%;
+}
+.morefrom_item:first-child {
+	margin:1em 0 1em;
+}
+.morefrom_item .front-imgholder {
+	padding-bottom: 32%!important;
+}
+.morefrom_item .neighborhood_page-post {
+	background-position: 50% 50%;	
+}
+.morefrom_item h2.neighborhood_page-title a {
+	font-size:1.1em;
+	line-height: 1.1;
+}
+.morefrom_item h2.neighborhood_page-title {
+	padding: .25em .5em .3em;
+}
+.morefrom_item header.archive-header {
+	position: absolute;
+	top:12%;
+	right:2%;
+}
+.morefrom_item header.archive-header h2 {
+	font-size:.9em;
+	margin:0;
+}
+.morefrom_item header.archive-header h2 a {
+	padding: .15em .35em;
+	text-shadow:.5px .5px 1px rgba(0, 0, 0, 0.5);
+	box-shadow:1px 1px 2px rgba(0, 0, 0, 0.6);
 }
 /* frontpage-posts */
 body.front-page .entry-body,
