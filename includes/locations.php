@@ -669,13 +669,15 @@ function locations_shortcode( $atts = [], $content = null, $tag = '' ) {
         }
         $image_caption = ( isset( $image_meta->post_excerpt ) ) ? $image_meta->post_excerpt : '';
         $image_url = ( isset( $large_image_url ) && strlen( $large_image_url[0] ) >= 1 ) ? $large_image_url[0] : false;
-        if ( $loc_imgoverride != 'true' && $loc_atts['map'] != 'only' ) {
+        if ( $loc_atts['map'] != 'only' ) {
             $image_url = ( isset( $large_image_url ) && strlen( $large_image_url[0] ) >= 1 ) ? $large_image_url[0] : false;
-            if ( $image_url ) { 
+            if ( $loc_imgoverride != 'true' && $image_url ) { 
                 $locations_display_img = '<figure class="figure wp-caption alignnone">'; 
                     $locations_display_img .= '<img class="size-full" src="' . $image_url . '" alt="' . $loc_post->post_title . '" />';
                     $locations_display_img .= '<figcaption class="wp-caption-text">' . $image_caption . '</figcaption>';
                 $locations_display_img .= '</figure>';
+            } else {
+                $locations_display_img = '';
             }
 
             $locations_display_string = ( is_feed() ) ? '<h2>%3$s<a href="%4$s" rel="bookmark">%5$s</a></h2><h3>%6$s</h3>%7$s %8$s' : '<article id="location-%1$s" class="%2$s"><div class="entry-body"><header class="entry-header"><h2 class="entry-title">%3$s<a href="%4$s" rel="bookmark">%5$s</a></h2></header><h3 class="entry-subtitle">%6$s</h3><div class="entry-content">%7$s %8$s</div></div></article>';
