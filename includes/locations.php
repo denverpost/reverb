@@ -656,7 +656,7 @@ function locations_shortcode( $atts = [], $content = null, $tag = '' ) {
     foreach( $loc_shortcode_ids as $loc_post_id ) {
         $loc_i++;
         // Setup individual items based on shortcode info and add post data from each
-        $image_url = $locations_display_img = false;
+        $image_url = $locations_display_img = $large_image_url = false;
         $loc_rank = ( $loc_atts['ranked'] == 'true' ) ? '<span class="loc-rank">' . $loc_i . '.</span>': '';
         $loc_post = get_post( $loc_post_id );
         $post_classes = 'location-embed ' . join( ' ', get_post_class( $loc_post->ID ) );
