@@ -875,6 +875,7 @@ function location_imgoverride_metabox( $post ) {
             <option value="hunting"<?php echo ( isset( $loc_map_icon ) && $loc_map_icon == 'hunting' ) ? ' selected="selected"' : ''; ?>>Hunting</option>
             <option value="offroading"<?php echo ( isset( $loc_map_icon ) && $loc_map_icon == 'offroading' ) ? ' selected="selected"' : ''; ?>>Off-Roading</option>
             <option value="picnic"<?php echo ( isset( $loc_map_icon ) && $loc_map_icon == 'picnic' ) ? ' selected="selected"' : ''; ?>>Picnic</option>
+            <option value="running"<?php echo ( isset( $loc_map_icon ) && $loc_map_icon == 'running' ) ? ' selected="selected"' : ''; ?>>Running</option>
             <option value="sightseeing"<?php echo ( isset( $loc_map_icon ) && $loc_map_icon == 'sightseeing' ) ? ' selected="selected"' : ''; ?>>Sightseeing</option>
             <option value="skiing"<?php echo ( isset( $loc_map_icon ) && $loc_map_icon == 'skiing' ) ? ' selected="selected"' : ''; ?>>Skiing</option>
             <option value="snowboarding"<?php echo ( isset( $loc_map_icon ) && $loc_map_icon == 'snowboarding' ) ? ' selected="selected"' : ''; ?>>Snowboarding</option>
