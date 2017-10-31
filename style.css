@@ -1075,35 +1075,39 @@ div.cat-img {
 div.leaflet-map {
 	margin-bottom:1.5em;
 }
-.leaflet-popup-content h3 {
+div.leaflet-pane div.leaflet-popup div.leaflet-popup-content h3 {
     font-size: 1.5em;
-    line-height: 1.1;
+    line-height: 1.4;
     color: #282828;
-    margin: 1em 0 0;
+    margin: 1em 0 .5em;
 }
-.leaflet-popup-content h3 a,
-.leaflet-popup-content h3 a:visited {
+div.leaflet-pane div.leaflet-popup div.leaflet-popup-content h3 a,
+div.leaflet-pane div.leaflet-popup div.leaflet-popup-content h3 a:visited {
 	font-family: 'Arvo',Arial,Helvetica,sans-serif;
 	font-weight:600;
 	color: #000;
 	border-bottom:1px dashed #777;
 }
-.leaflet-popup-content  h3 a:hover {
+div.leaflet-pane div.leaflet-popup div.leaflet-popup-content  h3 a:hover {
 	text-decoration:none;
 	color: #777;
 	border-bottom:1px dashed #000;
 }
-.leaflet-popup-content div.cat-thumbnail {
+div.leaflet-pane div.leaflet-popup div.leaflet-popup-content p {
+	margin:0 0 1em;
+}
+div.leaflet-pane div.leaflet-popup div.leaflet-popup-content div.cat-thumbnail {
 	position:relative;
 	width:100%;
 	display:block;
-	margin:.5em 0 .75em;
+	margin:0 0 1em;
 }
-.leaflet-popup-content div.cat-imgholder {
+div.leaflet-pane div.leaflet-popup div.leaflet-popup-content div.cat-imgholder {
 	width:100%;
 	padding-bottom: 33%;
+	display:block;
 }
-.leaflet-popup-content div.cat-thumbnail a {
+div.leaflet-pane div.leaflet-popup div.leaflet-popup-content div.cat-thumbnail a {
 	position: absolute;
 	top:0;
 	left:0;
