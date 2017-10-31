@@ -96,6 +96,7 @@ if ( $locationsearch ) {
                             'order'                  => 'ASC',
                             'orderby'                => 'title',
                             'meta_query'             => array(),
+                            'adp_disable'            => true,
                         );
                         if( $user_text ) {
                             $args['s'] = $user_text;
@@ -118,6 +119,7 @@ if ( $locationsearch ) {
                             'post_type' => 'location',
                             'posts_per_page' => $number_posts,
                             'paged' => get_query_var( 'paged' ),
+                            'adp_disable'       => true
                             );
 
                         $wp_query = new WP_Query( $args );

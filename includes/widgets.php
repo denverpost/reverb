@@ -107,10 +107,10 @@ class tkno_popular_widget extends WP_Widget
                 endwhile;
                 echo '</ul>
                     </div>';
-                wp_reset_postdata();
             } else {
                 ?> <!-- Sorry, there are no Don't Miss posts at this time! --><?php
             }
+            wp_reset_query();
         }
     }
 }
@@ -382,7 +382,8 @@ class more_from_widget extends WP_Widget {
             $out_args = array(
                 'post_type'         => 'post',
                 'cat'               => $outdoor_parent->term_id,
-                'posts_per_page'    => 1
+                'posts_per_page'    => 1,
+                'adp_disable'       => true
             );
             $out_query = new WP_Query( $out_args );
             ?>
@@ -407,7 +408,7 @@ class more_from_widget extends WP_Widget {
                     </h2>
                 </div>
             <?php endwhile;
-            wp_reset_postdata();
+            wp_reset_query();
             ?>
             </ul>
         <?php }
@@ -416,7 +417,8 @@ class more_from_widget extends WP_Widget {
             $nei_args = array(
                 'post_type'         => 'neighborhoods', 
                 'orderby'           => 'rand', 
-                'posts_per_page'    => 1
+                'posts_per_page'    => 1,
+                'adp_disable'       => true
             );
             $nei_query = new WP_Query( $nei_args );
             ?>
@@ -440,7 +442,7 @@ class more_from_widget extends WP_Widget {
                     </h2>
                 </div>
             <?php endwhile;
-            wp_reset_postdata();
+            wp_reset_query();
             ?>
         <?php }
         if ( is_outdoors() || is_location() || is_post_type_archive( 'neighborhoods' ) || ( is_single() && get_post_type() == 'neighborhoods' )) {
@@ -449,7 +451,8 @@ class more_from_widget extends WP_Widget {
                 'posts_per_page' => 1,
                 'orderby'        => 'date',
                 'order'          => 'DESC',
-                'post_not_in'    => array( $dupe )
+                'post_not_in'    => array( $dupe ),
+                'adp_disable'       => true
             );
             $all_query = new WP_Query( $all_args );
             ?>
@@ -473,7 +476,7 @@ class more_from_widget extends WP_Widget {
                     </h2>
                 </div>
             <?php endwhile;
-            wp_reset_postdata();
+            wp_reset_query();
             ?>
             </ul>
         <?php }

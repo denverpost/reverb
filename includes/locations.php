@@ -126,7 +126,7 @@ function tkno_save_location_meta( $post_id, $post ) {
         $prepAddr = str_replace( ' ', '+', $address );
         $geocode = file_get_contents( 'https://maps.google.com/maps/api/geocode/json?key=AIzaSyDFesAMjYEKk6hCIxnQ_3SIwJ6rImbSch8&address=' . $prepAddr . '&sensor=false' );
         $output = json_decode($geocode);
-        if ( ! $output->results->status == 'OVER_QUERY_LIMIT' ) {
+        if ( $output->status == 'OK' ) {
             $latitude = $output->results[0]->geometry->location->lat;
             $longitude = $output->results[0]->geometry->location->lng;
             $location_meta['_location_latitude'] = $latitude;
@@ -466,7 +466,8 @@ function location_shortcode_metabox( $post ) {
     $loc_shortcode_ids = explode( ',', $loc_shortcode );
     $args = array(
         'post_type' => 'location',
-        'post__in' => $loc_shortcode_ids
+        'post__in' => $loc_shortcode_ids,
+        'adp_disable'       => true,
     );
     $loc_shortcode_query = new WP_Query( $args ); ?>
     <form id="location_shortcode_search">
@@ -549,7 +550,7 @@ function location_shortcode_metabox( $post ) {
                 });
         });
     </script>
-    <?php
+    <?php wp_reset_query();
 }
 
 // checks for only digits between the commas; utility for validation below
@@ -775,7 +776,8 @@ class tkno_location_recent_widget extends WP_Widget {
                 'post_type'           => 'location',
                 'order_by'            => 'post_date',
                 'posts_per_page'      => 20,
-                '_location_posts_where' => 5
+                '_location_posts_where' => 5,
+                'adp_disable'       => true
                 );
             $outdoormap_recent_query = new WP_Query( $query_args );
             if ( $outdoormap_recent_query->have_posts() ) :
@@ -815,8 +817,9 @@ class tkno_location_recent_widget extends WP_Widget {
                 </div>
             </form>
             <?php echo $args['after_widget'];
-            endif; // end have_posts() check ?>
-        <?php }
+            endif; // end have_posts() check
+            wp_reset_query();
+        }
     }
 } // Class srd_find_location_widget ends here
 

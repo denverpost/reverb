@@ -385,6 +385,8 @@ function is_outdoor_home() {
         } else {
             return false;
         }
+    } else {
+        return false;
     }
 }
 add_filter( 'category_template', 'outdoors_category_templates' );

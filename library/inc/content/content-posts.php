@@ -594,7 +594,7 @@ function outdoor_children_widgets() {
 	}
 
 	// is it one of the outdoors semi-parents, or a child?
-    if ( is_outdoors() && is_outdoor_home() ) { 
+    if ( is_outdoor_home() ) { 
     	$cat = get_queried_object();
         $children = get_terms( $cat->taxonomy, array(
             'parent'    => $cat->term_id,
@@ -607,7 +607,8 @@ function outdoor_children_widgets() {
         	$args = array( 
 				'post_type'           => 'post',
 				'cat'                 => $child->term_id,
-				'posts_per_page'      => 1
+				'posts_per_page'      => 1,
+				'adp_disable'		  => true
 				);
 	        $child_query = new WP_Query( $args );
 	        while ($child_query->have_posts()) {
@@ -617,17 +618,17 @@ function outdoor_children_widgets() {
 	        }
 	        // maximum of four most recent children
 	        if (++$i == 4) break;
+	        wp_reset_query();
         }
         // put the IDs in reverse chron
         krsort( $children_order );
         // Now it's time to emulate the fpe_widget output with the 5 most recent stories from each of those children
-        $no_duplicates = array();
         foreach ( $children_order as $child_cat_id ) {
         	$args = array( 
 				'post_type'           => 'post',
 				'cat'                 => $child_cat_id,
 				'posts_per_page'      => 5,
-				'post__not_in'		  => $no_duplicates
+				'adp_disable'		  => true
 				);
 	        $out_child_posts = new WP_Query( $args );
 			if( $out_child_posts->have_posts() ) {

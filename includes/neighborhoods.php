@@ -17,7 +17,7 @@ function tkno_get_neighborhood_from_slug($neighborhood_slug) {
     $query = new WP_Query( $args );
     $neighborhoods = $query->get_posts();
     $neighborhood = ( count($neighborhoods) > 0 ) ? $neighborhoods[0] : false;
-    wp_reset_postdata();
+    wp_reset_query();
     return $neighborhood;
 }
 

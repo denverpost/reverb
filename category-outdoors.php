@@ -26,7 +26,7 @@
                     <header class="archive-header<?php echo $class_header_category; ?>">
                         <h1 class="<?php echo $class_category; ?>""><a href="javascript:void(0);" class="noclick"><?php echo $query_cat->name; ?></a></h1>
                         <?php get_sidebar('categorysponsor'); ?>
-                    </header><!-- .archive-header -->
+                    </header><!-- .archive-header --> 
 
                     <div class="article_wrapper_top">
                         <?php get_template_part('loops/loop', 'outdoortop'); ?>

@@ -32,4 +32,5 @@
 
         <?php endif; // end have_posts() check
 
-        set_query_var("cat",$current_cat); ?>
+        set_query_var("cat",$current_cat);
+        wp_reset_query(); ?>

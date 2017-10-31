@@ -258,7 +258,7 @@ add_filter( 'body_class', 'browser_body_class' );
  * Attempt to de-dupe the homepage results
  */
 function tkno_exclude_duplicates( &$query ) {
-    if ( ( ! is_front_page() && ! is_outdoor_home() ) || $query->get('adp_disable') ) return;
+    if ( ! is_front_page() || $query->get('adp_disable') ) return;
     global $adp_posts;
     if ( empty( $query->post__not_in ) ) {
         $query->set( 'post__not_in', $adp_posts );
@@ -268,14 +268,14 @@ add_action( 'parse_query', 'tkno_exclude_duplicates' );
 
 function tkno_log_posts( $posts ) {
     $adp_posts = array(); 
-    if ( ! is_front_page() && ! is_outdoor_home() ) return $posts;
+    if ( ! is_front_page() ) return $posts;
     global $adp_posts;
     foreach ( $posts as $i => $post ) {
         $adp_posts[] = $post->ID;
     }
     return $posts;
 }
-add_filter( 'the_posts', 'tkno_log_posts', 10, 1 );
+add_filter( 'the_posts', 'tkno_log_posts', 10, 2 );
 
 /*
 Plugin Name: Default to GD
