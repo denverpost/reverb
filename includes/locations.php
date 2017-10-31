@@ -907,7 +907,7 @@ function location_imgoverride_save_metabox( $post_id, $post ) {
 
     $loc_address_override = $_POST['loc_address_override'];
 
-    $loc_address_override_new_value = ( isset( $loc_address_override ) ) ? sanitize_html_class( $loc_address_override ) : 'none';
+    $loc_address_override_new_value = ( isset( $loc_address_override ) ) ? sanitize_text_field( $loc_address_override ) : 'none';
     $loc_address_override_meta_key = '_loc_address_override';
     $loc_address_override_meta_value = get_post_meta( $post_id, $loc_address_override_meta_key, true );
     if ( $loc_address_override_new_value && '' == $loc_address_override_meta_value )
@@ -919,7 +919,7 @@ function location_imgoverride_save_metabox( $post_id, $post ) {
 
     $loc_map_icon = $_POST['loc_map_icon'];
 
-    $loc_map_icon_new_value = ( isset( $loc_map_icon ) ) ? sanitize_html_class( $loc_map_icon ) : 'none';
+    $loc_map_icon_new_value = ( isset( $loc_map_icon ) ) ? sanitize_text_field( $loc_map_icon ) : 'none';
     $loc_map_icon_meta_key = '_loc_map_icon';
     $loc_map_icon_meta_value = get_post_meta( $post_id, $loc_map_icon_meta_key, true );
     if ( $loc_map_icon_new_value && '' == $loc_map_icon_meta_value )

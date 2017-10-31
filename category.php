@@ -22,10 +22,15 @@
                 
 				<?php if ( have_posts() ) : 
                     $query_cat = $wp_query->get_queried_object();
+                    $parent_category = get_category( $query_cat->category_parent );
+                    $class_category_outdoors = '';
                     $class_header_category = ' category-' . tkno_get_top_category_slug( true, $query_cat->cat_id );
-                    $class_category = 'archive-title  category-' . $query_cat->slug; ?>
+                    if ( is_outdoors() && $parent_category->slug != 'outdoors' && tkno_get_top_category_slug( true, $query_cat->cat_id ) == 'outdoors' ) {
+                        $class_category_outdoors = ' category-' . $parent_category->slug;
+                    }
+                    $class_category = 'archive-title  category-' . $query_cat->slug . $class_category_outdoors; ?>
                     <header class="archive-header<?php echo $class_header_category; ?>">
-                        <h1 class="<?php echo $class_category; ?>""><a href="javascript:void(0);" class="noclick"><?php echo $query_cat->name; ?></a></h1>
+                        <h1 class="<?php echo $class_category; ?>"><a href="javascript:void(0);" class="noclick"><?php echo $query_cat->name; ?></a></h1>
                         <?php get_sidebar('categorysponsor'); ?>
                     </header><!-- .archive-header -->
                 <?php endif; // end have_posts() check ?> 
