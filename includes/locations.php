@@ -669,7 +669,7 @@ function locations_shortcode( $atts = [], $content = null, $tag = '' ) {
         }
         $image_caption = ( isset( $image_meta->post_excerpt ) ) ? $image_meta->post_excerpt : '';
         $image_url = ( isset( $large_image_url ) && strlen( $large_image_url[0] ) >= 1 ) ? $large_image_url[0] : false;
-        if ( $loc_atts['map'] != 'only' ) {
+        if ( $loc_imgoverride != 'true' && $loc_atts['map'] != 'only' ) {
             $image_url = ( isset( $large_image_url ) && strlen( $large_image_url[0] ) >= 1 ) ? $large_image_url[0] : false;
             if ( $image_url ) { 
                 $locations_display_img = '<figure class="figure wp-caption alignnone">'; 
