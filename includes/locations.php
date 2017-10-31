@@ -116,19 +116,22 @@ function tkno_save_location_meta( $post_id, $post ) {
     $location_meta['_location_street_address'] = $_POST['_location_street_address'];
 
     // If the input string is already lat/long, let's just save it as is
-    if ( preg_match('/([0-9.-]+).+?([0-9.-]+)/', $location_meta['_location_street_address'], $matches) ) {
-        $location_meta['_location_latitude'] = $latitude = (float)$matches[1];
-        $location_meta['_location_longitude'] = $longitude = (float)$matches[2];
+    if ( preg_match('/^(\-?\d+(\.\d+)?),\s*(\-?\d+(\.\d+)?)$/', $location_meta['_location_street_address'] ) ) {
+        $matches = explode(',', $location_meta['_location_street_address']);
+        $location_meta['_location_latitude'] = $latitude = trim( (float)$matches[0] );
+        $location_meta['_location_longitude'] = $longitude = trim ( (float)$matches[1] );
     } else if ( $location_meta['_location_street_address'] != '' ) {
         // Get Lat/Long from address
         $address = $_POST['_location_street_address'];
         $prepAddr = str_replace( ' ', '+', $address );
-        $geocode = file_get_contents( 'http://maps.google.com/maps/api/geocode/json?address=' . $prepAddr . '&sensor=false' );
+        $geocode = file_get_contents( 'https://maps.google.com/maps/api/geocode/json?key=AIzaSyDFesAMjYEKk6hCIxnQ_3SIwJ6rImbSch8&address=' . $prepAddr . '&sensor=false' );
         $output = json_decode($geocode);
-        $latitude = $output->results[0]->geometry->location->lat;
-        $longitude = $output->results[0]->geometry->location->lng;
-        $location_meta['_location_latitude'] = $latitude;
-        $location_meta['_location_longitude'] = $longitude;
+        if ( ! $output->results->status == 'OVER_QUERY_LIMIT' ) {
+            $latitude = $output->results[0]->geometry->location->lat;
+            $longitude = $output->results[0]->geometry->location->lng;
+            $location_meta['_location_latitude'] = $latitude;
+            $location_meta['_location_longitude'] = $longitude;
+        }
     } else {
         $location_meta['_location_latitude'] = '';
         $location_meta['_location_longitude'] = '';
@@ -338,25 +341,34 @@ function location_posts_where( $where )
 {  
     global $wpdb;
     //Get user location from ZIP
-    $geocode=file_get_contents('http://maps.google.com/maps/api/geocode/json?address='.get_query_var('user_ZIP').'&sensor=false');
-    $output= json_decode($geocode);
-    $lat = $output->results[0]->geometry->location->lat;
-    $lng = $output->results[0]->geometry->location->lng;
-
-    $radius = get_query_var('user_radius'); // (in miles)  
-
+    $geocode=file_get_contents('https://maps.google.com/maps/api/geocode/json?key=AIzaSyDFesAMjYEKk6hCIxnQ_3SIwJ6rImbSch8&address='.get_query_var('user_ZIP').'&sensor=false');
+    $output = json_decode($geocode);
     $table_name = $wpdb->prefix . 'locations';
-    // Append our radius calculation to the WHERE  
-    $where .= " AND $wpdb->posts.ID IN (SELECT post_id FROM " . $table_name . " WHERE
-         ( 3959 * acos( cos( radians(" . $lat . ") )
-                        * cos( radians( lat ) )
-                        * cos( radians( lng )
-                        - radians(" . $lng . ") )
-                        + sin( radians(" . $lat . ") )
-                        * sin( radians( lat ) ) ) ) <= " . $radius . ")";
+    if ( $output->status == 'OK' ) {
+        $lat = $output->results[0]->geometry->location->lat;
+        $lng = $output->results[0]->geometry->location->lng;
 
+        $radius = get_query_var('user_radius'); // (in miles)
+
+        // Append our radius calculation to the WHERE  
+        $where .= " AND $wpdb->posts.ID IN (SELECT post_id FROM " . $table_name . " WHERE
+             ( 3963.1676 * acos( cos( radians(" . $lat . ") )
+                            * cos( radians( lat ) )
+                            * cos( radians( lng )
+                            - radians(" . $lng . ") )
+                            + sin( radians(" . $lat . ") )
+                            * sin( radians( lat ) ) ) ) <= " . $radius . ")";
+    } else {
+        $where .= " AND $wpdb->posts.ID IN (SELECT post_id FROM " . $table_name . " WHERE
+             ( 3963.1676 * acos( cos( radians(39.5501) )
+                            * cos( radians( lat ) )
+                            * cos( radians( lng )
+                            - radians(-105.7821) )
+                            + sin( radians(39.5501) )
+                            * sin( radians( lat ) ) ) ) <= 20)";
+    }
     // Return the updated WHERE part of the query  
-    return $where;  
+    return $where;
 }
 
 /* Search filter for nearby stuff by lat/lon */
@@ -371,12 +383,12 @@ function location_posts_near( $where )
     $table_name = $wpdb->prefix . 'locations';
     // Append our radius calculation to the WHERE  
     $where .= " AND $wpdb->posts.ID IN (SELECT post_id FROM " . $table_name . " WHERE
-         ( 3959 * acos( cos( radians(" . $lat . ") )
+         ( 3963.1676 * acos( cos( radians(" . $lat . ") )
                         * cos( radians( lat ) )
                         * cos( radians( lng )
                         - radians(" . $lng . ") )
                         + sin( radians(" . $lat . ") )
-                        * sin( radians( lat ) ) ) ) <= 2.5)"; // 2.5 = 'nearby' distance radius in miles
+                        * sin( radians( lat ) ) ) ) < 5 )"; // 2.5 = 'nearby' distance radius in miles
 
     // Return the updated WHERE part of the query  
     return $where;  
@@ -858,6 +870,7 @@ function location_imgoverride_metabox( $post ) {
             <option value="dangling"<?php echo ( isset( $loc_map_icon ) && $loc_map_icon == 'dangling' ) ? ' selected="selected"' : ''; ?>>Dangling</option>
             <option value="drinking"<?php echo ( isset( $loc_map_icon ) && $loc_map_icon == 'drinking' ) ? ' selected="selected"' : ''; ?>>Drinking</option>
             <option value="fishing"<?php echo ( isset( $loc_map_icon ) && $loc_map_icon == 'fishing' ) ? ' selected="selected"' : ''; ?>>Fishing</option>
+            <option value="flowers"<?php echo ( isset( $loc_map_icon ) && $loc_map_icon == 'flowers' ) ? ' selected="selected"' : ''; ?>>Flowers</option>
             <option value="hiking"<?php echo ( isset( $loc_map_icon ) && $loc_map_icon == 'hiking' ) ? ' selected="selected"' : ''; ?>>Hiking</option>
             <option value="hunting"<?php echo ( isset( $loc_map_icon ) && $loc_map_icon == 'hunting' ) ? ' selected="selected"' : ''; ?>>Hunting</option>
             <option value="offroading"<?php echo ( isset( $loc_map_icon ) && $loc_map_icon == 'offroading' ) ? ' selected="selected"' : ''; ?>>Off-Roading</option>
@@ -903,10 +916,10 @@ function location_imgoverride_save_metabox( $post_id, $post ) {
     elseif ( '' == $loc_address_override_new_value && $loc_address_override_meta_value )
         delete_post_meta( $post_id, $loc_address_override_meta_key, $loc_address_override_meta_value );
 
-    $loc_map_icon = $_POST['_loc_map_icon'];
+    $loc_map_icon = $_POST['loc_map_icon'];
 
     $loc_map_icon_new_value = ( isset( $loc_map_icon ) ) ? sanitize_html_class( $loc_map_icon ) : 'none';
-    $loc_map_icon_meta_key = 'loc_map_icon';
+    $loc_map_icon_meta_key = '_loc_map_icon';
     $loc_map_icon_meta_value = get_post_meta( $post_id, $loc_map_icon_meta_key, true );
     if ( $loc_map_icon_new_value && '' == $loc_map_icon_meta_value )
         add_post_meta( $post_id, $loc_map_icon_meta_key, $loc_map_icon_new_value, true );

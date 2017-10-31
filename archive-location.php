@@ -62,7 +62,7 @@ if ( $locationsearch ) {
             $locationsearch = false;
         } else {
             //Get user lat/long from ZIP
-            $geocode = file_get_contents('http://maps.google.com/maps/api/geocode/json?address='.$user_ZIP.'&sensor=false');
+            $geocode = file_get_contents('https://maps.google.com/maps/api/geocode/json?key=AIzaSyDFesAMjYEKk6hCIxnQ_3SIwJ6rImbSch8&address='.$user_ZIP.'&sensor=false');
             $output= json_decode($geocode);
             $lat = $output->results[0]->geometry->location->lat;
             $lng = $output->results[0]->geometry->location->lng;
@@ -128,7 +128,6 @@ if ( $locationsearch ) {
                             </header>
 
                         <div class="location-search">
-                            <!-- <script src="http://maps.google.com/maps/api/js?key=AIzaSyA1Eh51J16b3NHRslNzCTu1BCm44lICAl8 &sensor=false"></script> -->
                             <div class="neighborhood-map-form">
                                 <div class="map-expander"></div>
                                 <?php echo do_shortcode('[leaflet-map]'); ?>

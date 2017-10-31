@@ -136,7 +136,7 @@ function reactor_post_location_format() {
 	if ( $loc_imgoverride != 'true' && has_post_thumbnail() ) {
 		$medium_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'medium');
 	}
-	$address = ( isset( $loc_address_override ) && strlen( $loc_address_override ) >= 1 ) ? $loc_address_override : get_post_meta( $loc_post->ID, '_location_street_address', true );
+	$address = ( isset( $loc_address_override ) && strlen( $loc_address_override ) >= 1 ) ? $loc_address_override : get_post_meta( $post->ID, '_location_street_address', true );
 	?>
 	<?php if (isset($medium_image_url) && strlen($medium_image_url[0]) >= 1) { ?>
 	<div class="catpage-post has-image">
