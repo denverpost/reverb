@@ -857,9 +857,12 @@ function location_imgoverride_metabox( $post ) {
             <option value="cycling"<?php echo ( isset( $loc_map_icon ) && $loc_map_icon == 'cycling' ) ? ' selected="selected"' : ''; ?>>Cycling</option>
             <option value="dangling"<?php echo ( isset( $loc_map_icon ) && $loc_map_icon == 'dangling' ) ? ' selected="selected"' : ''; ?>>Dangling</option>
             <option value="drinking"<?php echo ( isset( $loc_map_icon ) && $loc_map_icon == 'drinking' ) ? ' selected="selected"' : ''; ?>>Drinking</option>
+            <option value="fishing"<?php echo ( isset( $loc_map_icon ) && $loc_map_icon == 'fishing' ) ? ' selected="selected"' : ''; ?>>Fishing</option>
             <option value="hiking"<?php echo ( isset( $loc_map_icon ) && $loc_map_icon == 'hiking' ) ? ' selected="selected"' : ''; ?>>Hiking</option>
+            <option value="hunting"<?php echo ( isset( $loc_map_icon ) && $loc_map_icon == 'hunting' ) ? ' selected="selected"' : ''; ?>>Hunting</option>
             <option value="offroading"<?php echo ( isset( $loc_map_icon ) && $loc_map_icon == 'offroading' ) ? ' selected="selected"' : ''; ?>>Off-Roading</option>
             <option value="picnic"<?php echo ( isset( $loc_map_icon ) && $loc_map_icon == 'picnic' ) ? ' selected="selected"' : ''; ?>>Picnic</option>
+            <option value="sightseeing"<?php echo ( isset( $loc_map_icon ) && $loc_map_icon == 'sightseeing' ) ? ' selected="selected"' : ''; ?>>Sightseeing</option>
             <option value="skiing"<?php echo ( isset( $loc_map_icon ) && $loc_map_icon == 'skiing' ) ? ' selected="selected"' : ''; ?>>Skiing</option>
             <option value="snowboarding"<?php echo ( isset( $loc_map_icon ) && $loc_map_icon == 'snowboarding' ) ? ' selected="selected"' : ''; ?>>Snowboarding</option>
             <option value="wildlife"<?php echo ( isset( $loc_map_icon ) && $loc_map_icon == 'wildlife' ) ? ' selected="selected"' : ''; ?>>Wildlife</option>
