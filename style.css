@@ -2305,7 +2305,6 @@ header.category-outdoors h1.category-trips.archive-title a {
 /* embedded locations */
 article div.list_locations {
 	margin:2em 10%;
-	clear:both;
 }
 article div.list_locations.fullbleed {
 	margin:2em 0;
@@ -2334,6 +2333,7 @@ article.location-embed header.entry-header {
 }
 article.location-embed {
 	margin-bottom:2em;
+	clear:both;
 }
 article.location-embed h2 {
 	color:#222;
