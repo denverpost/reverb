@@ -84,7 +84,7 @@
                 
                 </div><!-- .columns -->
                 
-                <?php get_sidebar(); ?>
+                <?php get_sidebar('outdoors'); ?>
                 
             </div><!-- .row -->
         </div><!-- #content -->

@@ -40,11 +40,12 @@ class DP_Snow_Widget extends WP_Widget {
 	 * @return void
 	 */
 	public function widget( $args, $instance ) {
+        echo $args['before_widget'];
+        echo $args['before_title'] . 'Colorado Snow Report' . $args['after_title'];
 		?>
 		<script type="text/javascript"
 				src="<?php echo get_stylesheet_directory_uri() . '/snow-widget/snowwidget.min.js'; ?>"></script>
 		<div class="snowwidget-wrapper">
-			<h4 class="widget-title">Colorado Snow Report</h4>
 			<div class="snowwidget-container">
 				<div class="snowwidget-headline">
 					<div class="snowwidget-headline-label snowwidget-section-label">
@@ -161,6 +162,7 @@ class DP_Snow_Widget extends WP_Widget {
 			</div> <!-- END .snowwidget-container -->
 		</div> <!-- END .snowwidget-wrapper -->
 		<?php
+		echo $args['after_widget'];
 	}
 
 	/**
