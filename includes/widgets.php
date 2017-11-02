@@ -376,6 +376,7 @@ class more_from_widget extends WP_Widget {
         echo $args['before_title'] . 'More from The Know' . $args['after_title'];
         ?> <div class="widget_morefrom"> <?php
         $dupe = false;
+        wp_reset_query();
         if ( ! is_outdoors() && ! is_location() ) {
             // On non-Outdoors pages, pimp Outdoors
             $outdoor_parent = get_category_by_slug( 'outdoors' );
@@ -415,7 +416,7 @@ class more_from_widget extends WP_Widget {
         if ( ! is_post_type_archive( 'neighborhoods' ) && ! ( is_single() && get_post_type() == 'neighborhoods' ) ) {
             // On non-Neighborhoods pages, pimp Neighborhoods
             $nei_args = array(
-                'post_type'         => 'neighborhoods', 
+                'post_type'         => 'neighborhoods',
                 'orderby'           => 'rand', 
                 'posts_per_page'    => 1,
                 'adp_disable'       => true
@@ -448,11 +449,12 @@ class more_from_widget extends WP_Widget {
         if ( is_outdoors() || is_location() || is_post_type_archive( 'neighborhoods' ) || ( is_single() && get_post_type() == 'neighborhoods' )) {
             // Anywhere else, pimp something else
             $all_args = array(
+                'post_type'      => 'post',
                 'posts_per_page' => 1,
                 'orderby'        => 'date',
                 'order'          => 'DESC',
                 'post_not_in'    => array( $dupe ),
-                'adp_disable'       => true
+                'adp_disable'    => true
             );
             $all_query = new WP_Query( $all_args );
             ?>

@@ -44,30 +44,13 @@ class DP_Snow_Widget extends WP_Widget {
 		<script type="text/javascript"
 				src="<?php echo get_stylesheet_directory_uri() . '/snow-widget/snowwidget.min.js'; ?>"></script>
 		<div class="snowwidget-wrapper">
+			<h4 class="widget-title">Colorado Snow Report</h4>
 			<div class="snowwidget-container">
-				<div id="snowwidget-header">
-					<a href="http://www.coloradoski.com/snow-report?utm_source=Colorado%20Ski%20Country%20USA's%20logo%20in%20the%20Snow%20Report&utm_medium=Snow%20Report&utm_campaign=Snow%20Report">
-						<img id="snowReportLogo" alt="" src="<?php echo get_stylesheet_directory_uri() . '/snow-widget/snowreport_logo.png'; ?>"/>
-					</a>
-					<div id="div-gpt-ad-dp_snow_widget">
-						<script>
-							googletag.cmd.push(function() {
-								googletag.defineSlot('/8013/denverpost.com', [110,90],'div-gpt-ad-dp_snow_widget').setTargeting('kv',['dp_snow_widget']).addService(googletag.pubads());
-								googletag.enableServices();
-								googletag.display('div-gpt-ad-dp_snow_widget');
-							});
-						</script>
-					</div>
-				</div> <!-- END .snow-widget-logo-wrap -->
-
 				<div class="snowwidget-headline">
-					<a href="http://www.coloradoski.com/snow-report?utm_source=Colorado%20Ski%20Country%20USA's%20name%20in%20the%20Snow%20Report&utm_medium=Snow%20Report&utm_campaign=Snow%20Report">
-						<div class="snowwidget-headline-label snowwidget-section-label">Colorado Ski Country USA</div>
-						<div class="snowwidget-tagline">
-							<i class="snowwidget-tagline-icon icon-weather-snow"></i>
-							<span class="snowwidget-tagline-label">A Mountain for everyone.</span>
-						</div>
-					</a>
+					<div class="snowwidget-headline-label snowwidget-section-label">
+						<i class="snowwidget-tagline-icon icon-weather-snow"></i>
+						<a href="http://www.coloradoski.com/snow-report?utm_source=Colorado%20Ski%20Country%20USA's%20name%20in%20the%20Snow%20Report&utm_medium=Snow%20Report&utm_campaign=Snow%20Report">Colorado Ski Country USA</a>
+					</div>
 				</div>
 
 				<div class="snowwidget-pane-container">
@@ -155,12 +138,12 @@ class DP_Snow_Widget extends WP_Widget {
 				</div> <!-- END .snowwidget-panes -->
 
 				<div class="snowwidget-tabs">
-					<div class="snowwidget-tabs-btn snowwidget-tabs-btn-newsnow is-active"
+					<div class="snowwidget-tabs-btn snowwidget-tabs-btn-newsnow"
 						 data-pane="snowwidget-pane-newsnow">
 						<i class="snowwidget-tab-icon icon-weather-snow"></i>
 						<span class="snowwidget-tab-text">New Snow</span>
 					</div>
-					<div class="snowwidget-tabs-btn snowwidget-tabs-btn-forecast" data-pane="snowwidget-pane-forecast">
+					<div class="snowwidget-tabs-btn snowwidget-tabs-btn-forecast is-active" data-pane="snowwidget-pane-forecast">
 						<i class="snowwidget-tab-icon icon-thermometer"></i>
 						<span class="snowwidget-tab-text">Forecast</span>
 					</div>

@@ -2725,6 +2725,9 @@ article.location-embed .entry-body {
 	text-align:center;
 	margin-bottom: 1.5em;
 }
+.snowwidget-wrapper h4.widget-title {
+	margin-top:2em;
+}
 #snowReportLogo {
 	float: left;
 }
@@ -2742,9 +2745,9 @@ article.location-embed .entry-body {
 .snowwidget-headline-label {
 	background: #01acd8;
 	color: white;
-	font-size: 12px;
+	font-size: 13px;
 	font-weight: 700;
-	padding: 4px 0 4px 25px;
+	padding: 4px;
 }
 .snowwidget-tagline {
 	padding: 2px 0 8px 15px;
@@ -2766,7 +2769,7 @@ article.location-embed .entry-body {
 	vertical-align:30%;
 }
 .snowwidget-pane-container {
-	height: 250px;
+	height: 335px;
 	border-right: #01acd8 3px solid;
 	border-left: #01acd8 3px solid;
 	border-top: #01acd8 3px solid;
@@ -2775,7 +2778,7 @@ article.location-embed .entry-body {
 	display: none;
 	height: 100%;
 }
-.snowwidget-pane:first-child {
+.snowwidget-pane:nth-child(2) {
 	display: block;
 }
 .snowwidget-pane-list {
@@ -2784,7 +2787,7 @@ article.location-embed .entry-body {
 	overflow-x: hidden;
 }
 .snowwidget-pane-forecast .snowwidget-pane-list {
-	height: 215px;
+	height: 300px;
 	line-height: 1.2;
 }
 .snowwidget-pane-list-label {
@@ -2881,6 +2884,15 @@ article.location-embed .entry-body {
 a:hover .icon-weather-snow:before {
     text-decoration: none;
     border:none;
+}
+.snowwidget-headline-label .icon-weather-snow:before {
+	color:#fff;
+}
+.snowwidget-headline-label a,
+.snowwidget-headline-label a:hover,
+.snowwidget-headline-label a:visited {
+	color:#fff;
+	vertical-align:20%;
 }
 .snowwidget-pane-list-label {
     background: #01acd8;

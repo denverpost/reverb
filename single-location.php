@@ -65,8 +65,9 @@
                             'post__not_in' => array( $post->ID )
                             );
                         add_filter( 'posts_where' , 'location_posts_near' ); 
-                        $location_query = new WP_Query( $args ); ?>
-
+                        $location_query = new WP_Query( $args );
+                        remove_filter( 'posts_where' , 'location_posts_near' ); ?>
+                        
                         <?php if ( $location_query->have_posts() ) : ?>
                             
                         <h2 class="archive-title"><a class="noclick" href="javascript:void(0);">Nearby</a></h2>
