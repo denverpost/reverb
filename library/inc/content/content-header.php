@@ -89,7 +89,6 @@ $twitter_thumb = ( ($twitter_thumbs != '') ? $twitter_thumbs[0] : get_stylesheet
 $twitter_user_id = ( ($temp_post != '') && is_single() ) ? $temp_post->post_author : '@thknwco';
 $twitter_creator = ( ($temp_auth != '') && is_single() ) ? '@' . $temp_auth : '@thknwco';
 echo ( ($temp_gplus != '') && is_single() ) ? '<link rel="author" href="' . $temp_gplus . '" />' : '<link rel="publisher" href="http://plus.google.com/100931264054788579031" />';
-echo ( is_outdoors() && ! is_single() ) ? "\n" . '<meta property="og:image" content="' . $twitter_thumb . '" />' : '';
 ?>
 
 <meta property="fb:pages" content="113250288696719">
