@@ -48,6 +48,7 @@ function tkno_get_ad_value() {
             $outdoorcat = ( $cats->slug == 'outdoors' ) ? '/Outdoors' : '/Outdoors/' . ucfirst( $cats->slug );
             $category = $outdoorkv = $cats->slug;
         }
+        $category = 'outdoors';
     } else if ( is_category() && ! is_outdoors() ) {
         $id = get_query_var( 'cat' );
         $cat = get_category( (int)$id );

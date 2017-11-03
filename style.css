@@ -2309,6 +2309,9 @@ article div.list_locations {
 article div.list_locations.fullbleed {
 	margin:2em 0;
 }
+article div.list_locations .neighborhood-map-form:first-child {
+	margin-bottom:2.5em;
+}
 article div.list_locations:before,
 article div.list_locations:after {
 	content:' ';

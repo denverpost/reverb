@@ -607,8 +607,7 @@ function outdoor_children_widgets() {
         	$args = array( 
 				'post_type'           => 'post',
 				'cat'                 => $child->term_id,
-				'posts_per_page'      => 1,
-				'adp_disable'		  => true
+				'posts_per_page'      => 1
 				);
 	        $child_query = new WP_Query( $args );
 	        while ($child_query->have_posts()) {
@@ -627,8 +626,7 @@ function outdoor_children_widgets() {
         	$args = array( 
 				'post_type'           => 'post',
 				'cat'                 => $child_cat_id,
-				'posts_per_page'      => 5,
-				'adp_disable'		  => true
+				'posts_per_page'      => 5
 				);
 	        $out_child_posts = new WP_Query( $args );
 			if( $out_child_posts->have_posts() ) {
