@@ -317,7 +317,7 @@ class category_sponsor_widget extends WP_Widget {
             parent::__construct(
                 'category_sponsor_widget',
                 __('Category sponsor', 'category_sponsor_widget'),
-                array('description' => __('Displays "Powered by" with a logo image linked to a sponsor\'s stie.', 'category_sponsor_widget'), )
+                array('description' => __('Displays "Powered by" with a logo image linked to a sponsor\'s site.', 'category_sponsor_widget'), )
             );
     }
 
