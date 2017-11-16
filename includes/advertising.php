@@ -30,7 +30,15 @@ function tkno_get_ad_value() {
     $tax_neighborhood = $category = $outdoorcat = $outdoorkv = FALSE;
     $kv = 'theknow';
     $tax = '';
-    if ( is_home() || is_front_page() ) {
+    $post_kv = false;
+    if ( is_single() ) {
+        global $post;
+        $post_kv = get_post_meta($post->ID, '_post_kv', true);
+    }
+    if ( $post_kv ) {
+        $kv = $post_kv;
+        $category = false;
+    } else if ( is_home() || is_front_page() ) {
         $kv = 'theknow';
     } else if ( is_page_template( 'page-templates/calendar.php' ) ) {
         $category = 'calendar';
@@ -369,3 +377,61 @@ class category_sponsor_widget extends WP_Widget {
 }
 function register_category_sponsor_widget() { register_widget('category_sponsor_widget'); }
 add_action( 'widgets_init', 'register_category_sponsor_widget' );
+
+/*** ad KV METABOX ***/
+function post_kv_meta_box_setup() {
+    add_action( 'add_meta_boxes', 'post_kv_meta_box_add' );
+    add_action( 'save_post', 'post_kv_meta_box_save', 10, 2 );
+}
+add_action( 'load-post.php', 'post_kv_meta_box_setup' );
+add_action( 'load-post-new.php', 'post_kv_meta_box_setup' );
+
+function post_kv_meta_box_add() {
+    add_meta_box(
+        'ad_kv',      // Unique ID
+        esc_html__( 'Override Ad KV', 'example' ),    // Title
+        'post_kv_meta_box',   // Callback function
+        array( 'venues', 'location', 'post', 'neighborhoods' ),       // Admin page (or post type)
+        'side',         // Context
+        'default'         // Priority
+    );
+}
+// Render the metabox
+function post_kv_meta_box( $post ) {
+    // Noncename needed to verify where the data originated
+    echo '<input type="hidden" name="post_kv_meta_nonce" id="post_kv_meta_nonce" value="' .
+    wp_create_nonce( basename(__FILE__) ) . '" />';
+    // Get the field data if it has already been entered
+    $post_kv = get_post_meta($post->ID, '_post_kv', true);
+
+    // Echo out the fields
+    echo '<p><em>If set, this will override all other ad tag KV possibilities. String will be formatted to fit standard requirements (no spaces, first letter uppercase).</em></p>';
+    echo '<p><label>KV Value:</label> <input type="text" style="wdith:100%;" name="_post_kv" id="_post_kv" value="' . $post_kv  . '" /></p>';
+}
+
+// Save the Metabox Data
+function post_kv_meta_box_save( $post_id, $post ) {
+    /* Verify the nonce before proceeding. */
+    if ( ! isset( $_POST['post_kv_meta_nonce'] ) || ! wp_verify_nonce( $_POST['post_kv_meta_nonce'], basename( __FILE__ ) ) ) {
+        return $post_id;
+    }
+
+    // Is the user allowed to edit the post or page?
+    if ( ! current_user_can( 'edit_post', $post->ID ) )
+        return $post_id;
+
+    // OK, we're authenticated: we need to find and save the data
+    // We'll put it into an array to make it easier to loop though.
+    $post_kv = ucfirst( str_replace( ' ', '-', strtolower( $_POST['_post_kv'] ) ) );
+
+    $post_kv_new_value = ( isset( $post_kv ) ) ? sanitize_text_field( $post_kv ) : '';
+    $post_kv_meta_key = '_post_kv';
+    $post_kv_meta_value = get_post_meta( $post_id, $post_kv_meta_key, true );
+    if ( $post_kv_new_value && '' == $post_kv_meta_value )
+        add_post_meta( $post_id, $post_kv_meta_key, $post_kv_new_value, true );
+    elseif ( $post_kv_new_value && $post_kv_new_value != $post_kv_meta_value )
+        update_post_meta( $post_id, $post_kv_meta_key, $post_kv_new_value );
+    elseif ( '' == $post_kv_new_value && $post_kv_meta_value )
+        delete_post_meta( $post_id, $post_kv_meta_key, $post_kv_meta_value );
+}
+/*** END METABOX ***/

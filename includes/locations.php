@@ -62,6 +62,7 @@ function tkno_locations_register_post_type() {
 }
 add_action( 'init', 'tkno_locations_register_post_type' );
 
+/*** location METABOXES ***/
 /* Meta box setup function. */
 function location_post_meta_boxes_setup() {
     add_action( 'add_meta_boxes', 'location_add_post_meta_boxes' );
@@ -82,7 +83,6 @@ function location_add_post_meta_boxes() {
     );
 }
 
-/*** location METABOXES ***/
 // Render the metabox
 function location_post_meta_box( $post ) {
     // Noncename needed to verify where the data originated
