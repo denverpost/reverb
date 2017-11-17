@@ -336,8 +336,10 @@ class category_sponsor_widget extends WP_Widget {
         <label for="<?php echo $this->get_field_id( 'sponsor_category' ); ?>"><?php _e( 'Category to display sponsorship on:' ); ?></label> 
         <select id="<?php echo $this->get_field_id( 'sponsor_category' ); ?>" name="<?php echo $this->get_field_name( 'sponsor_category' ); ?>" class="widefat" style="width:100%;">
             <option <?php echo ( $instance[ 'sponsor_category' ] == '' ) ? 'selected="selected" ' : ''; ?> value="">&nbsp;</option>
-            <?php foreach( get_terms( 'category' ) as $term) { 
-                if ( $term->parent == 0 ): ?>
+            <?php
+            $outdoor_parent = get_category_by_slug( 'outdoors' );
+            foreach( get_terms( 'category' ) as $term) { 
+                if ( $term->parent == 0 || $term->parent == $outdoor_parent->term_id ): ?>
                 <option <?php selected( $instance[ 'sponsor_category' ], $term->term_id ); ?> value="<?php echo $term->term_id; ?>"><?php echo $term->name; ?></option>
                 <?php endif; ?>
             <?php } ?>      
