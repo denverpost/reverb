@@ -35,7 +35,7 @@ function tkno_get_ad_value() {
         global $post;
         $post_kv = get_post_meta($post->ID, '_post_kv', true);
     }
-    if ( $post_kv ) {
+    if ( $post_kv && $post_kv != '' ) {
         $kv = $post_kv;
         $category = false;
     } else if ( is_home() || is_front_page() ) {
