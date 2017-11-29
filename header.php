@@ -20,11 +20,6 @@
 $outdoor_class = ( is_outdoors() || is_location() ) ? ' is-outdoors' : '';
 $outdoor_page_class = ( is_outdoor_home() ) ? ' outdoorhome' : ''; ?>
 
-<script type="text/javascript">
-    //configure Chartbeat variables
-    var _sf_startpt=(new Date()).getTime();
-</script>
-
 <script>
     var gptadslots = [];
     var googletag = googletag || {cmd:[]};
@@ -48,6 +43,7 @@ $outdoor_page_class = ( is_outdoor_home() ) ? ' outdoorhome' : ''; ?>
         
         <?php reactor_header_after(); ?>
 
+        <?php if ( ! is_page_template( 'page-sponsored.php' ) ) { ?>
         <div class="adElement clearfloat" id="adPosition1" style="clear:both;text-align:center;">
             <!-- begin DFP Premium Ad Tag -->
             <div>
@@ -76,5 +72,6 @@ $outdoor_page_class = ( is_outdoor_home() ) ? ' outdoorhome' : ''; ?>
             </div>
             <!-- end DFP Premium Ad Tag -->
         </div>
+        <?php } ?>
 
         <div id="main" class="wrapper">

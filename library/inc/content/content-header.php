@@ -94,8 +94,13 @@ echo ( ($temp_gplus != '') && is_single() ) ? '<link rel="author" href="' . $tem
 <meta property="fb:pages" content="113250288696719">
 
 <meta name="dcterms.audience" content="Global" />
-<?php echo ( (get_post_meta(get_the_ID(), 'sponsored_link', true) != '') ? '<meta name="Googlebot-News" content="noindex,follow">' : '' ); ?>
-<meta name="robots" content="follow, all" />
+<?php if ( ! is_page_template( 'page-sponsored.php' ) ) { ?>
+	<?php echo ( (get_post_meta(get_the_ID(), 'sponsored_link', true) != '') ? '<meta name="Googlebot-News" content="noindex,follow">' : '' ); ?>
+	<meta name="robots" content="follow, all" />
+<?php } else { ?>
+	<meta name="Googlebot-News" content="noindex, nofollow">
+	<meta name="robots" content="noindex,nofollow" />
+<?php } ?>
 
 <meta name="dcterms.rightsHolder" content="The Denver Post" />
 <meta name="dcterms.rights" content="All content copyright The Denver Post or other copyrighth holders. All rights reserved." />
@@ -110,7 +115,7 @@ if (has_tag() ) {
     }
     echo $GLOBALS['rel_art'];
     } ?>" />
-<meta name="keywords" content="colorado, reviews, music<?php
+<meta name="keywords" content="colorado, outdoors, events, entertainment<?php
     echo $GLOBALS['rel_art'];
     ?>" />
 
