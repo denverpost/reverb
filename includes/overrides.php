@@ -361,7 +361,7 @@ function sponsored_remove_all_wpseo() {
         remove_action( 'wpseo_head', array( $GLOBALS['wpseo_og'], 'opengraph' ), 30 );
         add_filter( 'wpseo_canonical', '__return_false' );
         add_filter( 'wpseo_json_ld_output', '__return_empty_array' );
-        remove_action( 'wpseo_head' , array( WPSEO_Twitter , 'get_instance' ) , 40 );
+        remove_action( 'wpseo_head' , array( 'WPSEO_Twitter' , 'get_instance' ) , 40 );
     }
 }
 add_action('wp_head', 'sponsored_remove_all_wpseo', 1);
