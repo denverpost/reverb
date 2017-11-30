@@ -28,7 +28,6 @@ function reactor_register_scripts() {
 	wp_register_script('foundation-js', get_template_directory_uri() . '/library/js/foundation.min.js', array('jquery'), false, true);
 	wp_register_script('reactor-js', get_template_directory_uri() . '/library/js/reactor.js', array(), false, true);
 	//Added DJS
-	wp_register_script('jquery-inview', get_stylesheet_directory_uri() . '/library/js/jquery.inview.min.js', array('jquery'), false, true);
 	wp_register_script('jquerymobile', get_stylesheet_directory_uri() . '/library/js/jquery.mobile.custom.min.js', array('minit','jquery'), false, true);
 	wp_register_script('rvfunctions-js', get_stylesheet_directory_uri() . '/library/js/rv-functions.js', array(), false, true);
 	wp_register_script('cityspark', '//portal.CitySpark.com/js/widget.min.js', array(), false, true);
@@ -36,6 +35,7 @@ function reactor_register_scripts() {
 	wp_register_script('adnexus', 'https://secure.adnxs.com/seg?add=2836221&t=1', array('jquery'), false, true);
 	wp_register_script('swipes-js', get_stylesheet_directory_uri() . '/library/js/swipes.js', array('jquerymobile','jquery'), false, true);
 	wp_register_script('ndn-js', '//launch.newsinc.com/js/embed.js', array(), false, true);
+	wp_register_script('nativo', '//s.ntv.io/serve/load.js', array(), false, true);
 }
 
 function reactor_enqueue_scripts() {
@@ -48,7 +48,6 @@ function reactor_enqueue_scripts() {
 		wp_enqueue_script('foundation-js');
 		wp_enqueue_script('reactor-js');
 		//Added DJS
-		wp_enqueue_script('jquery-inview');
 		wp_enqueue_script('rvfunctions-js');
 		//enqueue on single only
 		if ( is_single() ) {
@@ -59,5 +58,6 @@ function reactor_enqueue_scripts() {
 		wp_enqueue_script('adnexus');
 		wp_enqueue_script('ndn-js');
 		wp_enqueue_script('cityspark');
+		wp_enqueue_script('nativo');
 	}
 }

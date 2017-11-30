@@ -103,7 +103,7 @@ echo ( ($temp_gplus != '') && is_single() ) ? '<link rel="author" href="' . $tem
 <?php } ?>
 
 <meta name="dcterms.rightsHolder" content="The Denver Post" />
-<meta name="dcterms.rights" content="All content copyright The Denver Post or other copyrighth holders. All rights reserved." />
+<meta name="dcterms.rights" content="All content copyright The Denver Post or other copyright holders. All rights reserved." />
 <meta name="dcterms.dateCopyrighted" content="<?php echo date_i18n('Y'); ?>" />
 
 <meta name="news_keywords" content="colorado, reviews, music<?php

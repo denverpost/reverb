@@ -326,7 +326,9 @@ add_filter( 'title_save_pre',   'replace_smart_chars' );
 // Hide the Wordpress SEO canonical for posts that already have one from Autoblog
 function tkno_wpseo_canonical_override( $canonical ) {
     global $post;
-    if ( is_singular() && get_post_meta( $post->ID, 'original_guid' ) ) {
+    if ( is_page_template( 'page-sponsored.php' ) ) {
+        $canonical = false;
+    } else if ( is_singular() && get_post_meta( $post->ID, 'original_guid' ) ) {
         $meta_canonical = get_post_meta( $post->ID, 'original_guid' );
         $canonical = $meta_canonical[0];
     }
@@ -351,6 +353,18 @@ function tkno_wpseo_hide_metaboxes(){
     remove_meta_box('wpseo_meta', 'neighborhoods', 'normal');
 }
 add_action( 'add_meta_boxes', 'tkno_wpseo_hide_metaboxes',11 );
+
+// Remove SEO and canonical stuff from sponsored pages
+function sponsored_remove_all_wpseo() {
+    if ( is_page_template( 'page-sponsored.php' ) ) {
+        add_filter( 'jetpack_enable_open_graph', '__return_false' ); // Jetpack to be sure
+        remove_action( 'wpseo_head', array( $GLOBALS['wpseo_og'], 'opengraph' ), 30 );
+        add_filter( 'wpseo_canonical', '__return_false' );
+        add_filter( 'wpseo_json_ld_output', '__return_empty_array' );
+        remove_action( 'wpseo_head' , array( WPSEO_Twitter , 'get_instance' ) , 40 );
+    }
+}
+add_action('wp_head', 'sponsored_remove_all_wpseo', 1);
 
 // Increase Custom Field Limit
 function tkno_customfield_limit_increase( $limit ) {
