@@ -94,12 +94,12 @@ echo ( ($temp_gplus != '') && is_single() ) ? '<link rel="author" href="' . $tem
 <meta property="fb:pages" content="113250288696719">
 
 <meta name="dcterms.audience" content="Global" />
-<?php if ( ! is_page_template( 'page-sponsored.php' ) ) { ?>
-	<?php echo ( (get_post_meta(get_the_ID(), 'sponsored_link', true) != '') ? '<meta name="Googlebot-News" content="noindex,follow">' : '' ); ?>
-	<meta name="robots" content="follow, all" />
+<?php if ( ! is_page_template( 'page-sponsored.php' ) && stripos( get_query_var( 'post_mime_type' ), 'image' ) !== false ) {
+		echo ( (get_post_meta(get_the_ID(), 'sponsored_link', true) != '') ? '<meta name="Googlebot-News" content="noindex,follow">' : '' ); ?>
+		<meta name="robots" content="follow, all" />
 <?php } else { ?>
-	<meta name="Googlebot-News" content="noindex, nofollow">
-	<meta name="robots" content="noindex,nofollow" />
+		<meta name="Googlebot-News" content="noindex, nofollow">
+		<meta name="robots" content="noindex,nofollow" />
 <?php } ?>
 
 <meta name="dcterms.rightsHolder" content="The Denver Post" />
