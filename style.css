@@ -1540,6 +1540,19 @@ body:not(.home):not(.outdoorhome) .cat-second .entry-body h2.entry-title {
 	padding:0;
 	margin:1em 10%;
 }
+.page .wpProQuiz_content ol,
+.page .wpProQuiz_content ul,
+.page .wpProQuiz_content h2,
+.page .wpProQuiz_content h3,
+.page .wpProQuiz_content h4,
+.single .wpProQuiz_content ol,
+.single .wpProQuiz_content ul,
+.single .wpProQuiz_content h2,
+.single .wpProQuiz_content h3,
+.single .wpProQuiz_content h4 {
+	margin:0 0 1em!important;
+	width:100%;
+}
 .single .entry-content ul.bucketcheck {
 	list-style-type: none;
 	padding-left:0;
