@@ -98,7 +98,7 @@ echo ( ($temp_gplus != '') && is_single() ) ? '<link rel="author" href="' . $tem
 		echo ( (get_post_meta(get_the_ID(), 'sponsored_link', true) != '') ? '<meta name="Googlebot-News" content="noindex,follow">' : '' ); ?>
 		<meta name="robots" content="noindex,nofollow" />
 <?php } else { ?>
-		<meta name="robots" content="follow, all" />		
+		<meta name="robots" content="follow,follow" />		
 <?php } ?>
 
 <meta name="dcterms.rightsHolder" content="The Denver Post" />
