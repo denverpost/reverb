@@ -30,9 +30,8 @@
 		        </div><!-- .columns -->
 		        <div id="sidebar" class="sidebar large-4 medium-6 small-12 columns" role="complementary">
 		        </div><!-- #sidebar -->
-		    </div>
-		    <!-- .row -->
-		</div>
+		    </div><!-- .row -->
+        </div><!-- #content -->
         
 	</div><!-- #primary -->
 
