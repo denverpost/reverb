@@ -7,10 +7,6 @@
 if ( !defined('ABSPATH') )
 	die('-1');
 
-$didthumb = false;
-
-echo $before_widget;
-
 if ( ! function_exists('is_outdoors') ) {
 	function is_outdoors() {
 	    /* is it an outdoors-related page? */
@@ -33,9 +29,6 @@ if ( ! function_exists('is_outdoors') ) {
 	}
 }
 
-if( $flexible_posts->have_posts() ):
-	$catquery = get_term_by('id',$flexible_posts->query['tax_query'][0]['terms'][0],'category');
-
 if ( ! function_exists('tkno_get_acceptable_parent') ) {
 	function tkno_get_acceptable_parent($catquery) {
 		$cat_parents = get_category_parents( $catquery->term_id, false, '/' );
@@ -50,10 +43,22 @@ if ( ! function_exists('tkno_get_acceptable_parent') ) {
 	}
 }
 
-$cat_parent = tkno_get_acceptable_parent($catquery);
+$didthumb = false;
+
+echo $before_widget;
+
+if( $flexible_posts->have_posts() ):
+	$catquery = ( $flexible_posts->query['tax_query'][0]['taxonomy'] == 'category' ) ? get_term_by( 'id', $flexible_posts->query[ 'tax_query' ][0][ 'terms' ][0], 'category' ) : get_term_by( 'id', $flexible_posts->query[ 'tax_query' ][0][ 'terms' ][0], $flexible_posts->query[ 'tax_query' ][0]['taxonomy'] );
+
+$cat_parent = ( $flexible_posts->query['tax_query'][0]['taxonomy'] == 'category' ) ? tkno_get_acceptable_parent( $catquery ) : false;
+
+$cat_parent_class = ( $cat_parent ) ? ' category-' . $cat_parent : '';
+
+$cat_link = ( $flexible_posts->query['tax_query'][0]['taxonomy'] == 'category' ) ? get_category_link( intval( $catquery->term_id ) ) : get_term_link( intval( $catquery->term_id ), $flexible_posts->query[ 'tax_query' ][0]['taxonomy'] );
+
 $cat_display = ( ! empty( $title ) ) ? $title : $catquery->name;
 
-echo $before_title . '<span class="fpe-widget-title category-' . $catquery->slug . ' category-' . $cat_parent . '"><a href="' . get_category_link( intval( $catquery->term_id ) ) . '">' . $cat_display . '</a></span>' . $after_title;
+echo $before_title . '<span class="fpe-widget-title category-' . $catquery->slug . $cat_parent_class . '"><a href="' . $cat_link . '">' . $cat_display . '</a></span>' . $after_title;
 ?>
 	<ul class="dpe-flexible-posts">
 	<?php while( $flexible_posts->have_posts() ) : $flexible_posts->the_post(); global $post; ?>
