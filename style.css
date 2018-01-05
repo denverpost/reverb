@@ -1540,16 +1540,17 @@ body:not(.home):not(.outdoorhome) .cat-second .entry-body h2.entry-title {
 	padding:0;
 	margin:1em 10%;
 }
-.page .wpProQuiz_content ol,
-.page .wpProQuiz_content ul,
-.page .wpProQuiz_content h2,
-.page .wpProQuiz_content h3,
-.page .wpProQuiz_content h4,
-.single .wpProQuiz_content ol,
-.single .wpProQuiz_content ul,
-.single .wpProQuiz_content h2,
-.single .wpProQuiz_content h3,
-.single .wpProQuiz_content h4 {
+.page .entry-content .wpProQuiz_content p,
+.page .entry-content .wpProQuiz_content ol,
+.page .entry-content .wpProQuiz_content ul,
+.page .entry-content .wpProQuiz_content h2,
+.page .entry-content .wpProQuiz_content h3,
+.page .entry-content .wpProQuiz_content h4,
+.single .entry-content .wpProQuiz_content ol,
+.single .entry-content .wpProQuiz_content ul,
+.single .entry-content .wpProQuiz_content h2,
+.single .entry-content .wpProQuiz_content h3,
+.single .entry-content .wpProQuiz_content h4 {
 	margin:0 0 1em!important;
 	width:100%;
 }
