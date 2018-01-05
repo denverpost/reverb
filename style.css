@@ -1546,6 +1546,7 @@ body:not(.home):not(.outdoorhome) .cat-second .entry-body h2.entry-title {
 .page .entry-content .wpProQuiz_content h2,
 .page .entry-content .wpProQuiz_content h3,
 .page .entry-content .wpProQuiz_content h4,
+.single .entry-content .wpProQuiz_content p,
 .single .entry-content .wpProQuiz_content ol,
 .single .entry-content .wpProQuiz_content ul,
 .single .entry-content .wpProQuiz_content h2,
