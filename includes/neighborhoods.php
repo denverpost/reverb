@@ -485,8 +485,8 @@ class neighborhood_walkscore_widget extends WP_Widget
                     var ws_height = '400';
                     </script>
                 <style type='text/css'>#ws-walkscore-tile{position:relative;text-align:left}#ws-walkscore-tile *{float:none;}</style>
-                <div id='ws-walkscore-tile'></div>
-                <script src='http://www.walkscore.com/tile/show-walkscore-tile.php'></script>
+                <div id="ws-walkscore-tile"></div>
+                <script src="https://www.walkscore.com/tile/show-walkscore-tile.php"></script>
             </div>
             <?php echo $args['after_widget'];
         }

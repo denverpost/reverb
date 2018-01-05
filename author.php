@@ -61,9 +61,9 @@
                                 <p><?php echo nl2br( get_the_author_meta( 'description', $curauth->ID ) ); ?></p>
                                 <ul class="author-social">
                                     <?php 
-                                    $auth_tw = ( get_the_author_meta( 'twitter', $curauth->ID ) != '' ? sprintf('<li>Twitter: <a href="http://twitter.com/%1$s" alt="%1$s on Twitter">@%1$s</a></li>', get_the_author_meta( 'twitter', $curauth->ID ) ) : '' );
+                                    $auth_tw = ( get_the_author_meta( 'twitter', $curauth->ID ) != '' ? sprintf('<li>Twitter: <a href="https://twitter.com/%1$s" alt="%1$s on Twitter">@%1$s</a></li>', get_the_author_meta( 'twitter', $curauth->ID ) ) : '' );
                                     $auth_fb = ( get_the_author_meta( 'facebook', $curauth->ID ) != '' ? sprintf('<li>Facebook: <a href="%1$s" alt="%2$%s on Facebook">%2$s</a></li>', get_the_author_meta( 'facebook', $curauth->ID ), $curauth->display_name ) : '' );
-                                    $auth_ig = ( get_the_author_meta( 'instagram', $curauth->ID ) != '' ? sprintf('<li>Instagram: <a href="http://instagram.com/%1$s" alt="%2$%s on Instagram" rel="me">@%1$s</a></li>', get_the_author_meta( 'instagram', $curauth->ID ), $curauth->display_name ) : '' );
+                                    $auth_ig = ( get_the_author_meta( 'instagram', $curauth->ID ) != '' ? sprintf('<li>Instagram: <a href="https://instagram.com/%1$s" alt="%2$%s on Instagram" rel="me">@%1$s</a></li>', get_the_author_meta( 'instagram', $curauth->ID ), $curauth->display_name ) : '' );
                                     $auth_gp = ( get_the_author_meta( 'googleplus', $curauth->ID ) != '' ? sprintf('<li>Google+: <a href="%1$s" alt="%2$%s on Google Plus" rel="me">%2$s</a></li>', get_the_author_meta( 'googleplus', $curauth->ID ), $curauth->display_name ) : '' );
                                     $auth_em = ( get_the_author_meta( 'email_public', $curauth->ID ) != '' ? sprintf('<li>Email: <a href="%1$s" alt="Email %2$%s" rel="me">%1$s</a></li>', get_the_author_meta( 'email_public', $curauth->ID ), $curauth->display_name ) : '' );
                                     echo $auth_tw . $auth_fb . $auth_ig . $auth_gp . $auth_em;

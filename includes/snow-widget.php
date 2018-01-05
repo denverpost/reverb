@@ -50,7 +50,7 @@ class DP_Snow_Widget extends WP_Widget {
 				<div class="snowwidget-headline">
 					<div class="snowwidget-headline-label snowwidget-section-label">
 						<i class="snowwidget-tagline-icon icon-weather-snow"></i>
-						<a href="http://www.coloradoski.com/snow-report?utm_source=Colorado%20Ski%20Country%20USA's%20name%20in%20the%20Snow%20Report&utm_medium=Snow%20Report&utm_campaign=Snow%20Report">Colorado Ski Country USA</a>
+						<a href="https://www.coloradoski.com/snow-report?utm_source=Colorado%20Ski%20Country%20USA's%20name%20in%20the%20Snow%20Report&utm_medium=Snow%20Report&utm_campaign=Snow%20Report">Colorado Ski Country USA</a>
 					</div>
 				</div>
 
@@ -90,7 +90,7 @@ class DP_Snow_Widget extends WP_Widget {
 					</div>
 					<div class="snowwidget-pane snowwidget-pane-forecast">
 						<div id="openSnowImg" class="openSnowImg">
-							<a href="http://opensnow.com" target="_blank">
+							<a href="https://opensnow.com" target="_blank">
 								<img alt="" src="<?php echo get_stylesheet_directory_uri(). '/snow-widget/opensnow.png'; ?>"/>
 							</a>
 						</div>

@@ -49,8 +49,8 @@ function reactor_do_footer_content() { ?>
 			<div class="<?php reactor_columns( array(7,12,12) ); ?>">
 				<div id="colophon">                      
 					<?php if ( reactor_option('footer_siteinfo') ) : echo reactor_option('footer_siteinfo'); else : ?>
-					<p><span class="copyright">An edition of <a href="http://www.denverpost.com/" title="The Denver Post" target="_blank">The Denver Post</a>.<br />
-					All contents Copyright &copy; <?php echo date_i18n('Y'); ?> <a href="http://www.denverpost.com/" title="The Denver Post" target="_blank">The Denver Post</a> or other copyright holders.</span> All rights reserved.<br />
+					<p><span class="copyright">An edition of <a href="https://www.denverpost.com/" title="The Denver Post" target="_blank">The Denver Post</a>.<br />
+					All contents Copyright &copy; <?php echo date_i18n('Y'); ?> <a href="https://www.denverpost.com/" title="The Denver Post" target="_blank">The Denver Post</a> or other copyright holders.</span> All rights reserved.<br />
 					This material may not be published, broadcast, rewritten or redistributed for any commercial purpose.</p>
 					<?php endif; ?>
 				</div><!-- #colophon -->

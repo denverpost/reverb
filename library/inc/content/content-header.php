@@ -88,7 +88,7 @@ $facebook_image = ( is_outdoors() ) ? '/images/facebook-share-outdoors.jpg' : '/
 $twitter_thumb = ( ($twitter_thumbs != '') ? $twitter_thumbs[0] : get_stylesheet_directory_uri() . $facebook_image );
 $twitter_user_id = ( ($temp_post != '') && is_single() ) ? $temp_post->post_author : '@thknwco';
 $twitter_creator = ( ($temp_auth != '') && is_single() ) ? '@' . $temp_auth : '@thknwco';
-echo ( ($temp_gplus != '') && is_single() ) ? '<link rel="author" href="' . $temp_gplus . '" />' : '<link rel="publisher" href="http://plus.google.com/100931264054788579031" />';
+echo ( ($temp_gplus != '') && is_single() ) ? '<link rel="author" href="' . $temp_gplus . '" />' : '<link rel="publisher" href="https://plus.google.com/100931264054788579031" />';
 ?>
 
 <meta property="fb:pages" content="113250288696719">
@@ -120,7 +120,7 @@ if (has_tag() ) {
 
 <?php $favicon_uri = reactor_option('favicon_image') ? reactor_option('favicon_image') : get_stylesheet_directory_uri() . '/favicon.ico'; ?>
 <link rel="shortcut icon" href="<?php echo $favicon_uri; ?>">
-<link href='http://fonts.googleapis.com/css?family=Open+Sans|Arvo' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans|Arvo' rel='stylesheet' type='text/css'>
 
 <?php 
 }

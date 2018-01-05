@@ -261,7 +261,7 @@ class sidebar_tagline_widget extends WP_Widget {
         // Display a fixed tagline and The Denver Post logo
         if ( ( $is_front && is_front_page() ) || ( $is_sidebar && ! is_front_page() ) ) {
             echo '<div id="sidebar-tagline" class="widget widget_tagline">
-                <p>' . $tagline_text . ' <a href="http://www.denverpost.com"><img src="'.get_bloginfo('stylesheet_directory').'/images/dp-logo-blk.png" /></a></p>
+                <p>' . $tagline_text . ' <a href="https://www.denverpost.com"><img src="'.get_bloginfo('stylesheet_directory').'/images/dp-logo-blk.png" /></a></p>
             </div>';
         }
     }
@@ -325,7 +325,7 @@ class tkno_calendar_widget extends WP_Widget
                     <div data-cswidget="' . tkno_cal_category() . '"></div>
                 </div>';
         } else if ( is_post_type_archive( 'neighborhoods' ) || ( is_single() && get_post_type() == 'neighborhoods' ) ) {
-            echo '<iframe src="http://extras.denverpost.com/real-estate/search-placester.html" width="100%" height="250px" scrolling="no" style="border:none;" seamless></iframe>';
+            echo '<iframe src="https://extras.denverpost.com/real-estate/search-placester.html" width="100%" height="250px" scrolling="no" style="border:none;" seamless></iframe>';
         }
     }
 }
@@ -349,9 +349,9 @@ class follow_us_on_widget extends WP_Widget
         echo '<div id="sidebar-followus" class="widget widget_followus">
                 <h4 class="widget-title">Follow Us</h4>
                 <ul>
-                    <li class="followus"><a href="http://twitter.com/thknwco" title="Follow The Know on Twitter"><img src="' . get_stylesheet_directory_uri() . '/images/social-twitter.png" alt="Follow The Know on Twitter" /></a></li>
-                    <li class="followus"><a href="http://facebook.com/denverentertain" title="Like The Know on Facebook"><img src="' . get_stylesheet_directory_uri() . '/images/social-facebook.png" alt="Like The Know on Facebook" /></a></li>
-                    <li class="followus"><a href="http://instagram.com/thknwco" title="Follow The Know on Instagram"><img src="' . get_stylesheet_directory_uri() . '/images/social-instagram.png" alt="Follow The Know on Instagram" /></a></li>
+                    <li class="followus"><a href="https://twitter.com/thknwco" title="Follow The Know on Twitter"><img src="' . get_stylesheet_directory_uri() . '/images/social-twitter.png" alt="Follow The Know on Twitter" /></a></li>
+                    <li class="followus"><a href="https://facebook.com/denverentertain" title="Like The Know on Facebook"><img src="' . get_stylesheet_directory_uri() . '/images/social-facebook.png" alt="Like The Know on Facebook" /></a></li>
+                    <li class="followus"><a href="https://instagram.com/thknwco" title="Follow The Know on Instagram"><img src="' . get_stylesheet_directory_uri() . '/images/social-instagram.png" alt="Follow The Know on Instagram" /></a></li>
                     <li class="followus"><a href="' . get_bloginfo( 'url' ) . '/feed/" title="Follow The Know via RSS"><img src="' . get_stylesheet_directory_uri() . '/images/social-rss.png" alt="Follow The Know via RSS" /></a></li>
                     <div class="clear"></div>
                 </ul>

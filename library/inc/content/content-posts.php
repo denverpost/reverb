@@ -358,7 +358,7 @@ function reactor_do_post_footer_meta() {
 				</div>
 			</div>
 		<?php } else {
-			$link_uri = 'http://theknow.denverpost.com/calendar/#!/show/?search=' . rawurlencode( $post->post_title ); ?>
+			$link_uri = get_site_url() . '/calendar/#!/show/?search=' . rawurlencode( $post->post_title ); ?>
 			<div class="row">
 				<div class="large-12 medium-12 small-12 columns single_venue">
 					<h3>More events: <a href="<?php echo $link_uri; ?>"><?php echo $post->post_title; ?> on our calendar</a></h3>
