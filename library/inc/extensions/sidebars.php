@@ -164,6 +164,19 @@ function reactor_register_sidebars() {
 			'after_title'   => '',
 		) );
 	}
+
+	if ( in_array( 'sidebar-sponsored', $sidebars[0] ) ) {
+		register_sidebar( array(
+			'name'          => __('Sponsored Pages', 'reactor'),
+			'id'            => 'sidebar-sponsored',
+			'description'   => 'The sidebar that appears on Nativo pages.',
+			'class'         => '',
+			'before_widget' => '<div id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</div>',
+			'before_title'  => '<h4 class="widget-title">',
+			'after_title'   => '</h4>',
+		) );
+	}
 }
 
 /**

@@ -41,7 +41,7 @@ function reactor_child_theme_setup() {
     remove_theme_support('reactor-sidebars');
     add_theme_support(
        'reactor-sidebars',
-       array( 'primary', 'outdoors', 'front-upper', 'front-mobile', 'front-lower', 'neighborhood-upper', 'neighborhood-lower', 'outdoor-upper', 'outdoor-middle', 'category-sponsor' )
+       array( 'primary', 'outdoors', 'front-upper', 'front-mobile', 'front-lower', 'neighborhood-upper', 'neighborhood-lower', 'outdoor-upper', 'outdoor-middle', 'category-sponsor', 'sidebar-sponsored' )
     );
     
     /* Support for layouts
