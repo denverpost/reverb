@@ -1,0 +1,99 @@
+#Ads.txt file for denverpost.com:
+
+google.com, pub-5831866191128057, DIRECT, f08c47fec0942fa0 # display, instream, native
+google.com, lmc-digitalfirstmedia, DIRECT, f08c47fec0942fa0 # display
+amazon-adsystem.com, 3391, DIRECT # display
+emxdgt.com, 249, DIRECT, 1e1d41537f7cad7f # display
+appnexus.com, 1356, RESELLER, f5ab79cb980f11d1 # display
+google.com, pub-5995202563537249, RESELLER, f08c47fec0942fa0 # display
+connatix.com, 101735, DIRECT # native
+districtm.io, 100857, DIRECT # display
+appnexus.com, 1908, RESELLER # display
+appnexus.com, 7944, RESELLER # display
+indexexchange.com, 185707, DIRECT # display
+indexexchange.com, 185865, DIRECT # display
+lkqd.net, 333, DIRECT # instream
+lkqd.com, 333, DIRECT # instream
+bidswitch.net, 129, RESELLER # outstream
+indexexchange.com, 184634, RESELLER # outstream
+rubiconproject.com, 14962, RESELLER # outstream
+nativo.com, 3622, DIRECT, 59521ca7cc5e9fee # native
+nativo.com, 4170, DIRECT, 59521ca7cc5e9fee # native
+nativo.com, 4169, DIRECT, 59521ca7cc5e9fee # native
+nativo.com, 4168, DIRECT, 59521ca7cc5e9fee # native
+nativo.com, 4169, DIRECT, 59521ca7cc5e9fee # native
+nativo.com, 2459, DIRECT, 59521ca7cc5e9fee # native
+rubiconproject.com, 16156, RESELLER, 0bfd66d529a55807 # native
+appnexus.com, 8035, RESELLER, f5ab79cb980f11d1 # native
+pubmatic.com, 156500, RESELLER, 5d62403b186f2ace # native
+openx.com, 537137191, DIRECT, 6a698e2ec38604c6 # display
+google.com, pub-9505823743978337, RESELLER, f08c47fec0942fa0 # instream
+tremorhub.com, pi979-clt5j, RESELLER, 1a4e959a1b50034a # instream
+appnexus.com, 1059063, RESELLER # instream
+spotxchange.com, 138942, RESELLER, 7842df1d2fe2db34 # instream
+spotx.tv, 138942, RESELLER, 7842df1d2fe2db34 # instream
+t.brand-server.com, 2216958, RESELLER, # instream
+appnexus.com, 1944, RESELLER, # instream
+indexexchange.com, 178372, RESELLER, # instream
+advertising.com, 11299, RESELLER, # instream
+teads.tv, 11886, DIRECT # outstream
+teads.tv, 11887, DIRECT # outstream
+triplelift.com, 2893, DIRECT, 6c33edb13117fd86 # native
+undertone.com, 268, DIRECT # interstitial
+appnexus.com, 2234, RESELLER # interstitial
+openx.com, 537153564, RESELLER # interstitial
+google.com, pub-4258145870407398, DIRECT, f08c47fec0942fa0
+adiply.com,345753,DIRECT
+openx.com, 537148114, DIRECT, 6a698e2ec38604c6
+openx.com, 113215, RESELLER, 6a698e2ec38604c6
+pubmatic.com, 66953, RESELLER, 5d62403b186f2ace
+rubiconproject.com, 9204, RESELLER, 0bfd66d529a55807
+google.com, pub-9339919749774457, RESELLER, f08c47fec0942fa0
+google.com, pub-1148683310311890, RESELLER, f08c47fec0942fa0
+appnexus.com, 3145, RESELLER
+contextweb.com,558794,RESELLER
+adtech.com,10363,RESELLER
+aolcloud.net,10363,RESELLER
+indexexchange.com,183917, RESELLER
+mass2.com, CIT001, DIRECT
+indexexchange.com, 184979, RESELLER
+indexexchange.com, 184863, RESELLER
+google.com, pub-8700273882301519, RESELLER
+adtech.com, 10947, RESELLER #client-side
+aolcloud.net, 10947, RESELLER #s2s
+appnexus.com, 1356, RESELLER #brealtime
+appnexus.com, 7556, RESELLER
+bidfluence.com, 68e6d75a-8355-4715-a10d-4cdac15190bc, RESELLER
+contextweb.com, 560653, RESELLER
+emxdgt.com, 20, RESELLER, 1e1d41537f7cad7f #brealtime
+google.com, pub-6694481294649483, RESELLER
+indexexchange.com, 184914, RESELLER 
+indexexchange.com, 186248, RESELLER, 50b1c356f2c5c8fc #ebda
+lijit.com, 248396, RESELLER, fafdf38b16bf6b2b
+openx.com, 537150004, RESELLER
+pubmatic.com, 156319, RESELLER
+sonobi.com, e55fb5d7c2, RESELLER
+sovrn.com, 248396, RESELLER, fafdf38b16bf6b2b
+spotx.tv, 84548, RESELLER, 7842df1d2fe2db34
+spotxchange.com, 84548, RESELLER, 7842df1d2fe2db34
+sharethrough.com, cb1640b0, RESELLER, d53b998a7bd4ecd2
+tremorhub.com, vtrdn-wjdav, RESELLER, 1a4e959a1b50034a
+yieldlab.net, 3888629, RESELLER
+contextweb.com, 558511, RESELLER
+google.com, pub-2379628242979855, RESELLER
+google.com, pub-5995202563537249, RESELLER, f08c47fec0942fa0
+gumgum.com, 11645, RESELLER, ffdef49475d318a9
+indexexchange.com, 175407, RESELLER
+nativeads.com, 61734, RESELLER
+openx.com, 537120960, RESELLER
+openx.com, 537143344, RESELLER
+openx.com, 538959099, RESELLER
+openx.com, 83499, RESELLER
+pubmatic.com, 137711, RESELLER
+pubmatic.com, 156078, RESELLER
+pubmatic.com, 156212, RESELLER
+pubmatic.com, 62483, RESELLER
+Connatix.com, 100682, RESELLER
+google.com, pub-9242135695870166, RESELLER
+synacor.com, 81509, RESELLER
+openx.com, 537119897, RESELLER, 6a698e2ec38604c6
