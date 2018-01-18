@@ -505,6 +505,19 @@ function tkno_single_post_related() {
 add_action('reactor_post_after', 'tkno_single_post_related', 4);
 
 /**
+ * Post footer comments link 
+ * in all formats
+ * 
+ * @since 1.0.0
+ */
+function tkno_comments() {
+	if ( is_single() && in_array( get_post_type(), array( 'post', 'venue', 'location') ) /* && comments_open() */ ) {
+		comments_template('', true);
+    }
+}
+add_action('reactor_post_after', 'tkno_comments', 5);
+
+/**
  * Single neighborhood children 
  * in single.php
  * 
@@ -569,7 +582,7 @@ function tkno_single_neighborhood_children() {
 	    
 	<?php }
 }
-add_action('reactor_post_after', 'tkno_single_neighborhood_children', 5);
+add_action('reactor_post_after', 'tkno_single_neighborhood_children', 6);
 
 /**
  * Outdoors child section auto-generated widgets

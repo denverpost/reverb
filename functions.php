@@ -103,8 +103,6 @@ function reactor_child_theme_setup() {
 **/
 // A variety of overrides and tweaks for various Wordpress and plugin behaviors
 require_once( __DIR__ . '/includes/overrides.php');
-// Remove all evidence of comments
-require_once( __DIR__ . '/includes/comment-killer.php');
 // Venues taxonomy and post type, related admin and sidebar widgets, etc.
 require_once( __DIR__ . '/includes/venues.php');
 // Neighborhoods taxonomy and post type, related admin and sidebar widgets, etc.
