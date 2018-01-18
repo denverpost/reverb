@@ -1,4 +1,4 @@
-#Ads.txt file for denverpost.com:
+#Ads.txt file for theknow.denverpost.com:
 
 google.com, pub-5831866191128057, DIRECT, f08c47fec0942fa0 # display, instream, native
 google.com, lmc-digitalfirstmedia, DIRECT, f08c47fec0942fa0 # display
@@ -48,6 +48,9 @@ openx.com, 537148114, DIRECT, 6a698e2ec38604c6
 openx.com, 113215, RESELLER, 6a698e2ec38604c6
 pubmatic.com, 66953, RESELLER, 5d62403b186f2ace
 rubiconproject.com, 9204, RESELLER, 0bfd66d529a55807
+
+# CitySpark additions
+
 google.com, pub-9339919749774457, RESELLER, f08c47fec0942fa0
 google.com, pub-1148683310311890, RESELLER, f08c47fec0942fa0
 appnexus.com, 3145, RESELLER
