@@ -324,9 +324,9 @@ class tkno_calendar_widget extends WP_Widget
             echo '<div id="sidebar-calendar" class="widget widget_cal">
                     <div data-cswidget="' . tkno_cal_category() . '"></div>
                 </div>';
-        } else if ( is_post_type_archive( 'neighborhoods' ) || ( is_single() && get_post_type() == 'neighborhoods' ) ) {
+        } /* else if ( is_post_type_archive( 'neighborhoods' ) || ( is_single() && get_post_type() == 'neighborhoods' ) ) {
             echo '<iframe src="https://extras.denverpost.com/real-estate/search-placester.html" width="100%" height="250px" scrolling="no" style="border:none;" seamless></iframe>';
-        }
+        } */
     }
 }
 function register_calendar_widget() { register_widget('tkno_calendar_widget'); }
