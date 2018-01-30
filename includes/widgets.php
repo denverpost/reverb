@@ -348,12 +348,19 @@ class follow_us_on_widget extends WP_Widget
         // List of icons linked to various social networks' Intent pages
         echo '<div id="sidebar-followus" class="widget widget_followus">
                 <h4 class="widget-title">Follow Us</h4>
-                <ul>
-                    <li class="followus"><a href="https://twitter.com/thknwco" title="Follow The Know on Twitter"><img src="' . get_stylesheet_directory_uri() . '/images/social-twitter.png" alt="Follow The Know on Twitter" /></a></li>
+                <ul>';
+        if ( is_outdoors() ) {
+            echo '      <li class="followus"><a href="https://twitter.com/coloradoutdoors"><img src="' . get_stylesheet_directory_uri() . '/images/social-twitter.png" alt="Follow The Know Outdoors on Twitter" /></a></li>
+                    <li class="followus"><a href="https://facebook.com/coloradoutdoors"><img src="' . get_stylesheet_directory_uri() . '/images/social-facebook.png" alt="Like The Know Outdoors on Facebook" /></a></li>
+                    <li class="followus"><a href="https://instagram.com/thknwco"><img src="' . get_stylesheet_directory_uri() . '/images/social-instagram.png" alt="Follow The Know on Instagram" /></a></li>
+                    <li class="followus"><a href="' . get_bloginfo( 'url' ) . '/outdoors/feed/"><img src="' . get_stylesheet_directory_uri() . '/images/social-rss.png" alt="Follow The Know Outdoors via RSS" /></a></li>';
+        } else {
+            echo '      <li class="followus"><a href="https://twitter.com/thknwco"><img src="' . get_stylesheet_directory_uri() . '/images/social-twitter.png" alt="Follow The Know on Twitter" /></a></li>
                     <li class="followus"><a href="https://facebook.com/denverentertain" title="Like The Know on Facebook"><img src="' . get_stylesheet_directory_uri() . '/images/social-facebook.png" alt="Like The Know on Facebook" /></a></li>
                     <li class="followus"><a href="https://instagram.com/thknwco" title="Follow The Know on Instagram"><img src="' . get_stylesheet_directory_uri() . '/images/social-instagram.png" alt="Follow The Know on Instagram" /></a></li>
-                    <li class="followus"><a href="' . get_bloginfo( 'url' ) . '/feed/" title="Follow The Know via RSS"><img src="' . get_stylesheet_directory_uri() . '/images/social-rss.png" alt="Follow The Know via RSS" /></a></li>
-                    <div class="clear"></div>
+                    <li class="followus"><a href="' . get_bloginfo( 'url' ) . '/feed/" title="Follow The Know via RSS"><img src="' . get_stylesheet_directory_uri() . '/images/social-rss.png" alt="Follow The Know via RSS" /></a></li>';
+        }
+        echo '      <div class="clear"></div>
                 </ul>
             </div>';
     }
