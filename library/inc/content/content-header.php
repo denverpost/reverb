@@ -18,7 +18,7 @@
  */
 function reactor_do_reactor_head() { ?>
 <meta charset="<?php bloginfo('charset'); ?>" />
-<title><?php wp_title('|', true, 'right'); ?></title>
+<title><?php wp_title('|', true, 'right'); ?><?php echo ( is_outdoors() ) ? ' Outdoors' : ''; ?></title>
 
 <!-- google chrome frame for ie -->
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
