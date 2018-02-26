@@ -1470,9 +1470,11 @@ body:not(.home):not(.outdoorhome) .cat-second .entry-body h2.entry-title {
 	height:auto;
 }
 .page .entry-content p,
+.page .entry-content iframe:not(#swizProQuizIframe),
 .page .entry-content iframe:not([src*="facebook.com"]):not([src*="challonge.com"]):not([src*="engagesciences.com"]):not([src*="woobox.com"]),
 .page .entry-content p iframe:not([src*="facebook.com"]):not([src*="challonge.com"]):not([src*="engagesciences.com"]):not([src*="woobox.com"]),
 .single .entry-content p,
+.single .entry-content iframe:not(#swizProQuizIframe),
 .single .entry-content iframe:not([src*="facebook.com"]):not([src*="challonge.com"]):not([src*="engagesciences.com"]):not([src*="woobox.com"]),
 .single .entry-content p iframe:not([src*="facebook.com"]):not([src*="challonge.com"]):not([src*="engagesciences.com"]):not([src*="woobox.com"]) {
 	margin:0 10% 1em;
