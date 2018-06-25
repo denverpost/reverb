@@ -881,7 +881,7 @@ body:not(.outdoorhome) article:first-child .frontpage-post .front-imgholder {
 	background-position: 50% 40%;
 }
 #outdoorsmain .article_wrapper_top article .frontpage-post .front-imgholder {
-	padding-bottom:20%;
+	padding-bottom:35%;
 }
 /* front page flexible posts widgets */
 #sidebar-frontlower div.widget,
