@@ -320,9 +320,14 @@ add_action('media_buttons', 'related_shortcode_button',15);
  */
 function in_article_bucketlist_shortcode(){
     $bucketlist = '<aside class="article-bucketlist">';
+    /* WINTER
         $bucketlist .= '<h3>#knowCOwinter</h3>';
         $bucketlist .= '<a href="//theknow.denverpost.com/2017/11/19/ultimate-colorado-winter-bucket-list/167078/" rel="bookmark"><img src="//theknow.denverpost.com/wp-content/uploads/2017/11/50Things-Winter-1.jpg" /></a>';
         $bucketlist .= '<p><a href="//theknow.denverpost.com/2017/11/19/ultimate-colorado-winter-bucket-list/167078/">This story features a bucket-list experience &mdash; check out our complete Colorado Winter Bucket List!</a></p>';
+        */
+        $bucketlist .= '<h3>#knowCOsummer</h3>';
+        $bucketlist .= '<a href="//theknow.denverpost.com/2017/05/22/colorado-ultimate-summer-bucket-list/144739/" rel="bookmark"><img src="//theknow.denverpost.com/wp-content/uploads/2017/05/100things.jpg" /></a>';
+        $bucketlist .= '<p><a href="//theknow.denverpost.com/2017/05/22/colorado-ultimate-summer-bucket-list/144739/">This story features a bucket-list experience &mdash; check out our complete Colorado Summer Bucket List!</a></p>';
         $bucketlist .= '<div class="clear"></div>';
     $bucketlist .= '</aside>';
     return $bucketlist;
