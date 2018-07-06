@@ -1598,6 +1598,7 @@ body:not(.home):not(.outdoorhome) .cat-second .entry-body h2.entry-title {
 	padding-top:.5em;
 	border-top: 1px solid #ddd;	
 }
+.entry-content iframe.instagram-media-rendered,
 .entry-content .twitter-tweet-rendered {
 	margin:0 auto!important;
 }
