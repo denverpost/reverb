@@ -1261,6 +1261,10 @@ h2.archive-title a {
 	background-color:rgba(67,178,91,1.0);
 	padding:.25em .5em;
 }
+.is-outdoors h1.archive-title a,
+.is-outdoors h2.archive-title a {
+	background-color:rgba(140,100,75,1.0);
+}
 .post-type-archive-venues h1.archive-title.venue-header span,
 h1.archive-title.venue-header a,
 h2.archive-title.venue-header a,
@@ -1282,7 +1286,9 @@ h1.archive-title.location-header a,
 h2.archive-title.location-header a,
 .single-location h2.archive-title a,
 header.archive-header.category-outdoors h1.archive-title.category-outdoors a,
-header.archive-header.category-outdoors h2.archive-title.category-outdoors a {
+header.archive-header.category-outdoors h2.archive-title.category-outdoors a,
+header.archive-header.category-outdoors h1.archive-title.category-outdoors-photos a,
+header.archive-header.category-outdoors h2.archive-title.category-outdoors-photos a {
 	background-color:rgba(140,100,75,1.0);
 }
 .demo_widget h4.widget-title a,
