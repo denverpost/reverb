@@ -1285,8 +1285,8 @@ h2.archive-title.venue-header a,
 h1.archive-title.location-header a,
 h2.archive-title.location-header a,
 .single-location h2.archive-title a,
-header.archive-header.category-outdoors h1.archive-title.category-outdoors a,
-header.archive-header.category-outdoors h2.archive-title.category-outdoors a,
+header.archive-header.category-outdoors h1.archive-title.category-outdoors:not(.category-spring):not(.category-summer):not(.category-fall):not(.category-winter):not(.category-trips) a,
+header.archive-header.category-outdoors h2.archive-title.category-outdoors:not(.category-spring):not(.category-summer):not(.category-fall):not(.category-winter):not(.category-trips) a,
 header.archive-header.category-outdoors h1.archive-title.category-outdoors-photos a,
 header.archive-header.category-outdoors h2.archive-title.category-outdoors-photos a {
 	background-color:rgba(140,100,75,1.0);
