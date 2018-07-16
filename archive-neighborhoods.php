@@ -48,7 +48,7 @@
 
                         $neighborhood_slug = get_post_meta( $post->ID, '_neighborhood_slug', true );
                         $neighborhood_tax = get_term_by( 'slug', $neighborhood_slug, 'neighborhood' );
-                        if ( $neighborhood_tax->parent == 0):
+                        if ( isset($neighborhood_tax->parent) && $neighborhood_tax->parent == 0):
                         ?>
                             
                             <li>

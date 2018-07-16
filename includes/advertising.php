@@ -28,7 +28,7 @@ function tkno_get_ad_cat_slug($cat_id=false) {
 
 function tkno_get_ad_value() {
     $tax_neighborhood = $category = $outdoorcat = $outdoorkv = FALSE;
-    $kv = 'theknow';
+    $kv = array();
     $tax = '';
     $post_kv = false;
     if ( is_single() ) {
@@ -36,10 +36,10 @@ function tkno_get_ad_value() {
         $post_kv = get_post_meta($post->ID, '_post_kv', true);
     }
     if ( $post_kv && $post_kv != '' ) {
-        $kv = $post_kv;
+        array_push($kv,$post_kv);
         $category = false;
     } else if ( is_home() || is_front_page() ) {
-        $kv = 'theknow';
+        $kv = array('theknow');
     } else if ( is_page_template( 'page-templates/calendar.php' ) ) {
         $category = 'calendar';
     } else if ( is_outdoors() ) {
@@ -91,116 +91,133 @@ function tkno_get_ad_value() {
     if ( $category ) {
         switch ( $category ) {
             case 'calendar':
-                $kv = 'calendar';
+                array_push($kv,'calendar');
                 $tax = '/Play/Event-calendar';
                 break;
             case 'venues':
-                $kv = 'venues';
+                array_push($kv,'venues');
                 $tax = '/Venues';
                 break;
             case 'neighborhood':
-                $kv = 'neighborhoods';
+                array_push($kv,'venues');
                 $tax = '/Neighborhood';
                 break;
             case 'neighborhoods':
-                $kv = 'neighborhoods';
+                array_push($kv,'neighborhoods');
+                array_push($kv,$tax_neighborhood);
                 $tax = '/Neighborhood/' . $tax_neighborhood;
                 break;
             case 'location':
-                $kv = 'location';
+                array_push($kv,'location');
                 $tax = '/Location';
                 break;
             case 'movies-and-tv':
-                $kv = 'movies-and-tv';
+                array_push($kv,'movies-and-tv');
                 $tax = '/See/Movies-and-tv';
                 break;
             case 'museums-galleries':
-                $kv = 'museums-galleries';
+                array_push($kv,'museums-galleries');
                 $tax = '/See/Museums-and-galleries';
                 break;
             case 'stage':
-                $kv = 'stage';
+                array_push($kv,'stage');
                 $tax = '/See/Stage';
                 break;
             case 'audio-video':
-                $kv = 'audio-video';
+                array_push($kv,'audio-video');
                 $tax = '/Hear/Audio-video';
                 break;
             case 'musicnews':
-                $kv = 'musicnews';
+                array_push($kv,'musicnews');
                 $tax = '/Hear/Music-news';
                 break;
             case 'music-photos':
-                $kv = 'music-photos';
+                array_push($kv,'music-photos');
                 $tax = '/Hear/Music-photos';
                 break;
             case 'reverb-features':
-                $kv = 'reverb-features';
+                array_push($kv,'reverb-features');
                 $tax = '/Hear/Reverb-features';
                 break;
             case 'music-reviews':
-                $kv = 'music-reviews';
+                array_push($kv,'music-reviews');
                 $tax = '/Hear/Reviews';
                 break;
             case 'family-friendly':
-                $kv = 'family-friendly';
+                array_push($kv,'family-friendly');
                 $tax = '/Play/Family-friendly';
                 break;
             case 'outdoors':
-                $kv = $outdoorkv;
+                array_push($kv,$outdoorkv);
                 $tax = $outdoorcat;
                 break;
             case 'photos':
-                $kv = 'photos';
+                array_push($kv,'photos');
                 $tax = '/Play/Photos';
                 break;
             case 'dining-news':
-                $kv = 'dining-news';
+                array_push($kv,'dining-news');
                 $tax = '/Eat/Dining-news';
                 break;
             case 'restaurant-reviews':
-                $kv = 'restaurant-reviews';
+                array_push($kv,'restaurant-reviews');
                 $tax = '/Eat/Restaurant-reviews';
                 break;
             case 'bars-and-clubs':
-                $kv = 'bars-and-clubs';
+                array_push($kv,'bars-and-clubs');
                 $tax = '/Drink/Bars-and-clubs';
                 break;
             case 'beer':
-                $kv = 'beer';
+                array_push($kv,'beer');
                 $tax = '/Drink/Beer';
                 break;
             case 'drink':
-                $kv = 'drink';
+                array_push($kv,'drink');
                 $tax = '/Drink';
                 break;
             case 'food':
-                $kv = 'eat';
+                array_push($kv,'eat');
                 $tax = '/Eat';
                 break;
             case 'music':
-                $kv = 'hear';
+                array_push($kv,'hear');
                 $tax = '/Hear';
                 break;
             case 'things-to-do':
-                $kv = 'play';
+                array_push($kv,'play');
                 $tax = '/Play';
                 break;
             case 'arts':
-                $kv = 'see';
+                array_push($kv,'see');
                 $tax = '/See';
                 break;
             case 'photos':
-                $kv = 'photos';
+                array_push($kv,'photos');
                 $tax = '/Photos';
                 break;
             default:
-                $kv = 'theknow';
+                $kv = array('theknow');
                 $tax = '';
         }
     }
-    if ( is_single() && has_tag( 'top-chef-colorado' ) ) {
-        $kv = 'Top-Chef-in-Colorado';
+    global $post;
+    $post_ad_tags = get_the_tags( $post->ID );
+    if ( $post_ad_tags ) {
+        foreach ( $post_ad_tags as $ad_tag ) {
+            array_push( $kv, $ad_tag->slug );
+        }
+    }
+    $post_nbhood_tags = get_the_terms( $post->ID, 'neighborhood' );
+    if ( $post_nbhood_tags ) {
+        foreach ( $post_nbhood_tags as $nbhood_tags ) {
+            array_push( $kv, 'neighborhood-'.$nbhood_tags->slug );
+        }
+    }
+    $post_venue_tags = get_the_terms( $post->ID,'venue');
+    if ( $post_venue_tags ) {
+        foreach ( $post_venue_tags as $venue_tag ) {
+            array_push( $kv, 'venue-'.$venue_tag->slug );
+        }
     }
     return array( $kv, $tax );
 }
@@ -237,7 +254,7 @@ class sidebar_ad_widget_top_cube extends WP_Widget
                 <div>
                     <script>
                         if ( window.innerWidth > 540 ) {
-                            googletag.defineSlot(\'/8013/denverpost.com/TheKnow' . $ad_tax[1] . '\', [[300,250],[300,600]], \'cube1_reverb\').setTargeting(\'pos\',[\'Cube1_RRail_ATF\']).setTargeting(\'kv\', \'' . $ad_tax[0] . '\')' . tkno_get_ad_target_page() . '.addService(googletag.pubads());
+                            googletag.defineSlot(\'/8013/denverpost.com/TheKnow' . $ad_tax[1] . '\', [[300,250],[300,600]], \'cube1_reverb\').setTargeting(\'pos\',[\'Cube1_RRail_ATF\']).setTargeting(\'kv\', [\'' . implode('\',\'',array_filter($ad_tax[0])) . '\'])' . tkno_get_ad_target_page() . '.addService(googletag.pubads());
                             googletag.pubads().enableSyncRendering();
                             googletag.enableServices();
                             googletag.display(\'cube1_reverb\');
@@ -271,7 +288,7 @@ class mobile_sidebar_ad_widget_top_cube extends WP_Widget
                 <div>
                     <script>
                         if ( window.innerWidth <= 540 ) {
-                            googletag.defineSlot(\'/8013/denverpost.com/TheKnow' . $ad_tax[1] . '\', [300,250], \'cube1_reverb\').setTargeting(\'pos\',[\'Cube1_RRail_ATF\']).setTargeting(\'kv\', \'' . $ad_tax[0] . '\')' . tkno_get_ad_target_page() . '.addService(googletag.pubads());
+                            googletag.defineSlot(\'/8013/denverpost.com/TheKnow' . $ad_tax[1] . '\', [300,250], \'cube1_reverb\').setTargeting(\'pos\',[\'Cube1_RRail_ATF\']).setTargeting(\'kv\', [\'' . implode('\',\'',array_filter($ad_tax[0])) . '\']' . tkno_get_ad_target_page() . '.addService(googletag.pubads());
                             googletag.pubads().enableSyncRendering();
                             googletag.enableServices();
                             googletag.display(\'cube1_reverb\');
@@ -304,7 +321,7 @@ class sidebar_ad_widget_cube extends WP_Widget
             <div id="cube2_reverb_wrap" class="widget ad_wrap">
                 <div>
                     <script>
-                    googletag.defineSlot(\'/8013/denverpost.com/TheKnow' . $ad_tax[1] . '\', [300,250], \'cube2_reverb\').setTargeting(\'pos\',[\'Cube2_RRail_mid\']).setTargeting(\'kv\', \'' . $ad_tax[0] . '\')' . tkno_get_ad_target_page() . '.addService(googletag.pubads());
+                    googletag.defineSlot(\'/8013/denverpost.com/TheKnow' . $ad_tax[1] . '\', [300,250], \'cube2_reverb\').setTargeting(\'pos\',[\'Cube2_RRail_mid\']).setTargeting(\'kv\', [\'' . implode('\',\'',array_filter($ad_tax[0])) . '\'])' . tkno_get_ad_target_page() . '.addService(googletag.pubads());
                     googletag.pubads().enableSyncRendering();
                     googletag.enableServices();
                     googletag.display(\'cube2_reverb\');
