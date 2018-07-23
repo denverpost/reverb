@@ -3,6 +3,11 @@
 /**
  * Widget API: TKNO_Widget_RSS class
  *
+ * Based on the RSS widget built into Wordpress **
+ * Takes an RSS feed but is able to associate the widget only with certain
+ * neighborhoods, allowing neighborhood-specific news from denverpost.com
+ * to be displayed in the lower-page sidebars on neighborhood pages.
+ *
  * @package Reverb
  * @subpackage Widgets
  * @since 4.4.0

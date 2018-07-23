@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Initialize the database with a table for location lookups on install
+ */
 function tkno_locations_install() {
     global $wpdb;
 
@@ -301,6 +304,7 @@ function location_search_form_shortcode( $atts = [], $content = null, $tag = '' 
     $user_text = ( null !== get_query_var( 'user_text' ) ) ? get_query_var( 'user_text' ) : '';
     $user_ZIP = ( null !== get_query_var( 'user_ZIP' ) ) ? get_query_var( 'user_ZIP' ) : '';
     $user_radius = ( null !== get_query_var( 'user_radius' ) ) ? get_query_var( 'user_radius' ) : '';
+    //Search form HTML output
     $form = '<form method="get" action="' . get_site_url() . '/location/">';
         $form .= '<input type="hidden" name="locationsearch" value="Y" />';
         $form .= '<div class="row">';
@@ -498,6 +502,7 @@ function location_shortcode_metabox( $post ) {
         <input type="button" class="button" onclick="javascript:insertLocationShortcode();" value="Insert shortcode" />
     </form>
     <script type="text/javascript">
+        // Javascript actually adds and removed items from the list during editing and generates the shortcode that can be inserted
         jQuery.fn.enterKey = function (fnc) {
             return this.each(function () {
                 $(this).keypress(function (ev) {
@@ -623,6 +628,10 @@ function location_shortcode_save_metabox( $post_id, $post ) {
         delete_post_meta( $post_id, $loc_shortcode_map_meta_key, $loc_shortcode_map_meta_value );
 }
 
+/**
+ * Process shortcodes in Posts to insert location elements
+ * based on the selected options
+ */
 function locations_shortcode( $atts = [], $content = null, $tag = '' ) {
     global $post;
     $recursive = ( $post->post_type == 'location' ) ? true : false;

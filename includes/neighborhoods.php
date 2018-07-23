@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Everything to do with The Know Neighborhoods' special functionality
+ */
+
 // Get a neighborhood when the custom field matches a neighborhood taxonomy slug
 function tkno_get_neighborhood_from_slug($neighborhood_slug) {
     $args = array(
@@ -302,7 +306,9 @@ function neighborhoods_save_post_meta( $post_id, $post ) {
 }
 
 /**
- * neighborhood_related_by_category_widget
+ * A widget that finds related post based on the
+ * stories' neighborhood taxonomy values
+ * 
  * @return html list inserted in widget
  */
 class neighborhood_related_widget extends WP_Widget {
@@ -446,6 +452,7 @@ function get_term_topmost_parent( $term_id, $taxonomy ){
     return $parent;
 }
 
+// Inserts a WalkScore widget based on the neighborhood name
 class neighborhood_walkscore_widget extends WP_Widget
 {
     public function __construct()
@@ -495,6 +502,7 @@ class neighborhood_walkscore_widget extends WP_Widget
 function register_neighborhood_walkscore_widget() { register_widget('neighborhood_walkscore_widget'); }
 add_action( 'widgets_init', 'register_neighborhood_walkscore_widget' );
 
+// Inserts a Placester listings widget based on the neighborhood name
 class neighborhood_listings_widget extends WP_Widget
 {
     public function __construct()

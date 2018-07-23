@@ -1,6 +1,10 @@
 <?php
 
 /**
+ * Adding and removing little widgets with very specific uses
+ */
+
+/**
  * Let's hide some of the default WP widgets that we'll never actually use.
  *
  * After: OMG that's so much better.
@@ -118,7 +122,7 @@ function register_popular_widget() { register_widget('tkno_popular_widget'); }
 add_action( 'widgets_init', 'register_popular_widget' );
 
 
-// Create a simple widget for one-click newsletter signup
+// Create a simple widget for one-click newsletter signup -- DEPRECATED as of 6/2018
 class newsletter_signup_widget extends WP_Widget {
     public function __construct() {
             parent::__construct(
@@ -269,7 +273,8 @@ class sidebar_tagline_widget extends WP_Widget {
 function register_sidebar_tagline_widget() { register_widget('sidebar_tagline_widget'); }
 add_action( 'widgets_init', 'register_sidebar_tagline_widget' );
 
-// Calendar widget
+// Calendar widget -- selects one of 6 CitySpark widgets automatically
+// based on the categories a page represents.
 class tkno_calendar_widget extends WP_Widget
 {
     public function __construct()
@@ -332,6 +337,7 @@ class tkno_calendar_widget extends WP_Widget
 function register_calendar_widget() { register_widget('tkno_calendar_widget'); }
 add_action( 'widgets_init', 'register_calendar_widget' );
 
+// Social media Follow Us widget
 class follow_us_on_widget extends WP_Widget
 {
     public function __construct()
@@ -368,7 +374,9 @@ class follow_us_on_widget extends WP_Widget
 function register_follow_us_on_widget() { register_widget('follow_us_on_widget'); }
 add_action( 'widgets_init', 'register_follow_us_on_widget' );
 
-// Create a simple widget for one-click newsletter signup
+// A widget that breaks the site into Know, Neighborhoods and Outdoors,
+// and on pages of any one type, displays promo with recent content
+// for the other two types.
 class more_from_widget extends WP_Widget {
     public function __construct() {
             parent::__construct(

@@ -144,7 +144,8 @@ function tkno_filter_user_query( &$user_query ) {
     return $user_query;
 }
 
-// allow script tags in editor
+// allow script and iframe tags (added to allow some atributes that
+// were stripped otherwise) in the post editor
 function tkno_allow_script_tags( $allowedposttags ) {
     if ( !current_user_can( 'publish_posts' ) )
         return $allowedposttags;
@@ -237,7 +238,7 @@ add_filter( 'jetpack_enable_open_graph', '__return_false', 99 );
 // Disable only the Twitter Cards
 add_filter( 'jetpack_disable_twitter_cards', '__return_true', 99 );
 
-// Add body classes for mobile destection for swiping stuff
+// Add body classes for mobile detection for swiping stuff
 function browser_body_class($classes) {
     global $is_lynx, $is_gecko, $is_IE, $is_opera, $is_NS4, $is_safari, $is_chrome, $is_iphone;
  
@@ -285,6 +286,7 @@ Author: Mike Schroder
 Version: 1.0
 Author URI: http://www.getsource.net/
 */
+// Added to combat image upload problems in some versions of Wordpress
 function ms_image_editor_default_to_gd( $editors ) {
     $gd_editor = 'WP_Image_Editor_GD';
     $editors = array_diff( $editors, array( $gd_editor ) );
@@ -397,9 +399,9 @@ function tkno_dequeue_scripts() {
 add_action( 'wp_enqueue_scripts', 'tkno_dequeue_scripts', 99 );
 
 /**
- * Remove jquery migrate and move jquery to footer
+ * moves WP default jquery to footer for site speed
  */ 
-function tkno_remove_jquery_migrate( &$scripts)
+function tkno_move_jquery( &$scripts)
 {
     if(!is_admin())
     {
@@ -407,7 +409,7 @@ function tkno_remove_jquery_migrate( &$scripts)
         $scripts->add( 'jquery', false, array( 'jquery-core' ), '1.10.2' );
     }
 }
-add_filter( 'wp_default_scripts', 'tkno_remove_jquery_migrate' );
+add_filter( 'wp_default_scripts', 'tkno_move_jquery' );
 
 /**
  * deregister stupid wP emoji BS

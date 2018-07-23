@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Classic Denver Post Snow widget, reimagined as a Wordpress plugin and
+ * set up for standalone use on The Know. Drop the widget on the sidebar
+ * in late fall and remove it in late spring. Has no options.
+ */
+
 class DP_Snow_Widget extends WP_Widget {
 
 	/**

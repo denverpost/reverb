@@ -4,6 +4,7 @@
 function tkno_get_ad_cat_slug($cat_id=false) {
     global $post;
     $curr_cat = get_the_category_list( '/' , 'multiple', $post->ID );
+    // the acceptable top-level categories
     $valid_cats = array('movies-and-tv','museums-and-galleries','stage','audio-video','musicnews','music-photos','reverb-features','music-reviews','family-friendly','outdoors','photos','dining-news','restaurant-reviews','bars-and-clubs','beer');
     $curr_cat = explode( '/', $curr_cat );
     $return_cat = array();
@@ -27,6 +28,7 @@ function tkno_get_ad_cat_slug($cat_id=false) {
 }
 
 function tkno_get_ad_value() {
+    // Returns an array of the pieces for the ad tag including the taxonomy value and an array of KV values
     $tax_neighborhood = $category = $outdoorcat = $outdoorkv = FALSE;
     $kv = array();
     $tax = '';
@@ -88,6 +90,7 @@ function tkno_get_ad_value() {
     } else if ( get_post_type() == 'location' ) {
         $category = 'location';
     }
+    // Sets the most specific Taxonomies possible based on category, neighborhood, etc.
     if ( $category ) {
         switch ( $category ) {
             case 'calendar':
@@ -233,6 +236,9 @@ function tkno_get_ad_target_page() {
     }
 }
 
+/**
+ * Add a widget that can be dragged to a sidebar for the upper-rail cube ad
+ */
 class sidebar_ad_widget_top_cube extends WP_Widget
 {
     public function __construct()
@@ -267,6 +273,9 @@ class sidebar_ad_widget_top_cube extends WP_Widget
 function register_ad_widget_large_cube() { register_widget('sidebar_ad_widget_top_cube'); }
 add_action( 'widgets_init', 'register_ad_widget_large_cube' );
 
+/**
+ * Add a widget that can be dragged to a sidebar for the mobile-only top cube (goes above content div, must be placed somewhere)
+ */
 class mobile_sidebar_ad_widget_top_cube extends WP_Widget
 {
     public function __construct()
@@ -301,6 +310,10 @@ class mobile_sidebar_ad_widget_top_cube extends WP_Widget
 function register_mobile_ad_widget_large_cube() { register_widget('mobile_sidebar_ad_widget_top_cube'); }
 add_action( 'widgets_init', 'register_mobile_ad_widget_large_cube' );
 
+
+/**
+ * Add a widget that can be dragged to a sidebar for lower-rail cube ads (can be more than one technically, but designed to be used only once)
+ */
 class sidebar_ad_widget_cube extends WP_Widget
 {
     public function __construct()
@@ -334,7 +347,7 @@ function register_ad_widget_cube() { register_widget('sidebar_ad_widget_cube'); 
 add_action( 'widgets_init', 'register_ad_widget_cube' );
 
 /**
- * Section-level sponsorship widget
+ * Section-level sponsorship widget (displays a "sponsored-by" logo)
  * @return html list inserted in widget
  */
 class category_sponsor_widget extends WP_Widget {
@@ -397,7 +410,10 @@ class category_sponsor_widget extends WP_Widget {
 function register_category_sponsor_widget() { register_widget('category_sponsor_widget'); }
 add_action( 'widgets_init', 'register_category_sponsor_widget' );
 
-/*** ad KV METABOX ***/
+/**
+ * Generate a metabox for an override ad tag KV value
+ * This KV is appended to the post tags, neighborhoods and venues in the KV array for ad targeting.
+ **/
 function post_kv_meta_box_setup() {
     add_action( 'add_meta_boxes', 'post_kv_meta_box_add' );
     add_action( 'save_post', 'post_kv_meta_box_save', 10, 2 );

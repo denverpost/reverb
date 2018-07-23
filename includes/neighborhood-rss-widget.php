@@ -3,6 +3,10 @@
 /**
  * Widget API: TKNO_Widget_Location class
  *
+ * Takes an RSS feed and outputs it in in a sidebar. Based on default 
+ * RSS widget code, but able to be tied to a neighborhood page
+ * so many feeds can be selected and displayed only on certain pages.
+ *
  * @package Reverb
  * @subpackage Widgets
  * @since 4.4.0

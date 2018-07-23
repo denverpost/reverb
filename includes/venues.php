@@ -1,4 +1,14 @@
 <?php
+
+/**
+ * Set of functions that add the Venues post type and taxonomy,
+ * and the relationships between the two.
+ *
+ * Venues and Neighborhoods use a Page Template to replace the Taxonomy Archive
+ * Template, and the archive of the Post Type becomes a listing of available
+ * Venues/Neighborhoods.
+ */
+
 // Get a venue when the custom field matches a venue taxonomy slug
 function tkno_get_venue_from_slug($venue_slug) {
     $args = array(
