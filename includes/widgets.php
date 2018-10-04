@@ -122,6 +122,8 @@ add_action( 'widgets_init', 'register_popular_widget' );
 function load_newsletterScripts()
 {
     wp_enqueue_script( 'listrak', 'https://prodmg2.blob.core.windows.net/newsletterwidget/mng/colo/MG2Widget-newsletterwidget-nojquery.min.js', array('jquery'), 1.0, false );
+    wp_enqueue_script( 'listrak-actions', get_stylesheet_directory_uri() . '/library/js/listrak-actions.js' );
+
 }
 
 // Create a simple widget for one-click newsletter signup
@@ -135,6 +137,15 @@ class newsletter_signup_widget extends WP_Widget {
             if(is_active_widget(false, false, $this->id_base))
             {
                 add_action('wp_enqueue_scripts', 'load_newsletterScripts');
+                function load_attributes( $url ){
+                    if ( 'https://prodmg2.blob.core.windows.net/newsletterwidget/mng/colo/MG2Widget-newsletterwidget-nojquery.min.js' === $url ){
+                        return "$url' id=\"scriptMg2Widget\" data-blank='";
+                    }
+
+                    return $url;
+                }
+
+                add_filter( 'clean_url', 'load_attributes', 11, 1 );
             }
     }
 
@@ -166,22 +177,17 @@ class newsletter_signup_widget extends WP_Widget {
         echo '<div id="sidebar-newsletter" class="widget widget_newsletter">
                 <h4 class="widget-title">Get Our Newsletter</h4>
                 <p>' . $newletter_text . '</p>
-                <form action="http://www.denverpostplus.com/app/mailer/" method="post" name="reverbmail">
+                <div id="newsletterForm">
                     <div class="row collapse mx-form">
                         <div class="large-9 small-9 columns">
-                            <input type="hidden" name="keebler" value="goof111" />
-                            <input type="hidden" name="goof111" value="TRUE" />
-                            <input type="hidden" name="redirect" value="' . $current_url . '" />
-                            <input type="hidden" name="id" value="autoadd" />
-                            <input type="hidden" name="which" value="theknow" />
-                            <input type="text" name="name_first" value="Humans: Do Not Use" style="display:none;" />
-                            <input required placeholder="Email Address" type="text" name="email_address" maxlength="50" value="" />
+                            <input id="userEmail" required placeholder="Email Address" type="text" name="email_address" maxlength="50" value="" />
                         </div>
                         <div class="large-3 small-3 columns end">
-                            <input class="button prefix" type="submit" id="newslettersubmit" value="Sign up">
+                            <input class="button prefix" id="newsletterEmail" type="submit" onclick="listrakActions()" value="Sign up">
                         </div>
                     </div>
-                </form>
+                </div>
+                <div id="mg2Widget-newsletter-container"></div>
             </div>';
     }
 }
