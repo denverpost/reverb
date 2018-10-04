@@ -118,6 +118,12 @@ function register_popular_widget() { register_widget('tkno_popular_widget'); }
 add_action( 'widgets_init', 'register_popular_widget' );
 
 
+//custom newsletter scripts
+function load_newsletterScripts()
+{
+    wp_enqueue_script( 'listrak', 'https://prodmg2.blob.core.windows.net/newsletterwidget/mng/colo/MG2Widget-newsletterwidget-nojquery.min.js', array('jquery'), 1.0, false );
+}
+
 // Create a simple widget for one-click newsletter signup
 class newsletter_signup_widget extends WP_Widget {
     public function __construct() {
@@ -126,6 +132,10 @@ class newsletter_signup_widget extends WP_Widget {
                 __('Newsletter Signup', 'newsletter_signup_widget'),
                 array('description' => __('Come on, sign up for a newsletter. All the cool kids are doing it.', 'newsletter_signup_widget'), )
             );
+            if(is_active_widget(false, false, $this->id_base))
+            {
+                add_action('wp_enqueue_scripts', 'load_newsletterScripts');
+            }
     }
 
     public function form( $instance ) {
@@ -178,7 +188,7 @@ class newsletter_signup_widget extends WP_Widget {
 function register_newsletter_signup_widget() { register_widget('newsletter_signup_widget'); }
 add_action( 'widgets_init', 'register_newsletter_signup_widget' );
 
-// Create a simple widget for one-click newsletter signup
+// Create a simple widget for newstip messages
 class newstip_submit_widget extends WP_Widget {
     public function __construct() {
             parent::__construct(
