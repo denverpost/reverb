@@ -189,6 +189,12 @@ class newsletter_signup_widget extends WP_Widget {
                         </div>
                     </div>
                 </div>
+                 <style>
+                    .pm-close{
+                        margin-top: 80px!important;
+                        position: absolute!important;
+                        }
+                </style>
                 <div id="mg2Widget-newsletter-container"></div>
             </div>';
     }
