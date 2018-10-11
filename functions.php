@@ -411,3 +411,41 @@ function outdoors_category_templates( $template ) {
     return $template;
 }
 add_filter( 'category_template', 'outdoors_category_templates' );
+
+// adlayer inside article ad insertion
+//Insert ads after second paragraph of single post content. 
+function ad_insert_post_ads( $content ) {
+     $ad_code = '<div style="text-align:center;"><div id="div-gpt-ad-Cube_Article" class="dfp-ad dfp-Cube_Article" data-ad-unit="Cube_Article">';
+	$ad_code .= '=>Cube_Article goes here <=<script type="text/javascript">';
+	$ad_code .= 'if ( "undefined" !== typeof googletag ) {
+			googletag.cmd.push( function() { googletag.display("div-gpt-ad-Cube_Article"); } );
+		}';
+	$ad_code .= '</script>';
+	$ad_code .= '</div></div>';
+ 
+    if ( is_single() && ! is_admin() ) {
+        return ad_insert_after_paragraph( $ad_code, 2, $content );
+    }
+     
+    return $content;
+}
+  
+// Parent Function that makes the magic happen
+function ad_insert_after_paragraph( $insertion, $paragraph_id, $content ) {
+    $closing_p = '</p>';
+    $paragraphs = explode( $closing_p, $content );
+    foreach ($paragraphs as $index => $paragraph) {
+ 
+        if ( trim( $paragraph ) ) {
+            $paragraphs[$index] .= $closing_p;
+        }
+ 
+        if ( $paragraph_id == $index + 1 ) {
+            $paragraphs[$index] .= $insertion;
+        }
+    }
+     
+    return implode( '', $paragraphs );
+}
+add_filter( 'the_content', 'ad_insert_post_ads' );
+
