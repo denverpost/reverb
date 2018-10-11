@@ -155,8 +155,10 @@ class newsletter_signup_widget extends WP_Widget {
             $newletter_text = $instance[ 'newletter_text' ];
         }
         else {
-            $newletter_text = __( 'Sign up for our <em>Now You Know</em> emails to get breaking entertainment news and weekend plans sent right to your inbox.', 'wpb_widget_domain' );
-        } ?>
+            $newletter_text = __( 'Sign up for our <em>Now You Know!</em> emails to get breaking entertainment news and weekend plans sent right to your inbox.', 'wpb_widget_domain' );
+        }
+        ?>
+        <p>This widget will bring up the MG2 widget for The Know & outdoors newsletters.</p>
         <p>
         <label for="<?php echo $this->get_field_id( 'newletter_text' ); ?>"><?php _e( 'Descriptive text (displayed above email form):' ); ?></label> 
         <input class="widefat" id="<?php echo $this->get_field_id( 'newletter_text' ); ?>" name="<?php echo $this->get_field_name( 'newletter_text' ); ?>" type="text" value="<?php echo esc_attr( $newletter_text ); ?>" />
