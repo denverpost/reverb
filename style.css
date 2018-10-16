@@ -182,7 +182,23 @@ div.clear {
 	clear:both;
 }
 
+/* ad layer styles */
+#div-gpt-ad-top_leaderboard {
+	margin: 0 auto;
+}
+#div-gpt-ad-bottom_leaderboard {
+	margin:0 auto;
+}
+.widget_ad_layers_ad_widget > div {
+	margin: 0 auto;
+}
+#div-gpt-ad-Cube_Article {
+	margin: 0 auto;
+}
+
 /* header and logo */
+
+
 div.inner-header > div.row {
 	background-repeat:no-repeat;
 	background-size:cover;

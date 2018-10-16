@@ -416,7 +416,7 @@ add_filter( 'category_template', 'outdoors_category_templates' );
 //Insert ads after second paragraph of single post content. 
 function ad_insert_post_ads( $content ) {
      $ad_code = '<div style="text-align:center;"><div id="div-gpt-ad-Cube_Article" class="dfp-ad dfp-Cube_Article" data-ad-unit="Cube_Article">';
-	$ad_code .= '=>Cube_Article goes here <=<script type="text/javascript">';
+	$ad_code .= '<script type="text/javascript">';
 	$ad_code .= 'if ( "undefined" !== typeof googletag ) {
 			googletag.cmd.push( function() { googletag.display("div-gpt-ad-Cube_Article"); } );
 		}';
