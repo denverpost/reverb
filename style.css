@@ -192,9 +192,22 @@ div.clear {
 .widget_ad_layers_ad_widget > div {
 	margin: 0 auto;
 }
-#div-gpt-ad-Cube_Article {
-	margin: 0 auto;
+.widget_ad_layers_ad_widget > div > div > iframe {
+	display:block;
+	margin: auto;
 }
+.widget_ad_layers_ad_widget > div > div {
+	display:block!important;
+	margin: auto;
+}
+#div-gpt-ad-Cube_Article {
+	
+}
+@media screen and (max-width: 800px) {
+	#div-gpt-ad-Cube_Article {
+		
+	}
+{
 
 /* header and logo */
 
