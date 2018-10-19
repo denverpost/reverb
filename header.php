@@ -45,6 +45,7 @@ $outdoor_page_class = ( is_outdoor_home() ) ? ' outdoorhome' : ''; ?>
 
         <?php if ( ! is_page_template( 'page-sponsored.php' ) ) { ?>
         <div class="adElement clearfloat" id="adPosition1" style="clear:both;text-align:center;">
+            
             <!-- begin top leaderboard and interstitial -->
             	 <div class="header-banners">
 				<div id="div-gpt-ad-interstitial" class="dfp-ad dfp-interstitial" data-ad-unit="interstitial">
@@ -62,6 +63,7 @@ $outdoor_page_class = ( is_outdoor_home() ) ? ' outdoorhome' : ''; ?>
 				</div>			
 			 </div>
             <!-- end top leaderboard and interstitial -->
+            
         </div>
         <?php } ?>
 

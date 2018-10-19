@@ -52,11 +52,12 @@ function tkno_locations_register_post_type() {
         'capability_type' => 'post',
         'query_var'     => true,
         'supports'      => array( 'title', 'editor', 'thumbnail', 'excerpt', 'page-attributes', 'revisions', 'author', 'custom-fields', ),
-        'rewrite' => array(
+        /*'rewrite' => array(
             'slug' => 'location',
-            'with_front' => false
-            ),
-        'has_archive'   => true
+            'with_front' => true
+            ),*/
+        'has_archive'   => true,
+        'taxonomies'    => array( 'category' ),
     );
     register_post_type( 'location', $args );
 }

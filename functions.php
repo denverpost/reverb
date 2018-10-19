@@ -112,7 +112,7 @@ require_once( __DIR__ . '/includes/locations.php');
 // Sidebar widgets and related pieces
 require_once( __DIR__ . '/includes/widgets.php');
 // Ad-related widgets, etc.
-require_once( __DIR__ . '/includes/advertising.php');
+//require_once( __DIR__ . '/includes/advertising.php');
 // Expanded RSS widget for DP feed
 require_once( __DIR__ . '/includes/rss-widget.php');
 // Location-based news from RSS widget
@@ -448,4 +448,3 @@ function ad_insert_after_paragraph( $insertion, $paragraph_id, $content ) {
     return implode( '', $paragraphs );
 }
 add_filter( 'the_content', 'ad_insert_post_ads' );
-

@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c5aca279-1b2b-4c26-8b16-2b7b57647446" name="Default Changelist" comment="" />
+    <list default="true" id="c5aca279-1b2b-4c26-8b16-2b7b57647446" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/archive-neighborhoods.php" beforeDir="false" afterPath="$PROJECT_DIR$/archive-neighborhoods.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions.php" beforeDir="false" afterPath="$PROJECT_DIR$/functions.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/header.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/includes/locations.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/locations.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/includes/neighborhoods.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/neighborhoods.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/includes/venues.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/venues.php" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -12,29 +20,32 @@
     <session id="1562232714">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="2" />
+          <entry key="project.closed" value="5" />
           <entry key="project.open.time.0" value="2" />
-          <entry key="project.opened" value="2" />
+          <entry key="project.open.time.2" value="1" />
+          <entry key="project.open.time.6" value="2" />
+          <entry key="project.opened" value="5" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="php" value="2" />
+          <entry key="php" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="PHP" value="2" />
+          <entry key="PHP" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="php" value="1" />
+          <entry key="php" value="28" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="HTML" value="1" />
+          <entry key="PHP" value="27" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.php.new.class" />
@@ -57,11 +68,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/includes/widgets.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="889">
+            <state relative-caret-position="2865">
               <caret line="191" column="16" selection-start-line="191" selection-start-column="16" selection-end-line="191" selection-end-column="16" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/showme.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="960">
+              <caret line="64" column="2" lean-forward="true" selection-start-line="64" selection-start-column="2" selection-end-line="64" selection-end-column="2" />
             </state>
           </provider>
         </entry>
@@ -75,6 +95,7 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/includes/widgets.php" />
+        <option value="$PROJECT_DIR$/showme.php" />
       </list>
     </option>
   </component>
@@ -88,16 +109,17 @@
     <servers />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="547" />
-    <option name="y" value="188" />
-    <option name="width" value="1493" />
-    <option name="height" value="1303" />
+    <option name="x" value="334" />
+    <option name="y" value="32" />
+    <option name="width" value="1664" />
+    <option name="height" value="1425" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -105,16 +127,10 @@
               <item name="reverb" type="b2602c69:ProjectViewProjectNode" />
               <item name="reverb" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="reverb" type="b2602c69:ProjectViewProjectNode" />
-              <item name="reverb" type="462c0819:PsiDirectoryNode" />
-              <item name="includes" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -146,17 +162,20 @@
       <updated>1539100762227</updated>
       <workItem from="1539100763369" duration="76000" />
       <workItem from="1539275077097" duration="215000" />
+      <workItem from="1539883294426" duration="651000" />
+      <workItem from="1539962123685" duration="8000" />
+      <workItem from="1539964837222" duration="6000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="291000" />
+    <option name="totallyTimeSpent" value="956000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="547" y="188" width="1493" height="1303" extended-state="0" />
+    <frame x="334" y="32" width="1664" height="1425" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.252929" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.23427866" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -193,8 +212,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/includes/widgets.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="889">
+        <state relative-caret-position="2865">
           <caret line="191" column="16" selection-start-line="191" selection-start-column="16" selection-end-line="191" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/showme.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="960">
+          <caret line="64" column="2" lean-forward="true" selection-start-line="64" selection-start-column="2" selection-end-line="64" selection-end-column="2" />
         </state>
       </provider>
     </entry>
