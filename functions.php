@@ -439,10 +439,14 @@ function ad_insert_after_paragraph( $insertion, $paragraph_id, $content ) {
         if ( trim( $paragraph ) ) {
             $paragraphs[$index] .= $closing_p;
         }
- 
-        if ( $paragraph_id == $index + 1 ) {
-            $paragraphs[$index] .= $insertion;
-        }
+        
+        //check for at least 5 paragraphs before displaying inline ad cube
+        $minParagraphCount = 5;
+ 		if ((count($paragraphs)-1) >= $minParagraphCount) {
+			if ( $paragraph_id == $index + 1 ) {
+				$paragraphs[$index] .= $insertion;
+			}
+		}
     }
      
     return implode( '', $paragraphs );
