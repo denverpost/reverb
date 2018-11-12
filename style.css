@@ -1513,6 +1513,11 @@ body:not(.home):not(.outdoorhome) .cat-second .entry-body h2.entry-title {
 	margin:0 10% 1em;
 	width:80%;
 }
+/*fix for in article iframe ads */
+.dfp-Cube_Article iframe {
+	width:100%!important;
+}
+
 .page .entry-content p iframe,
 .single .entry-content p iframe {
 	width:100%;
