@@ -118,6 +118,14 @@ function register_popular_widget() { register_widget('tkno_popular_widget'); }
 add_action( 'widgets_init', 'register_popular_widget' );
 
 
+//custom newsletter scripts
+function load_newsletterScripts()
+{
+    wp_enqueue_script( 'listrak', 'https://prodmg2.blob.core.windows.net/newsletterwidget/mng/colo/MG2Widget-newsletterwidget-nojquery.min.js', array('jquery'), 1.0, false );
+    wp_enqueue_script( 'listrak-actions', get_stylesheet_directory_uri() . '/library/js/listrak-actions.js' );
+
+}
+
 // Create a simple widget for one-click newsletter signup
 class newsletter_signup_widget extends WP_Widget {
     public function __construct() {
@@ -126,6 +134,19 @@ class newsletter_signup_widget extends WP_Widget {
                 __('Newsletter Signup', 'newsletter_signup_widget'),
                 array('description' => __('Come on, sign up for a newsletter. All the cool kids are doing it.', 'newsletter_signup_widget'), )
             );
+            if(is_active_widget(false, false, $this->id_base))
+            {
+                add_action('wp_enqueue_scripts', 'load_newsletterScripts');
+                function load_attributes( $url ){
+                    if ( 'https://prodmg2.blob.core.windows.net/newsletterwidget/mng/colo/MG2Widget-newsletterwidget-nojquery.min.js' === $url ){
+                        return "$url' id=\"scriptMg2Widget\" data-blank='";
+                    }
+
+                    return $url;
+                }
+
+                add_filter( 'clean_url', 'load_attributes', 11, 1 );
+            }
     }
 
     public function form( $instance ) {
@@ -134,8 +155,10 @@ class newsletter_signup_widget extends WP_Widget {
             $newletter_text = $instance[ 'newletter_text' ];
         }
         else {
-            $newletter_text = __( 'Sign up for our <em>Now You Know</em> emails to get breaking entertainment news and weekend plans sent right to your inbox.', 'wpb_widget_domain' );
-        } ?>
+            $newletter_text = __( 'Sign up for our <em>Now You Know!</em> emails to get breaking entertainment news and weekend plans sent right to your inbox.', 'wpb_widget_domain' );
+        }
+        ?>
+        <p>This widget will bring up the MG2 widget for The Know & outdoors newsletters.</p>
         <p>
         <label for="<?php echo $this->get_field_id( 'newletter_text' ); ?>"><?php _e( 'Descriptive text (displayed above email form):' ); ?></label> 
         <input class="widefat" id="<?php echo $this->get_field_id( 'newletter_text' ); ?>" name="<?php echo $this->get_field_name( 'newletter_text' ); ?>" type="text" value="<?php echo esc_attr( $newletter_text ); ?>" />
@@ -156,29 +179,30 @@ class newsletter_signup_widget extends WP_Widget {
         echo '<div id="sidebar-newsletter" class="widget widget_newsletter">
                 <h4 class="widget-title">Get Our Newsletter</h4>
                 <p>' . $newletter_text . '</p>
-                <form action="http://www.denverpostplus.com/app/mailer/" method="post" name="reverbmail">
+                <div id="newsletterForm">
                     <div class="row collapse mx-form">
                         <div class="large-9 small-9 columns">
-                            <input type="hidden" name="keebler" value="goof111" />
-                            <input type="hidden" name="goof111" value="TRUE" />
-                            <input type="hidden" name="redirect" value="' . $current_url . '" />
-                            <input type="hidden" name="id" value="autoadd" />
-                            <input type="hidden" name="which" value="theknow" />
-                            <input type="text" name="name_first" value="Humans: Do Not Use" style="display:none;" />
-                            <input required placeholder="Email Address" type="text" name="email_address" maxlength="50" value="" />
+                            <input id="userEmail" required placeholder="Email Address" type="text" name="email_address" maxlength="50" value="" />
                         </div>
                         <div class="large-3 small-3 columns end">
-                            <input class="button prefix" type="submit" id="newslettersubmit" value="Sign up">
+                            <input class="button prefix" id="newsletterEmail" type="submit" onclick="listrakActions()" value="Sign up">
                         </div>
                     </div>
-                </form>
+                </div>
+                 <style>
+                    .pm-close{
+                        margin-top: 80px!important;
+                        position: absolute!important;
+                        }
+                </style>
+                <div id="mg2Widget-newsletter-container"></div>
             </div>';
     }
 }
 function register_newsletter_signup_widget() { register_widget('newsletter_signup_widget'); }
 add_action( 'widgets_init', 'register_newsletter_signup_widget' );
 
-// Create a simple widget for one-click newsletter signup
+// Create a simple widget for newstip messages
 class newstip_submit_widget extends WP_Widget {
     public function __construct() {
             parent::__construct(

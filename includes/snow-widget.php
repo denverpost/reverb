@@ -185,7 +185,7 @@ class DP_Snow_Widget extends WP_Widget {
 				'source' => $source,
 				'json'   => 'true',
 			), $this->remote_feed_base );
-
+			
 			// Retrieve the data from the API.
 			$remote_data = wp_remote_get(
 				$build_url, // This stops working when you run it through esc_url() ¯\_(ツ)_/¯

@@ -607,7 +607,8 @@ function outdoor_children_widgets() {
 	}
 
 	// is it one of the outdoors semi-parents, or a child?
-    if ( is_outdoor_home() ) { 
+    if ( is_outdoor_home() ) {
+         $URLvalue = explode("/", $_SERVER['REQUEST_URI']);
     	$cat = get_queried_object();
         $children = get_terms( $cat->taxonomy, array(
             'parent'    => $cat->term_id,
@@ -625,10 +626,11 @@ function outdoor_children_widgets() {
 	        $child_query = new WP_Query( $args );
 	        while ($child_query->have_posts()) {
 	        	$child_query->the_post();
-	        	$children_order[get_the_time('U')] = $child->term_id;
+	        	$children_order[$i] = $child->term_id;
 				wp_reset_query();
 	        }
 	        // maximum of four most recent children
+	        ++$i;
 	        if (++$i == 4) break;
 	        wp_reset_query();
         }
@@ -656,7 +658,52 @@ function outdoor_children_widgets() {
 					</h4>
 					<ul class="dpe-flexible-posts">
 					<?php while( $out_child_posts->have_posts() ) : $out_child_posts->the_post(); $do_not_duplicate[] = get_the_ID(); ?>
-						<li id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+
+						<?PHP
+								//finding the primary category of a post to compare against the section header and only have the article appear in one column
+								$category = get_the_category();
+                                $useCatLink = true;
+                                // If post has a category assigned.
+                                if ($category){
+                                    $category_display = '';
+                                    $category_link = '';
+                                    if ( class_exists('WPSEO_Primary_Term') )
+                                    {
+                                        // Show the post's 'Primary' category, if this Yoast feature is available, & one is set
+                                        $wpseo_primary_term = new WPSEO_Primary_Term( 'category', get_the_id() );
+                                        $wpseo_primary_term = $wpseo_primary_term->get_primary_term();
+                                        $term = get_term( $wpseo_primary_term );
+                                        if (is_wp_error($term)) {
+                                            // Default to first category (not Yoast) if an error is returned
+                                            $category_display = $category[0]->name;
+                                            $category_link = get_category_link( $category[0]->term_id );
+                                        } else {
+                                            // Yoast Primary category
+                                            $category_display = $term->name;
+                                            $category_link = get_category_link( $term->term_id );
+                                        }
+                                    }
+                                    else {
+                                        // Default, display the first category in WP's list of assigned categories
+                                        $category_display = $category[0]->name;
+                                        $category_link = get_category_link( $category[0]->term_id );
+                                    }
+                                    // Display category
+                                    if ( !empty($category_display) ){
+                                        if ( $useCatLink == true && !empty($category_link) ){
+                                        //echo '<span class="post-category">';
+                                        //echo '<a href="'.$category_link.'">'.htmlspecialchars($category_display).'</a>';
+                                        //echo '</span>';
+                                        } else {
+                                        //echo '<span class="post-category">'.htmlspecialchars($category_display).'</span>';
+                                        }
+                                    }
+
+                                }
+
+						if ($term->name == $cat_display) {//render the article link
+						?>
+						<li id="post-<?php the_ID(); ?>" <?php post_class(); ?> >
 								<?php
 									if( !$didthumb ) {
 										// If the post has a feature image, show it
@@ -670,9 +717,37 @@ function outdoor_children_widgets() {
 											</div>
 									<?php } ?>
 								<?php $didthumb = true;
-								} ?>
+								}
+								?>
 								<h4 class="title"><a href="<?php the_permalink(); ?>" rel="bookmark" class="title-link" title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a></h4>
+
 						</li>
+                        <?php }else if ($URLvalue[2] != "winter"){ //end url check ?>
+
+
+                        <li id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+								<?php
+									if( !$didthumb ) {
+										// If the post has a feature image, show it
+										if( has_post_thumbnail() ) {
+											$medium_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'medium'); ?>
+											<div class="cat-thumbnail">
+												<div class="cat-imgholder"></div>
+												<a href="<?php the_permalink(); ?>" rel="bookmark" title="<?php the_title_attribute(); ?>">
+													<div class="cat-img" style="background-image:url('<?php echo $medium_image_url[0]; ?>');"></div>
+												</a>
+											</div>
+									<?php } ?>
+								<?php $didthumb = true;
+								}
+								?>
+								<h4 class="title"><a href="<?php the_permalink(); ?>" rel="bookmark" class="title-link" title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a></h4>
+
+						</li>
+
+
+
+                        <?PHP } ?>
 					<?php endwhile; ?>
 					</ul>
 				<?php } ?>	
