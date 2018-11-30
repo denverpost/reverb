@@ -3,59 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="c5aca279-1b2b-4c26-8b16-2b7b57647446" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/includes/snow-widget.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/snow-widget.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/library/inc/content/content-posts.php" beforeDir="false" afterPath="$PROJECT_DIR$/library/inc/content/content-posts.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/includes/locations.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/locations.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="FUSProjectUsageTrigger">
-    <session id="1562232714">
-      <usages-collector id="statistics.lifecycle.project">
-        <counts>
-          <entry key="project.closed" value="8" />
-          <entry key="project.open.time.0" value="5" />
-          <entry key="project.open.time.2" value="1" />
-          <entry key="project.open.time.6" value="2" />
-          <entry key="project.opened" value="8" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.open">
-        <counts>
-          <entry key="css" value="1" />
-          <entry key="php" value="5" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.open">
-        <counts>
-          <entry key="CSS" value="1" />
-          <entry key="PHP" value="5" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.edit">
-        <counts>
-          <entry key="css" value="108" />
-          <entry key="php" value="1084" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.edit">
-        <counts>
-          <entry key="CSS" value="108" />
-          <entry key="HTML" value="1" />
-          <entry key="PHP" value="1083" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.php.new.class" />
-      <usages-collector id="statistics.js.language.service.starts" />
-      <usages-collector id="statistics.php.composer.actions" />
-      <usages-collector id="statistics.php.rename.constructor" />
-      <usages-collector id="statistics.php.new.test" />
-      <usages-collector id="statistics.vcs.git.usages" />
-      <usages-collector id="statistics.php.composer.command.options" />
-    </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
@@ -89,26 +43,33 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="22740">
+            <state relative-caret-position="1121">
               <caret line="1516" column="24" selection-start-line="1516" selection-end-line="1516" selection-end-column="24" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/includes/snow-widget.php">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/includes/locations.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2565">
-              <caret line="171" column="6" selection-start-line="171" selection-start-column="6" selection-end-line="171" selection-end-column="6" />
+            <state relative-caret-position="534">
+              <caret line="883" column="153" selection-start-line="883" selection-start-column="153" selection-end-line="883" selection-end-column="153" />
+              <folding>
+                <element signature="n#style#0;n#label#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#input#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#a#0;n#!!top" expanded="true" />
+                <element signature="e#152#159#1" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#a#0;n#div#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/library/inc/content/content-posts.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="786">
-              <caret line="724" column="30" lean-forward="true" selection-start-line="724" selection-start-column="30" selection-end-line="724" selection-end-column="30" />
+            <state relative-caret-position="10725">
+              <caret line="724" column="30" selection-start-line="724" selection-start-column="30" selection-end-line="724" selection-end-column="30" />
             </state>
           </provider>
         </entry>
@@ -129,6 +90,10 @@
       <find>chris</find>
       <find>$URLvalue</find>
       <find>$cat_display</find>
+      <find>$remote_feed_base</find>
+      <find>get_remote_forecast</find>
+      <find>remote_feed_base</find>
+      <find>icon</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -142,30 +107,24 @@
         <option value="$PROJECT_DIR$/style.css" />
         <option value="$PROJECT_DIR$/includes/snow-widget.php" />
         <option value="$PROJECT_DIR$/library/inc/content/content-posts.php" />
+        <option value="$PROJECT_DIR$/includes/locations.php" />
       </list>
     </option>
-  </component>
-  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsGulpfileManager">
-    <detection-done>true</detection-done>
-    <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="PhpServers">
     <servers />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="276" />
-    <option name="y" value="67" />
-    <option name="width" value="1841" />
-    <option name="height" value="1474" />
+    <option name="x" value="304" />
+    <option name="y" value="23" />
+    <option name="width" value="1859" />
+    <option name="height" value="1293" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -176,25 +135,13 @@
             <path>
               <item name="reverb" type="b2602c69:ProjectViewProjectNode" />
               <item name="reverb" type="462c0819:PsiDirectoryNode" />
-              <item name="library" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="reverb" type="b2602c69:ProjectViewProjectNode" />
-              <item name="reverb" type="462c0819:PsiDirectoryNode" />
-              <item name="library" type="462c0819:PsiDirectoryNode" />
-              <item name="inc" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="reverb" type="b2602c69:ProjectViewProjectNode" />
-              <item name="reverb" type="462c0819:PsiDirectoryNode" />
-              <item name="library" type="462c0819:PsiDirectoryNode" />
-              <item name="inc" type="462c0819:PsiDirectoryNode" />
-              <item name="content" type="462c0819:PsiDirectoryNode" />
+              <item name="includes" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -233,17 +180,19 @@
       <workItem from="1542055366614" duration="1639000" />
       <workItem from="1542304011522" duration="15732000" />
       <workItem from="1542660870653" duration="354000" />
+      <workItem from="1543260286265" duration="676000" />
+      <workItem from="1543602788335" duration="268000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="18681000" />
+    <option name="totallyTimeSpent" value="19625000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="276" y="67" width="1841" height="1474" extended-state="0" />
+    <frame x="304" y="23" width="1859" height="1293" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2184547" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22069345" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -267,10 +216,14 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
-  <component name="VcsContentAnnotationSettings">
-    <option name="myLimit" value="2678400000" />
-  </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/includes/snow-widget.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1032">
+          <caret line="217" column="4" lean-forward="true" selection-start-line="217" selection-start-column="4" selection-end-line="217" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/page.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
@@ -292,24 +245,31 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/library/inc/content/content-posts.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="10725">
+          <caret line="724" column="30" selection-start-line="724" selection-start-column="30" selection-end-line="724" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22740">
+        <state relative-caret-position="1121">
           <caret line="1516" column="24" selection-start-line="1516" selection-end-line="1516" selection-end-column="24" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/includes/snow-widget.php">
+    <entry file="file://$PROJECT_DIR$/includes/locations.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2565">
-          <caret line="171" column="6" selection-start-line="171" selection-start-column="6" selection-end-line="171" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/library/inc/content/content-posts.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="786">
-          <caret line="724" column="30" lean-forward="true" selection-start-line="724" selection-start-column="30" selection-end-line="724" selection-end-column="30" />
+        <state relative-caret-position="534">
+          <caret line="883" column="153" selection-start-line="883" selection-start-column="153" selection-end-line="883" selection-end-column="153" />
+          <folding>
+            <element signature="n#style#0;n#label#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#a#0;n#!!top" expanded="true" />
+            <element signature="e#152#159#1" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#a#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
