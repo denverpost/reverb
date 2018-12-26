@@ -3,7 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="c5aca279-1b2b-4c26-8b16-2b7b57647446" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/includes/locations.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/locations.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/includes/snow-widget.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/snow-widget.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/style.css" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -43,24 +44,26 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1121">
-              <caret line="1516" column="24" selection-start-line="1516" selection-end-line="1516" selection-end-column="24" />
+            <state relative-caret-position="44115">
+              <caret line="2941" column="20" selection-start-line="2941" selection-start-column="20" selection-end-line="2941" selection-end-column="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/includes/locations.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="13245">
+              <caret line="883" column="153" selection-start-line="883" selection-start-column="153" selection-end-line="883" selection-end-column="153" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/includes/locations.php">
+        <entry file="file://$PROJECT_DIR$/includes/snow-widget.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="534">
-              <caret line="883" column="153" selection-start-line="883" selection-start-column="153" selection-end-line="883" selection-end-column="153" />
-              <folding>
-                <element signature="n#style#0;n#label#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#input#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#a#0;n#!!top" expanded="true" />
-                <element signature="e#152#159#1" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#a#0;n#div#0;n#!!top" expanded="true" />
-              </folding>
+            <state relative-caret-position="323">
+              <caret line="107" column="71" lean-forward="true" selection-start-line="107" selection-start-column="71" selection-end-line="107" selection-end-column="71" />
             </state>
           </provider>
         </entry>
@@ -104,10 +107,10 @@
       <list>
         <option value="$PROJECT_DIR$/includes/widgets.php" />
         <option value="$PROJECT_DIR$/showme.php" />
-        <option value="$PROJECT_DIR$/style.css" />
-        <option value="$PROJECT_DIR$/includes/snow-widget.php" />
         <option value="$PROJECT_DIR$/library/inc/content/content-posts.php" />
         <option value="$PROJECT_DIR$/includes/locations.php" />
+        <option value="$PROJECT_DIR$/includes/snow-widget.php" />
+        <option value="$PROJECT_DIR$/style.css" />
       </list>
     </option>
   </component>
@@ -115,10 +118,10 @@
     <servers />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="304" />
+    <option name="x" value="61" />
     <option name="y" value="23" />
     <option name="width" value="1859" />
-    <option name="height" value="1293" />
+    <option name="height" value="1177" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -182,17 +185,18 @@
       <workItem from="1542660870653" duration="354000" />
       <workItem from="1543260286265" duration="676000" />
       <workItem from="1543602788335" duration="268000" />
+      <workItem from="1543612632418" duration="609000" />
+      <workItem from="1544203324627" duration="5000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="19625000" />
+    <option name="totallyTimeSpent" value="20239000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="304" y="23" width="1859" height="1293" extended-state="0" />
-    <editor active="true" />
+    <frame x="61" y="23" width="1859" height="1177" extended-state="0" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22069345" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22509632" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -217,13 +221,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/includes/snow-widget.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1032">
-          <caret line="217" column="4" lean-forward="true" selection-start-line="217" selection-start-column="4" selection-end-line="217" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/page.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
@@ -245,6 +242,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="44115">
+          <caret line="2941" column="20" selection-start-line="2941" selection-start-column="20" selection-end-line="2941" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/includes/locations.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="13245">
+          <caret line="883" column="153" selection-start-line="883" selection-start-column="153" selection-end-line="883" selection-end-column="153" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/library/inc/content/content-posts.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="10725">
@@ -252,24 +263,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/style.css">
+    <entry file="file://$PROJECT_DIR$/includes/snow-widget.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1121">
-          <caret line="1516" column="24" selection-start-line="1516" selection-end-line="1516" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/includes/locations.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="534">
-          <caret line="883" column="153" selection-start-line="883" selection-start-column="153" selection-end-line="883" selection-end-column="153" />
-          <folding>
-            <element signature="n#style#0;n#label#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#a#0;n#!!top" expanded="true" />
-            <element signature="e#152#159#1" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#a#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
+        <state relative-caret-position="323">
+          <caret line="107" column="71" lean-forward="true" selection-start-line="107" selection-start-column="71" selection-end-line="107" selection-end-column="71" />
         </state>
       </provider>
     </entry>

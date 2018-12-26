@@ -121,12 +121,12 @@ class DP_Snow_Widget extends WP_Widget {
 													<div
 														class="snowwidget-pane-data-item snowwidget-pane-forecast-data-item">
 														<div>Day</div>
-														<div><?php echo esc_html( $day_snow ); ?>"</div>
+														<div><?php echo esc_html( $day_snow ); ?></div>
 													</div>
 													<div
 														class="snowwidget-pane-data-item snowwidget-pane-forecast-data-item">
 														<div>Night</div>
-														<div><?php echo esc_html( $night_snow ); ?>"</div>
+														<div><?php echo esc_html( $night_snow ); ?></div>
 													</div>
 												</div>
 											<?php endforeach; ?>

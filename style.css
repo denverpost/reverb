@@ -2941,7 +2941,7 @@ article.location-embed .entry-body {
 }
 .snowwidget-footer {
 	background-color: #E3E8F2;
-	height: 80px;
+	/*height: 80px;*/
 	width: 100%;
 }
 .icon-weather-snow:before {
