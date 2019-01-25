@@ -468,7 +468,7 @@ add_filter( 'the_content', 'ad_insert_post_ads' );
 
 function my_acf_init() {
 	
-	acf_update_setting('google_api_key', 'AIzaSyDz-GwwkaTE7FYhlh5e5w8yaO8V5H6xqfY');
+	acf_update_setting('google_api_key', 'XXXX');
 }
 
 add_action('acf/init', 'my_acf_init');
