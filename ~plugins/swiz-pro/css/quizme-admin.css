@@ -1,0 +1,736 @@
+.quizWrapper a {
+  transition: inherit;
+}
+
+.quizWrapper *:focus {
+  outline:none;
+  box-shadow: inherit;
+}
+
+p.description {
+  display: inline-block;
+  margin-top: 0 !important;
+}
+
+.form-table td {
+  padding: 0 10px 15px 10px;
+}
+
+.quiz-description-table {
+  margin-top: 20px;
+}
+
+.boldPercent {
+  font-weight: bold;
+}
+
+
+.stylingContainer h3 {
+  font-size: 14px;
+  margin: 0 0 0.6em 0;
+}
+
+.quizeStylingWrap {
+  margin-bottom: 1em; 
+}
+
+.pagination-table,
+.pagination-table tr {
+  padding: 0;
+  margin: 0;
+}
+
+.pagination-table td {
+  padding: 10px;
+  border-right: 1px solid #b1aeae;
+  vertical-align: top;
+}
+
+.pagination-table td:last-child {
+  border-right: 0;
+}
+
+.wp-core-ui .button-primary:active,
+.wp-core-ui .button {
+  vertical-align: inherit;
+}
+
+.overviewTitle, .pageTitle {
+  font-size: 25px;
+  text-transform: capitalize;
+}
+
+.overviewTitle {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.wp-core-ui .button-primary {
+  margin-right: 10px !important;
+}
+
+.addStyle .form-table td {
+  padding: 0;
+}
+
+.backBtn {
+  display: inline-block;
+  background-color: #747474;
+  padding: 5px 20px 5px 10px;
+  color: #fff;
+  margin: 0 0 0 20px;
+  position: relative;
+  text-decoration: none;
+  border-top-left-radius: 0;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 0;
+}
+
+.backBtn:before {
+  content: '';
+  position: absolute;
+  border: 19px solid #747474;
+  top: 5px;
+  left: -10px;
+  border-right: 0;
+  border-top: 0;
+  z-index: -1;
+  transform: rotate(45deg);
+}
+
+.backBtn:hover,
+.backBtn:active,
+.backBtn:focus {
+  color: #fff;
+  background-color: #8c8c8c;
+}
+
+.backBtn:hover:before {
+  border-color: #8c8c8c;
+}
+
+.wp-core-ui .button-secondary {
+  margin: 0 0 0 10px;
+}
+
+.non-accordion-inside .hndle::before,
+.showAccordion .hndle::before {
+  content: "\f140";
+  position: absolute;
+  right: 8px;
+  font: 400 20px/1 dashicons;
+}
+
+.non-accordion-inside .expanded::before,
+.showAccordion .expanded::before {
+  content: "\f142";
+}
+
+/*Botton spacing below accordion*/
+.tabs .postbox:last-of-type {
+  margin-bottom: 0;
+}
+
+/*button spacing css*/
+.backBtnSpacing {
+  margin-bottom: 6px;
+}
+
+.historyBtnWrap {
+  padding: 6px 0 10px;
+}
+
+.wpProQuiz_tab_wrapper .historyBtn,
+.wpProQuiz_tab_wrapper .primaryBtnWrap {
+  margin-right: 0 !important; /*Overriding inline css*/
+}
+
+.quizWrapper  .addQuestionBtn {
+  margin-left: 10px;  
+}
+
+/*Alignment of Toggle Buttons*/
+.quizOptionSetting .checkBoxDragger {
+  margin: 0 !important; /*Overriding inline css*/
+}
+
+.saveFileWrap input[type="text"] {
+  margin: 10px 0 5px;
+}
+
+/*Alignemnt of qutestion title with checkbox*/
+.questionWrap .widefat th,
+.questionWrap .widefat td {
+  padding: 8px 10px !important; 
+  vertical-align: middle;
+}
+
+.navigationWrap {
+  margin-bottom: 10px;
+}
+
+.leftWrap {
+  float: left;
+}
+
+.rightWrap {
+  float: right;
+}
+
+.quizWrapper .widefat,
+.questionQuizContainer .widefat {
+  margin-top: 16px;
+}
+
+.backQuizContainer {
+  margin: 15px 0 5px;
+}
+
+.clearfix::after, 
+.clearfix::before {
+  display: table;
+  content: " ";
+  clear: both;
+}
+
+/*Denvor image for quize overview page*/
+.denvorLogWrap {
+  margin: 0 auto;
+  max-width: 23.1em;
+}
+
+.denvorLogWrap img {
+  max-width: 100%;
+}
+
+/*loader*/
+.stylingContainer {
+  position: relative;
+}
+
+.loaderWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 100;
+  display: none;
+}
+
+.overLayBg {
+  background: rgba(0,0,0,0.5);
+  height: 100%;
+  width: 100%;
+}
+
+.loaderContainer {
+  border: 6px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 6px solid #3498db;
+  width: 40px;
+  height: 40px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -20px;
+  margin-left: -20px;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/*page title*/
+.answerTypeWrap label {
+  margin-right: 20px;
+  display: inline-block;
+}
+
+.answerTypeWrap .optionDescription {
+  padding-left: 22px;
+  display: block;
+  font-style: italic;
+}
+
+.removeAccordion .inside {
+  display: block !important;
+}
+
+.removeAccordion h3 {
+  font-size: 14px;
+  padding: 8px 12px;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/*quiz overvie ui fix*/
+.importBtnWrap {
+  position: absolute;
+  bottom: 36px;
+  right: 15px;
+}
+
+.wpProQuiz_quizOverall .column-category,
+.wpProQuiz_quizOverall .column-name {
+  width: 200px;
+}
+
+.widefat td, .widefat th {
+  padding: 12px 10px;
+}
+
+.widefat .check-column {
+  vertical-align: middle;
+}
+
+/*quiz edit title fix*/
+.wpProQuiz_quizEdit .overviewTitle {
+  margin-bottom: 10px;
+}
+
+.wpProQuiz_quizEdit .tabMenu {
+  margin-top: 2px;
+}
+
+.wpProQuiz_quizEdit .form-table {
+  margin-top: 0;
+}
+
+.descriptionWrap {
+  margin: 10px 0;
+}
+
+.customFieldTable {
+  text-align: left;
+  width: 100%
+}
+
+.customFieldTable th {
+  padding-left: 10px !important;
+}
+
+.fieldContainer {
+  margin-top: 10px; 
+  padding: 10px; 
+  border: 1px solid #C2C2C2;
+}
+
+.customFieldTable .checkboxContainer {
+  text-align: center;
+}
+
+.quizResultGrade td {
+  padding-bottom: 0;
+}
+
+/*select box alignment*/
+.createTemplateWrap .createTemplate {
+  vertical-align: top;
+}
+
+.customFieldTable .button-secondary {
+  margin: 0;
+}
+
+.customFieldTable .optionContainer {
+  min-width: 15em;
+}
+
+/*quiz result page options tab alignment fixes*/
+.questionDisplayOptionWrap .wpProQuiz_demoBox {
+  display: inline-block;
+}
+
+.search-choice ~ .search-field {
+  display: none !important;
+}
+
+.chosen-choices li {
+  margin: 0 0 0 4px !important;
+}
+
+.chosen-choices li:first-child {
+  margin: 0 !important;
+}
+
+.questionDisplayOptionWrap .questinDisplayTable th, 
+.tabContainerWrapper tr th {
+  padding-bottom: 15px;
+  padding-top: 0;
+  vertical-align: middle;
+}
+
+.tabContainerWrapper tr:last-child td {
+  padding-bottom: 0;
+}
+
+.tabContainerWrapper td fieldset p {
+  line-height: 1.8em;
+}
+
+.sortQuestionWrap {
+  position: absolute;
+  bottom: 35px;
+  right: 18px;
+}
+
+.btnContainer {
+  margin-top: 0;
+}
+
+.wpProQuiz_questionOverall tfoot tr {
+  display: none;
+}
+
+/*accordion issue*/
+.removeAccordion .inside {
+  margin: 6px 0 0 !important;
+  height: 100% !important;
+  padding: 0 12px 12px !important;
+  overflow: auto !important;
+}
+
+.updated {
+  clear: both;
+}
+
+.globalBtnWrap {
+  padding: 10px 0px;
+} 
+
+/*global settings button moving issue*/
+.globalBtnWrap .button-secondary,
+.wpProQuiz_statisticsNew .button-secondary {
+  margin-left: 0 !important;
+}
+
+.globalBtnWrap .secBtnWrap,
+.wpProQuiz_statisticsNew .secBtnWrap {
+  margin: 0 10px 0 10px !important;
+}
+
+/*iframe column stying*/
+.wpProQuiz_quizOverall .column-category, 
+.wpProQuiz_quizOverall .column-name,
+.wpProQuiz_quizOverall .column-shortcode {
+  width: 150px;
+}
+
+.wpProQuiz_quizOverall .column-shortcode_leaderboard {
+  width: 365px;
+}
+
+.wpProQuiz_quizOverall .frameWrapper{
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 4px;
+}
+
+/*tabpane quiz edit page*/
+.tabContainerWrapper .tabMenu {
+  width: 100%;
+  display: table;
+  border-collapse: separate;
+  border-bottom: 4px solid #0073aa;
+  margin-bottom: 25px;
+}
+
+.tabContainerWrapper .tabMenu li {
+  width: 19%;
+  font-weight: bold;
+  text-align: center;
+  margin: 0;
+  line-height: 14px;
+  margin-right: 4px;
+  display: inline-block;
+}
+
+.tabContainerWrapper .tabMenu li.active a {
+  background-color: #0073aa;
+  border-color: #0073aa;
+  color: #fff;
+}
+
+.tabContainerWrapper .tabMenu li a {
+  color: #23282D;
+  text-decoration: none;
+  display: block;
+  padding: 14px 5px;
+  background-color: #F1F1F1;
+  border: 1px solid #E5E5E5;
+  border-bottom: 0;
+  border-radius: 4px 4px 0 0;
+}
+
+.tabContainerWrapper .tabMenu li a:focus {
+  box-shadow: none;
+}
+
+.detailInfoContainer td {
+  width: 33%;
+}
+
+.titleWrapper {
+  border: 1px solid #e5e5e5;
+  padding: 5px;  
+  margin-bottom: 15px;
+  height: 28px;
+}
+
+.detailWrappr textarea {
+  min-height: 84px;
+  border: 1px solid #e5e5e5;
+  padding: 5px; 
+  width: 100%; 
+  overflow-y: hidden;
+  resize: none;
+}
+
+.titleWrapper input[type="text"] {
+  height: 100%;
+  width: 100%;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  transition: none;
+}
+
+.contestDetailWrap {
+  padding-left: 10px;
+  margin-top: 30px;
+  display: block;
+}
+
+.pcHeaderContent {
+  display: none;
+}
+
+.tabContainerWrapper .statisticsIpBlock th {
+  vertical-align: top;
+  padding-top: 12px;
+}
+
+.tabContainerWrapper .execQuizOnce th {
+  padding-top: 12px; 
+}
+
+
+/*quiz result page tab alignment*/
+.quiz-description-table tr:last-child td {
+  padding-bottom: 15px; 
+}
+
+.socialShareLinks .chosen-choices {
+  text-align: center;
+  font-size: 0.8em;
+}
+
+/*library css overrids*/
+.socialShareLinks select.form-control + .chosen-container-multi .chosen-choices li.search-choice,
+.chosen-container-multi .chosen-choices li {
+  width: 20%;
+  font-size: 0.8em;
+  text-align: left;
+  padding: 0.4em;
+  float: none;
+  display: inline-block;
+}
+
+.chosen-choices,
+.socialShareLinks .chosen-container {
+  max-width: 344px;
+}
+
+.quizSharingDesc .quizOptionSetting {
+  width: 344px;
+}
+
+.quizOptionSetting input[type="text"] {
+  margin: 0;
+  width: 100%;
+}
+
+/*custom field button fixes*/
+.customFieldTable tr td {
+  padding: 0 0.1em 0.2em 0.2em;
+}
+
+.customFieldTable .formFieldName {
+  width: 20em;
+}
+
+/*Global Setting table fixes*/
+.globalSettingsTable .alignMiddleWrap {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.globalSettingsTable th,
+.globalSettingsTable td {
+  vertical-align: middle;
+  line-height: 1;
+  padding: 1.5em 0.5em;
+}
+
+.globalSettingsTable th {
+  text-transform: capitalize;
+}
+
+.globalSettingsTable .documentlink {
+  vertical-align: top;
+  padding-top: 0.2em;
+  display: inline-block;
+}
+
+/*Style tab add new style alignment fix*/
+.addNewStyle td fieldset p {
+  line-height: 1.4em;
+}
+
+.addNewStyle tr th {
+  padding-bottom: 10px;
+}
+
+.quizSharingDesc p {
+  width: 30em;
+}
+
+/*align title with description*/
+.alignTitle h3 {
+  float: left;
+}
+.alignTitle .inside {
+  float: left;
+}
+
+/*demo link*/
+.wpProQuiz_demoBox a {
+  display: inline-block;
+  padding: 5px 0;
+}
+
+.wpProQuiz_demoBox .demoPopup {
+  display: none;
+}
+.demoPopup img {
+  max-height: 100%;
+  max-width: 100%;
+}
+
+/*Popup Styling*/
+.ui-widget-overlay {
+  background: #000 !important; /*overrides library code*/
+  opacity: 0.5 !important; /*overrides library code*/
+}
+
+.ui-dialog {
+  max-height: 500px;
+  overflow-y: auto;
+  font-family: 'ralewayregular';
+}
+
+.ui-dialog .ui-dialog-titlebar {
+  background: transparent;
+  border: none;
+  text-align: center;
+  font-size: 22px;
+}
+
+.ui-button-icon-only,
+.ui-button-icon-only:hover,
+.ui-button-icon-only:focus,
+.ui-state-default,
+.ui-widget-content .ui-state-default,
+.ui-widget-header .ui-state-default {
+  min-width: 21px;
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
+.ui-dialog-titlebar .ui-button, 
+.ui-dialog-titlebar 
+.ui-button:hover, 
+.ui-dialog-titlebar .ui-button:focus {
+  margin: -24px 0 0 0;
+  width: auto;
+  min-width: auto;
+  text-align: center;
+  display: inline-block;
+  background-color: transparent;
+  color: #555;
+  position: absolute;
+  bottom: 0;
+  font-size: 1em;
+  font-weight: 400 !important;
+  padding: 0.6em 1em;
+  line-height: 1em;
+}
+
+.ui-button .ui-icon {
+  background: transparent;
+  text-indent: 1px;
+  height: 40px;
+  width: 40px;
+}
+
+.ui-button:focus .ui-icon,
+.ui-button:hover .ui-icon {
+  background: none;
+}
+
+.ui-dialog .ui-dialog-content {
+  font-size: 15px;
+}
+
+.dialogOpen {
+  overflow: hidden;
+}
+
+.ui-state-default .ui-icon {
+  background: none;
+  height: 40px;
+  width: 40px;
+}
+
+.ui-dialog .ui-dialog-titlebar-close {
+  right: 8px;
+  margin: -24px 0 0 0;
+  width: 40px;
+}
+
+.ui-button-icon-primary {
+  text-indent: 1px;
+}
+
+@media (max-width:1200px) {
+  .quizSharingDesc p {
+    width: 20em;
+  }
+
+  .customFieldTable .form_move {
+    width: 4.4em;
+    margin-top: 0.2em;
+  }
+
+  .customFieldTable .formFieldName {
+    width: 16em;
+  }
+}
+
+@media (max-width:767px) {
+  .customFieldTable .form_move {
+    margin-top: 0;    
+  }
+}

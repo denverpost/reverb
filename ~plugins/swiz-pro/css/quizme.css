@@ -1,0 +1,795 @@
+.share-control {
+  text-align: center;
+  padding: 5px 0 0 0;
+  margin-bottom: 3%;
+}
+
+.emailSocial,
+.fbShare,
+.twitterShare,
+.linkedinShare {
+  font-family: 'ralewayregular';
+  width: 24%;
+  height: 45px;
+  background-color: #888888;
+  padding-top: 2px;
+}
+
+.fbShare {
+  background-color: #346399;
+}
+
+.twitterShare {
+  background-color: #6dc2ed;
+}
+
+.linkedinShare {
+  background-color: #676767;
+}
+
+.iconMain {
+  display: inline-block;
+  height: 30px;
+  width: 30px;
+  background-image: url("../img/sprite.png");
+  background-repeat: no-repeat;
+  margin-right: 10px;
+}
+
+.iconMain-email {
+  background-position: 0 5px;
+}
+
+.iconMain-linkedin {
+  background-position: 0 -135px;
+  width: 21px;
+}
+
+.iconMain-twitter {
+  background-position: 0px -87px;
+  width: 24px;
+}
+
+.iconMain-facebook {
+  background-position: 0 -43px;
+  width: 11px;
+}
+
+.share-control a,
+.share-control a:hover {
+  box-shadow: inset 0 0 0 transparent, 0 0 0 transparent !important;
+  display: inline-block;
+  padding: 7px 0 0 0;
+}
+
+.wpProQuiz_results {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.wpProQuiz_results p {
+  margin: 0;
+}
+
+.wpProQuiz_questionListItem:hover {
+  background-color: #d8dada;
+}
+
+.selectedAnswer:hover {
+  background-color: #62be6f;
+}
+
+.wpProQuiz_forms table td {
+  text-align: left !important;
+  vertical-align: middle !important;
+  padding: 0 20px 10px 0 !important;
+}
+
+.wpProQuiz_question_page,
+.wpProQuiz_infopage {
+  text-align: center;
+}
+
+.share-control span {
+  font-weight: 600;
+  vertical-align: top;
+}
+
+.socialTitle {
+  display: inline-block;
+  padding: 2px 0 0 0;
+  color: #fff;
+  font-weight: 600 !important;
+  font-size: 16px;
+  letter-spacing: 1px;
+}
+
+.wpProQuiz_text .wpProQuiz_button{
+  position: static !important;
+}
+
+.startQuizBtn {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+/*Popup Styling*/
+.ui-widget-overlay {
+  background: rgba(0, 0, 0,0.8)
+}
+
+.ui-dialog {
+  max-height: 500px;
+  overflow-y: auto;
+  font-family: 'ralewayregular';
+}
+
+.ui-dialog .ui-dialog-titlebar {
+  background: transparent;
+  border: none;
+  text-align: center;
+  font-size: 22px;
+}
+
+.ui-button-icon-only,
+.ui-button-icon-only:hover,
+.ui-button-icon-only:focus,
+.ui-state-default,
+.ui-widget-content .ui-state-default,
+.ui-widget-header .ui-state-default {
+  min-width: 21px;
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
+.ui-dialog .ui-dialog-content {
+  font-size: 15px;
+}
+
+.dialogOpen {
+  overflow: hidden;
+}
+
+.ui-state-default .ui-icon {
+  background: none;
+  height: 40px;
+  width: 40px;
+}
+
+.ui-dialog .ui-dialog-titlebar-close {
+  right: 8px;
+  margin: -24px 0 0 0;
+  width: 40px;
+}
+
+.ui-button-icon-primary {
+  text-indent: 1px;
+}
+
+/*footer popup content alignment*/
+.ui-dialog .ui-dialog-title {
+  float: none;
+  white-space: normal;
+  padding: 0 15px;
+}
+
+.ui-dialog .ui-dialog-content {
+  padding: 10px 20px;
+}
+
+.customCheckWrap {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/*Lable wrapper with Input*/
+.customCheckWrap input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+}
+
+/*Span for checkmarkWrap*/
+.checkmarkWrap {
+  position: absolute;
+  top: 5px;
+  left: 0;
+  height: 34px;
+  width: 34px;
+  border: 1px solid #cacdce;
+  border-radius: 2px;
+  background: #fafafa;
+ /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(#fafafa, #f1f1f1);
+ /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(#fafafa, #f1f1f1);
+ /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(#fafafa, #f1f1f1);
+ /* For Firefox 3.6 to 15 */
+  background: linear-gradient(#fafafa, #f1f1f1);
+ /* Standard syntax */
+}
+
+/*Span for Custom checkmarkWrap */
+.customCheckWrap:hover input[type="checkbox"] ~ .checkmarkWrap {
+  background-color: transparent;
+}
+
+/*Span for Custom checkmarkWrap with check */
+.customCheckWrap input[type="checkbox"]:checked ~ .checkmarkWrap {
+  border: 1px solid #cacdce;
+  border-radius: 2px;
+  background: #fafafa;
+ /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(#fafafa, #f1f1f1);
+ /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(#fafafa, #f1f1f1);
+ /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(#fafafa, #f1f1f1);
+ /* For Firefox 3.6 to 15 */
+  background: linear-gradient(#fafafa, #f1f1f1);
+ /* Standard syntax */
+}
+
+/*Span for Custom checkmarkWrap with position */
+.checkmarkWrap:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.customCheckWrap input[type="checkbox"]:checked ~ .checkmarkWrap:after {
+  display: block;
+}
+
+.customCheckWrap .checkmarkWrap:after {
+  left: 10px;
+  top: 3px;
+  width: 13px;
+  height: 23px;
+  border: solid #555;
+  border-width: 0 7px 7px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+/*bucketlist social links*/
+.emailShareBucketList .iconMain,
+.emailShareBucketList .socialTitle,
+.linkedinShareBucketList .iconMain,
+.linkedinShareBucketList .socialTitle,
+.fbShareBucketList .iconMain,
+.fbShareBucketList .socialTitle,
+.twitterShareBucketList .iconMain,
+.twitterShareBucketList .socialTitle {
+  display: none;
+}
+
+.share-control .fa {
+  display: none;
+}
+
+.fbShareBucketList,
+.emailShareBucketList,
+.linkedinShareBucketList,
+.twitterShareBucketList {
+  font-size: 28px;
+  color: #696969;
+  margin-right: 20px;
+}
+
+.fbShareBucketList .fa,
+.twitterShareBucketList .fa,
+.emailShareBucketList .fa,
+.linkedinShareBucketList .fa {
+  display: inline-block;
+}
+
+.twitterShareBucketList {
+  font-size: 28px;
+  color: #696969;
+}
+
+.ui-dialog .ui-dialog-titlebar-close {
+  box-shadow: 0 0 0;
+}
+
+.ui-dialog {
+  overflow: inherit;
+  z-index: 1200;
+}
+
+#swizpro .wpProQuiz_questionListItem {
+  cursor: pointer;
+}
+
+#swizpro .wpProQuiz_forms ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.ui-widget-overlay {
+  z-index: 1199;
+}
+
+.middleDetailWrapper ul {
+  width: 100%;
+  padding: 0;
+  display: flex;
+}
+
+.viewGallery {
+  margin: 0 auto 1.5em;
+  width: 100%;
+}
+
+/* Photo contest */
+.wrapper {
+  width: 740px;
+  margin: 0 auto;
+}
+
+.contestWrapper {
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+.topBannerWrapper img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.bottomBannerWrapper {
+  margin: 0 0 1.5em;
+}
+
+.bottomBannerWrapper img {
+  max-height: 100%;
+  width: 100%;
+  margin: 0;
+}
+
+.viewGalleryWrapper {
+  text-align: center;
+}
+
+.viewGalleryWrapper li {
+  display: inline-block;
+  margin-bottom: 3%;
+  margin-left: 3%;
+  height: 15.72em;
+  width: 15.72em;
+}
+
+.viewGalleryWrapper li a {
+  display: block;
+  box-shadow: none;
+  transition: none;
+  height: inherit;
+  position: relative;
+}
+
+.viewGalleryWrapper li img { 
+  max-width: 100%; 
+  max-height: 100%; 
+  margin: 0;
+  width: auto;
+  box-shadow: none;
+}
+
+.viewGalleryWrapper li a:hover {
+  box-shadow: none;
+}
+
+.viewGalleryWrapper ul {
+  margin: 0 0 0 -3%;
+  padding: 0;
+  list-style: none;
+  text-align: center;
+}
+
+.swizpro_quizWrapper .loadMoreButton:hover,
+.swizpro_quizWrapper .loadMoreButton:focus {
+  color: #fff;
+  box-shadow: none;
+}
+
+.clearfix::after, 
+.clearfix::before {
+  display: table;
+  content: " ";
+  clear: both;
+}
+
+.middleDetailWrapper,
+.topBannerWrapper {
+  margin: 0 0 1.5em;
+}
+
+.middleDetailWrapper li {
+  width: 34%;
+  border-left: 1px solid #4d4d4f;
+  list-style: none;
+  padding: 2%;
+}
+
+.middleDetailWrapper li:first-child {
+  border-left: none;
+}
+
+.middleDetailWrapper span {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+}
+
+.enterContestWrap {
+  text-align: center;
+}
+
+.enterContest {
+  margin-bottom: 20px;
+}
+
+.leftWrap {
+  float: left;
+}
+
+.rightWrap {
+  float: right;
+}
+
+.linkContainer a {
+  color: #64be71;
+  font-size: 16px;
+  text-transform: capitalize;
+}
+
+.linkContainer {
+  border-bottom: 1px solid #4d4d4f;
+  padding: 14px;
+}
+
+.swizProQuiz .entry-content {
+  width: 100% !important; /*To override theme css*/
+}
+
+.swizpro_freeChoice input[type="text"] {
+  position: relative;
+}
+
+/*free choic white box issue*/
+.swizpro_freeChoice .wpProQuiz_questionListItem label::after {
+  border: none;
+}
+
+/*iframe padding removed*/
+.iFrameQuiz .wrap {
+  padding: 0;
+}
+
+/*this or that quiz UI*/
+.swizpro_thisOrThatQuiz .wpProQuiz_questionListItem,
+.swizpro_thisOrThatQuiz .resultThisOrThat .answerImage {
+  width: 48%;
+  float: left;
+  margin-left: 2%;
+}
+
+.swizpro_thisOrThatQuiz .answerImage {
+  height: 22em;
+}
+
+.swizpro_thisOrThatQuiz .wpProQuiz_questionList {
+  margin-left: -2%;
+  margin-bottom: 1.2em;
+}
+
+.swizpro_thisOrThatQuiz .wpProQuiz_questionList::after, 
+.swizpro_thisOrThatQuiz .wpProQuiz_questionList::before {
+  display: table;
+  content: " ";
+  clear: both;
+}
+
+.swizpro_thisOrThatQuiz label.container::after {
+  border: none;
+  background: #fff;
+}
+
+.swizpro_thisOrThatQuiz .answer_text {
+  margin-left: 0.5em;
+}
+
+.swizpro_thisOrThatQuiz .answer_text {
+  display: inline-block;
+}
+
+.swizpro_thisOrThatQuiz .wpProQuiz_question_text img {
+  display: block;
+  margin: 0 auto;
+}
+
+.swizpro_thisOrThatQuiz .answer_text img {
+  position: absolute;
+  max-height: 70%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  bottom: 1.4em;
+  max-width: 80%;
+  top: 50%;
+}
+
+.resultThisOrThat label.container::after {
+  display: none;
+}
+
+.resultThisOrThat .wpProQuiz_questionListItem,
+.resultThisOrThat .wpProQuiz_questionListItem:hover {
+  background: transparent;
+  text-align: center;
+}
+.resultThisOrThat .wpProQuiz_questionListItem input[type="radio"], 
+.resultThisOrThat .wpProQuiz_questionListItem input[type="checkbox"] {
+  display: none;
+}
+
+.resultThisOrThat .answer_text {
+  font-weight: bold;
+}
+
+.resultThisOrThat .userVote {
+  text-align: center;
+  display: block;
+  clear: both;
+}
+
+.resultThisOrThat .answer_text img,
+.userVote img {
+  display: none;
+}
+
+.resultThisOrThat .answerImage {
+  height: auto;
+}
+
+.resultThisOrThat .wpProQuiz_listItem {
+  border: 1px solid #999;
+  margin-top: 1em;
+  padding: 1em;
+  border-radius: 5px;
+  box-shadow: 0 8px 6px -6px #999; 
+}
+
+.resultThisOrThat .wpProQuiz_questionList {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.answerImage label.container{
+  position: static;
+}
+
+.resultThisOrThat .checkmark {
+  display: none;
+}
+
+/*This or that vote alignment*/
+.resultThisOrThat .wpProQuiz_questionListItem label, 
+.resultThisOrThat .wpProQuiz_questionListItemLastChildIE {
+  padding-left: 0;
+}
+
+.resultThisOrThat .answerImage {
+  background: transparent;
+}
+
+.answerImage label {
+  height: inherit;
+  width: 100%;
+}
+
+/*footer popup close button issue*/
+.ui-dialog-titlebar .ui-button,
+.ui-dialog-titlebar .ui-button:hover,
+.ui-dialog-titlebar .ui-button:focus {
+  margin: -24px 0 0 0;
+  width: auto;
+  min-width: auto;
+  text-align: center;
+  display: inline-block;
+  background-color: transparent;
+  color: #555;
+  position: absolute;
+  bottom: 0;
+  font-size: 1em;
+  font-weight: 400 !important;
+  padding: 0.6em 1em;
+  line-height: 1em;
+}
+
+/*form radio button issue*/
+.wpProQuiz_formFields label {
+  margin-right: 25px;
+}
+
+.wpProQuiz_formFields .radioInputWrap .wpProQuiz_questionInput, 
+.wpProQuiz_formFields .wpProQuiz_questionInput {
+  position: relative;
+}
+
+@media screen and (max-width: 1200px) {
+  .wrap {
+    max-width: 100%;
+    height: 100%;
+    padding-left: 3em;
+    padding-right: 3em;
+  }
+
+  .quizWrapper{
+    max-width: 100%;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .socialTitle {
+    display: none;
+  }
+
+  .iconMain {
+    margin-right: 0;
+  }
+  
+  .emailSocial,
+  .fbShare,
+  .twitterShare,
+  .linkedinShare {
+    width: 20% !important;
+    min-width: 50px !important; 
+  }
+}
+
+@media (max-width:767px) {
+  /*overrides plugin inline css*/
+  .ui-widget-overlay {
+    display: none;
+  }
+
+  .ui-dialog {
+    height: 100% !important;
+    width: 100% !important;
+    left: 0 !important;
+    top: 0 !important;
+    position: fixed;
+    max-height: 100% !important;
+    margin: 0;
+    border: none;
+    z-index: 2147483647; /*max limit of z-index*/
+    overflow: auto;
+  }
+
+  .ui-dialog .ui-dialog-content {
+    height: auto !important;
+  }
+
+  .ui-dialog .ui-dialog-titlebar {
+    padding: 15px 0;
+  }
+
+  .ui-dialog .ui-dialog-titlebar-close {
+    right: 15px;
+  }
+
+
+  #swizpro .wpProQuiz_button,
+  #swizpro .loadMoreButton {
+    width: 100%;
+  }
+
+  /*photo contest responsive view*/
+  .contestWrapper {
+    padding: 0;
+  }
+
+  .middleDetailWrapper ul {
+    display: block;
+  }
+
+  .middleDetailWrapper li {
+    float: none;
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid #4d4d4f;
+    border-left: none;
+    padding: 4% 2% 2%;
+  }
+
+  .viewGallery {
+    width: 100%;
+  }
+
+  .viewGalleryWrapper ul {
+    margin: 0;
+  }
+
+  .viewGalleryWrapper li {
+    width: 100%;
+    margin: 0 0 5% 0;
+  }
+
+  .startQuizBtn {
+    margin-bottom: 15%;
+  }
+
+  .viewGallery {
+    margin-bottom: 6%;
+  }
+
+  /*free choice mobile view issue*/
+  .swizpro_freeChoice input[type="text"] {
+    width: 96% !important; /*inline css override*/
+    margin: 0 auto;
+    display: block;
+  }
+
+  /*light box arrow icon show by default*/  
+  .lb-nav a.lb-next,
+  .lb-nav a.lb-prev {
+    filter: alpha(Opacity=100);
+    opacity: 1;
+  }
+
+  /*this or that responsiv view*/
+  .swizpro_thisOrThatQuiz .wpProQuiz_questionListItem,
+  .swizpro_thisOrThatQuiz .resultThisOrThat .answerImage {
+    float: none;
+    width: 100%;
+    margin-left: 0;
+    margin-bottom: 1.2em;
+  }
+
+  .resultThisOrThat .wpProQuiz_questionList {
+    width: 100%;
+  }
+
+  .resultThisOrThat .wpProQuiz_question_text {
+    text-align: center;
+  }
+
+  .swizpro_thisOrThatQuiz .wpProQuiz_questionList {
+    margin-left: 0;
+    margin-bottom: 0;
+  }
+
+  .swizpro_thisOrThatQuiz .answerImage {
+    height: 18em;
+  }
+  .resultThisOrThat .answerImage {
+    height: auto;
+  }
+
+  .swizpro_thisOrThatQuiz .answer_text img {
+    max-height: 62%;
+  }
+
+  /*free choice field alignment*/
+  .swizpro_freeChoice .wpProQuiz_answerIncorrect label {
+    padding-left: 0 !important;
+  }
+
+  /*custom field responive fix*/
+  .fieldForm .wpProQuiz_formFields label {
+    display: block;
+    vertical-align: top;
+    margin: 0 0 10px 0;
+  }
+}
