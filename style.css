@@ -1260,6 +1260,26 @@ li.widget_neighborhood_related_widget .neighborhood_widget_inner {
 	padding:.25em .5em;
 }
 /* category page styles */
+
+/* outdoor season landing pages tweaks */
+#outdoor-home-cat-sidebar #sidebar {
+float:right;
+}
+#outdoor-home-cat-content h2 {
+	font-family: 'Arvo',Arial,Helvetica,sans-serif;
+	font-weight: 400;
+	font-size: 1.75em;
+	line-height: 1.1;
+	color: #000;
+	margin: 0 0 .25em;
+}
+@media screen and (max-width: 1024px){
+	#outdoor-home-cat-sidebar #sidebar {
+		float:left;
+		width:100%;
+	}
+}
+/* ^outdoor season landing pages tweaks */
 h1.archive-title,
 h2.archive-title {
 	margin:0 0 1em;
@@ -1966,7 +1986,7 @@ div.photo-gallery .carousel-control:hover, div.photo-gallery .carousel-control:f
 
 /* pagination */
 body.home ul.pagination,
-body.outdoorhome ul.pagination { display: none; }
+body.outdoorhome ul.pagination { /* display: none; */ }
 ul.pagination li {
 	font-size:1.15em;
 	height:2.5rem;
