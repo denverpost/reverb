@@ -25,6 +25,59 @@ function unregister_default_widgets() {
 }
 add_action('widgets_init', 'unregister_default_widgets', 11);
 
+/**
+ * URL linker widget *for ads
+ */
+class linker_widget extends WP_Widget {
+
+    function linker_widget() {
+        parent::WP_Widget(false, $name = 'Linker Widget');
+    }
+
+    function widget($args, $instance) {
+        extract( $args );
+        $title 		= $instance['title'];
+        $message 	= $instance['message'];
+        ?>
+        <?php
+            echo $before_widget;
+            echo '<a href="'.$message.'" target="_blank">'
+        ?>
+        <?php if ( $title )
+            echo '<img src="'.$title.'" />';
+            echo '</a>';
+            echo $after_widget; ?>
+        <?php
+    }
+
+    function update($new_instance, $old_instance) {
+        $instance = $old_instance;
+        $instance['title'] = strip_tags($new_instance['title']);
+        $instance['message'] = strip_tags($new_instance['message']);
+        return $instance;
+    }
+
+    function form($instance) {
+
+        $title 		= $instance['title'];
+        $message	= esc_url($instance['message']);
+        ?>
+        <p>
+            <label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('URL:'); ?></label>
+            <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo $title; ?>" />
+        </p>
+        <p>
+            <label for="<?php echo $this->get_field_id('message'); ?>"><?php _e('Link'); ?></label>
+            <input class="widefat" id="<?php echo $this->get_field_id('message'); ?>" name="<?php echo $this->get_field_name('message'); ?>" type="text" value="<?php echo $message; ?>" />
+        </p>
+        <?php
+    }
+
+} // end class linker_widget
+function register_linker_widget() { register_widget('linker_widget'); }
+add_action( 'widgets_init', 'register_linker_widget' );
+
+
 // Popular widget
 class tkno_popular_widget extends WP_Widget
 {
