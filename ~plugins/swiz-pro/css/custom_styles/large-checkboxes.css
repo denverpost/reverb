@@ -1,0 +1,519 @@
+/* Large Checkboxes Quiz Style */
+body {
+  box-sizing: border-box;
+  font-family: 'ralewayregular', Arial, sans-serif;
+}
+
+/* Quiz Title */
+.swizProQuiz h1, 
+.swizProQuiz h2, 
+.swizProQuiz h3, 
+.swizProQuiz h4, 
+.swizProQuiz h5, 
+.swizProQuiz h6 {
+  font-family: 'ralewayregular', Arial, sans-serif;
+  margin: 0 0 .25em;
+  color: rgba(17,17,17,1);
+  line-height: 1.1;  
+}
+
+.swizProQuiz h1 {
+  font-weight: 700;
+  font-size: 2.75em;
+  color: #62be6f;
+  text-align: center;
+}
+
+.swizProQuiz h2 {
+  font-weight: 600;
+  font-size: 2em;
+}
+
+.swizProQuiz h3 {
+  font-weight: 500;
+  font-size: 1.75em;
+}
+
+.swizProQuiz h4 {
+  font-weight: 400;
+  font-size: 1.5em;
+}
+
+.swizProQuiz h5 {
+  font-weight: 400;
+  font-size: 1em;
+}
+
+.swizProQuiz h6 {
+  font-weight: 400;
+  font-size: 0.8em;
+}
+
+/*style for paragraph text*/
+.swizProQuiz p {
+  font-size: 0.9375rem;
+  font-weight: 400;
+  line-height: 1.66;
+  color: #333;
+  font-family: 'ralewayregular', Arial, sans-serif;
+}
+
+/* Quiz Subheading */
+.wpProQuiz_text span {
+  font-family: 'ralewayregular', Arial, sans-serif;
+}
+
+/* Quiz Button */
+.swizProQuiz .wpProQuiz_text input[type='button'].wpProQuiz_button,
+.swizProQuiz input + button,
+.swizProQuiz input + input[type="button"],
+.swizProQuiz input + input[type="submit"],
+.swizProQuiz button,
+.swizProQuiz input[type="button"],
+.swizProQuiz input[type="submit"],
+.swizProQuiz button:hover,
+.swizProQuiz button:focus,
+.swizProQuiz input[type="button"]:hover,
+.swizProQuiz input[type="button"]:focus,
+.swizProQuiz input[type="submit"]:hover,
+.swizProQuiz input[type="submit"]:focus,
+.swizProQuiz .swizpro_quizWrapper .loadMoreButton,
+.swizProQuiz .swizpro_quizWrapper .loadMoreButton:hover {
+  margin: 10px auto;
+  width: auto;
+  min-width: 200px;
+  text-align: center;
+  display: inline-block;
+  background-color: #62be6f;
+  color: #fff;
+  position: relative;
+  bottom: 10px;
+  font-size: 18px;
+  border-radius: 0;
+  font-weight: 600 !important;
+  text-transform: uppercase;
+  box-shadow: none;
+  transition: none;
+  font-family: 'ralewayregular', Arial, sans-serif;
+  padding: 12px 20px;
+  line-height: 25px;
+  border: 1px solid transparent;
+  cursor: pointer; 
+}
+
+/* Question Page */
+.wpProQuiz_question_page {
+  text-align: center;
+  font-family: 'ralewayregular', Arial, sans-serif;
+}
+
+/* Question Header */
+.wpProQuiz_header {
+  color: #767676;
+  font-size: 0.8125rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-family: 'ralewayregular', Arial, sans-serif;
+}
+
+/* Question Text */
+.wpProQuiz_question_text {
+  margin-bottom: 10px;
+  font-family: 'ralewayregular', Arial, sans-serif;
+}
+
+/* Answer List UI */
+.wpProQuiz_questionList {
+  border: 0;
+  background: #fff;
+  padding: 0;
+}
+
+/* Answer List Item */
+.wpProQuiz_questionListItem {
+  position: relative;
+  background-color: transparent;
+  padding: 0;
+}
+
+.wpProQuiz_questionListItem:hover {
+  background-color: transparent;
+}
+
+/*last checkbox alignment fix*/
+.wpProQuiz_questionListItem:last-child,
+.wpProQuiz_questionListItemLastChildIE {
+  margin-bottom: 0;
+  padding: 0;
+}
+
+.wpProQuiz_questionListItem label,
+.wpProQuiz_questionListItemLastChildIE {
+  padding: 6px 0 6px 50px;
+  display: block;
+  line-height: 32px;
+}
+
+.wpProQuiz_quiz label {
+  font-weight: 400;
+  font-family: 'ralewayregular', Arial, sans-serif;
+}
+
+.wpProQuiz_forms label {
+  font-weight: 400;
+  font-family: 'ralewayregular', Arial, sans-serif;
+}
+
+/* Results Paragraph */
+.wpProQuiz_results p {
+  margin: 0 0 10px 0;
+  font-family: 'ralewayregular', Arial, sans-serif;
+}
+
+/* Time */
+.wpProQuiz_quiz_time {
+  margin: 0 0 10px 0;
+  font-family: 'ralewayregular', Arial, sans-serif;
+}
+
+/* Total Points */
+.wpProQuiz_points {
+  margin: 0 0 10px 0;
+  font-family: 'ralewayregular', Arial, sans-serif;
+}
+
+/* Result Selected Answers */
+.selectedAnswer {
+  background-color: transparent;
+}
+
+.selectedAnswer:hover {
+  background-color: transparent;
+}
+
+/* Question Header */
+.wpProQuiz_answerIncorrect,
+.wpProQuiz_answerIncorrect:hover {
+  font-family: 'ralewayregular', Arial, sans-serif;
+  background-color: #d4644c;
+}
+
+.wpProQuiz_answerIncorrect label {
+  font-family: 'ralewayregular', Arial, sans-serif;
+}
+
+/* Correct Answer */
+.wpProQuiz_answerCorrect label {
+  font-family: 'ralewayregular', Arial, sans-serif;
+  color: #fff;
+  font-weight: 400;
+  background: #6DB46D;
+}
+
+/* Result Incorrect Answer */
+.wpProQuiz_incorrect {
+  color: #d4644c;
+}
+
+/* Result Correct Answer */
+.wpProQuiz_correct {
+  color: #62be6f;
+}
+
+/* Result Answer for Selected Response */
+.wpProQuiz_response {
+  font-family: 'ralewayregular', Arial, sans-serif;
+  padding: 10px 20px;
+  box-shadow: 0 0 0 transparent;
+}
+
+/* Result CheckBoxs Design */
+.wpProQuiz_quiz input[type="radio"],
+.wpProQuiz_quiz input[type="checkbox"] {
+  margin-right: 10px;
+  opacity: 0;
+}
+
+/*Custom Checkbox Design*/
+
+/*Lable wrapper*/
+.wpProQuiz_questionListItem .container {
+  display: block;
+  position: relative;
+  margin-bottom: 12px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/*Lable wrapper with Input*/
+.customCheckWrap input {
+  position: absolute;
+  opacity: 0;
+}
+
+/*Span for checkmark*/
+.wpProQuiz_questionListItem .checkmark {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  height: 34px;
+  width: 34px;
+  border: 1px solid #cacdce;
+  border-radius: 2px;
+  background: #fafafa;
+ /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(#fafafa, #f1f1f1);
+ /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(#fafafa, #f1f1f1);
+ /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(#fafafa, #f1f1f1);
+ /* For Firefox 3.6 to 15 */
+  background: linear-gradient(#fafafa, #f1f1f1);
+ /* Standard syntax */
+}
+
+/*Span for Custom checkmark */
+.wpProQuiz_questionListItem .container:hover input ~ .checkmark {
+  background-color: transparent;
+}
+
+/*Span for Custom checkmark with check */
+.wpProQuiz_questionListItem .container input:checked ~ .checkmark {
+  border: 1px solid #cacdce;
+  border-radius: 2px;
+  background: #fafafa;
+ /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(#fafafa, #f1f1f1);
+ /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(#fafafa, #f1f1f1);
+ /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(#fafafa, #f1f1f1);
+ /* For Firefox 3.6 to 15 */
+  background: linear-gradient(#fafafa, #f1f1f1);
+ /* Standard syntax */
+}
+
+/*Span for Custom checkmark with position */
+.wpProQuiz_questionListItem .checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.wpProQuiz_questionListItem .container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.wpProQuiz_questionListItem .container .checkmark:after {
+  left: 10px;
+  top: 3px;
+  width: 13px;
+  height: 23px;
+  border: solid #555;
+  border-width: 0 7px 7px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+/* Social Sharing */
+.emailSocial,
+.fbShare,
+.twitterShare,
+.linkedinShare {
+  font-family: 'ralewayregular', Arial, sans-serif;
+  width: 24%;
+  height: 45px;
+  padding-top: 2px;
+}
+
+/* Email Background Color */
+.emailSocial {
+  background-color: #888888;
+  /* #888888 is Dark Gray Color */
+}
+
+/* Facebook Background Color*/
+.fbShare {
+  background-color: #346399;
+  /* #346399 is Facebook Blue Color */
+}
+
+/* Twitter Background Color*/
+.twitterShare {
+  background-color: #6dc2ed;
+  /* #6dc2ed is Twiiter Sky Blue Color */
+}
+
+/* LinkedIn Background Color*/
+.linkedinShare {
+  background-color: #676767;
+  /* #676767 is LinkedIn Gray Color */
+}
+
+/*Styling for Footer Links*/
+.footerLinks {
+  margin-top: 40px;
+  border-top: 1px solid #eee; /*#eee footer seprator gray border*/
+  padding: 0.5em 1em;
+}
+
+.footerLinks span {
+  font-family: 'ralewayregular', Arial, sans-serif;
+  margin-right: 0.8em;
+  font-size: 14px;
+  color: #777; /*#777 Light Gray footer link color */
+  box-shadow: none;
+  border: 0;
+  transition: none;
+  cursor: pointer;
+}
+
+.footerLinks span:hover {
+  color: #1a1a1a; /*#1a1a1a light Black footer link hover color */
+  box-shadow: none;
+  border-bottom: 1px solid;
+  padding-bottom: 2px;
+  outline: 0;
+}
+
+/*Check Box Visibility*/
+.wpProQuiz_questionInput {
+  position: absolute;
+}
+
+/*free choice alignment issue*/
+.swizpro_freeChoice label {
+  padding-left: 0;
+}
+
+/*free choice incorrect answer alignment*/
+.swizpro_freeChoice .wpProQuiz_answerIncorrect label {
+  padding-left: 20px;
+}
+
+/*Photo Contest Details text*/
+.middleDetailWrapper .detailContainer {
+  color: #63be6f;
+  font-size: 1.5em;
+  text-transform: uppercase;
+  font-family: 'ralewayregular', Arial, sans-serif;
+  margin: 0 0 0.4em;
+}
+
+.middleDetailWrapper .showDetail {
+  color: #333;
+  font-size: 0.9375rem;
+  font-family: 'ralewayregular', Arial, sans-serif;
+  line-height: 1.4em;
+  font-weight: 400;
+}
+
+/*view gallery heading*/
+.viewGalleryWrapper h3 {
+  color: #63be6f;
+  font-size: 2.375em;
+  text-align: center;
+  font-family: 'ralewayregular', Arial, sans-serif;
+  margin-bottom: 0.6em;
+}
+
+/*share you result text*/
+.share-control .titleShare {
+  color: #000; /*black color*/
+  font-weight: 400;
+  display: inline-block;
+  line-height: 1.4em;
+  font-size: 1em;
+  margin-bottom: 0.4em;
+  font-family: 'ralewayregular', Arial, sans-serif;
+}
+
+/*This or that quiz*/
+.resultUpDownVote {
+  font-size: 1em;
+  font-family: 'ralewayregular', Arial, sans-serif;
+}
+
+/*user vote*/
+.resultThisOrThat .userVote {
+  background: #64bf73;
+  color: #fff;
+  font-size: 1.1em;
+  border-radius: 0;
+  font-weight: 700;
+  font-family: 'ralewayregular', Arial, sans-serif;  
+  padding: 0.6em 1.8em;
+  line-height: 1.6em;
+}
+
+/*image box styling*/
+.swizpro_thisOrThatQuiz .answerImage {
+  background-color: #e2e5e6;
+} 
+
+.swizpro_thisOrThatQuiz .answerImage:hover {
+  background-color: #d8dada
+}
+
+/*set background color with image box*/
+.swizpro_thisOrThatQuiz .answerImage.selectedAnswer {
+  background-color: #d8dada
+}
+
+/*result page votes backgroud reset*/
+.resultThisOrThat .answerImage,
+.resultThisOrThat .answerImage:hover {
+  background: transparent;
+}
+
+/*white space above the question this or that quiz*/
+.resultThisOrThat .wpProQuiz_header {
+  padding-top: 0;
+}
+
+/*back button styling*/
+.swizProQuiz input[type="button"].quizBackButton,
+.swizProQuiz input[type="button"].quizBackButton:hover,
+.swizProQuiz input[type="button"].quizBackButton:focus {
+  background: transparent;
+  border: 1px solid #62be6f;
+  color: #62be6f;
+}
+
+/*Restart button styling*/
+.swizProQuiz input[type="button"].restartQuizButton,
+.swizProQuiz input[type="button"].restartQuizButton:hover,
+.swizProQuiz input[type="button"].restartQuizButton:focus {
+  background: transparent;
+  border: 1px solid #62be6f;
+  color: #62be6f;
+}       
+
+/*Mobile Responsive media code*/
+@media (max-width:767px) {
+  .footerLinks span {
+    font-size: 14px;
+    margin-right: 0;
+    display: block;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+
+  .footerLinks span:hover {
+    border: none;
+    padding: 0;
+  }
+
+  /*photo contest details responsive*/
+  .middleDetailWrapper .detailContainer {
+    font-size: 1.3em;
+  }
+  
+  .viewGalleryWrapper h3 {
+    font-size: 1.5em;
+  }
+}

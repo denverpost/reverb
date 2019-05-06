@@ -17,46 +17,41 @@
         <div id="content" role="main">
         	<div class="row">
 
-                <div class="large-8 medium-12 small-12 columns" id="outdoorsmain">
+                <div id="outdoor-home-cat-content" class="<?php reactor_columns(); ?>" >
+                    <?php //reactor_inner_content_before(); ?>
 
-                    <?php
-                    $query_cat = $wp_query->get_queried_object();
-                    $class_header_category = ' category-' . tkno_get_top_category_slug( true, $query_cat->cat_id );
-                    $class_category = 'archive-title  category-' . $query_cat->slug; ?>
-                    <header class="archive-header<?php echo $class_header_category; ?>">
-                        <h1 class="<?php echo $class_category; ?>""><a href="javascript:void(0);" class="noclick"><?php echo $query_cat->name; ?></a></h1>
-                        <?php get_sidebar('categorysponsor'); ?>
-                    </header><!-- .archive-header -->
+                    <?php if ( have_posts() ) :
+                        $query_cat = $wp_query->get_queried_object();
+                        $parent_category = get_category( $query_cat->category_parent );
+                        $class_category_outdoors = '';
+                        $class_header_category = ' category-' . tkno_get_top_category_slug( true, $query_cat->cat_id );
+                        if ( is_outdoors() && $parent_category->slug != 'outdoors' && tkno_get_top_category_slug( true, $query_cat->cat_id ) == 'outdoors' ) {
+                            $class_category_outdoors = ' category-' . $parent_category->slug;
+                        }
+                        $class_category = 'archive-title  category-' . $query_cat->slug . $class_category_outdoors; ?>
+                        <header class="archive-header<?php echo $class_header_category; ?>">
+                            <h1 class="<?php echo $class_category; ?>"><a href="javascript:void(0);" class="noclick"><?php echo $query_cat->name; ?></a></h1>
 
-                    <div class="article_wrapper_top">
-                        <?php get_template_part('loops/loop', 'outdoortop'); ?>
-                    </div>
+                            <!-- //sidebar here -->
+                            <?php get_sidebar('categorysponsor'); ?>
 
-                    <div class="large-12 medium-6 small-12" id="outdoor-upper">
+                        </header><!-- .archive-header -->
+                    <?php endif; // end have_posts() check ?>
 
-                        <?php get_sidebar('outdoorupper'); ?>
+                    <?php // get the loop
+                    get_template_part('loops/loop', 'catpage'); ?>
 
-                    </div><!-- .columns -->
-                
-                    <?php reactor_inner_content_before(); ?>
-                
-                    <div class="article_wrapper">
-                        <?php get_template_part('loops/loop', 'outdoors'); ?>
-                    </div>
-
-                    <div class="clear"></div>
-                        
                     <?php reactor_inner_content_after(); ?>
-
-                    <div class="large-12 medium-6 small-12" id="sidebar-outdoormiddle">
-
-                        <?php tkno_outdoor_children_below(); ?>
-
-                    </div><!-- .columns -->
 
                 </div><!-- .columns -->
 
-				<?php get_sidebar('outdoors'); ?>
+                <div id="outdoor-home-cat-sidebar">
+                    <?php get_sidebar('outdoors'); ?>
+                </div>
+
+
+
+
                 
             </div><!-- .row -->
         </div><!-- #content -->

@@ -26,7 +26,6 @@
  */
 add_action('after_setup_theme', 'reactor_child_theme_setup', 11);
 
-
 function reactor_child_theme_setup() {
 
     /* Support for menus */
@@ -107,6 +106,8 @@ require_once( __DIR__ . '/includes/overrides.php');
 require_once( __DIR__ . '/includes/venues.php');
 // Neighborhoods taxonomy and post type, related admin and sidebar widgets, etc.
 require_once( __DIR__ . '/includes/neighborhoods.php');
+// A day in post type
+require_once( __DIR__ . '/includes/aday.php');
 // Locations taxonomy and post type, related admin and sidebar widgets, etc.
 require_once( __DIR__ . '/includes/locations.php');
 // Sidebar widgets and related pieces
@@ -415,17 +416,29 @@ add_filter( 'category_template', 'outdoors_category_templates' );
 // adlayer inside article ad insertion
 //Insert ads after second paragraph of single post content. 
 function ad_insert_post_ads( $content ) {
-     $ad_code = '<div style="text-align:center;"><div id="div-gpt-ad-Cube_Article" class="dfp-ad dfp-Cube_Article" data-ad-unit="Cube_Article">';
+	
+	//adding check for one off articles *for now
+	$id = get_the_ID();
+	
+	if ($id == 201246) {
+	//do nothing for a special reason
+	}else{
+	 
+    	$ad_code = '<div style="text-align:center;"><div id="div-gpt-ad-Cube_Article" class="dfp-ad dfp-Cube_Article" data-ad-unit="Cube_Article">';
+
 	$ad_code .= '<script type="text/javascript">';
 	$ad_code .= 'if ( "undefined" !== typeof googletag ) {
 			googletag.cmd.push( function() { googletag.display("div-gpt-ad-Cube_Article"); } );
 		}';
 	$ad_code .= '</script>';
 	$ad_code .= '</div></div>';
+	$ad_code .= "<div></div>";
  
     if ( is_single() && ! is_admin() ) {
         return ad_insert_after_paragraph( $ad_code, 2, $content );
     }
+
+	}
      
     return $content;
 }
@@ -452,3 +465,10 @@ function ad_insert_after_paragraph( $insertion, $paragraph_id, $content ) {
     return implode( '', $paragraphs );
 }
 add_filter( 'the_content', 'ad_insert_post_ads' );
+
+function my_acf_init() {
+	
+	acf_update_setting('google_api_key', 'XXXX');
+}
+
+add_action('acf/init', 'my_acf_init');

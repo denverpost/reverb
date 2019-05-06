@@ -16,7 +16,7 @@ add_action('wp_head', 'blog_favicon');
 add_action('admin_head', 'blog_favicon');
 
 // Hide the Wordpress admin bar for everyone
-function my_function_admin_bar(){ return false; }
+function my_function_admin_bar(){ return true; }
 add_filter( 'show_admin_bar' , 'my_function_admin_bar');
 
 /* ----- [ Display Co-Authors In RSS ] ----- */
