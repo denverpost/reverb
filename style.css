@@ -11,6 +11,7 @@ Text Domain: reactor
 */
 
 /* whole page styles */
+
 * {
 	font-family:'Open Sans',Arial,Helvetica,sans-serif;
 }
@@ -1535,7 +1536,13 @@ body:not(.home):not(.outdoorhome) .cat-second .entry-body h2.entry-title {
 }
 /*fix for in article iframe ads */
 .dfp-Cube_Article iframe {
-	width:100%!important;
+	width: unset !important;
+	display: inline-block;
+}
+@media all and (max-width:450px){
+	.dfp-Cube_Article iframe {
+		margin: 0 0% 1em !important;
+	}
 }
 
 .page .entry-content p iframe,
@@ -1985,8 +1992,9 @@ div.photo-gallery .carousel-control:hover, div.photo-gallery .carousel-control:f
 }
 
 /* pagination */
-body.home ul.pagination,
+body.home ul.pagination { display: none;}
 body.outdoorhome ul.pagination { /* display: none; */ }
+
 ul.pagination li {
 	font-size:1.15em;
 	height:2.5rem;
