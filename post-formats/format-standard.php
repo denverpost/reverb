@@ -13,6 +13,7 @@
             
             <header class="entry-header">
             	<?php reactor_post_header(); ?>
+			<?php //the_time('F j, Y'); ?>
             </header><!-- .entry-header -->
     
             <?php if ( is_author() ) : ?>
