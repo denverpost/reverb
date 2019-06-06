@@ -30,6 +30,7 @@
                         'posts_per_page'    => $number_posts,
                         'paged' => get_query_var( 'paged' ),
                         'orderby' => 'publish_date',
+                        'ignore_custom_sort' => TRUE,
                         'order' => 'DESC',
                         );
                     
