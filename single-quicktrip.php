@@ -229,8 +229,8 @@
 
     // Initialize the platform object:
     var platform = new H.service.Platform({
-        'app_id': '9q0uGc25KQUMSkx4wBjl',
-        'app_code': '23snKMeSrrPflD0sOdrtFQ'
+        'app_id': '###git-upload',
+        'app_code': '###git-upload'
     });
 
     // Obtain the default map types from the platform object
