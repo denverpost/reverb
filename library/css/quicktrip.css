@@ -1,0 +1,375 @@
+/* //////////////////////////////
+Quick Trip Section
+ */
+#page {
+  overflow: unset !important;
+}
+
+.stickyWrap {
+  z-index: 2;
+}
+
+.qt_iconBoxRow {
+  display: none;
+}
+
+.qt_featuredImage {
+  object-fit: cover;
+  width: 100%;
+  margin: -50px 0px 20px 0px;
+}
+
+.qt_font {
+  font-family: "Roboto", sans-serif;
+  font-weight: 100;
+}
+
+.qt_logo {
+  font-size: 70px;
+  display: block;
+  margin: 0px 0px -20px 5px;
+}
+
+.qt_title {
+  margin-bottom: -50px;
+  z-index: 99;
+  position: relative;
+}
+
+.qt_titleBG {
+  width: 65%;
+  background: white;
+  padding: 20px 20px 30px 20px;
+  margin-left: -12px;
+  display: inline-block;
+}
+
+.qt_cityName {
+  font-size: 110px;
+  line-height: 95px;
+}
+
+#qt_map {
+  width: 100%;
+  height: 400px;
+  margin-bottom: 40px;
+  margin-top: 110px;
+}
+
+#qt_map div {
+  overflow: unset !important;
+}
+
+.qt_iconBox {
+  background: rgba(255, 162, 22, 0.46);
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.qt_iconBox span {
+  font-size: 30px;
+  padding: 10px;
+}
+
+.qt_iconDescBox {
+  background: rgba(255, 162, 22, 0.46);
+}
+
+.qt_sectionTitle {
+  position: relative;
+  z-index: 3;
+  display: inline-block;
+  width: 96%;
+  padding-left: 20px;
+  background: #838f66;
+  font-size: 40px;
+  color: white;
+  font-weight: 100;
+}
+
+.qt_sectionHighlights {
+  font-size: 25px;
+}
+
+.swiper-slide img {
+  object-fit: cover;
+  object-position: center center;
+  width: 100%;
+  max-height: 530px;
+}
+
+.qt_alternativeBoxWrapper {
+  clear: both;
+}
+
+.qa_alternativeTitleDash {
+  width: 33%;
+  height: 1px;
+  border-bottom: 2px solid black;
+  display: block;
+  padding-top: 17px;
+  float: left;
+}
+
+.qa_alternativeTitleText {
+  float: left;
+  width: 33%;
+}
+
+.dayOfWeek {
+  text-align: center;
+  font-size: 90px;
+  color: white;
+  margin-bottom: 40px;
+}
+
+.flattenDiv {
+  height: 0px;
+  display: none !important;
+}
+
+.qt_alternativeTitle {
+  text-align: center;
+  font-size: 28px;
+  /*background:rgba(8,113,181,.2);*/
+  padding: 20px;
+}
+
+.flexContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.qt_alternativeBusinessTitle {
+  color: black;
+  text-align: center;
+  font-size: 26px;
+  margin: 0 auto;
+  display: block;
+}
+
+a.qt_alternativeBusinessTitle {
+  margin-bottom: -20px;
+  text-decoration: underline;
+}
+
+.qt_alternativeBox {
+  border: 2px solid black;
+  width: 300px;
+  padding: 10px;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.row.sectionWrapper {
+  padding-bottom: 70px;
+  padding-top: 0px;
+}
+
+.sectionMonday {
+  border-right: 10px solid #4D748C;
+}
+
+.sectionTuesday {
+  border-right: 10px solid #324759;
+}
+
+.sectionWednesday {
+  border-right: 10px solid #C1CCA9;
+}
+
+.sectionThursday {
+  border-right: 10px solid #93B3BF;
+}
+
+.sectionFriday {
+  border-right: 10px solid #688C89;
+}
+
+.sectionSaturday {
+  border-right: 10px solid #994319;
+}
+
+.sectionSunday {
+  border-right: 10px solid #709687;
+}
+
+.dayBGColorMonday {
+  background: #4D748C;
+}
+
+.dayBGColorTuesday {
+  background: #324759;
+}
+
+.dayBGColorWednesday {
+  background: #C1CCA9;
+}
+
+.dayBGColorThursday {
+  background: #93B3BF;
+}
+
+.dayBGColorFriday {
+  background: #688C89;
+}
+
+.dayBGColorSaturday {
+  background: #994319;
+}
+
+.dayBGColorSunday {
+  background: #709687;
+}
+
+#qt_timeline {
+  height: 100px;
+  width: 100px;
+  z-index: 2;
+  margin-left: -166px;
+  background: white;
+}
+
+#qt_timeline svg {
+  width: 100px;
+  height: 100px;
+  opacity: 0;
+}
+
+.qt_timeofdayWrapper {
+  font-size: 110px;
+  opacity: 0;
+  margin-left: -210px;
+  position: fixed;
+  margin-left: 50px !important;
+  top: 50%;
+  left: 30px;
+  transition: 1s all;
+}
+
+.stickyFlag {
+  position: sticky;
+  top: 100px;
+}
+
+.dayFlag {
+  float: right;
+  width: 130px;
+  margin-right: -155px;
+  margin-top: 20px;
+  font-size: 20px;
+  text-indent: 20px;
+  padding: 10px;
+  color: white;
+}
+
+.dayFlagBorderSunday::after, .dayFlagBorderSaturday::after, .dayFlagBorderFriday::after, .dayFlagBorderThursday::after, .dayFlagBorderWednesday::after, .dayFlagBorderTuesday::after, .dayFlagBorderMonday::after {
+  content: "";
+  float: right;
+  margin-right: 110px;
+  margin-top: -32px;
+  width: 10px;
+  height: 10px;
+  border-right: 21px solid #709687;
+  border-top: 18px solid transparent;
+  border-bottom: 18px solid transparent;
+}
+
+.dayFlagBorderMonday::after {
+  border-right-color: #4D748C;
+}
+
+.dayFlagBorderTuesday::after {
+  border-right-color: #324759;
+}
+
+.dayFlagBorderWednesday::after {
+  border-right-color: #C1CCA9;
+}
+
+.dayFlagBorderThursday::after {
+  border-right-color: #93B3BF;
+}
+
+.dayFlagBorderFriday::after {
+  border-right-color: #688C89;
+}
+
+.dayFlagBorderSaturday::after {
+  border-right-color: #994319;
+}
+
+.dayFlagBorderSunday::after {
+  border-right-color: #709687;
+}
+
+@media all and (max-width: 1230px) {
+  .row.sectionWrapper {
+    padding: 40px;
+    padding-top: 0px;
+  }
+
+  #qt_summary {
+    padding: 40px;
+  }
+}
+@media all and (max-width: 1024px) {
+  .row.sectionWrapper {
+    padding-right: 0px;
+    margin-right: 80px;
+  }
+
+  .dayFlag {
+    width: 80px;
+    margin-right: 5px;
+    margin-top: 20px;
+    font-size: 17px;
+    text-indent: -6px;
+  }
+
+  .dayFlagBorderMonday::after, .dayFlagBorderTuesday::after, .dayFlagBorderWednesday::after, .dayFlagBorderThursday::after, .dayFlagBorderFriday::after, .dayFlagBorderSaturday::after, .dayFlagBorderSunday::after {
+    margin-right: 70px;
+  }
+}
+@media all and (max-width: 500px) {
+  .qt_cityName {
+    font-size: 80px;
+  }
+
+  .row.sectionWrapper {
+    padding-right: 0px;
+    margin-right: 0px;
+  }
+
+  .dayOfWeek {
+    font-size: 60px;
+  }
+
+  .dayFlag {
+    display: none;
+  }
+
+  .qt_sectionTitle {
+    font-size: 35px;
+  }
+
+  .qt_alternativeTitle {
+    font-size: 22px;
+  }
+
+  .qa_alternativeTitleDash {
+    width: 25%;
+  }
+
+  .qa_alternativeTitleText {
+    width: 50%;
+    margin-bottom: 20px;
+  }
+}
+
+/*# sourceMappingURL=quicktrip.css.map */

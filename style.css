@@ -1487,13 +1487,18 @@ body:not(.home):not(.outdoorhome) .cat-second .entry-body h2.entry-title {
 .page header.entry-header {
 	margin-bottom: 1.5em;
 	padding-bottom:.5em;
-	border-bottom: 2px solid #ddd;
 }
 .error404 header.entry-header,
 .single header.entry-header {
-	margin-bottom: 1.5em;
+	margin-bottom: -1.5em;
 	padding-bottom:0;
+}
+.list_locations .ss-inline-share-wrapper {
+	display:none;
+}
+.ss-inline-share-wrapper {
 	border-bottom: 1px solid #ddd;
+	padding-bottom: .5em;
 }
 .page .entry-content figure,
 .single .entry-content figure {

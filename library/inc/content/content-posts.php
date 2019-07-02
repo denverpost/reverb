@@ -242,7 +242,10 @@ function reactor_do_post_header_social() {
 	if ( is_single() && get_post_type() != 'venues' && get_post_type() != 'neighborhoods' && get_post_type() != 'location' ) { ?>
 		<div class="row">
 			<div class="large-12 medium-12 small-12 columns masocial">
-				<?php echo do_shortcode('[mashshare]'); ?>
+				<?php 
+				//not needed anymore updated to new plugin
+				//echo do_shortcode('[mashshare]'); 
+				?>
 			</div>
 		</div>
 	<?php }
@@ -303,7 +306,10 @@ function reactor_do_post_footer_social() {
 	if ( is_single() && get_post_type() != 'neighborhoods' && get_post_type() != 'location' ) { ?>
 		<div class="row">
 			<div class="large-12 medium-12 small-12 columns masocial">
-				<?php echo do_shortcode('[mashshare]'); ?>
+				<?php 
+					//not used anymore, kept for backup and trying out new plugin
+					//echo do_shortcode('[mashshare]'); 
+				?>
 			</div>
 		</div>
 	<?php }

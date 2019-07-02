@@ -12,7 +12,7 @@
 $number_posts = 25;
     
     $args = array(
-        'post_type' => 'post',
+        'post_type' => array('post','quicktrip'),
         'posts_per_page' => $number_posts,
         'cat' => get_cat_id( single_cat_title("",false) ),
         'paged' => get_query_var( 'paged' ),
