@@ -467,7 +467,7 @@ function ad_insert_after_paragraph( $insertion, $paragraph_id, $content ) {
 add_filter( 'the_content', 'ad_insert_post_ads' );
 
 function my_acf_init() {
-	acf_update_setting('google_api_key', 'AIzaSyBWNvSgf49AEOhB67BzxIWkcv_lWH6Nr-c');
+	acf_update_setting('google_api_key', '###-removed-for-git');
 }
 
 add_action('acf/init', 'my_acf_init');
