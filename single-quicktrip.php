@@ -31,19 +31,19 @@
 <?php get_header();?>
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.0/mapsjs-ui.css?dp-version=1542186754" />
-    <script type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-core.js"></script>
-    <script type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-service.js"></script>
-    <script type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-ui.js"></script>
-    <script type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-mapevents.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Heebo:300,800&display=swap" rel="stylesheet">
+
 	<div id="primary" class="site-content">
 
     	<?php reactor_content_before(); ?>
 
         <div id="content" role="main">
 
-
-                <img class="qt_featuredImage" src="<?php the_field('featured_header_image'); ?>" />
+                <?PHP $headerPhoto = get_field('featured_header_image');?>
+                <img class="qt_featuredImage" src="<?php echo $headerPhoto['url']; ?>" />
+                <div class="headerCaption"><?php echo $headerPhoto['original_image']['caption']; ?></div>
             <div class="row">
+                <div class="md-overlay"></div><!-- the overlay element -->
                 <div class="<?php reactor_columns(); ?> stickyWrap">
                 
                 <?php reactor_inner_content_before(); ?>
@@ -59,8 +59,13 @@
                         <div class="row">
                             <div class="small-12 columns qt_title">
                                 <div class="qt_titleBG qt_font">
-                                    <div class="qt_logo qt_font">QuickTrip</div>
-                                    <div class="qt_cityName qt_font"><?php the_title(); ?></div>
+                                    <div class="qt_logo qt_font"><img src="<?PHP echo get_stylesheet_directory_uri() ?>/library/img/QTlogo.svg" /></div>
+                                    <div class="qt_cityName qt_font">
+                                        <?php
+                                        $cityName = get_field('name_of_city');
+                                        echo $cityName;
+                                        ?>
+                                    </div>
                                 </div>
                             </div>
                             <div id="qt_map" ></div>
@@ -68,12 +73,14 @@
                         <div class="row">
                             <div class="small-12" id="qt_summary">
                                 <?PHP the_field('summary'); ?>
+                                <div class="modaltriggerMobile">Where should we go next?<div id="modalSubmitText">Submit a City</div></div>
                             </div>
                         </div>
-                        <?php
+
+	                    <?php
                         $weekdayArray = array();
                         $previousDay = '';
-                    //    $outputDay='';
+                    //  $outputDay='';
                         // check if the repeater field has rows of data
                         if( have_rows('section') ):
                             // loop through the rows of data
@@ -114,18 +121,31 @@
                                 }
                             if ($outputDay != ''){
                                 echo '<div class="entireDayWrap">';
-                                echo '<div class="stickyFlag"><div data-aos="fade-left" data-aos-offset="1000" class="dayFlag dayBGColor'.$day.' dayFlagBorder'.$day.'">'.$day.'</div></div>';
+                                echo '<div class="stickyFlag"><div data-aos="fade-left" data-aos-offset="0" class="dayFlag dayBGColor'.$day.' dayFlagBorder'.$day.'">'.$day.'</div></div>';
                             }
 
                         ?>
                                 <!-- a div will populate here if it's a new day along with the day flag div -->
                                 <div class="row sectionWrapper section<?PHP echo $day?>">
                                         <div class="dayOfWeek dayBGColor<?PHP echo $day?>"><?PHP echo $outputDay ?></div>
+                                    <?PHP
+                                        if (get_sub_field('section_photo') != '') {
+                                            $sectionPhotoURL = get_sub_field('section_photo');
+                                            echo '
+                                            <div class="row">
+                                                <div class="sectionPhoto">
+                                                    <img src="'.$sectionPhotoURL['url'].'"/>
+                                                    <div class="photoCaption">'.$sectionPhotoURL['caption'].'</div>
+                                                </div>
+                                            </div>';
+                                        }
+                                    ?>
 
                                         <div class="row" style="padding-left:15px;">
                                             <div class="qt_sectionTitle qt_font " id="<?PHP echo $stickyName?>"><?PHP echo the_sub_field('section_title');?></div>
                                         </div>
                                     <div class="row" style="padding-right:40px!important;padding-left:15px;">
+
                                         <div class="qt_sectionHighlights qt_font">
                                             Price: <?PHP echo the_sub_field('price');?><br/>
                                             Location: <a href="<?PHP echo $business['business_link']; ?>" target="_blank"><?PHP echo $business['business_name']; ?></a>
@@ -161,7 +181,10 @@
 
                                                 if( $gallery ):
                                                     foreach( $gallery as $image ):
-                                                        echo "<div class=\"swiper-slide\"><img src='".$image['url']."' /></div>";
+                                                        echo "<div class=\"swiper-slide\">
+                                                                <img src='".$image['url']."' />
+                                                                <div class='photoCaption'>".$sectionPhotoURL['caption']."</div>
+                                                                </div>";
                                                     endforeach;
                                                 endif;
                                                 ?>
@@ -194,15 +217,36 @@
                                         </div>
                                     </div>
                                 </div> <!-- /sectionWrapper -->
-
                         <?PHP
                         endwhile;
                         echo "</div>";
-                    else :
+                            //adding post tags to templates
+	                        echo get_the_tag_list( $before = '<div class="entry-tags">Post tags: ', $sep = ', ', $after = '</div>' );
+                        else :
                         // no rows found
                     endif;
                     ?>
-
+                    <div class="endForm">
+                        <div id="commentMessage"></div>
+                        <span id="hideForm">
+                            <h3>Did we miss something?</h3>
+                            <p>
+                                Let us know here.<br/>
+                                Know of a must-do in <?PHP echo $cityName; ?> that we missed? Let us know!
+                            </p>
+                            <form>
+                                <input type="hidden" id="reading" disabled readonly value="<?PHP echo $cityName; ?>" />
+                                <span id="commentErrors" style="color:red;"></span>
+                                <label>Name</label>
+                                <input type="text" id="getName" name="name"/>
+                                <label>Email</label>
+                                <input type="text" id="getEmail" name="email"/>
+                                <label>Comments</label>
+                                <textarea id="getComment" name="comment" rows="5" cols="33"></textarea>
+                                <button class="endFormSubmit" id="commentSubmit">Submit</button>
+                            </form>
+                        </span>
+                    </div>
 					<?php  /* // get post format and display code for that format
                     if ( !get_post_format() ) : get_template_part('post-formats/format', 'single'); 
 					else : get_template_part('post-formats/format', get_post_format() ); endif; */?>
@@ -216,21 +260,47 @@
                 
                 </div><!-- .columns -->
                 
-                <?php get_sidebar(); ?>
-                
+                <?php
+                    get_sidebar();
+                    echo '<div class="modaltrigger">Where should we go next?<div id="modalSubmitText">Submit a City</div></div>';
+
+                ?>
+
             </div><!-- .row -->
+
         </div><!-- #content -->
-        
+
         <?php reactor_content_after(); ?>
-        
+
 	</div><!-- #primary -->
+    <div class="modalSubmitCity" id="modalSubmitCity">
+        <div class="md-content">
+            <span id="cityMessage"></span>
+            <h3 id="thanksCity">Submit a City</h3>
+            <div id="modalCityContent">
+                <p>Let us know where you'd like us to go next!</p>
+                <form>
+                    <input type="hidden" id="reading" disabled readonly value="<?PHP echo $cityName; ?>" />
+                    <input type="text" id="getCity" placeholder="city name here" />
+                    <button class="md-submit" id="citySubmit">Submit</button>
+                </form>
+                <button class="md-close">Never Mind</button>
+            </div>
+        </div>
+    </div>
+
+<script type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-core.js"></script>
+<script type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-service.js"></script>
+<script type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-ui.js"></script>
+<script type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-mapevents.js"></script>
 <script>
     //map stuff
 
     // Initialize the platform object:
     var platform = new H.service.Platform({
-        'app_id': '###git-upload',
-        'app_code': '###git-upload'
+        'app_id': 'ZoeraxgLCeeviHisrqKU',
+        'app_code': 'NT-uWhAwq95FFEPawybywg',
+        'useHTTPS': true
     });
 
     // Obtain the default map types from the platform object
@@ -244,7 +314,9 @@
             zoom: 12,
             center: { lng: <?php echo $location['lng']; ?>, lat: <?php echo $location['lat']; ?> }
         });
-   // var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
+    // Change the map base layer to the satellite map with traffic information:
+    map.setBaseLayer(maptypes.normal.base);
+    // var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
 </script>
 
 <?php get_footer(); ?>

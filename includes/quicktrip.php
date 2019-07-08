@@ -31,7 +31,7 @@ function aday_post_type() {
 		'description'         => __( 'Quick Trip these cities', 'reverb' ),
 		'labels'              => $labels,
 		// Features this CPT supports in Post Editor
-		'supports'      => array( 'title', 'editor', 'thumbnail', 'excerpt', 'page-attributes', 'revisions', 'author', 'custom-fields', ),
+		'supports'      => array( 'title', 'editor', 'thumbnail', 'excerpt', 'page-attributes', 'revisions', 'author', 'custom-fields' ),
 		// You can associate this CPT with a taxonomy or custom taxonomy.
 		//'taxonomies'          => array( 'genres' ),
 		/* A hierarchical CPT is like Pages and can have
@@ -50,7 +50,7 @@ function aday_post_type() {
 		'exclude_from_search' => false,
 		'publicly_queryable'  => true,
 		'capability_type'     => 'post',
-		'taxonomies'    => array( 'category' ),
+		'taxonomies'    => array( 'category','post_tag' ),
 		'rewrite' => array('slug' => 'quicktrip'),
 	);
 
