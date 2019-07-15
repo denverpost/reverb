@@ -281,14 +281,12 @@
                                                         $altPriceOutput = $otherBusiness['alternative_price'];
                                                         $altPriceRange = $otherBusiness['alternative_price_rance'];
                                                         if ($altPriceRange == '-') {
-
                                                         }else{
 	                                                        $altPriceOutput = $altPriceOutput." - ".$altPriceRange;
                                                         }
-                                                       // echo "<div class='toggleAlt'>";
-                                                        echo "Price: ".$altPriceOutput;
+	                                                    echo '<div class="altPhoto"><img src="'.$otherBusiness['alternative_photo']['url'].'"><div class="photoCaption">'.$otherBusiness['alternative_photo']['caption'].'</div></div>';
+                                                        echo "<span style='font-size: 1.4em;'>Price: ".$altPriceOutput."</span>";
                                                         echo '<p>'.$otherBusiness['alternative_description'].'</p>';
-                                                        //echo "</div>"; //toggleAlt
                                                     echo '</div>';
                                                 endforeach;
                                                 echo '</div>';
@@ -382,8 +380,8 @@
 
     // Initialize the platform object:
     var platform = new H.service.Platform({
-        'app_id': '##check-staging-for-key',
-        'app_code': '##check-staging-for-key',
+        'app_id': 'ZoeraxgLCeeviHisrqKU',
+        'app_code': 'NT-uWhAwq95FFEPawybywg',
         'useHTTPS': true
     });
 

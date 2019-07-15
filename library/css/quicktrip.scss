@@ -201,10 +201,14 @@ a.qt_alternativeBusinessTitle {
     font-size: 14px;
     background-color: rgba(0,0,0,.04);
 }
-
+.altPhoto {
+    padding:10px;
+    padding-bottom:20px;
+}
 .qt_alternativeBox figure {
     margin: 0;
     padding:0;
+    padding-bottom:20px;
 }
 .row.sectionWrapper{
     padding-bottom: 70px;
