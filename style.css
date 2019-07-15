@@ -1722,6 +1722,7 @@ body:not(.home):not(.outdoorhome) .cat-second .entry-body h2.entry-title {
 	color:rgba(73,73,73,1);
 }
 nav.nav-single {
+	display:none;
 	margin-bottom: 1.063em;
 }
 .single-venues nav.nav-single,

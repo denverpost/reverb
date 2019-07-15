@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* //////////////////////////////
 Quick Trip Section
  */
@@ -13,6 +14,11 @@ Quick Trip Section
   display: none;
 }
 
+#qt_summary, .qt_meta {
+  padding-left: 10px;
+  padding-right: 30px;
+}
+
 .qt_featuredImage {
   object-fit: cover;
   width: 100%;
@@ -20,7 +26,7 @@ Quick Trip Section
 }
 
 .qt_font {
-  font-family: "Roboto", sans-serif;
+  font-family: "Heebo", sans-serif;
   font-weight: 100;
 }
 
@@ -47,6 +53,7 @@ Quick Trip Section
 .qt_cityName {
   font-size: 110px;
   line-height: 95px;
+  font-weight: 900;
 }
 
 #qt_map {
@@ -78,13 +85,37 @@ Quick Trip Section
   background: rgba(255, 162, 22, 0.46);
 }
 
+.qt_meta .ss-inline-share-wrapper {
+  border-top: 1px solid #ddd;
+  padding-top: 0.5em;
+}
+
+.qt_meta .entry-meta {
+  font-size: 1.1em;
+  color: #222;
+}
+
+.qt_meta .entry-meta .entry-date {
+  color: #888;
+}
+
+.qt_meta .entry-meta .by-author {
+  color: #222;
+}
+
+.qt_meta .entry-meta .by-author::after {
+  content: "∙";
+  display: inline;
+  margin: 0 0.25em;
+}
+
 .qt_sectionTitle {
   position: relative;
   z-index: 3;
   display: inline-block;
   width: 96%;
   padding-left: 20px;
-  background: #838f66;
+  background: #A6BA9A;
   font-size: 40px;
   color: white;
   font-weight: 100;
@@ -92,6 +123,8 @@ Quick Trip Section
 
 .qt_sectionHighlights {
   font-size: 25px;
+  padding-bottom: 10px;
+  padding-top: 10px;
 }
 
 .swiper-slide img {
@@ -101,12 +134,12 @@ Quick Trip Section
   max-height: 530px;
 }
 
-.qt_alternativeBoxWrapper {
-  clear: both;
+.qt_alternativeAnimation {
+  transition: all 0.5s ease;
 }
 
 .qa_alternativeTitleDash {
-  width: 33%;
+  width: 31%;
   height: 1px;
   border-bottom: 2px solid black;
   display: block;
@@ -116,7 +149,17 @@ Quick Trip Section
 
 .qa_alternativeTitleText {
   float: left;
-  width: 33%;
+  width: 38%;
+  font-family: Heebo, sans-serif;
+  font-weight: 800;
+}
+
+.qa_alternativeTitleText::after {
+  content: "▼";
+}
+
+.arrowUp::after {
+  content: "▲";
 }
 
 .dayOfWeek {
@@ -124,6 +167,16 @@ Quick Trip Section
   font-size: 90px;
   color: white;
   margin-bottom: 20px;
+}
+
+.sectionContent {
+  padding-left: 15px;
+  padding-right: 10px;
+}
+
+.sectionContent figure {
+  padding: 0;
+  margin: 0;
 }
 
 .flattenDiv {
@@ -134,8 +187,9 @@ Quick Trip Section
 .qt_alternativeTitle {
   text-align: center;
   font-size: 28px;
-  /*background:rgba(8,113,181,.2);*/
+  margin-bottom: 35px;
   padding: 20px;
+  cursor: pointer;
 }
 
 .flexContainer {
@@ -145,9 +199,13 @@ Quick Trip Section
   justify-content: space-evenly;
 }
 
+.qt_alternativeBoxWrapper {
+  clear: both;
+  display: none;
+}
+
 .qt_alternativeBusinessTitle {
   color: black;
-  text-align: center;
   font-size: 26px;
   margin: 0 auto;
   display: block;
@@ -159,11 +217,11 @@ a.qt_alternativeBusinessTitle {
 }
 
 .qt_alternativeBox {
-  border: 2px solid black;
-  width: 300px;
+  width: 100%;
   padding: 10px;
   margin-bottom: 10px;
   font-size: 14px;
+  background-color: rgba(0, 0, 0, 0.04);
 }
 
 .qt_alternativeBox figure {
@@ -193,15 +251,15 @@ a.qt_alternativeBusinessTitle {
 }
 
 .sectionFriday {
-  border-right: 10px solid #688C89;
+  border-right: 10px solid #618275;
 }
 
 .sectionSaturday {
-  border-right: 10px solid #994319;
+  border-right: 10px solid #66747d;
 }
 
 .sectionSunday {
-  border-right: 10px solid #709687;
+  border-right: 10px solid #3A3D40;
 }
 
 .dayBGColorMonday {
@@ -221,15 +279,15 @@ a.qt_alternativeBusinessTitle {
 }
 
 .dayBGColorFriday {
-  background: #688C89;
+  background: #618275;
 }
 
 .dayBGColorSaturday {
-  background: #994319;
+  background: #66747d;
 }
 
 .dayBGColorSunday {
-  background: #709687;
+  background: #3A3D40;
 }
 
 #qt_timeline {
@@ -246,10 +304,14 @@ a.qt_alternativeBusinessTitle {
   opacity: 0;
 }
 
-.sectionPhoto {
+.sectionPhoto, .topSectionGallery {
   max-width: 100%;
-  padding: 25px;
-  margin-left: -10px;
+  padding: 27px;
+  margin-left: -5px;
+}
+
+.topSectionGallery {
+  margin-left: -30px !important;
 }
 
 .photoCaption {
@@ -287,7 +349,7 @@ a.qt_alternativeBusinessTitle {
   margin-right: -155px;
   margin-top: 20px;
   font-size: 20px;
-  text-indent: 20px;
+  text-indent: 3px;
   padding: 10px;
   color: white;
 }
@@ -299,7 +361,7 @@ a.qt_alternativeBusinessTitle {
   margin-top: -32px;
   width: 10px;
   height: 10px;
-  border-right: 21px solid #709687;
+  border-right: 21px solid #3A3D40;
   border-top: 18px solid transparent;
   border-bottom: 18px solid transparent;
 }
@@ -321,15 +383,15 @@ a.qt_alternativeBusinessTitle {
 }
 
 .dayFlagBorderFriday::after {
-  border-right-color: #688C89;
+  border-right-color: #618275;
 }
 
 .dayFlagBorderSaturday::after {
-  border-right-color: #994319;
+  border-right-color: #66747d;
 }
 
 .dayFlagBorderSunday::after {
-  border-right-color: #709687;
+  border-right-color: #3A3D40;
 }
 
 .modaltrigger {
@@ -470,8 +532,16 @@ a.qt_alternativeBusinessTitle {
     padding-top: 0px;
   }
 
-  #qt_summary {
+  #qt_summary, .qt_meta {
     padding: 40px;
+  }
+
+  #qt_summary {
+    padding-top: 0px;
+  }
+
+  .qt_meta {
+    padding-bottom: 0px;
   }
 }
 @media all and (max-width: 1024px) {
@@ -479,8 +549,11 @@ a.qt_alternativeBusinessTitle {
     display: block;
   }
 
+  .modalSubmitCity {
+    top: 10%;
+  }
+
   .endForm {
-    width: 90%;
     margin-top: 20px;
   }
 
@@ -505,9 +578,17 @@ a.qt_alternativeBusinessTitle {
     margin-right: 70px;
   }
 }
+@media all and (max-width: 800px) {
+  .modalSubmitCity {
+    left: 0;
+    width: 100%;
+    top: 10%;
+    padding: 30px;
+  }
+}
 @media all and (max-width: 500px) {
-  .qt_cityName {
-    font-size: 80px;
+  .qt_titleBG {
+    width: 100%;
   }
 
   .row.sectionWrapper {

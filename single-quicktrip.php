@@ -15,7 +15,7 @@
         wp_enqueue_style( 'quicktripapp', get_stylesheet_directory_uri() . '/library/css/quicktrip.css', '1.0.0', true );
         wp_enqueue_style( 'swiper', get_stylesheet_directory_uri() . '/library/css/swiper.min.css', '1.0.0', true );
         wp_enqueue_script( 'swiper', get_stylesheet_directory_uri() . '/library/js/swiper.min.js', array(), '1.0.0', true );
-        wp_enqueue_script( 'app', get_stylesheet_directory_uri() . '/library/js/quicktrip.js', array(), '1.0.0', true );
+        wp_enqueue_script( 'app', get_stylesheet_directory_uri() . '/library/js/quicktrip.js?123', array(), '1.0.0', true );
         wp_enqueue_script( 'waypoints', get_stylesheet_directory_uri() . '/library/js/jquery.waypoints.min.js', array(), '1.0.0', false );
         wp_enqueue_script( 'waypointsticky', get_stylesheet_directory_uri() . '/library/js/sticky.min.js', array(), '1.0.0', false );
     //	wp_enqueue_style( 'aoscss', 'https://unpkg.com/aos@next/dist/aos.css', '1.0.0', true );
@@ -31,7 +31,7 @@
 <?php get_header();?>
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.0/mapsjs-ui.css?dp-version=1542186754" />
-    <link href="https://fonts.googleapis.com/css?family=Heebo:300,800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Heebo:300,800,900&display=swap" rel="stylesheet">
 
 	<div id="primary" class="site-content">
 
@@ -70,6 +70,11 @@
                             </div>
                             <div id="qt_map" ></div>
                         </div>
+                        <div class="row qt_meta">
+	                        <?php
+	                        reactor_post_meta(array('show_cat'=>false,'show_tag'=>false,'catpage'=>true,'link_date'=>false)); ?>
+	                        <?php echo do_shortcode("[ss_social_share]"); ?>
+                        </div>
                         <div class="row">
                             <div class="small-12" id="qt_summary">
                                 <?PHP the_field('summary'); ?>
@@ -88,6 +93,7 @@
                                 // display a sub field value
                                 //section variables
                                 $business = get_sub_field('business_location');
+	                            $topSectionGallery = get_sub_field('top_section_gallery');
                                 $gallery = get_sub_field('section_gallery');
                                 $alternatives = get_sub_field('alternative_options');
 
@@ -125,7 +131,7 @@
                             }
 
                         ?>
-                                <!-- a div will populate here if it's a new day along with the day flag div -->
+                                <?PHP // a div will populate here if it's a new day along with the day flag div  ?>
                                 <div class="row sectionWrapper section<?PHP echo $day?>">
                                         <div class="dayOfWeek dayBGColor<?PHP echo $day?>"><?PHP echo $outputDay ?></div>
                                     <?PHP
@@ -140,64 +146,128 @@
                                             </div>';
                                         }
                                     ?>
+	                                <?php
+	                                $flattenDiv = '';
+	                                //$errorsTop = array_filter($topSectionGallery);
+	                                if (count($topSectionGallery, COUNT_RECURSIVE) > 1) {
+//                                                    echo '<script>';
+//                                                    echo 'console.log("top gallery should be showing'.count($topSectionGallery, COUNT_RECURSIVE).'")';
+//                                                    echo '</script>';
+	                                }else{
+//		                                echo '<script>';
+//		                                echo 'console.log("top gallery should be empty'.count($topSectionGallery, COUNT_RECURSIVE).'")';
+//		                                echo '</script>';
+		                                $flattenDiv = 'flattenDiv';
+	                                }
+	                                ?>
+                                    <div class="row topSectionGallery <?PHP echo $flattenDiv ?>">
+                                        <div class="arrows"></div>
+                                        <div class="small-12 columns qt_gallery <?PHP echo $flattenDiv ?>">
+                                            <!-- Slider main container -->
+                                            <div class="swiper-container">
+                                                <!-- Additional required wrapper -->
+
+                                                <!-- If we need navigation buttons -->
+                                                <div class="swiper-button-prev"></div>
+                                                <div class="swiper-button-next"></div>
+                                                <div class="swiper-wrapper">
+					                                <?PHP
+
+					                                if( $topSectionGallery ):
+						                                foreach( $topSectionGallery as $image ):
+							                                echo "<div class=\"swiper-slide\">
+                                                                <img src='".$image['url']."' />
+                                                                <div class='photoCaption'>".$image['caption']."</div>
+                                                                </div>";
+						                                endforeach;
+					                                endif;
+					                                ?>
+                                                </div>
+                                            </div> <!-- close swiper-container -->
+                                        </div>
+                                    </div>
 
                                         <div class="row" style="padding-left:15px;">
                                             <div class="qt_sectionTitle qt_font " id="<?PHP echo $stickyName?>"><?PHP echo the_sub_field('section_title');?></div>
                                         </div>
-                                    <div class="row" style="padding-right:40px!important;padding-left:15px;">
-
-                                        <div class="qt_sectionHighlights qt_font">
-                                            Price: <?PHP echo the_sub_field('price');?><br/>
-                                            Location: <a href="<?PHP echo $business['business_link']; ?>" target="_blank"><?PHP echo $business['business_name']; ?></a>
-                                        </div>
-                                        <div class="row">
-                                            <div class="small-12 columns qt_font">
-                                                <?PHP echo the_sub_field('section_content');?>
-                                            </div>
-                                        </div>
+                                    <!-- business photo section -->
+	                                <?PHP
+	                                if (get_sub_field('business_photo') != '') {
+		                                $businessPhotoURL = get_sub_field('business_photo');
+		                                echo '
+                                            <div class="row">
+                                                <div class="sectionPhoto">
+                                                    <img src="'.$businessPhotoURL['url'].'"/>
+                                                    <div class="photoCaption">'.$businessPhotoURL['caption'].'</div>
+                                                </div>
+                                            </div>';
+	                                }
+	                                ?>
+                                    <!-- business gallery section -->
+                                    <div class="row" style="padding-top:10px;padding-right:37px!important;padding-left:20px;">
                                         <div class="row">
                                             <div class="arrows"></div>
-                                            <?php
-                                                $gallerySize = count($gallery);
-                                                $errors = array_filter($gallery);
-                                                if (!empty($errors)) {
+		                                    <?php
+		                                    $flattenDiv = '';
+		                                    if (count($gallery, COUNT_RECURSIVE) > 1) {
 //                                                    echo '<script>';
 //                                                    echo 'console.log("i have something'.$gallerySize.'")';
 //                                                    echo '</script>';
-                                                }else{
-                                                    $flattenDiv = 'flattenDiv';
-                                                }
-                                            ?>
+		                                    }else{
+			                                    $flattenDiv = 'flattenDiv';
+		                                    }
+		                                    ?>
                                             <div class="small-12 columns qt_gallery <?PHP echo $flattenDiv ?>">
                                                 <!-- Slider main container -->
                                                 <div class="swiper-container">
                                                     <!-- Additional required wrapper -->
 
-                                                        <!-- If we need navigation buttons -->
-                                                        <div class="swiper-button-prev"></div>
-                                                        <div class="swiper-button-next"></div>
+                                                    <!-- If we need navigation buttons -->
+                                                    <div class="swiper-button-prev"></div>
+                                                    <div class="swiper-button-next"></div>
                                                     <div class="swiper-wrapper">
-                                                <?PHP
+					                                    <?PHP
 
-                                                if( $gallery ):
-                                                    foreach( $gallery as $image ):
-                                                        echo "<div class=\"swiper-slide\">
+					                                    if( $gallery ):
+						                                    foreach( $gallery as $image ):
+							                                    echo "<div class=\"swiper-slide\">
                                                                 <img src='".$image['url']."' />
-                                                                <div class='photoCaption'>".$sectionPhotoURL['caption']."</div>
+                                                                <div class='photoCaption'>".$image['caption']."</div>
                                                                 </div>";
-                                                    endforeach;
-                                                endif;
-                                                ?>
+						                                    endforeach;
+					                                    endif;
+					                                    ?>
                                                     </div>
                                                 </div> <!-- close swiper-container -->
                                             </div>
                                         </div>
+
+                                        <div class="qt_sectionHighlights qt_font">
+                                            <?PHP
+                                                $priceOutput = get_sub_field('price');
+                                                $priceRange = get_sub_field('price_range');
+                                                if ($priceRange != '-') {
+                                                    $priceOutput = $priceOutput." - ".$priceRange;
+                                                }
+                                            ?>
+                                            Location: <a href="<?PHP echo $business['business_link']; ?>" target="_blank"><?PHP echo $business['business_name']; ?></a>
+                                            <br/>
+                                            Price: <?PHP echo $priceOutput;?>
+                                        </div>
                                         <div class="row">
+                                            <div class="small-12 sectionContent columns qt_font">
+                                                <?PHP echo the_sub_field('section_content');?>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+
                                             <?PHP
 
                                             if( $alternatives ):
+                                                $addS = '';
                                                 if (count($alternatives) > 1) { $addS = 's';}
-                                                echo "<h2 class='qt_alternativeTitle'><span class='qa_alternativeTitleDash'></span><span class='qa_alternativeTitleText'>Alternate Option".$addS."</span><span class='qa_alternativeTitleDash'></span></h2>";
+                                                echo "<h2 class='qt_alternativeTitle'><span class='qa_alternativeTitleDash'></span><span class='qa_alternativeTitleText'>Alternative Option".$addS."</span><span class='qa_alternativeTitleDash'></span></h2>";
                                                 echo '<div class="flexContainer qt_alternativeBoxWrapper">';
                                                 foreach( $alternatives as $otherBusiness ):
                                                     echo '<div class="qt_alternativeBox">';
@@ -208,7 +278,17 @@
                                                             $createAltTitle = '<div class="qt_alternativeBusinessTitle">'.$otherBusiness['alternative_name'].'</div>';
                                                         }
                                                         echo $createAltTitle;
+                                                        $altPriceOutput = $otherBusiness['alternative_price'];
+                                                        $altPriceRange = $otherBusiness['alternative_price_rance'];
+                                                        if ($altPriceRange == '-') {
+
+                                                        }else{
+	                                                        $altPriceOutput = $altPriceOutput." - ".$altPriceRange;
+                                                        }
+                                                       // echo "<div class='toggleAlt'>";
+                                                        echo "Price: ".$altPriceOutput;
                                                         echo '<p>'.$otherBusiness['alternative_description'].'</p>';
+                                                        //echo "</div>"; //toggleAlt
                                                     echo '</div>';
                                                 endforeach;
                                                 echo '</div>';
@@ -218,10 +298,15 @@
                                     </div>
                                 </div> <!-- /sectionWrapper -->
                         <?PHP
-                        endwhile;
+                            endwhile;
                         echo "</div>";
+	                        echo do_shortcode( "[ss_social_share]" );
                             //adding post tags to templates
 	                        echo get_the_tag_list( $before = '<div class="entry-tags">Post tags: ', $sep = ', ', $after = '</div>' );
+	                        //adding author bio to quick trip
+	                        echo '<div class="bio-wrap">';
+                            reactor_post_meta( array('show_photo' => true,'show_tag' => true) );
+                            echo '</div>';
                         else :
                         // no rows found
                     endif;
@@ -231,7 +316,6 @@
                         <span id="hideForm">
                             <h3>Did we miss something?</h3>
                             <p>
-                                Let us know here.<br/>
                                 Know of a must-do in <?PHP echo $cityName; ?> that we missed? Let us know!
                             </p>
                             <form>
@@ -298,25 +382,29 @@
 
     // Initialize the platform object:
     var platform = new H.service.Platform({
-        'app_id': 'ZoeraxgLCeeviHisrqKU',
-        'app_code': 'NT-uWhAwq95FFEPawybywg',
+        'app_id': '##check-staging-for-key',
+        'app_code': '##check-staging-for-key',
         'useHTTPS': true
     });
 
     // Obtain the default map types from the platform object
     var maptypes = platform.createDefaultLayers();
+    //set min and max zoom levels
+    maptypes.normal.map.setMax(14);
+    maptypes.normal.map.setMin(12);
 
     // Instantiate (and display) a map object:
     var map = new H.Map(
         document.getElementById('qt_map'),
         maptypes.normal.map,
         {
-            zoom: 12,
+            zoom: 14,
             center: { lng: <?php echo $location['lng']; ?>, lat: <?php echo $location['lat']; ?> }
         });
+    ;
     // Change the map base layer to the satellite map with traffic information:
-    map.setBaseLayer(maptypes.normal.base);
-    // var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
+    //map.setBaseLayer(maptypes.normal.base);
+    var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
 </script>
 
 <?php get_footer(); ?>

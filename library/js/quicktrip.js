@@ -3,7 +3,8 @@ jQuery(function($) {
     var mySwiper = new Swiper ('.swiper-container', {
         // Optional parameters
         direction: 'horizontal',
-
+        loop: true,
+        preventInteractionOnTransition: true,
         // Navigation arrows
         navigation: {
             nextEl: '.swiper-button-next',
@@ -18,7 +19,7 @@ jQuery(function($) {
     });
 
     //submit a city modal popup
-    $( ".modaltrigger" ).on( "click", function() {
+    $( ".modaltrigger, .modaltriggerMobile" ).on( "click", function() {
         $(".modalSubmitCity").css("display","block");
         $(".modalSubmitCity").removeClass("scale-out-vertical");
         $(".modalSubmitCity").addClass("scale-in-ver-center");
@@ -28,6 +29,11 @@ jQuery(function($) {
         $(".modalSubmitCity").addClass("scale-out-vertical");
     });
 
+    //toggle function for alternatives
+    $(".qt_alternativeTitle").on('click' ,function() {
+        $(this).siblings().fadeToggle( "fast");
+        $(this).children('.qa_alternativeTitleText').toggleClass("arrowUp");
+     });
 });
 
 //city submit button

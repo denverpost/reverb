@@ -3,7 +3,15 @@
   <component name="ChangeListManager">
     <list default="true" id="c5aca279-1b2b-4c26-8b16-2b7b57647446" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/loops/loop-tagpage.php" beforeDir="false" afterPath="$PROJECT_DIR$/loops/loop-tagpage.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/includes/neighborhoods.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/neighborhoods.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/library/css/quicktrip.css" beforeDir="false" afterPath="$PROJECT_DIR$/library/css/quicktrip.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/library/css/quicktrip.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/library/css/quicktrip.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/library/css/quicktrip.scss" beforeDir="false" afterPath="$PROJECT_DIR$/library/css/quicktrip.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/library/js/quicktrip.js" beforeDir="false" afterPath="$PROJECT_DIR$/library/js/quicktrip.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/loops/loop-neighborhood.php" beforeDir="false" afterPath="$PROJECT_DIR$/loops/loop-neighborhood.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/single-quicktrip.php" beforeDir="false" afterPath="$PROJECT_DIR$/single-quicktrip.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/~plugins/README.txt" beforeDir="false" afterPath="$PROJECT_DIR$/~plugins/README.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/~plugins/dfm-wp-googleTagManager/dfm-wp-googleTagManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/~plugins/dfm-wp-googleTagManager/dfm-wp-googleTagManager.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -22,8 +30,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="22095">
-              <caret line="1473" column="22" selection-start-line="1473" selection-start-column="22" selection-end-line="1473" selection-end-column="22" />
+            <state relative-caret-position="484">
+              <caret line="1734" column="1" selection-start-line="1734" selection-start-column="1" selection-end-line="1734" selection-end-column="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/loops/loop-neighborhood.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="12" column="48" selection-start-line="12" selection-start-column="48" selection-end-line="12" selection-end-column="48" />
             </state>
           </provider>
         </entry>
@@ -31,13 +48,13 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/loops/loop-catpage.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="675">
-              <caret line="49" column="34" lean-forward="true" selection-start-line="49" selection-start-column="34" selection-end-line="49" selection-end-column="34" />
+            <state relative-caret-position="645">
+              <caret line="49" column="34" selection-start-line="49" selection-start-column="34" selection-end-line="49" selection-end-column="34" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/loops/loop-tagpage.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="150">
@@ -47,10 +64,24 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/loops/loop-venue.php">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/loops/loop-frontpage.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="300">
               <caret line="26" column="74" selection-start-line="26" selection-start-column="49" selection-end-line="26" selection-end-column="74" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/includes/neighborhoods.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="712">
+              <caret line="57" column="28" selection-start-line="57" selection-start-column="28" selection-end-line="57" selection-end-column="28" />
             </state>
           </provider>
         </entry>
@@ -65,10 +96,19 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/single-quicktrip.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="4770">
+              <caret line="326" column="95" selection-start-line="326" selection-start-column="95" selection-end-line="326" selection-end-column="95" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/loops/loop-outdoortop.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="75">
-              <caret line="11" column="32" lean-forward="true" selection-start-line="11" selection-start-column="32" selection-end-line="11" selection-end-column="32" />
+              <caret line="11" column="62" selection-start-line="11" selection-start-column="37" selection-end-line="11" selection-end-column="62" />
             </state>
           </provider>
         </entry>
@@ -132,7 +172,6 @@
         <option value="$USER_HOME$/Downloads/author.php" />
         <option value="$PROJECT_DIR$/author.php" />
         <option value="$PROJECT_DIR$/post-formats/format-standard.php" />
-        <option value="$PROJECT_DIR$/style.css" />
         <option value="$PROJECT_DIR$/loops/loop-frontpage.php" />
         <option value="$PROJECT_DIR$/loops/loop-outdoors.php" />
         <option value="$PROJECT_DIR$/loops/loop-outdoortop.php" />
@@ -140,8 +179,10 @@
         <option value="$PROJECT_DIR$/library/css/quicktrip.scss" />
         <option value="$PROJECT_DIR$/functions.php" />
         <option value="$PROJECT_DIR$/~plugins/advanced-custom-fields-pro/includes/forms/form-post.php" />
-        <option value="$PROJECT_DIR$/single-quicktrip.php" />
         <option value="$PROJECT_DIR$/loops/loop-tagpage.php" />
+        <option value="$PROJECT_DIR$/single-quicktrip.php" />
+        <option value="$PROJECT_DIR$/style.css" />
+        <option value="$PROJECT_DIR$/loops/loop-neighborhood.php" />
       </list>
     </option>
   </component>
@@ -149,10 +190,10 @@
     <servers />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="24" />
-    <option name="y" value="23" />
-    <option name="width" value="1674" />
-    <option name="height" value="1177" />
+    <option name="x" value="619" />
+    <option name="y" value="153" />
+    <option name="width" value="1818" />
+    <option name="height" value="1411" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -160,7 +201,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -171,12 +211,18 @@
             <path>
               <item name="reverb" type="b2602c69:ProjectViewProjectNode" />
               <item name="reverb" type="462c0819:PsiDirectoryNode" />
+              <item name="includes" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="reverb" type="b2602c69:ProjectViewProjectNode" />
+              <item name="reverb" type="462c0819:PsiDirectoryNode" />
               <item name="loops" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -188,7 +234,7 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="two.files.diff.last.used.file" value="$USER_HOME$/Downloads/BACKUPLIVE/the-know/loops/loop-outdoortop.php" />
+    <property name="two.files.diff.last.used.file" value="$USER_HOME$/Downloads/BACKUPLIVE/the-know/style.css" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -251,18 +297,20 @@
       <workItem from="1562187720207" duration="114000" />
       <workItem from="1562187845734" duration="3120000" />
       <workItem from="1562192896787" duration="1283000" />
-      <workItem from="1562609401963" duration="548000" />
+      <workItem from="1562609401963" duration="845000" />
+      <workItem from="1563123743463" duration="1259000" />
+      <workItem from="1563220840303" duration="75000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="68321000" />
+    <option name="totallyTimeSpent" value="69952000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="24" y="23" width="1674" height="1177" extended-state="0" />
+    <frame x="619" y="153" width="1818" height="1411" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25796568" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24268018" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -325,18 +373,8 @@
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/archive-a-day-in.php" />
-    <entry file="file://$PROJECT_DIR$/includes/neighborhoods.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="133" column="55" selection-start-line="133" selection-start-column="37" selection-end-line="133" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/single-a-day-in.php" />
     <entry file="file://$PROJECT_DIR$/archive-aday.php" />
-    <entry file="file://$PROJECT_DIR$/loops/loop-neighborhood.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/post-formats/format-neighborhoods.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
@@ -377,9 +415,6 @@
           </folding>
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/loops/loop-venue.php">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/single-aday.php" />
     <entry file="file://$PROJECT_DIR$/includes/quicktrip.php" />
@@ -505,20 +540,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22095">
-          <caret line="1473" column="22" selection-start-line="1473" selection-start-column="22" selection-end-line="1473" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/single-quicktrip.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="457">
-          <caret line="125" selection-start-line="125" selection-end-line="125" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/~plugins/advanced-custom-fields-pro/includes/forms/form-post.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1005">
@@ -544,6 +565,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="484">
+          <caret line="1734" column="1" selection-start-line="1734" selection-start-column="1" selection-end-line="1734" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/loops/loop-catpage.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="645">
+          <caret line="49" column="34" selection-start-line="49" selection-start-column="34" selection-end-line="49" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/single-quicktrip.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4770">
+          <caret line="326" column="95" selection-start-line="326" selection-start-column="95" selection-end-line="326" selection-end-column="95" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/loops/loop-outdoors.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
@@ -551,19 +593,29 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/loops/loop-catpage.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="675">
-          <caret line="49" column="34" lean-forward="true" selection-start-line="49" selection-start-column="34" selection-end-line="49" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/loops/loop-outdoortop.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
-          <caret line="11" column="32" lean-forward="true" selection-start-line="11" selection-start-column="32" selection-end-line="11" selection-end-column="32" />
+          <caret line="11" column="62" selection-start-line="11" selection-start-column="37" selection-end-line="11" selection-end-column="62" />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/loops/loop-neighborhood.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="12" column="48" selection-start-line="12" selection-start-column="48" selection-end-line="12" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/loops/loop-tagpage.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="16" column="48" selection-start-line="16" selection-start-column="48" selection-end-line="16" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/loops/loop-venue.php">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/loops/loop-frontpage.php">
       <provider selected="true" editor-type-id="text-editor">
@@ -572,10 +624,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/loops/loop-tagpage.php">
+    <entry file="file://$PROJECT_DIR$/includes/neighborhoods.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="16" column="48" selection-start-line="16" selection-start-column="48" selection-end-line="16" selection-end-column="48" />
+        <state relative-caret-position="712">
+          <caret line="57" column="28" selection-start-line="57" selection-start-column="28" selection-end-line="57" selection-end-column="28" />
         </state>
       </provider>
     </entry>

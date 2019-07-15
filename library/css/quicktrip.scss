@@ -5,10 +5,10 @@ $mondayColor:#4D748C;
 $tuesdayColor:#324759;
 $wednesdayColor:#C1CCA9;
 $thursdayColor:#93B3BF;
-$fridayColor: #688C89;
-$saturdayColor: rgb(153	,67,	25	);
-$sundayColor: #709687;
-$sectionTitleColor: rgb(131, 143, 102);
+$fridayColor: #618275;
+$saturdayColor:#66747d;
+$sundayColor:#3A3D40;
+$sectionTitleColor: #A6BA9A;
 
 //needed to get sticky elements to work
 #page {
@@ -21,14 +21,18 @@ $sectionTitleColor: rgb(131, 143, 102);
 .qt_iconBoxRow{
     display:none;
 }
-
+#qt_summary, .qt_meta {
+    padding-left: 10px;
+    padding-right: 30px;
+}
 .qt_featuredImage {
     object-fit:cover;
     width:100%;
     margin:-50px 0px 0px 0px;
 }
 .qt_font {
-    font-family: 'Roboto', sans-serif;
+    //font-family: 'Roboto', sans-serif;
+    font-family: 'Heebo', sans-serif;
     font-weight: 100;
 }
 .qt_logo {
@@ -51,6 +55,7 @@ $sectionTitleColor: rgb(131, 143, 102);
 .qt_cityName {
     font-size:110px;
     line-height:95px;
+    font-weight:900;
 }
 #qt_map {
     width: 100%;
@@ -76,6 +81,25 @@ $sectionTitleColor: rgb(131, 143, 102);
 .qt_iconDescBox {
     background: rgba(255, 162, 22, 0.46);
 }
+.qt_meta .ss-inline-share-wrapper {
+    border-top: 1px solid #ddd;
+    padding-top: .5em;
+}
+.qt_meta .entry-meta {
+    font-size: 1.1em;
+    color: #222;
+}
+.qt_meta .entry-meta .entry-date {
+    color: #888;
+}
+.qt_meta .entry-meta .by-author {
+    color:#222;
+}
+.qt_meta .entry-meta .by-author::after {
+    content: '\2219';
+    display: inline;
+    margin: 0 .25em;
+}
 .qt_sectionTitle {
     position:relative;
     z-index:3;
@@ -90,6 +114,8 @@ $sectionTitleColor: rgb(131, 143, 102);
 }
 .qt_sectionHighlights {
     font-size:25px;
+    padding-bottom: 10px;
+    padding-top: 10px;
 }
 .swiper-slide img {
     object-fit:cover;
@@ -97,11 +123,13 @@ $sectionTitleColor: rgb(131, 143, 102);
     width:100%;
     max-height:530px;
 }
-.qt_alternativeBoxWrapper {
-    clear:both;
+
+.qt_alternativeAnimation {
+    transition: all 0.5s ease;
 }
+
 .qa_alternativeTitleDash {
-    width: 33%;
+    width: 31%;
     height: 1px;
     border-bottom: 2px solid black;
     display: block;
@@ -110,13 +138,29 @@ $sectionTitleColor: rgb(131, 143, 102);
 }
 .qa_alternativeTitleText {
     float:left;
-    width:33%;
+    width:38%;
+    font-family: Heebo, sans-serif;
+    font-weight: 800;
+}
+.qa_alternativeTitleText::after {
+    content:'▼';
+}
+.arrowUp::after{
+    content:"▲";
 }
 .dayOfWeek{
     text-align: center;
     font-size: 90px;
     color: white;
     margin-bottom: 20px;
+}
+.sectionContent {
+    padding-left: 15px;
+    padding-right: 10px;
+}
+.sectionContent figure {
+    padding:0;
+    margin: 0;
 }
 .flattenDiv {
     height:0px;
@@ -125,19 +169,23 @@ $sectionTitleColor: rgb(131, 143, 102);
 .qt_alternativeTitle {
     text-align:center;
     font-size:28px;
-    /*background:rgba(8,113,181,.2);*/
+    margin-bottom: 35px;
     padding:20px;
+    cursor:pointer;
 }
+
 .flexContainer {
     display:flex;
     flex-direction: row;
     flex-wrap:wrap;
     justify-content: space-evenly;
 }
-
+.qt_alternativeBoxWrapper {
+    clear:both;
+    display:none;
+}
 .qt_alternativeBusinessTitle {
     color:black;
-    text-align:center;
     font-size: 26px;
     margin: 0 auto;
     display: block;
@@ -147,12 +195,13 @@ a.qt_alternativeBusinessTitle {
     text-decoration:underline;
 }
 .qt_alternativeBox {
-    border:2px solid black;
-    width: 300px;
+    width: 100%;
     padding: 10px;
-    margin-bottom:10px;
-    font-size:14px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    background-color: rgba(0,0,0,.04);
 }
+
 .qt_alternativeBox figure {
     margin: 0;
     padding:0;
@@ -215,11 +264,15 @@ a.qt_alternativeBusinessTitle {
     height:100px;
     opacity:0;
 }
-.sectionPhoto {
+.sectionPhoto, .topSectionGallery {
     max-width: 100%;
-    padding: 25px;
-    margin-left: -10px;
+    padding: 27px;
+    margin-left: -5px;
 }
+.topSectionGallery {
+    margin-left:-30px!important;
+}
+
 .photoCaption {
     background:#2E2E2E;
     color:white;
@@ -251,7 +304,7 @@ a.qt_alternativeBusinessTitle {
     margin-right:-155px;
     margin-top:20px;
     font-size:20px;
-    text-indent:20px;
+    text-indent:3px;
     padding:10px;
     color:white;
 }
@@ -385,6 +438,7 @@ a.qt_alternativeBusinessTitle {
     -webkit-animation: scale-out-vertical 0.2s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
     animation: scale-out-vertical 0.2s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
 }
+
 ///////////////////
 //Media queries
 //////////////////
@@ -419,16 +473,24 @@ a.qt_alternativeBusinessTitle {
         padding: 40px;
         padding-top:0px;
     }
-    #qt_summary {
+    #qt_summary, .qt_meta {
         padding:40px;
+    }
+    #qt_summary {
+        padding-top:0px;
+    }
+    .qt_meta {
+        padding-bottom:0px;
     }
 }
 @media all and (max-width: 1024px) {
     .modaltriggerMobile {
         display:block;
     }
+    .modalSubmitCity {
+        top:10%;
+    }
     .endForm {
-        width: 90%;
         margin-top: 20px;
     }
     .modaltrigger {
@@ -450,9 +512,17 @@ a.qt_alternativeBusinessTitle {
     margin-right:70px;
     }
 }
+@media all and (max-width:800px) {
+    .modalSubmitCity {
+        left:0;
+        width:100%;
+        top:10%;
+        padding:30px;
+    }
+}
 @media all and (max-width: 500px) {
-    .qt_cityName {
-        font-size:80px;
+    .qt_titleBG {
+        width:100%;
     }
     .row.sectionWrapper {
         padding-right: 0px;
@@ -469,6 +539,7 @@ a.qt_alternativeBusinessTitle {
     }
     .qt_alternativeTitle {
         font-size:22px;
+
     }
     .qa_alternativeTitleDash {
         width:25%;
