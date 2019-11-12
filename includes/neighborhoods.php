@@ -44,7 +44,7 @@ function tkno_register_neighborhood_taxonomy() {
     );
     register_taxonomy(
         'neighborhood',
-        array('post','location'),
+        array('post','location','quicktrip'),
         array(
             'label' => __( 'Neighborhood' ),
             'hierarchical' => true,

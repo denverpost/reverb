@@ -9,7 +9,7 @@
 
 		$current_cat = get_query_var('cat');
         $args = array( 
-			'post_type'           => 'post',
+			'post_type'           => array('post','quicktrip'),
 			'cat'                 => $current_cat,
 			'posts_per_page'      => 1
 			);

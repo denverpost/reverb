@@ -24,7 +24,7 @@ $page_links = reactor_option('frontpage_page_links', 0); ?>
 						$paged = 1;
 					}
 	                $args = array( 
-						'post_type'           => 'post',
+						'post_type'           => array('post','quicktrip'),
 						'cat'                 => $post_category,
 						'posts_per_page'      => $number_posts,
 						'paged'               => $paged

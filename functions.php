@@ -107,7 +107,7 @@ require_once( __DIR__ . '/includes/venues.php');
 // Neighborhoods taxonomy and post type, related admin and sidebar widgets, etc.
 require_once( __DIR__ . '/includes/neighborhoods.php');
 // A day in post type
-require_once( __DIR__ . '/includes/aday.php');
+require_once( __DIR__ . '/includes/quicktrip.php');
 // Locations taxonomy and post type, related admin and sidebar widgets, etc.
 require_once( __DIR__ . '/includes/locations.php');
 // Sidebar widgets and related pieces
@@ -467,8 +467,7 @@ function ad_insert_after_paragraph( $insertion, $paragraph_id, $content ) {
 add_filter( 'the_content', 'ad_insert_post_ads' );
 
 function my_acf_init() {
-	
-	acf_update_setting('google_api_key', 'XXXX');
+	acf_update_setting('google_api_key', '###-removed-for-git');
 }
 
 add_action('acf/init', 'my_acf_init');

@@ -10,7 +10,7 @@
 
 <?php // the get options
     $args = array(
-        'post_type' => 'post',
+        'post_type' => array('post','quicktrip'),
         'posts_per_page' => 25,
         'tax_query' => array(
             array (
