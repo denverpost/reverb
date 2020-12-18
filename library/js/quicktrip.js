@@ -33,6 +33,18 @@ jQuery(function($) {
     $(".qt_alternativeTitle").on('click' ,function() {
         $(this).siblings().fadeToggle( "fast");
         $(this).children('.qa_alternativeTitleText').toggleClass("arrowUp");
+        var myAltSwiper = new Swiper ('.swiper-alt-container', {
+            // Optional parameters
+            direction: 'horizontal',
+            loop: true,
+            preventInteractionOnTransition: true,
+            // Navigation arrows
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+
+        })
      });
 });
 

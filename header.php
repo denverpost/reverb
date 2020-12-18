@@ -24,7 +24,16 @@ $outdoor_page_class = ( is_outdoor_home() ) ? ' outdoorhome' : ''; ?>
     var gptadslots = [];
     var googletag = googletag || {cmd:[]};
 </script>
-
+<style>
+<?PHP
+//use this code to target specific posts
+//global $blog_id;
+//$id = get_the_ID();
+//if ($id == 208880) {
+	//echo '';
+//}
+?>
+</style>
 </head>
 
 <body <?php body_class( 'gesture' . $outdoor_class . $outdoor_page_class ); ?>>

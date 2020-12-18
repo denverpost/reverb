@@ -244,8 +244,7 @@ function reactor_do_post_header_social() {
 			<div class="large-12 medium-12 small-12 columns masocial">
 				<?php 
 				//not needed anymore updated to new plugin
-				//echo do_shortcode('[mashshare]'); 
-				?>
+				//echo do_shortcode('[mashshare]'); ?>
 			</div>
 		</div>
 	<?php }
@@ -334,7 +333,7 @@ add_action('reactor_post_footer', 'tkno_post_body_content_tags', 4);
  * @since 1.0.0
  */
 function reactor_do_post_footer_meta() {
-	if ( is_single() && get_post_type() == 'quicktrip' && get_post_type() != 'venues' && get_post_type() != 'neighborhoods' && get_post_type() != 'location' ) {
+	if ( is_single() && get_post_type() != 'venues' && get_post_type() != 'neighborhoods' && get_post_type() != 'location' ) {
 		?> <div class="bio-wrap"> <?php
 		reactor_post_meta( array('show_photo' => true,'show_tag' => true) );
 		?> </div> <?php

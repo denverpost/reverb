@@ -11,13 +11,18 @@
         <?php if (!is_page_template('page-templates/main-page.php')) {
         	reactor_footer_before();
         	} ?>
-        <div id="div-gpt-ad-bottom_leaderboard" style="text-align:center;" class="dfp-ad dfp-bottom_leaderboard" data-ad-unit="bottom_leaderboard">
+
+        <?php if (!is_page_template('page-sponsored.php')) {
+            echo '<div id="div-gpt-ad-bottom_leaderboard" style="text-align:center;" class="dfp-ad dfp-bottom_leaderboard" data-ad-unit="bottom_leaderboard">
 			<script type="text/javascript">
 				if ( "undefined" !== typeof googletag ) {
 					googletag.cmd.push( function() { googletag.display("div-gpt-ad-bottom_leaderboard"); } );
 				}
 			</script>
-		</div>
+		</div>';
+        } ?>
+
+
         <footer id="footer" class="site-footer" role="contentinfo">
         
         	<?php reactor_footer_inside(); ?>

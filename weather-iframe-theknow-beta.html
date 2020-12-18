@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Denver Weather</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script src="//local.digitalfirstmedia.com/common/jquery/jquery-autocomplete.js"></script>
+    <script>
+        $.cookie=function(e,t,n){if(arguments.length>1&&"[object Object]"!==String(t)){if(n=jQuery.extend({},n),(null===t||void 0===t)&&(n.expires=-1),"number"==typeof n.expires){var i=n.expires,r=n.expires=new Date;r.setDate(r.getDate()+i)}return t=String(t),document.cookie=[encodeURIComponent(e),"=",n.raw?t:encodeURIComponent(t),n.expires?"; expires="+n.expires.toUTCString():"",n.path?"; path="+n.path:"",n.domain?"; domain="+n.domain:"",n.secure?"; secure":""].join("")}n=t||{};var o,s=n.raw?function(e){return e}:decodeURIComponent;return(o=new RegExp("(?:^|; )"+encodeURIComponent(e)+"=([^;]*)").exec(document.cookie))?s(o[1]):null}
+    </script>
+    <style>
+        body {
+            padding: unset;
+            margin-left: 0px;
+        }
+        #citySelectorInput {
+            font-family: sans-serif;
+        }
+        #sponsorImg {
+            margin: 0 auto;
+            display:block;
+            width:100%;
+        }
+        #citySelectorInput {
+            padding:10px;
+        }
+        #CityLocal {
+            width:100%;
+        }
+        .changeCity{
+            width:304px;
+            margin: 0 auto;
+            display:block;
+            border-radius:unset;
+            border:unset;
+            background:rgb(20	,155,	206)	;
+            padding:10px;
+            color:white;
+            font-size:20px;
+            cursor:pointer;
+        }
+        .changeCity:hover {
+            text-decoration:underline;
+        }
+        .savLocLink {
+            background:rgb(48,	92,	133	)	;
+        }
+        #accuWeather5day {
+            margin: 0 auto;
+            display:block;
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+    <div id="city-interface">
+        <a href="#" target="_blank"><img id="sponsorImg" src="theknow-weather-sponsor-logo-beta.jpg?1" /></a>
+        <div id="citySelector">
+            <form onSubmit="return false">
+                <div id="citySelectorInput">City or ZIP: <input onsubmit="upDatePage()" type="text" id="CityLocal" /></div>
+                <button class="changeCity" onclick="upDatePage()">Change City</button>
+                <button class="changeCity savLocLink" onclick="javascript:setLocationCookie();">Save my location</button>
+            </form>
+        </div>
+        <iframe id="accuWeather5day" width="300" height="466" src="https://denverpost.accuweather.com/hostedpages/widget/v2/denverpostforecast/weather5/denver,co"></iframe>
+
+                <script>
+            ColoradoWeatherData={};
+            function upDatePage(){var l=$('#CityLocal').val();if($.isNumeric(l)){if(l.toString().length!=5){$('#citySelectorInput').prepend('<span id="notValidZipCode" style="color:red;">Not a valid zip code   </span>');return false}}setCityPage(l);return false}
+            function setLocationCookie(){if($('#CityLocal').val()!=''){$.cookie('DFM-city',$('#CityLocal').val(),{expires:365});}$('#citySelector .savLocLink').html('<span style="color:#54c64d;">Location saved!</span>');window.setTimeout(function() { $('#citySelector .savLocLink').html('Save my location'); }, 2000);}
+            function findValue(li){var sValue=li.selectValue;setCityPage(sValue)}
+            function updateWeatherData(d){
+                var bgcolor = 'white';
+                if(d.moonPhase=="WaningGibbous")  { d.moonPhase="Waning Gibbous"; }
+                if(d.moonPhase=="WaningCrescent") { d.moonPhase="Waning Crescent"; }
+                if(d.moonPhase=="WaxingGibbous")  { d.moonPhase="Waxing Gibbous"; }
+                if(d.moonPhase=="WaxingCrescent") { d.moonPhase="Waxing Crescent"; }
+                switch(d.airQualityCat){
+                    case "Good"      : bgcolor = 'lime';        break;
+                    case "Low"       : bgcolor = 'greenyellow'; break;
+                    case "Moderate"  : bgcolor = 'yellow';      break;
+                    case "High"      : bgcolor = 'orange';      break;
+                    case "Unhealthy" : bgcolor = 'orangered';   break;
+                    case "Hazardous" : bgcolor = 'red';         break;
+                }
+                $('#weatherExtrasAirCat').css('background-color',bgcolor);
+
+                $('#weatherExtrasPrecipitation').html(d.precipitation);
+                $('#weatherExtrasHumidity').html(d.humidity+"%");
+                $('#weatherExtrasSunRise').html(d.sunrise);
+                $('#weatherExtrasSunSet').html(d.sunset);
+                $('#weatherExtrasMoon').html(d.moonPhase);
+                $('#weatherExtrasAirQuality').html(d.airQualityValue);
+                $('#weatherExtrasAirCat').html(d.airQualityCat);
+                $('#weatherExtrasAlerts').attr("href","https://www.accuweather.com/en/us/denver-co/80203/weather-warnings/"+d.accuLocKey);
+            }
+            function getLocalWeather(loc){
+                ajaxLoc = loc.replace(/\s/g, ''); // remove spaces
+                $.ajax({url:"https://plus.denverpost.com/weather/weatherData.php?loc="+ajaxLoc,type:'GET',dataType:"jsonp",jsonp:false,jsonpCallback:"updateWeatherData"});}
+            function setCityPage(loc){
+                loc2=loc.toLowerCase().replace(/\b[a-z]/g, function(letter){return letter.toUpperCase()});
+                $('.localWeatherTitle').html(loc2);
+                if($.inArray(loc2,autoCompleteArr) != -1){
+                    getLocalWeather(loc2);
+                    loc+=',co';
+                }
+                $('#accuWeather5day').attr('src','https://denverpost.accuweather.com/hostedpages/widget/v2/denverpostforecast/weather5/'+loc);
+                $('#accuWeatherRadar').attr('src','https://denverpost.accuweather.com/hostedpages/widget/v2/denverpostradar/radar/'+loc);
+                $('#notValidZipCode').remove();
+            }
+            function selectItem(li){findValue(li)}
+            function formatItem(row){return row[0]+" (id: "+row[1]+")";}
+            function lookupLocal(){var oSuggest=$("#CityLocal")[0].autocompleter;oSuggest.findValue();return false;}
+            var accuLocationKey=0;
+            var autoCompleteArr=["Aguilar", "Akron", "Alamosa", "Alma", "Antonito", "Arriba", "Arvada", "Aspen", "Ault", "Aurora", "Avon", "Basalt", "Bayfield", "Bennett", "Berthoud", "Bethune", "Black Hawk", "Blanca", "Blue River", "Bonanza", "Boone", "Boulder", "Bow Mar", "Branson", "Breckenridge", "Brighton", "Brookside", "Broomfield", "Brush", "Buena Vista", "Burlington", "Calhan", "Campo", "Cañon City", "Carbondale", "Castle Pines North", "Castle Rock", "Cedaredge", "Centennial", "Center", "Central City", "Cheraw", "Cherry Hills Village", "Cheyenne Wells", "Coal Creek", "Cokedale", "Collbran", "Colorado Springs", "Columbine Valley", "Commerce City", "Cortez", "Craig", "Crawford", "Creede", "Crested Butte", "Crestone", "Cripple Creek", "Crook", "Crowley", "Dacono", "De Beque", "Deer Trail", "Del Norte", "Delta", "Denver", "Dillon", "Dinosaur", "Dolores", "Dove Creek", "Durango", "Eads", "Eagle", "Eaton", "Eckley", "Edgewater", "Elizabeth", "Empire", "Englewood", "Erie", "Estes Park", "Evans", "Fairplay", "Federal Heights", "Firestone", "Flagler", "Fleming", "Florence", "Fort Collins", "Fort Lupton", "Fort Morgan", "Fountain", "Fowler", "Foxfield", "Fraser", "Frederick", "Frisco", "Fruita", "Garden City", "Genoa", "Georgetown", "Gilcrest", "Glendale", "Glenwood Springs", "Golden", "Granada", "Granby", "Grand Junction", "Grand Lake", "Greeley", "Green Mountain Falls", "Greenwood Village", "Grover", "Gunnison", "Gypsum", "Hartman", "Haswell", "Haxtun", "Hayden", "Hillrose", "Holly", "Holyoke", "Hooper", "Hot Sulphur Springs", "Hotchkiss", "Hudson", "Hugo", "Idaho Springs", "Ignacio", "Iliff", "Jamestown", "Johnstown", "Julesburg", "Keenesburg", "Kersey", "Kim", "Kiowa", "Kit Carson", "Kremmling", "La Jara", "La Junta", "La Veta", "Lafayette", "Lake City", "Lakeside", "Lakewood", "Lamar", "Larkspur", "Las Animas", "LaSalle", "Leadville", "Limon", "Littleton", "Lochbuie", "Log Lane Village", "Lone Tree", "Longmont", "Louisville", "Loveland", "Lyons", "Manassa", "Mancos", "Manitou Springs", "Manzanola", "Marble", "Mead", "Meeker", "Merino", "Milliken", "Minturn", "Moffat", "Monte Vista", "Montezuma", "Montrose", "Monument", "Morrison", "Mount Crested Butte", "Mountain View", "Mountain Village", "Naturita", "Nederland", "New Castle", "Northglenn", "Norwood", "Nucla","Nunn", "Oak Creek", "Olathe", "Olney Springs", "Ophir", "Orchard City", "Ordway", "Otis", "Ouray", "Ovid", "Pagosa Springs", "Palisade", "Palmer Lake", "Paoli", "Paonia", "Parachute", "Parker", "Peetz", "Pierce", "Pitkin", "Platteville", "Poncha Springs", "Pritchett", "Pueblo", "Ramah", "Rangely", "Raymer", "Red Cliff", "Rico", "Ridgway", "Rifle", "Rockvale", "Rocky Ford", "Romeo", "Rye", "Saguache", "Salida", "San Luis", "Sanford", "Sawpit", "Sedgwick", "Seibert", "Severance", "Sheridan", "Lake Sheridan Lake", "Silt", "Silver Cliff", "Silver Plume", "Silverthorne", "Silverton", "Simla", "Snowmass Village", "South Fork", "Springfield", "Starkville", "Steamboat Springs", "Sterling", "Stratton", "Sugar City", "Superior", "Swink", "Telluride", "Thornton", "Timnath", "Trinidad", "Two Buttes", "Vail", "Victor", "Vilas", "Vona", "Walden", "Walsenburg", "Walsh", "Ward", "Wellington", "Westcliffe", "Westminster", "Wheat Ridge", "Wiggins", "Wiley", "Williamsburg", "Windsor", "Winter Park", "Woodland Park", "Wray", "Yampa", "Yuma"];
+            $(document).ready(function(){if($.cookie('DFM-city')){$('#CityLocal').val($.cookie('DFM-city'));setTimeout("setCityPage($.cookie('DFM-city'))",200)}else{setCityPage("Denver");}$("#CityLocal").autocompleteArray(autoCompleteArr,{delay:10,minChars:1,matchSubset:1,onItemSelect:selectItem,onFindValue:findValue,autoFill:true,maxItemsToShow:10});});
+        </script>
+    </div>
+</div>
+</body>
+</html>

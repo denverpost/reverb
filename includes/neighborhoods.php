@@ -156,12 +156,11 @@ function tkno_register_neighborhood_page_posttype() {
         'capability_type' => 'post',
         'query_var'     => true,
         'supports'      => array( 'title', 'editor', 'thumbnail', 'excerpt', 'page-attributes', 'revisions', 'author', 'custom-fields', ),
-        /*'rewrite' => array(
+        'rewrite' => array(
             'slug' => 'neighborhoods',
             'with_front' => false
-            ),*/
-        'has_archive'   => true,
-        'taxonomies'    => array( 'category' ),
+            ),
+        'has_archive'   => true
     );
     register_post_type( 'neighborhoods', $args );
 }
