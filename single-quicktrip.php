@@ -15,7 +15,7 @@
         wp_enqueue_style( 'quicktripapp', get_stylesheet_directory_uri() . '/library/css/quicktrip.css', '1.0.0', true );
         wp_enqueue_style( 'swiper', get_stylesheet_directory_uri() . '/library/css/swiper.min.css', '1.0.0', true );
         wp_enqueue_script( 'swiper', get_stylesheet_directory_uri() . '/library/js/swiper.min.js', array(), '1.0.0', true );
-        wp_enqueue_script( 'app', get_stylesheet_directory_uri() . '/library/js/quicktrip.js?123', array(), '1.0.0', true );
+        wp_enqueue_script( 'app', get_stylesheet_directory_uri() . '/library/js/quicktrip.js?321', array(), '1.0.0', true );
         wp_enqueue_script( 'waypoints', get_stylesheet_directory_uri() . '/library/js/jquery.waypoints.min.js', array(), '1.0.0', false );
         wp_enqueue_script( 'waypointsticky', get_stylesheet_directory_uri() . '/library/js/sticky.min.js', array(), '1.0.0', false );
     //	wp_enqueue_style( 'aoscss', 'https://unpkg.com/aos@next/dist/aos.css', '1.0.0', true );
@@ -266,10 +266,12 @@
 
                                             if( $alternatives ):
                                                 $addS = '';
+
                                                 if (count($alternatives) > 1) { $addS = 's';}
                                                 echo "<h2 class='qt_alternativeTitle'><span class='qa_alternativeTitleDash'></span><span class='qa_alternativeTitleText'>Alternative Option".$addS."</span><span class='qa_alternativeTitleDash'></span></h2>";
                                                 echo '<div class="flexContainer qt_alternativeBoxWrapper">';
                                                 foreach( $alternatives as $otherBusiness ):
+	                                                $altGallery = $otherBusiness['alternative_gallery'];
                                                     echo '<div class="qt_alternativeBox">';
                                                         //create link if it's there
                                                         if ($otherBusiness['alternative_link']){
@@ -284,7 +286,49 @@
                                                         }else{
 	                                                        $altPriceOutput = $altPriceOutput." - ".$altPriceRange;
                                                         }
-	                                                    echo '<div class="altPhoto"><img src="'.$otherBusiness['alternative_photo']['url'].'"><div class="photoCaption">'.$otherBusiness['alternative_photo']['caption'].'</div></div>';
+                                                        if ($otherBusiness['alternative_photo']['url']) {
+	                                                        echo '<div class="altPhoto"><img src="' . $otherBusiness['alternative_photo']['url'] . '"><div class="photoCaption">' . $otherBusiness['alternative_photo']['caption'] . '</div></div>';
+                                                        }
+
+                                                        $flattenDiv = '';
+                                                        //$errorsTop = array_filter($topSectionGallery);
+                                                        if (count($altGallery, COUNT_RECURSIVE) > 1) {
+//	                                                        echo '<script>';
+//                                                            echo 'console.log("alt gallery showing'.count($altGallery, COUNT_RECURSIVE).'")';
+//                                                            echo '</script>';
+                                                        }else{
+//	                                                        echo '<script>';
+//	                                                        echo 'console.log("alt gallery NOT showing'.count($altGallery, COUNT_RECURSIVE).'")';
+//	                                                        echo '</script>';
+                                                            $flattenDiv = 'flattenDiv';
+                                                        }
+                                                        ?>
+                                                    <div class="small-12 columns qt_gallery <?PHP echo $flattenDiv ?>">
+                                                            <div class="arrows"></div>
+                                                                <!-- Slider main container -->
+                                                                <div class="swiper-container swiper-alt-container">
+                                                                    <!-- Additional required wrapper -->
+
+                                                                    <!-- If we need navigation buttons -->
+                                                                    <div class="swiper-button-prev"></div>
+                                                                    <div class="swiper-button-next"></div>
+                                                                    <div class="swiper-wrapper">
+                                                                        <?PHP
+
+                                                                        if( $altGallery ):
+                                                                            foreach( $altGallery as $image ):
+                                                                                echo "<div class=\"swiper-slide\">
+                                                                                    <img src='".$image['url']."' />
+                                                                                    <div class='photoCaption'>".$image['caption']."</div>
+                                                                                    </div>";
+                                                                            endforeach;
+                                                                        endif;
+                                                                        ?>
+                                                                    </div>
+                                                                </div> <!-- close swiper-container -->
+                                                        </div>
+
+                                                        <?PHP
                                                         echo "<span style='font-size: 1.4em;'>Price: ".$altPriceOutput."</span>";
                                                         echo '<p>'.$otherBusiness['alternative_description'].'</p>';
                                                     echo '</div>';

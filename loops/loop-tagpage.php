@@ -14,7 +14,7 @@ $number_posts = 25;
     $args = array(
         'post_type' => array('post','quicktrip'),
         'posts_per_page' => $number_posts,
-        'tag_id' => get_term_by('name', single_tag_title("",false), 'post_tag' )->term_id,
+        'tag_id' => get_term_by('slug', single_tag_title("",false), 'post_tag' )->term_id,
         'paged' => get_query_var( 'paged' ),
         );
     

@@ -2,88 +2,56 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c5aca279-1b2b-4c26-8b16-2b7b57647446" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/includes/locations.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/locations.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions.php" beforeDir="false" afterPath="$PROJECT_DIR$/functions.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/~plugins/dfm-wp-googleTagManager/dfm-wp-googleTagManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/~plugins/dfm-wp-googleTagManager/dfm-wp-googleTagManager.php" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="ComposerSettings">
-    <execution>
-      <executable />
-    </execution>
+    <execution />
   </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>icon</find>
-      <find>register</find>
-      <find>Neighborhood Pages</find>
-      <find>neigh</find>
-      <find>register_taxonomy</find>
-      <find>tax</find>
-      <find>A day in</find>
-      <find>body.outdoorhome ul.pagination</find>
-      <find>body.outdoorhome</find>
-      <find>cat</find>
-      <find>category</find>
-      <find>media</find>
-      <find>snow</find>
-      <find>in</find>
-      <find>recent</find>
-      <find>hey hey</find>
-      <find>echo</find>
-      <find>$authpage_query</find>
-      <find>date</find>
-      <find>locations</find>
-      <find>add_shortcode</find>
-      <find>location</find>
-      <find>titlebg</find>
-      <find>$cityName</find>
-      <find>quicktrip</find>
-      <find>* Flexible Posts Widge</find>
-      <find>$catquery</find>
-      <find>$flexible_posts</find>
-      <find>widget.php</find>
-      <find>$before_widget</find>
-    </findStrings>
-    <replaceStrings>
-      <replace>Quick Trip</replace>
-    </replaceStrings>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="PhpServers">
-    <servers />
-  </component>
   <component name="ProjectId" id="1P0ruTgFoK147yCsAW9eHaR1KC2" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+    <option name="showMembers" value="true" />
+  </component>
   <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file:///Users/cbrubaker/Documents/GitHub/reverb/includes/snow-widget.php" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="two.files.diff.last.used.file" value="$USER_HOME$/Downloads/BACKUPLIVE/the-know/style.css" />
+    <property name="two.files.diff.last.used.file" value="$USER_HOME$/Downloads/BACKUPLIVE/the-know/functions.php" />
+    <property name="vue.rearranger.settings.migration" value="true" />
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="StructuralSearchPlugin">
+    <searchConfiguration name="user defined" created="1567788911001" text="top-bar-container" recursive="true" caseInsensitive="true" type="PHP" scope_type="PROJECT" scope_descriptor="" history="1">
+      <constraint name="__context__" within="" contains="" />
+    </searchConfiguration>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -139,12 +107,33 @@
       <workItem from="1563220840303" duration="75000" />
       <workItem from="1563984078841" duration="2830000" />
       <workItem from="1563996127277" duration="765000" />
-      <workItem from="1565022079453" duration="69000" />
+      <workItem from="1565022079453" duration="6689000" />
+      <workItem from="1565106963954" duration="21000" />
+      <workItem from="1565191737220" duration="333000" />
+      <workItem from="1565378624207" duration="3262000" />
+      <workItem from="1565627103161" duration="981000" />
+      <workItem from="1566576597253" duration="529000" />
+      <workItem from="1567002789933" duration="6000" />
+      <workItem from="1567090637759" duration="18987000" />
+      <workItem from="1567788768736" duration="2728000" />
+      <workItem from="1569274334783" duration="544000" />
+      <workItem from="1571081768822" duration="764000" />
+      <workItem from="1571159492474" duration="736000" />
+      <workItem from="1571930212724" duration="3174000" />
+      <workItem from="1572890146707" duration="1143000" />
+      <workItem from="1574791881586" duration="1674000" />
+      <workItem from="1575496140032" duration="578000" />
+      <workItem from="1578950186422" duration="619000" />
+      <workItem from="1594142446868" duration="1809000" />
+      <workItem from="1594158790971" duration="500000" />
+      <workItem from="1598565761955" duration="611000" />
+      <workItem from="1608312909659" duration="130000" />
+      <workItem from="1608313130878" duration="308000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -156,5 +145,6 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>

@@ -59,8 +59,8 @@ class linker_widget extends WP_Widget {
 
     function form($instance) {
 
-        $title 		= $instance['title'];
-        $message	= esc_url($instance['message']);
+        $title 		= esc_attr($instance['title']);
+        $message	= esc_attr($instance['message']);
         ?>
         <p>
             <label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('URL:'); ?></label>

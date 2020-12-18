@@ -467,7 +467,21 @@ function ad_insert_after_paragraph( $insertion, $paragraph_id, $content ) {
 add_filter( 'the_content', 'ad_insert_post_ads' );
 
 function my_acf_init() {
-	acf_update_setting('google_api_key', '###-removed-for-git');
+	acf_update_setting('google_api_key', '##git removed');
 }
 
 add_action('acf/init', 'my_acf_init');
+
+add_role( "adwidgets", "Trade Widgets", array(
+   'read'            => true, // Allows a user to read
+   'edit_theme_options' => true, //allows user to access widgets and menus
+   'upload_files' => true, //upload files
+   ));
+//Allow trade widget role to Add Media
+if ( current_user_can('adwidgets') && !current_user_can('upload_files') )
+add_action('admin_init', 'allow_contributor_uploads');
+
+function allow_contributor_uploads() {
+$contributor = get_role('adwidgets');
+$contributor->add_cap('upload_files');
+}
